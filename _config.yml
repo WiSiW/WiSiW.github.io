@@ -105,4 +105,4 @@ theme: landscape
 deploy:
   type: git
   repo: https://github.com/WiSiW/WiSiW.github.io.git
-  branch: [master]
+  branch: master
