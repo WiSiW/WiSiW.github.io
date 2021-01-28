@@ -6,7 +6,7 @@
   <title>Vue面试题 | 韦绍炜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    <meta name="keywords" content="MinHow,MinHow's Blog" />
+    <meta name="keywords" content="wsw's Blog" />
   
   <meta name="description" content="v-for与v-if的优先级问题1）v-for优先于v-if被解析 12&#x2F;&#x2F; src&#x2F;complier&#x2F;codegen&#x2F;index.js&#x2F;&#x2F; 会优先处理for，两者不同级的话生成不同的渲染函数 2）如果同时出现，每次渲染会先执行循环再判断条件，无论如何循环都不可避免，浪费性能3）要避免这种情况，在外层嵌套template，在这一层进行v-if判断，然后在内部进行v-for Vue 组件中 data">
 <meta property="og:type" content="article">
@@ -97,17 +97,11 @@
             <nav class="header-nav">
                 <div class="social">
                     
-                        <a title="MinHow" target="_blank" href="//minhow.com">
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
                             <i class="fa fa-home fa-2x"></i></a>
                     
-                        <a title="Github" target="_blank" href="//github.com/wongminho">
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
                             <i class="fa fa-github fa-2x"></i></a>
-                    
-                        <a title="Weibo" target="_blank" href="//weibo.com/WongMinHo">
-                            <i class="fa fa-weibo fa-2x"></i></a>
-                    
-                        <a title="Twitter" target="_blank" href="//twitter.com/huangminhow">
-                            <i class="fa fa-twitter fa-2x"></i></a>
                     
                 </div>
             </nav>
@@ -183,7 +177,7 @@
             <div class="post-copyright">
     <div class="content">
         <p>最后更新： 2021年01月26日 17:28</p>
-        <p>原始链接： <a class="post-url" href="/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/" title="Vue面试题">https://wisiw.github.io.git/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/</a></p>
+<!--        <p>原始链接： <a class="post-url" href="/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/" title="Vue面试题">https://wisiw.github.io.git/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/</a></p>-->
         <footer>
             <a href="https://WiSiW.github.io.git">
                 <img src="/images/logo.png" alt="wsw">
@@ -196,37 +190,6 @@
       
         
             
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;">赏</a>
-</div>
-
-<div id="reward" class="post-modal reward-lay">
-    <a class="close" href="javascript:;" id="reward-close">×</a>
-    <span class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        请我吃糖~
-        <i class="icon icon-quote-right"></i>
-    </span>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
-        </div>
-        <div class="reward-select">
-            
-            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
-                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
-            </label>
-            
-            
-            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
-                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
-            </label>
-            
-        </div>
-    </div>
-</div>
-
 
         
     </div>
@@ -358,7 +321,7 @@
       animate: true,
       isHome: false,
       share: true,
-      reward: 1
+      reward: 0
   }
 </script>
 <div class="sidebar">
