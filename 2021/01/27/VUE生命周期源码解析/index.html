@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2020/1 | 韦绍炜的博客</title>
+  <title>VUE生命周期源码解析 | 韦绍炜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="MinHow,MinHow's Blog" />
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="韦绍炜的博客">
-<meta property="og:url" content="https://wisiw.github.io.git/archives/2020/01/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="VUE生命周期源码解析">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="韦绍炜的博客">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-01-27T07:36:57.000Z">
+<meta property="article:modified_time" content="2021-01-27T07:36:57.690Z">
 <meta property="article:author" content="wsw">
 <meta name="twitter:card" content="summary">
   
@@ -109,55 +111,171 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap">
-  
-  
+        <section id="main" class="body-wrap"><article id="post-VUE生命周期源码解析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/" class="archive-article-date">
-  <time datetime="2020-01-25T07:17:13.000Z" itemprop="datePublished">01-25</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/"  >Vue面试题</a>
+    <h1 class="post-title" itemprop="name">
+      VUE生命周期源码解析
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-01-27
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-    </header>
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
       
-        <div class="archive-post-footer">
             
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/VUE/" class="color4">VUE</a>
-      
-    <a href="/tags/面试题/" class="color4">面试题</a>
-      
-  </li>
+            
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2021年01月27日 15:36</p>
+        <p>原始链接： <a class="post-url" href="/2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="VUE生命周期源码解析">https://wisiw.github.io.git/2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</a></p>
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
 
-        </div>
       
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/&title=《VUE生命周期源码解析》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/&title=《VUE生命周期源码解析》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《VUE生命周期源码解析》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD+UlEQVR42u3aS27bQBAFQN//0g4QZJEgovRe91B2kOJKoIYip7ho9efjIz4+fx5/n/n9uFqfXHt1zJ7nas2xAwcOHDhwBFt9/kBXP321Mt/q/u5Xn9u74MCBAweOsxzJzfIwlnybbCYJ4c83n+8RBw4cOHC8n6MNde2j5FvNE0UcOHDgwPGdOfISXnu+ZWoLmjhw4MCB4/0cbQkv6ddcJVRtKM2TtE0JEgcOHDhwnOLYBK1/5fON8x04cODAgSMOsfl4QT4MNwu0eSid7evXtThw4MCBY82Rb+95MjZLq+4I+fsRBxw4cODAsedoW03vaRG1La5ZIMeBAwcOHGc58uCX33LTfGrPPKdc9d9w4MCBA8e6d982bzZlu7PJWJ5MFukcDhw4cOAYcbRlu5aphW4TxTZFjBpOOHDgwIFjzTG7cTtSkI87zAqOsxGKB/MdOHDgwIHjBo47RhY2387W59/iwIEDB447OJKtnl2ZB868NJknig+uxYEDBw4ca468JNemYZvUazbuNgvkxZQHDhw4cOAIOGZDZkmCVAS2eE0eqocpJQ4cOHDgOMSRb6xtO+VhNXkN+djcMDzjwIEDB45DHKcG3faBcz8GkRQTX+SyOHDgwIFjwVF8HSdpmxGEvFzYotdPhQMHDhw4RhxtCNwX4NoxiOQu7ZjF8I3hwIEDB4444uQFu7zwl4ThzUDb5nP0jwMHDhw4cIw4NoF2lnQdaA6NyoWrmUEcOHDgwNE91TDVyct2s+Lg2RdWXIsDBw4cOBYc+UBDUrxrBwhmQ2/5yEIe1HHgwIEDxx0cs1JdkoAlD9cO0m0SwhcDDThw4MCBY8ExC3JtQ6gdaGgTwtkQXr0IBw4cOHB0FblhZXH20LMxuFlJsYXGgQMHDhwbjvZB9+Fw06DKi5LDoIsDBw4cONYcm+ZNW8jLN9CubBtmBQoOHDhw4Cg5NmW7NvXKC4sJTd4MK9pROHDgwIHjEEeeaOVnZkF3Vqbcv7w/Ai0OHDhw4FhwzIYSZmE1TxFn22iTwMvfx4EDBw4cC446yXm6sWQzs/GFJKjnjasDKRwOHDhw4AiKg0mTKU+ZzrapZq8qL30+aDvhwIEDB44RxyzduqM8txlEaH//RdDFgQMHDhwLjs/yOBU+kzQvp2nTvMvfxIEDBw4ca452jGCT2iWNos1ww6YphQMHDhw4znLkwbVt+bTlvz3NbEgOBw4cOHDcwbEPrkk4PLvVZGVRJcWBAwcOHG/n2LR8ZiF8M05RjzLgwIEDB44v4mgHEWZn2iZWy3F5FQ4cOHDgOMQxK+SdbVzl3O0YRL4GBw4cOHDsOTabmaV5bbMqD/8zoGPzHThw4MDxv3P8AJwtXmDG22gNAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
   </div>
 </article>
 
-  
-  
-    </div></section>
-  
 
+
+<nav id="article-nav">
+  
+    <a href="/2021/01/27/map%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          map源码解析
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/01/27/axios%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">axios使用与源码解析</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
 </section>
         
       </div>

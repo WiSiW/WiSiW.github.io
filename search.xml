@@ -4,27 +4,358 @@
   
     
     <entry>
-      <title>My New Post</title>
-      <link href="2020/01/25/My-New-Post/"/>
-      <url>2020/01/25/My-New-Post/</url>
+      <title>【读书笔记】解读React源码（《深入React技术栈》————第三章）</title>
+      <link href="2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3React%E7%BB%84%E4%BB%B6%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%89/"/>
+      <url>2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3React%E7%BB%84%E4%BB%B6%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%89/</url>
       
-        <content type="html"><![CDATA[<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">111</span>)</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【读书笔记】解读React源码（《深入React技术栈》————第三章）</title>
+      <link href="2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E8%A7%A3%E8%AF%BBReact%E6%BA%90%E7%A0%81%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%89/"/>
+      <url>2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E8%A7%A3%E8%AF%BBReact%E6%BA%90%E7%A0%81%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【读书笔记】解读React源码（《深入React技术栈》————第三章）</title>
+      <link href="2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%89/"/>
+      <url>2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【读书笔记】架构设计：多页面应用（《前端架构：从入门到微前端》———五第六章）</title>
+      <link href="2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%A4%9A%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E4%BA%94%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%89/"/>
+      <url>2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%A4%9A%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E4%BA%94%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>读取本地Excel生成Echarts</title>
+      <link href="2021/01/27/%E8%AF%BB%E5%8F%96%E6%9C%AC%E5%9C%B0Excel%E7%94%9F%E6%88%90Echarts/"/>
+      <url>2021/01/27/%E8%AF%BB%E5%8F%96%E6%9C%AC%E5%9C%B0Excel%E7%94%9F%E6%88%90Echarts/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>瀑布流</title>
+      <link href="2021/01/27/%E7%80%91%E5%B8%83%E6%B5%81/"/>
+      <url>2021/01/27/%E7%80%91%E5%B8%83%E6%B5%81/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【读书笔记】架构设计：单页面应用（《前端架构：从入门到微前端》—第六）—</title>
+      <link href="2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/"/>
+      <url>2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>根据key（String）层层查找数据</title>
+      <link href="2021/01/27/%E6%A0%B9%E6%8D%AEkey%EF%BC%88String%EF%BC%89%E5%B1%82%E5%B1%82%E6%9F%A5%E6%89%BE%E6%95%B0%E6%8D%AE/"/>
+      <url>2021/01/27/%E6%A0%B9%E6%8D%AEkey%EF%BC%88String%EF%BC%89%E5%B1%82%E5%B1%82%E6%9F%A5%E6%89%BE%E6%95%B0%E6%8D%AE/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker使用</title>
+      <link href="2021/01/27/Docker%E4%BD%BF%E7%94%A8/"/>
+      <url>2021/01/27/Docker%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Angular使用</title>
+      <link href="2021/01/27/Angular%E4%BD%BF%E7%94%A8/"/>
+      <url>2021/01/27/Angular%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>TypeScript使用</title>
+      <link href="2021/01/27/TypeScript%E4%BD%BF%E7%94%A8/"/>
+      <url>2021/01/27/TypeScript%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux集群</title>
+      <link href="2021/01/27/linux%E9%9B%86%E7%BE%A4/"/>
+      <url>2021/01/27/linux%E9%9B%86%E7%BE%A4/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js设计模式</title>
+      <link href="2021/01/27/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <url>2021/01/27/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nginx使用</title>
+      <link href="2021/01/27/nginx%E4%BD%BF%E7%94%A8/"/>
+      <url>2021/01/27/nginx%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git常用方法列表</title>
+      <link href="2021/01/27/git%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%88%97%E8%A1%A8/"/>
+      <url>2021/01/27/git%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%88%97%E8%A1%A8/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>promise源码解析</title>
+      <link href="2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+      <url>2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>webpack热更新原理解析</title>
+      <link href="2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/"/>
+      <url>2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>map源码解析</title>
+      <link href="2021/01/27/map%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+      <url>2021/01/27/map%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VUE生命周期源码解析</title>
+      <link href="2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+      <url>2021/01/27/VUE%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>axios使用与源码解析</title>
+      <link href="2021/01/27/axios%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+      <url>2021/01/27/axios%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>REACT面试题</title>
+      <link href="2021/01/26/REACT%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+      <url>2021/01/26/REACT%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VUE源码-数据响应式原理</title>
+      <link href="2021/01/26/VUE%E6%BA%90%E7%A0%81-%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/"/>
+      <url>2021/01/26/VUE%E6%BA%90%E7%A0%81-%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VUE源码-虚拟DOM与diff算法</title>
+      <link href="2021/01/26/VUE%E6%BA%90%E7%A0%81-%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/"/>
+      <url>2021/01/26/VUE%E6%BA%90%E7%A0%81-%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VUE源码-模板引擎</title>
+      <link href="2021/01/26/VUE%E6%BA%90%E7%A0%81-%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/"/>
+      <url>2021/01/26/VUE%E6%BA%90%E7%A0%81-%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>算法</title>
+      <link href="2021/01/26/%E7%AE%97%E6%B3%95/"/>
+      <url>2021/01/26/%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h1><h2 id="使用递归"><a href="#使用递归" class="headerlink" title="使用递归"></a>使用递归</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cache = &#123;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(cache.hasOwnProperty(n))&#123;</span><br><span class="line">        <span class="keyword">return</span> cache[n];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> v= n == <span class="number">0</span> || n == <span class="number">1</span>?fib(n-<span class="number">1</span>) + fib(n-<span class="number">2</span>)</span><br><span class="line">    cache[n] = v;</span><br><span class="line">    <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;=<span class="number">9</span>;i++)&#123;</span><br><span class="line">    fib(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="不使用递归"><a href="#不使用递归" class="headerlink" title="不使用递归"></a>不使用递归</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">while</span>(arr.length &lt;= n)&#123;</span><br><span class="line">        arr.push(arr[arr.length-<span class="number">1</span>] + arr[ arr.length-<span class="number">2</span>])</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(arr)</span><br></pre></td></tr></table></figure><h1 id="重复字符串中连续重复次数最多的字符"><a href="#重复字符串中连续重复次数最多的字符" class="headerlink" title="重复字符串中连续重复次数最多的字符"></a>重复字符串中连续重复次数最多的字符</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">&quot;aaadafakssssshhhhhrrrrrgggggkkkkkffffwwwwddddd&quot;</span></span><br><span class="line"><span class="keyword">var</span> maxRepeatCount = <span class="number">0</span>,maxReapeatChar = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>,j = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> ( i &lt;= s.length - <span class="number">1</span> ) &#123;</span><br><span class="line">    <span class="keyword">if</span>(s[i] !== s[j])&#123;</span><br><span class="line">        i = j;</span><br><span class="line">        <span class="keyword">if</span>(maxRepeatCount &lt; j-i)&#123;</span><br><span class="line">            maxRepeatCount = j-i;</span><br><span class="line">            maxReapeatChar = s[i]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="只能重复"><a href="#只能重复" class="headerlink" title="只能重复"></a>只能重复</h1><h2 id="使用递归-1"><a href="#使用递归-1" class="headerlink" title="使用递归"></a>使用递归</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">smartRepeat</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="不使用"><a href="#不使用" class="headerlink" title="不使用"></a>不使用</h2>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vue面试题</title>
+      <link href="2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+      <url>2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="v-for与v-if的优先级问题"><a href="#v-for与v-if的优先级问题" class="headerlink" title="v-for与v-if的优先级问题"></a>v-for与v-if的优先级问题</h1><p>1）v-for优先于v-if被解析</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/complier/codegen/index.js</span></span><br><span class="line"><span class="comment">// 会优先处理for，两者不同级的话生成不同的渲染函数</span></span><br></pre></td></tr></table></figure><p>2）如果同时出现，每次渲染会先执行循环再判断条件，无论如何循环都不可避免，浪费性能<br>3）要避免这种情况，在外层嵌套<code>template</code>，在这一层进行v-if判断，然后在内部进行v-for</p><h1 id="Vue-组件中-data-为什么必须是函数？为什么根实例没有限制"><a href="#Vue-组件中-data-为什么必须是函数？为什么根实例没有限制" class="headerlink" title="Vue 组件中 data 为什么必须是函数？为什么根实例没有限制"></a>Vue 组件中 data 为什么必须是函数？为什么根实例没有限制</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/score/instance/state.js-initData()</span></span><br></pre></td></tr></table></figure><p>因为Vue组件可能会存在多个实例，如果使用对象形式定义data，则会导致他们在内存中指向向同一个对象，会造成数据污染。</p><p>采用函数形式，在initData时会将其作为工厂函数返回一个全新的data对象，有效避免了多实例之间的数据污染问题。</p><p>而根实例不存在该限制，以为根实例有且只能有一个。</p><h1 id="vue中key的作用和工作原理？"><a href="#vue中key的作用和工作原理？" class="headerlink" title="vue中key的作用和工作原理？"></a>vue中key的作用和工作原理？</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/core/vdom/patch.js-updateChildren()</span></span><br></pre></td></tr></table></figure><p>key的作用是为了高效的更新虚拟DOM，其原理是vue在patch过程中通过key精准判断两个节点是否是同一个，从而避免频繁地更新不同元素，使得整个patch过程更加高效，减少DOM的操作，提高性能</p><p>若不设置key还可能会在列表更新引发一些隐蔽的bug</p><p>vue在使用相同标签名元素的过渡切换时，也会使用到key属性，其目的是为了让vue可以区分它们，否则vue只会替换内部标签属性而不会触发过渡过程</p><h1 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h1><h1 id="diff算法？"><a href="#diff算法？" class="headerlink" title="diff算法？"></a>diff算法？</h1><p>diff算法是新旧虚拟DOM的比较算法，通过对两者进行比较，将变化的地方更新在真实DOM上。另外，也需要diff算法进行高效的对比过程，，从而降低时间复杂度O(n)</p><p>vue2.X中为了降低watcher粒度，每个组件只有一个watcher与之对应，只有引入diff才能精确找到发生变化的地方</p><p>执行时刻是组件实例执行其更新函数patch时，它会对比上一次渲染结果的oldVnode与新的渲染结果newVnode</p><p>遵循深度优先，同层比较的策略：两个节点之间的比较会根据他们是否有子节点或者文本节点做不同的操作；对两组子节点的头尾进行四次比较（旧前与新前、旧后与新后、旧前与新后、旧后与新前）；如果没有找到相同节点，按照通用方法遍历查找；查找结束后按照情况处理剩余节点。使用key可以精确查找到相同节点，因此patch过程非常高效</p><h1 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h1><h1 id="vue设计理念"><a href="#vue设计理念" class="headerlink" title="vue设计理念"></a>vue设计理念</h1><h1 id="vue的双向绑定原理"><a href="#vue的双向绑定原理" class="headerlink" title="vue的双向绑定原理"></a>vue的双向绑定原理</h1><p>观察者（observer）利用<code>Object.definePropertype()</code>拿到data依赖，遍历子集依赖，如果是数组，vue是通过拦截器重写了数组的原型链方法。set拿到所有的子依赖，告诉watcher（订阅者）每收集一个子依赖就new一个订阅者，最后订阅者被收集起来，dep就是个收集器，是个集合或者数组。</p><p>complier（编译器）匹配模板中的指令，进行赋值，render到当前页面中</p><h1 id="什么是依赖"><a href="#什么是依赖" class="headerlink" title="什么是依赖"></a>什么是依赖</h1><p>需要用到数据的地方，称为依赖</p><p>Vue1.x，细粒度依赖，用到数据的DOM都是依赖</p><p>Vue2.X，中等粒度依赖，用到数据的组件是依赖</p><p>在<code>getter</code>中收集依赖，在<code>setter</code>中触发依赖</p><p>把依赖收集的代码封装成一个Dep类，专门用来管理依赖，每个Observer的实例，成员中都有一个Dep实例</p><p>Watcher是一个中介，数据发生变化时通过Watcher中转</p><p>Dep中收集的依赖是Watcher，只有Watcher触发的getter才会收集依赖，哪个Watcher触发了getter，就把哪个Watcher收集到Dep中</p><p>Dep使用了发布订阅模式，当数据发生变化时，会循环subs列表，把所有的Watcher都通知一遍</p><p>Watcher将自己设置到全局的指定位置window.target，然后读取数据，因为读取了数据，所以触发了这个数据的getter，在这个getter中就能获取当前正在读取数据的Watcher，并收集到Dep中</p>]]></content>
       
       
       <categories>
           
-          <category> test </category>
+          <category> 前端 </category>
+          
+          <category> Vue </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Tag1 </tag>
+            <tag> VUE </tag>
             
-            <tag> TAG </tag>
-            
-            <tag> tag </tag>
+            <tag> 面试题 </tag>
             
         </tags>
       

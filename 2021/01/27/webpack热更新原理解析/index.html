@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2020/1 | 韦绍炜的博客</title>
+  <title>webpack热更新原理解析 | 韦绍炜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="MinHow,MinHow's Blog" />
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="韦绍炜的博客">
-<meta property="og:url" content="https://wisiw.github.io.git/archives/2020/01/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="webpack热更新原理解析">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="韦绍炜的博客">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-01-27T07:45:11.000Z">
+<meta property="article:modified_time" content="2021-01-27T07:45:11.727Z">
 <meta property="article:author" content="wsw">
 <meta name="twitter:card" content="summary">
   
@@ -109,55 +111,171 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap">
-  
-  
+        <section id="main" class="body-wrap"><article id="post-webpack热更新原理解析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/" class="archive-article-date">
-  <time datetime="2020-01-25T07:17:13.000Z" itemprop="datePublished">01-25</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/"  >Vue面试题</a>
+    <h1 class="post-title" itemprop="name">
+      webpack热更新原理解析
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-01-27
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-    </header>
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
       
-        <div class="archive-post-footer">
             
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/VUE/" class="color4">VUE</a>
-      
-    <a href="/tags/面试题/" class="color4">面试题</a>
-      
-  </li>
+            
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2021年01月27日 15:45</p>
+        <p>原始链接： <a class="post-url" href="/2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="webpack热更新原理解析">https://wisiw.github.io.git/2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</a></p>
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
 
-        </div>
       
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《webpack热更新原理解析》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《webpack热更新原理解析》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《webpack热更新原理解析》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD9ElEQVR42u3aS27bQBAFQN3/0g6QrSLyve6h4ADFlWGLw5mSgWZ/Xq/4+vl7vf/m/br+/KeVP62zuffTXQcuHDhw4MARHDVZOt9W8tfrNd+PlB/++lnXu8WBAwcOHKc4ZltJgD6t1ka6a8SEI3mBwIEDBw4c3+Rog26bhiVJ4yzxw4EDBw4cv58jD8z7yuX+qDhw4MCB4/sc+zZSm7a1z0qSus1ncODAgQPHKY421P2PPz8434EDBw4cOOIQO2svbZ6ejyPM2mM3p8OBAwcOHGuONpXKw/BsMK4t7W2+niKjxYEDBw4ci0+2Y2o5xKYd1RYQZ18eDhw4cOB4gmNWENyjzLBOBWMcOHDgwHGKIy+37Qcgcojk3hY6ei3AgQMHDhxrjiRtu0aZlQivN9qWDjeTCf9YDQcOHDhwrDmSQybhLf+5DcB5+N80yXDgwIEDx1mOtv3TBuZZgW82TpcHZhw4cODAcZYjL8bN4GYJVX7XHjRqO+HAgQMHjvKuumS2TtXy0DgrL+Zlyo9vHDhw4MCBY8Exax3lpbo8EOZNptn0XzI2gQMHDhw4znK0Zbsk2UtY98F+06Ya/qfgwIEDB47L4uCsFHi2VJc3jXK+YtgCBw4cOHAc4mhHEDbpX7taDpc/6+PecODAgQPHmiN/8KY51K6fhPxZAhkNbeDAgQMHjkMcbXHw6dZUntS1fMXbBw4cOHDgKDmSsmA+cJA3ljaBvC0LFs/FgQMHDhwPcOSFvPYA+1JjPsow3D8OHDhw4DjEkW9lU9qrxwsWgwtJmncz0IADBw4cOEYcSZq0CbT7wt8TjaUbShw4cODAcYgjb+e0TZ0DnbEyYA9HGXDgwIEDx5ojT2w2Iwuz0YSkJZY3maJWGQ4cOHDgWHMMG/9BO2eWyM2Sxk1oX01n4MCBAweOUZDb9PrbLeZfST6WV+wcBw4cOHCsOWYRp110Uyhsx+D25UUcOHDgwLHhaEPgK75mY3D54N2sVRaVBXHgwIEDx5ojGURrP5+PwbUhOU/86l3hwIEDB44HODZBcTZwMGtKzQqFN3/FgQMHDhyHONqwlwTjdkIgQW8pD2S0OHDgwIFj1IuZFeCSx2xaR+3x8qdEPTccOHDgwDHi+CmvJLjOjpofOCfLU82bjBYHDhw4cMQcswGFWcDLA/mpUYZ8fRw4cODAcZZjH1xnZbs82Ut+07avcODAgQPH0xz7otts9KEdhngdum5KhDhw4MCB4yscs0QuD95PPDfJX4eBFgcOHDhwfJFjlhDm6dxsRC96jcCBAwcOHIc48gPkIwibQbd2UK9NII/VSnHgwIEDx9GBhjbUzQYd2rC6aZXhwIEDB44Fxx8gIgttFMDlXwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
   </div>
 </article>
 
-  
-  
-    </div></section>
-  
 
+
+<nav id="article-nav">
+  
+    <a href="/2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          promise源码解析
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/01/27/map%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">map源码解析</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
 </section>
         
       </div>

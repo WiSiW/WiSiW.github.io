@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2020/1 | 韦绍炜的博客</title>
+  <title>promise源码解析 | 韦绍炜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="MinHow,MinHow's Blog" />
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="韦绍炜的博客">
-<meta property="og:url" content="https://wisiw.github.io.git/archives/2020/01/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="promise源码解析">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="韦绍炜的博客">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-01-27T07:45:29.000Z">
+<meta property="article:modified_time" content="2021-01-27T07:45:29.936Z">
 <meta property="article:author" content="wsw">
 <meta name="twitter:card" content="summary">
   
@@ -109,55 +111,171 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap">
-  
-  
+        <section id="main" class="body-wrap"><article id="post-promise源码解析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/" class="archive-article-date">
-  <time datetime="2020-01-25T07:17:13.000Z" itemprop="datePublished">01-25</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/25/Vue%E9%9D%A2%E8%AF%95%E9%A2%98/"  >Vue面试题</a>
+    <h1 class="post-title" itemprop="name">
+      promise源码解析
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-01-27
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-    </header>
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
       
-        <div class="archive-post-footer">
             
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/VUE/" class="color4">VUE</a>
-      
-    <a href="/tags/面试题/" class="color4">面试题</a>
-      
-  </li>
+            
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2021年01月27日 15:45</p>
+        <p>原始链接： <a class="post-url" href="/2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="promise源码解析">https://wisiw.github.io.git/2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</a></p>
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
 
-        </div>
       
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/&title=《promise源码解析》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/&title=《promise源码解析》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《promise源码解析》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/01/27/promise%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACv0lEQVR42u3aQW7DMAwEwP7/0+m1QOJ4V5SaHMYnow1cjQtIzJI/P/H1+HP9/cnV/fP1/LTn+6u/ePWcbRceHh7eYOlXj0sWmgDePz//W8ma8fDw8E7z2iW2u3Hy+bX7GwseHh7eF/AmpPaZSUGPh4eH9/28q2I3L5F3fRIPDw/vs7wkjMi3+CSAWAt2D2YteHh4eDEvL2q/5/5Ifw8PDw9v3FXP2/9Jed3GGe1h8GK1eHh4eAd4k4g2CRHarTwvu4sn4OHh4R3jtQ+dh7zvj5zJ2CseHh7eOV5bRrcldR4H7xrSqsMIPDw8vJL3frl5I79tVrUvZcO/BA8PD28Tb61gTcrZvFxuX9aoAYaHh4e3iZdv67si1+S3bVh8GUbg4eHhHeMl2/TaZ9bCiLad9uK3eHh4eMd47ahTO16wFjSMxgXw8PDwjvHarbltce2itsX0TZiLh4eHN+DlX/gnba124CA/AKIwAg8PD28rbzIokC89j33z5llb7uPh4eGd4E3GpyZxRltqt406PDw8vL28SWyabNZrL2tbaY6Hh4d3gDdZbr6gtYBjLYDAw8PDO81b29CT4YO8AZaHEflxVX+hwMPDwyt5u0rkHP/+mFmLJPDw8PD+h7d2PLRDV22ja1KUv/gJHh4e3jFeHozmBXFeauev4BFfeHh4eJ/izZth7z/fguuZCDw8PLx/4e06BvLm2d6XcnMw4OHh4W3i5aNOySbeHiRrx1KRVePh4eFt4j3KKy/E21J7LYa4CTjw8PDwDvDWtt218YL8OJncbzhV8PDw8ALe2kBA3s5vxwUmUe9N1oKHh4e3lZeUxbsOiTyqaJtweHh4eN/MayPa/GltCy0aHcDDw8P7KG9Xg6ptpLVBMx4eHt5p3rz5lB8P7VBX2wDDw8PDO82bfOHPA9m2FG7L7g39PTw8PLx73i+trLtgNehe6wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
   </div>
 </article>
 
-  
-  
-    </div></section>
-  
 
+
+<nav id="article-nav">
+  
+    <a href="/2021/01/27/git%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%88%97%E8%A1%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          git常用方法列表
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/01/27/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">webpack热更新原理解析</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
 </section>
         
       </div>
