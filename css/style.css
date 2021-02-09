@@ -1478,6 +1478,7 @@ body {
   width: 200px;
   max-height: 400px;
   color: #313131;
+  overflow-y: auto;
 }
 .post-toc-wrap.fixed {
   top: 20px;
