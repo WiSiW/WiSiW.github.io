@@ -11,7 +11,7 @@
   <meta name="description" content="Vue-Router基本应用怎么重定向页面第一种方法： 12345const router &#x3D; new VueRouter(&amp;#123;    routes: [        &amp;#123; path: &amp;#x27;&#x2F;a&amp;#x27;, redirect: &amp;#x27;&#x2F;b&amp;#x27; &amp;#125;    ]&amp;#125;) 第二种方法: 12345const router &#x3D; new VueRout">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue-Router源码分析">
-<meta property="og:url" content="https://wisiw.github.io.git/2021/02/20/Vue-Router%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/index.html">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/02/20/Vue-Router%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="韦绍炜的博客">
 <meta property="og:description" content="Vue-Router基本应用怎么重定向页面第一种方法： 12345const router &#x3D; new VueRouter(&amp;#123;    routes: [        &amp;#123; path: &amp;#x27;&#x2F;a&amp;#x27;, redirect: &amp;#x27;&#x2F;b&amp;#x27; &amp;#125;    ]&amp;#125;) 第二种方法: 12345const router &#x3D; new VueRout">
 <meta property="og:locale">
@@ -110,7 +110,7 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-Vue-Router源码分析" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-Vue-Router面试题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -254,7 +254,7 @@
             <div class="post-copyright">
     <div class="content">
         <p>最后更新： 2021年02月22日 12:22</p>
-<!--        <p>原始链接： <a class="post-url" href="/2021/02/20/Vue-Router%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="Vue-Router源码分析">https://wisiw.github.io.git/2021/02/20/Vue-Router%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</a></p>-->
+<!--        <p>原始链接： <a class="post-url" href="/2021/02/20/Vue-Router%E9%9D%A2%E8%AF%95%E9%A2%98/" title="Vue-Router源码分析">https://wisiw.github.io.git/2021/02/20/Vue-Router%E9%9D%A2%E8%AF%95%E9%A2%98/</a></p>-->
         <footer>
             <a href="https://WiSiW.github.io.git">
                 <img src="/images/logo.png" alt="wsw">
@@ -280,7 +280,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/02/20/Vue-Router%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《Vue-Router源码分析》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/02/20/Vue-Router%E9%9D%A2%E8%AF%95%E9%A2%98/&title=《Vue-Router源码分析》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -290,22 +290,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/02/20/Vue-Router%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《Vue-Router源码分析》 — 韦绍炜的博客&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/02/20/Vue-Router%E9%9D%A2%E8%AF%95%E9%A2%98/&title=《Vue-Router源码分析》 — 韦绍炜的博客&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/02/20/Vue-Router%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/02/20/Vue-Router%E9%9D%A2%E8%AF%95%E9%A2%98/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue-Router源码分析》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/02/20/Vue-Router%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&via=https://WiSiW.github.io.git" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue-Router源码分析》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/02/20/Vue-Router%E9%9D%A2%E8%AF%95%E9%A2%98/&via=https://WiSiW.github.io.git" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/02/20/Vue-Router%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/02/20/Vue-Router%E9%9D%A2%E8%AF%95%E9%A2%98/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -315,7 +315,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADFUlEQVR42u3awY4aMRAE0P3/nybXSBGzVd0QMebNaUUC4+dLydX++Ymfx1/P9Sezv5+969+35L/zggcbGxv7JuzH5ZMgrz+ZbUeyKdffvd44bGxs7PPYz16QIxP89RLbDW1DERsbGxv7OmASRh5Oye8nW4aNjY2NPYur5AjRxmR71MHGxsb+NnYeDHm0JOz8X5N3vaVLw8bGxv54dj4V/fy/3zLfxsbGxv5g9qN82tBqlzgbNtcKbGxs7IPYeQDklVB7mWZWb7UBho2NjX0qu42oTYnfjpBnlVC0EmxsbOxD2Ql1tsT3HVeSoe8vJzBsbGzsm7PzGNgMTZNv5WOA2ZUgbGxs7FPZ7QFjMyRoK6rk81kEYmNjY5/EThbUXpSZlVOv2uI8JrGxsbHPY+elT17l7AfA7Ygir5ywsbGxz2Pnl2P2n28iM9mmvMzCxsbGPoPdHir2gfEInllwFiJsbGzs49ht9dMW8bMl5geVesCMjY2NfRB7trg2MN53XMmHx0WphI2NjX1D9izAXnV1ph0h5CvHxsbG/k52e6VmViFtLgnlhVc938bGxsa+IXt24eYdVVR+LMl/+QXXdLCxsbFvwm5DpR0V5MPd9jpRG5/Y2NjYJ7FnvFn47QcPj8UzbLCwsbGxP569D7D8ZbPFtb9Tl0rY2NjYB7H35U6+9NkBY3NAepre2NjY2Ddn74Mk36xN6T/7/0+3CRsbG/to9uZSY0LNx8abLful2MLGxsY+iJ2PAWaLbg8hOXV2NRMbGxv7G9izoexsWDur+/dhiY2NjX02u62QZtcl82/Niq3o7djY2NhfwG4jbXaZJo/DzUZjY2NjfwO7DZLZyPZVF33aBxsbG/tU9qN8ogsx6+q/PcDUQ2JsbGzsg9ib3JtV+ZsBQFskJZuCjY2NfQY7L4Py8MjLphycl0d1l4aNjY19BLuth94x3N3HW53J2NjY2F/MnpFyal4YteNnbGxsbOy2csoXOjsItdGIjY2NfSp7dhhoA+b/x9jT7cPGxsY+iD2ritqrMy0gHwZsjkPY2NjYN2f/AXOq+HSLg48QAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtklEQVR42u3aQW7DMAwEwPz/0y3QU4sgzpIU3RzGp6CNLY0OlrLk4xFfXz/X78/P16u7nv/7/LTre69HOXDh4eHhtaZ+/bh8itekZIrXS5nPGQ8PD2+blw/TI/W2lt52goeHh/c5vGTq18+sTjdZXDw8PLxP5uVxQDWqyLcZPDw8vM/hJWFEc4Bivjo5lOPh4eHdw+sVwP7383p9Dw8PD69VVc/jhmq561Qo/Ga2eHh4eAu8pC3g+u+njsXVUCM/4uPh4eGd5SU3VFuvksWqLke17eDPvoeHh4d3lHc9xeSVfeoQvLGR4OHh4W3wqk0D1YB1Ur6qxhl4eHh4d/KSwlJ+vE62lmqZP9+imsPg4eHhDXi9KZZP8YOjfAGJh4eHt8DrvfSrcUO1uDVp9noZ4+Lh4eEd4lXj2l6Ye6oZK18mPDw8vD1eUuDvvaargI1FxMPDw7uHlzddVXm9otekjQAPDw9vg9dML+Lp9g7TUVtAEmfg4eHhLfCSL+UH60nsmy96NfDFw8PD2+BVo9vqVpHHwXkprrrx4OHh4Z3lzYtSeUNVD9O7Fw8PD2+DV22T6pXzq6Wv/Ej9JhDBw8PDW+PlL9x5dPsVXJNI4s/38fDw8JZ5k2B0UrLKY9lyuQ4PDw/vFt48fq12e02aBt4c9PHw8PCWeZOGp3wheuPm4UX5FwMeHh5ep2+qUL7qFfjPdjeUtyI8PDy8o7xqUSp/ofeasapx7ZulxMPDw1vm5aWp3hF8EuNWS3R4eHh4e7z86kUJ1eU4+xkPDw9vj9drgepFwJPD9PVzXs4BDw8Pb41XbXuqbhtJaJsHvuVIAg8PD++feD3qpMDWe8Ijr7bh4eHh3cjrNUJNWrV6z8fDw8Pb4yVhRDWeyBsUqiMmYTEeHh7eHq/3U783oXn4e6ymh4eHh9fhfQMubkrftEmpNgAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
