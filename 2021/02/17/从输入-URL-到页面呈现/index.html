@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>从输入 URL 到页面呈现 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta name="description" content="1.DNS解析根据域名解析出IP地址  DNS 解析过程：   查询 www.baidu.com 访问客户端 DNS 缓存： 浏览器缓存 -&gt; 系统缓存（host） -&gt; 路由器缓存 访问 ISP DNS 服务器（ISP，互联网服务提供商，有联通电信移动等。如果你是电信网络，则进入电信的 DNS 缓存服务器，以下简称本地），如果本地服务器有，则直接返回；如果没有，让本地 DNS 服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从输入 URL 到页面呈现">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/02/17/%E4%BB%8E%E8%BE%93%E5%85%A5-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="1.DNS解析根据域名解析出IP地址  DNS 解析过程：   查询 www.baidu.com 访问客户端 DNS 缓存： 浏览器缓存 -&gt; 系统缓存（host） -&gt; 路由器缓存 访问 ISP DNS 服务器（ISP，互联网服务提供商，有联通电信移动等。如果你是电信网络，则进入电信的 DNS 缓存服务器，以下简称本地），如果本地服务器有，则直接返回；如果没有，让本地 DNS 服务器">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-02-17T14:21:23.000Z">
+<meta property="article:modified_time" content="2021-06-21T08:13:18.334Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="面试题">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="浏览器">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-从输入-URL-到页面呈现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      从输入 URL 到页面呈现
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-02-17
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="1-DNS解析"><a href="#1-DNS解析" class="headerlink" title="1.DNS解析"></a>1.DNS解析</h1><p>根据域名解析出IP地址</p>
+<ul>
+<li><strong>DNS 解析过程</strong>：</li>
+</ul>
+<ol>
+<li>查询 <code>www.baidu.com</code></li>
+<li>访问客户端 DNS 缓存： <strong>浏览器缓存</strong> -&gt; <strong>系统缓存（host）</strong> -&gt; <strong>路由器缓存</strong></li>
+<li>访问 <strong>ISP DNS 服务器</strong>（ISP，互联网服务提供商，有联通电信移动等。如果你是电信网络，则进入电信的 DNS 缓存服务器，以下简称本地），如果本地服务器有，则直接返回；如果没有，让本地 DNS 服务器去咨询查找。</li>
+<li>本地去咨询 <strong>DNS 根服务器</strong>，DNS 根服务器发现是 <code>.com 区域</code> 管理的，告诉本地去咨询它。</li>
+<li>本地去咨询 <strong>.com 顶级域名服务器</strong>，.com 顶级域名服务器不太清楚，告诉本地去咨询 <code>baidu.com 主区域</code> 的服务器。</li>
+<li>本地去咨询 <strong>baidu.com 主域名服务器</strong>，baidu.com 域服务器查找到对应的 IP 地址，返回给本地。</li>
+<li>本地服务器通知用户， <code>baidu.com</code> 对应的 IP 地址，同时缓存这个 IP 地址，下次就直接访问了。</li>
+</ol>
+<h1 id="2-TCP连接"><a href="#2-TCP连接" class="headerlink" title="2.TCP连接"></a>2.TCP连接</h1><ul>
+<li>建立连接阶段：3 次握手。建立客户端和服务器之间的连接。</li>
+<li>传输数据阶段</li>
+<li>断开连接阶段：4 次挥手。断开客户端和服务器之间的连接。</li>
+</ul>
+<h1 id="3-发送HTTP请求"><a href="#3-发送HTTP请求" class="headerlink" title="3.发送HTTP请求"></a>3.发送HTTP请求</h1><p>构建 <code>HTTP</code> 请求报文，并通过 <code>TCP</code> 协议发送到服务器指定端口（<code>HTTP</code> 协议默认端口 <code>80/8080</code>，<code>HTTPS</code> 协议默认端口 <code>443</code>）</p>
+<p><code>HTTP</code> 请求报文由 3 部分组成：<strong>请求行</strong>、<strong>请求报文</strong> 和 <strong>请求正文</strong>。</p>
+<ul>
+<li><strong>请求行</strong>：常用方法有：GET、POST、PUT、DELETE、OPTIONS、HEAD。</li>
+<li><strong>请求报头</strong>：允许客户端向服务器传递请求的附加信息和客户端自身的信息。</li>
+<li><strong>请求正文</strong>：通过 POST、PUT 等方法时，通常需要客户端向服务器传递数据，这些数据就储存在请求正文中。</li>
+</ul>
+<h1 id="4-服务器响应"><a href="#4-服务器响应" class="headerlink" title="4.服务器响应"></a>4.服务器响应</h1><p>服务器处理请求完毕后，会返回 <code>HTTP</code> 报文。</p>
+<p><code>HTTP</code> 响应报文也是由 3 部分组成：<strong>状态码</strong>、<strong>响应报头</strong> 和 <strong>响应报文</strong></p>
+<ul>
+<li><strong>状态码</strong>： <code>1xx</code> 指示信息-表示请求已接收； <code>2xx</code> 请求成功-表示请求成功接收并解析； <code>3xx</code> 重定向-表示要完成请求需要更进一步操作； <code>4xx</code> 客户端错误-请求有语法错误或者请求无法实现； <code>5xx</code>：服务端错误-服务端未能实现合法的请求。 <strong>常见状态码</strong>：200（成功）、304（请求内容有缓存，不需要更新）、404（网页或者文件找不到）、500（服务器-后端处理错误）。</li>
+<li><strong>响应报头</strong>：常见的响应报头字段 <code>Server</code>、 <code>Connection</code> 等。</li>
+<li><strong>响应报文</strong>：服务器返回给浏览器的文本信息，通常 HTML、CSS、JS、图片等文件就放在这一部分</li>
+</ul>
+<h1 id="5-浏览器渲染"><a href="#5-浏览器渲染" class="headerlink" title="5.浏览器渲染"></a>5.浏览器渲染</h1><ol>
+<li>解析 HTML，生成 <code>DOM</code> 树</li>
+<li>解析 CSS，生成 <code>CSS 规则树（CSS Rule Tree）</code></li>
+<li>将 <code>DOM Tree</code> 和 <code>CSS Rule Tree</code> 相结合，生成 <strong>渲染树</strong>（ <code>Render Tree</code>）</li>
+<li>从根节点开始，计算每一个元素的大小、位置，给出每个节点所应该出现的屏幕精确坐标，从而得到基于渲染树的 <strong>布局渲染树</strong>（ <code>Layout of the render tree</code>）。</li>
+<li>遍历渲染树，将每个节点用 UI 渲染引擎来绘制，从而将整棵树绘制到页面上，这个步骤叫 <strong>绘制渲染树</strong>（ <code>Painting the render tree</code>）</li>
+</ol>
+<p>在解析渲染过程中，可能会产生 <strong>回流</strong> 和 <strong>重绘</strong>：</p>
+<ul>
+<li><strong>重绘(repaint)**：当元素样式的改变不影响布局时，浏览器将使用重绘对元素进行更新，此时由于只需要 UI 层面的重新像素绘制，因此 **损耗较少</strong>。</li>
+<li>**回流(reflow)**：又叫重排（ <code>layout</code>）。当元素的尺寸、结构或者触发某些属性时，浏览器会重新渲染页面，称为回流。此时，浏览器需要重新经过计算，计算后还需要重新页面布局，因此是较重的操作。</li>
+</ul>
+<p>在构建 <code>DOM</code> 的时候，HTML 解析器如果碰到 JavaScript，那么就会停止构建 <code>DOM</code>，将控制权交给 JavaScript 引擎，等 JavaScript 运行完毕，浏览器再从中断的地方恢复 <code>DOM</code> 构建</p>
+<p>也就是说：首屏渲染越快，就越不应该在首屏的时候加载 JS 文件，这也就是建议将 <code>script</code> 标签放到 <code>body</code> 标签底部，或者给 <code>script</code> 标签添加 <code>defer/async</code> 属性的原因</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2021年06月21日 16:13</p>
+<!--        <p>原始链接： <a class="post-url" href="/2021/02/17/%E4%BB%8E%E8%BE%93%E5%85%A5-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0/" title="从输入 URL 到页面呈现">https://wisiw.github.io.git/2021/02/17/%E4%BB%8E%E8%BE%93%E5%85%A5-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/02/17/%E4%BB%8E%E8%BE%93%E5%85%A5-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0/&title=《从输入 URL 到页面呈现》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/02/17/%E4%BB%8E%E8%BE%93%E5%85%A5-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0/&title=《从输入 URL 到页面呈现》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/02/17/%E4%BB%8E%E8%BE%93%E5%85%A5-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《从输入 URL 到页面呈现》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/02/17/%E4%BB%8E%E8%BE%93%E5%85%A5-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/02/17/%E4%BB%8E%E8%BE%93%E5%85%A5-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD8UlEQVR42u3aS27bUBAEQN3/0sk6MCx3T1NBApRWgRSRj6VFez6vV/z69eX19dPkna/vJ58m5/l6hfxq9QsHDhw4cDx06eTG7dXybyXnf+D6OHDgwIHjIY7vbpMH7XugJFbzIL9xvH9GHDhw4MDxL3C8P0T73fd3T064XAEHDhw4cPw7HM826drGYnIdHDhw4MDx9zmW9l9OmY+y2nHXrbmJAwcOHDg+wbGE1v/y74/sd+DAgQMHjiDG8lcSqPmw6jY0atcpfngiHDhw4MDxTDhEt8+HOnuBtKzHtWfDgQMHDhzPcjy1gta27fKh1z7oSmL+lec5Dhw4cOA4bQXkxdgetznoLWJvPwYOHDhw4Lhx3Eq1PQJz6KRFuDcfceDAgQPHsxzLHkQSqHsBtjcNox8VBw4cOHA8yrEEal6M3dp/+cCpPf/Uj8SBAwcOHN/kVBKQSZnXtvnyd/ZHLYZSOHDgwIFj5rito92adMdtvuFRl+ITBw4cOHC0HPktl8Brlx6W4VPbEIwWGnDgwIEDR5dfr3ZQdFtZ29fpdsS6UYgDBw4cOMqn2Ec7y3LDrfC7nTaBxoEDBw4cO0d70CTk2ti7rSncRkpFIYcDBw4cOE4ct9F+Wz7dXi1xG7Hf/t2BAwcOHDgGjmSQc2sL5uVcUpgtzcr8fRw4cODAsXO0w54kSm8tvKUwa9fmioYgDhw4cOAoOfJSbVlWW4L8NvrKg7wAwoEDBw4cAce+BHBbcWubj4+F5fu74MCBAweOmWMvihaaZ+M8L1B/uAsOHDhw4Bg4lgXopc13Gx3d7ptsC/5RwuHAgQMHjpkjadvll741B9sVh/wuResQBw4cOHDMHEn47UOd28ApbxS2/7NoDuLAgQMHjpIjiaj8cO1y262X2Q6lkubjDxUtDhw4cOAoOdqm3q0YuxV1t/DOFyCK/Q4cOHDgwBFztCjL+trS/ptafgkcDhw4cOB4lKNt9iUP3w6H8lWGvPFXhDcOHDhw4HiU43a5Nj4/vfrWlpE4cODAgeNzHO1B23Irj9h2XHT72V5tPuPAgQMHjpjj9uV2qLMfdy/hoqDFgQMHDhwDR1LI5QOe5Dp5S7Et8G6jr+JjHDhw4MARcEyBVDYKk+Zdu9zQ/mA4cODAgePTHG3g3VYT8qMvxV7e3Cz+BsGBAwcOHCeOfDngKawkaJe1iVvk48CBAweOZznaodGy9JY3BG9XuN0FBw4cOHD8fY5bidUOqPKW3+0PheOWBw4cOHDg+ABHu/rwbP9y6XcWwY8DBw4cOB7iSIKqLa6S9l8emW2IJiefxk44cODAgeOy+RYFVXuzdrkhD/6nVu5w4MCBA8eJ4zefP4cpXRjheQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/面试题/" class="color4">面试题</a>
+      
+    <a href="/tags/前端/" class="color3">前端</a>
+      
+    <a href="/tags/浏览器/" class="color4">浏览器</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1-DNS%E8%A7%A3%E6%9E%90"><span class="post-toc-text">1.DNS解析</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#2-TCP%E8%BF%9E%E6%8E%A5"><span class="post-toc-text">2.TCP连接</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#3-%E5%8F%91%E9%80%81HTTP%E8%AF%B7%E6%B1%82"><span class="post-toc-text">3.发送HTTP请求</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#4-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%93%8D%E5%BA%94"><span class="post-toc-text">4.服务器响应</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#5-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93"><span class="post-toc-text">5.浏览器渲染</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2021/02/18/JavaScript%E7%BC%96%E7%A8%8B%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          JavaScript编程题
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/02/16/JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">JavaScript数据结构与算法</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2021 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 12px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 10px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/VUE/" style="font-size: 18px;">VUE</a> <a href="/tags/Vue-Router/" style="font-size: 10px;">Vue-Router</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 14px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 12px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 12px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 10px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8-Docker-%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">使用 - Docker - 后端</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 12px;">原理</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BA%93/" style="font-size: 10px;">库</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 12px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 12px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E6%B8%B2%E6%9F%93/" style="font-size: 10px;">模板渲染</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 20px;">源码</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 14px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 18px;">面试题</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 12px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 10px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/VUE/" style="font-size: 18px;">VUE</a> <a href="/tags/Vue-Router/" style="font-size: 10px;">Vue-Router</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 14px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 12px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 12px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 10px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8-Docker-%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">使用 - Docker - 后端</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 12px;">原理</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BA%93/" style="font-size: 10px;">库</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 12px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 12px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E6%B8%B2%E6%9F%93/" style="font-size: 10px;">模板渲染</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 20px;">源码</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 14px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 18px;">面试题</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

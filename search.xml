@@ -296,9 +296,9 @@
       
         <tags>
             
-            <tag> 技巧 </tag>
-            
             <tag> JavaScript </tag>
+            
+            <tag> 技巧 </tag>
             
         </tags>
       
@@ -770,31 +770,6 @@
     
     
     <entry>
-      <title>【读书笔记】解读React源码（《深入React技术栈》————第三章）</title>
-      <link href="/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E8%A7%A3%E8%AF%BBReact%E6%BA%90%E7%A0%81%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%89/"/>
-      <url>/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E8%A7%A3%E8%AF%BBReact%E6%BA%90%E7%A0%81%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> react </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 读书笔记 - React - 《深入React技术栈》 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>【读书笔记】解读React源码（《深入React技术栈》————第六章）</title>
       <link href="/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%89/"/>
       <url>/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%89/</url>
@@ -816,6 +791,31 @@
             <tag> 读书笔记 </tag>
             
             <tag> 《深入React技术栈》 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【读书笔记】解读React源码（《深入React技术栈》————第三章）</title>
+      <link href="/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E8%A7%A3%E8%AF%BBReact%E6%BA%90%E7%A0%81%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%89/"/>
+      <url>/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E8%A7%A3%E8%AF%BBReact%E6%BA%90%E7%A0%81%EF%BC%88%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> react </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 读书笔记 - React - 《深入React技术栈》 </tag>
             
         </tags>
       

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【读书笔记】架构设计：单页面应用（《前端架构：从入门到微前端》—第六）— | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta property="og:type" content="article">
+<meta property="og:title" content="【读书笔记】架构设计：单页面应用（《前端架构：从入门到微前端》—第六）—">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-01-27T07:53:42.000Z">
+<meta property="article:modified_time" content="2021-06-21T08:13:15.277Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="前端架构">
+<meta property="article:tag" content="微前端">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-【读书笔记】架构设计：单页面应用（《前端架构：从入门到微前端》—第六）—" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      【读书笔记】架构设计：单页面应用（《前端架构：从入门到微前端》—第六）—
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/前端架构/">前端架构</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-01-27
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2021年06月21日 16:13</p>
+<!--        <p>原始链接： <a class="post-url" href="/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/" title="【读书笔记】架构设计：单页面应用（《前端架构：从入门到微前端》—第六）—">https://wisiw.github.io.git/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/&title=《【读书笔记】架构设计：单页面应用（《前端架构：从入门到微前端》—第六）—》 — 韦绍炜的博客&pic=/images/default.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/&title=《【读书笔记】架构设计：单页面应用（《前端架构：从入门到微前端》—第六）—》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【读书笔记】架构设计：单页面应用（《前端架构：从入门到微前端》—第六）—》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/01/27/%E3%80%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%91%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88%E3%80%8A%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BE%AE%E5%89%8D%E7%AB%AF%E3%80%8B%E2%80%94%E7%AC%AC%E5%85%AD%EF%BC%89%E2%80%94/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,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" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/前端架构/" class="color5">前端架构</a>
+      
+    <a href="/tags/微前端/" class="color4">微前端</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2021/01/27/%E8%AF%BB%E5%8F%96%E6%9C%AC%E5%9C%B0Excel%E7%94%9F%E6%88%90Echarts/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          读取本地Excel生成Echarts
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/01/27/Docker%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Docker使用</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2021 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 12px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 10px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/VUE/" style="font-size: 18px;">VUE</a> <a href="/tags/Vue-Router/" style="font-size: 10px;">Vue-Router</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 14px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 12px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 12px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 10px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8-Docker-%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">使用 - Docker - 后端</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 12px;">原理</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BA%93/" style="font-size: 10px;">库</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 12px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 12px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E6%B8%B2%E6%9F%93/" style="font-size: 10px;">模板渲染</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 20px;">源码</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 14px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 18px;">面试题</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 12px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 10px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/VUE/" style="font-size: 18px;">VUE</a> <a href="/tags/Vue-Router/" style="font-size: 10px;">Vue-Router</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 14px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 12px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 12px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 10px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8-Docker-%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">使用 - Docker - 后端</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 12px;">原理</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BA%93/" style="font-size: 10px;">库</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 12px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 12px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E6%B8%B2%E6%9F%93/" style="font-size: 10px;">模板渲染</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 20px;">源码</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 14px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 18px;">面试题</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
