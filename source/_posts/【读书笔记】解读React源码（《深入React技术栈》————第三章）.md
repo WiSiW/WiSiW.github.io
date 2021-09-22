@@ -4,7 +4,7 @@ date: 2021-01-27 15:58:03
 categories: react
 tags:
 	- 读书笔记
-    - react
+    - React
     - 《深入React技术栈》
 cover_picture: /images/react.png
 ---

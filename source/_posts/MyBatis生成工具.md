@@ -4,7 +4,7 @@ date: 2021-02-05 16:11:54
 tags:
 	- mybatis
 	- 工具
-cover_picture:/images/mybatis.png
+cover_picture: /images/mybatis.png
 ---
 
 
