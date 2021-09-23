@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【代码片段】获取一个页面中使用最多的标签 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta name="description" content="12345678910111213141516171819202122232425function getTagRank(ranks)&amp;#123;    if(typeof ranks !&#x3D;&#x3D; &amp;#x27;number&amp;#x27;)&amp;#123;        throw new Error(&amp;#x27;typeerror:获取标签的数量必须是number类型&amp;#x27;);        retu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【代码片段】获取一个页面中使用最多的标签">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/02/20/%E3%80%90%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E3%80%91%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="12345678910111213141516171819202122232425function getTagRank(ranks)&amp;#123;    if(typeof ranks !&#x3D;&#x3D; &amp;#x27;number&amp;#x27;)&amp;#123;        throw new Error(&amp;#x27;typeerror:获取标签的数量必须是number类型&amp;#x27;);        retu">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-02-20T01:45:57.000Z">
+<meta property="article:modified_time" content="2021-09-23T06:13:08.631Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="代码片段">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-【代码片段】获取一个页面中使用最多的标签" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      【代码片段】获取一个页面中使用最多的标签
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/前端/">前端</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-02-20
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTagRank</span>(<span class="params">ranks</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> ranks !== <span class="string">&#x27;number&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;typeerror:获取标签的数量必须是number类型&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取当前页面所有标签</span></span><br><span class="line">    <span class="keyword">let</span> tags = [...document.querySelectorAll(<span class="string">&#x27;*&#x27;</span>)].map(<span class="function"><span class="params">node</span>=&gt;</span>node.nodeName);</span><br><span class="line">    <span class="keyword">let</span> obj = &#123;&#125;;</span><br><span class="line">    <span class="comment">// 获取所有标签的数量</span></span><br><span class="line">    tags.forEach(<span class="function"><span class="params">item</span> =&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!obj[item])&#123;</span><br><span class="line">            obj[item] = <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            obj[item] += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 根据数量从大到小排序</span></span><br><span class="line">    <span class="keyword">let</span> tagRank = <span class="built_in">Object</span>.keys(obj).sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj[b] - obj[a];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 根据ranks截取长度</span></span><br><span class="line">    tagRank.length = ranks;</span><br><span class="line">    <span class="keyword">return</span> tagRank;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2021年09月23日 14:13</p>
+<!--        <p>原始链接： <a class="post-url" href="/2021/02/20/%E3%80%90%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E3%80%91%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/" title="【代码片段】获取一个页面中使用最多的标签">https://wisiw.github.io.git/2021/02/20/%E3%80%90%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E3%80%91%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/02/20/%E3%80%90%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E3%80%91%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/&title=《【代码片段】获取一个页面中使用最多的标签》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/02/20/%E3%80%90%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E3%80%91%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/&title=《【代码片段】获取一个页面中使用最多的标签》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/02/20/%E3%80%90%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E3%80%91%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【代码片段】获取一个页面中使用最多的标签》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/02/20/%E3%80%90%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E3%80%91%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/02/20/%E3%80%90%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E3%80%91%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAW4AAAFuCAAAAACEya1TAAAGyklEQVR42u3cy47bQAwEQP//TztATgk2krvJUS4unRaK9ZgaHRokkdcrPt6/j59nfp6//9c/z7x/HFfPSp54df/knvl6k2sPHLhx48aNG/cXc79vj/bWyd0Syvu/k3uewpp9OpdviBs3bty4ceMOuNtQlce1+y1MFjMDSu6Tx8r2KZfncePGjRs3btyHuGflpHbxScA6VTZq13igBIYbN27cuHHjPhoEZ42rtqAzg5uF1+QOm1/ixo0bN27cuFvuZPFtVGpfelbq2mxDvhltue1ArxI3bty4ceP+Su5NO8rfrycOrLhx48aN+yu534ujbTjNikRtCEuemIe2fEWRGG7cuHHjxo07uPOmmLJpmCUFo/2YztONt7rthxs3bty4ceO+eG4ey55ogCVtuf3d8u3JZdp7/pW7cePGjRs3btwl9z4UJhEtHwDaBL7ZoNIjnUncuHHjxo0b9+jVZ2dmrbKkUNVGrrw0lrxDW4r68Bnhxo0bN27cuAPu/EZ5hJoVjGZjPXXBqPx7U0obdttw48aNGzfuL+Zu6ZM7rAZzy+LXZlRoP3KUhGPcuHHjxo0bd8LdNtXyR7YNrRlfXvDKn76JlXXLDTdu3Lhx48a9bkflrbJN1GubVW0U26ylXSNu3Lhx48aNe9M2mxHnI0HtCNGmUdcOGOWDQcU248aNGzdu3LjLttlskbPiTlsAas+029B+Xu1nhBs3bty4ceNO5lU2r5L/fjM6k1TaknDZnk+KU3UbEjdu3Lhx48Z9wb0Z08k53vHRjv7MONr2WF7w+qCHGzdu3Lhx4w64k5tuilZtu2vfwNuM8rQxNw+juHHjxo0bN+62mzOj2RSnNgvec586X1yLGzdu3Lhx4+6ma14bmueGe2YNvLxp125tW+rCjRs3bty4cd9zJ4ht1MuHddrNnm3ApiyVx8FoBAo3bty4cePGHdRS2qiUbEa+Sa/gmG1Se372tnXuxo0bN27cuHHf1kzawLSJhm1c25e6csQ2FLZRFTdu3Lhx48bdNs/2oy1twGq39v+gb0pddZcSN27cuHHjxn37Wm1LbFZ4ygd68qvyJlZejNt8arhx48aNGzfuljuPQZviTvLqbSzbB7V8g2ef0WWvEjdu3Lhx48b946q2ebbZgNky9iWw2TBxPgZUfHy4cePGjRs37ph71vTanJkFuz3HPcp+QDkKgrhx48aNGzfuEXcedNpftiWqnK9t4yWFrTaYDoMgbty4cePG/cXceXNr1uhqi0ezttlse/aNvbpLiRs3bty4ceO+5c7J2ki352hHnzdlr1MFrKhEhRs3bty4ceMO8snmpnnqTM5vBonyZ50tdRViuHHjxo0bN+7bILhHT0JbG+zystEmmLYfQbLqy6tw48aNGzdu3AH3sVGVUQQ8FQr/5/mhGG7cuHHjxo27HDueNZDaVtNsC8+28Vq4/O8Pnxdu3Lhx48aN+7ZtloPOmlL3G5MPH89C4azENguyH67FjRs3bty4cZfcM+hTDafVIO8okm7O559gkaBx48aNGzfuL+Y+VSrKR1tmZaAk/M3GgmcNwuRjep19Xdy4cePGjfsLuPeFoVlZ59R4UL4N+TB0rpFv1V8lKty4cePGjRt3wH1qaKaNZXlhq922tiV2qkUXBUHcuHHjxo0bd/lCeWutHdNpG1GzwNe29GafThGRcePGjRs3btwB96yzM7v2VAvtVONtVn5qh3tw48aNGzdu3HGXKvoPUJKwlQfBfMM2i5xtTxs9c1vcuHHjxo0b975y0oKeilNPbEAefzfh8sNvcOPGjRs3btxpbjnwH/e3sWw2YJSj5HE23/i8aYcbN27cuHHjbrnzMZrZAE0SttpPoR2+ycdxcp9WAzdu3Lhx48Z9L9mWgdoSTxvF8lLRfvNm68237R9rxI0bN27cuHEH3JsXnTXP9iWtvJi1KWC1Y0MfrsWNGzdu3Lhxd6lm+B/K5HCz9lh+57yYNWvRnQqguHHjxo0bN+6zbar8dWd33rztc785+1a4cePGjRs37qsSVVuyaSNjvpi2INUWp/afV7uufzTPcOPGjRs3btyfV/SaXdBuxqy8lTTDNqW39g3bTcWNGzdu3Lhx57Ml+WjLLD62ge8UU9sMm8XHvEiHGzdu3Lhx406488cngS+/Kn/iZiBp9kHsm2q4cePGjRs37qe521CV0M9KQrMy0z4gJh8Wbty4cePGjftp7tkv23GZ2WDN2TMz9KjdiBs3bty4ceMOuPOF5eWqNjzVjagSIrlPvvH52BNu3Lhx48aNe9TraZpAccOs/X27pE2bbdMsbEtvuHHjxo0bN+5b7l8pvs57Med0hgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/JavaScript/" class="color1">JavaScript</a>
+      
+    <a href="/tags/代码片段/" class="color5">代码片段</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2021/02/20/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91VueRouter/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          【面试题】VueRouter
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/02/18/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91JavaScript%E7%BC%96%E7%A8%8B%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">【面试题】JavaScript编程题</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2021 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/Java/" style="font-size: 14px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 18px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 14px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Webpack/" style="font-size: 12px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 12px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 12px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 12px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 16px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 12px;">原理</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 12px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 16px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 18px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 14px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 18px;">面试题</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/Java/" style="font-size: 14px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 18px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 14px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Webpack/" style="font-size: 12px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 12px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 12px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 12px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 16px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 12px;">原理</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 12px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 16px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 18px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 14px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 18px;">面试题</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
