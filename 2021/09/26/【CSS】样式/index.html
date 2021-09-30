@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【CSS】样式 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta name="description" content="文字超出隐藏单行文字多行文字中英文自动换行div垂直居中div中图片和文字同时上下居中图片保持宽高比placeholder样式滚动条样式隐藏滚动条三角形吸顶滚动出现元素占满整个屏幕禁止用户选择字母大小写转换识别字符串中的’\n’并换行加载动画文字渐变阴影立体字全屏背景文字描边水流的实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CSS】样式">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/09/26/%E3%80%90CSS%E3%80%91%E6%A0%B7%E5%BC%8F/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="文字超出隐藏单行文字多行文字中英文自动换行div垂直居中div中图片和文字同时上下居中图片保持宽高比placeholder样式滚动条样式隐藏滚动条三角形吸顶滚动出现元素占满整个屏幕禁止用户选择字母大小写转换识别字符串中的’\n’并换行加载动画文字渐变阴影立体字全屏背景文字描边水流的实现">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-09-26T02:06:53.000Z">
+<meta property="article:modified_time" content="2021-09-26T02:17:18.150Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-【CSS】样式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      【CSS】样式
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-09-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="文字超出隐藏"><a href="#文字超出隐藏" class="headerlink" title="文字超出隐藏"></a>文字超出隐藏</h1><h2 id="单行文字"><a href="#单行文字" class="headerlink" title="单行文字"></a>单行文字</h2><h2 id="多行文字"><a href="#多行文字" class="headerlink" title="多行文字"></a>多行文字</h2><h1 id="中英文自动换行"><a href="#中英文自动换行" class="headerlink" title="中英文自动换行"></a>中英文自动换行</h1><h1 id="div垂直居中"><a href="#div垂直居中" class="headerlink" title="div垂直居中"></a>div垂直居中</h1><h1 id="div中图片和文字同时上下居中"><a href="#div中图片和文字同时上下居中" class="headerlink" title="div中图片和文字同时上下居中"></a>div中图片和文字同时上下居中</h1><h1 id="图片保持宽高比"><a href="#图片保持宽高比" class="headerlink" title="图片保持宽高比"></a>图片保持宽高比</h1><h1 id="placeholder样式"><a href="#placeholder样式" class="headerlink" title="placeholder样式"></a>placeholder样式</h1><h1 id="滚动条样式"><a href="#滚动条样式" class="headerlink" title="滚动条样式"></a>滚动条样式</h1><h1 id="隐藏滚动条"><a href="#隐藏滚动条" class="headerlink" title="隐藏滚动条"></a>隐藏滚动条</h1><h1 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h1><h1 id="吸顶"><a href="#吸顶" class="headerlink" title="吸顶"></a>吸顶</h1><h1 id="滚动出现"><a href="#滚动出现" class="headerlink" title="滚动出现"></a>滚动出现</h1><h1 id="元素占满整个屏幕"><a href="#元素占满整个屏幕" class="headerlink" title="元素占满整个屏幕"></a>元素占满整个屏幕</h1><h1 id="禁止用户选择"><a href="#禁止用户选择" class="headerlink" title="禁止用户选择"></a>禁止用户选择</h1><h1 id="字母大小写转换"><a href="#字母大小写转换" class="headerlink" title="字母大小写转换"></a>字母大小写转换</h1><h1 id="识别字符串中的’-n’并换行"><a href="#识别字符串中的’-n’并换行" class="headerlink" title="识别字符串中的’\n’并换行"></a>识别字符串中的’\n’并换行</h1><h1 id="加载动画"><a href="#加载动画" class="headerlink" title="加载动画"></a>加载动画</h1><h1 id="文字渐变"><a href="#文字渐变" class="headerlink" title="文字渐变"></a>文字渐变</h1><h1 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h1><h1 id="立体字"><a href="#立体字" class="headerlink" title="立体字"></a>立体字</h1><h1 id="全屏背景"><a href="#全屏背景" class="headerlink" title="全屏背景"></a>全屏背景</h1><h1 id="文字描边"><a href="#文字描边" class="headerlink" title="文字描边"></a>文字描边</h1><h1 id="水流的实现"><a href="#水流的实现" class="headerlink" title="水流的实现"></a>水流的实现</h1><h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2021年09月26日 10:17</p>
+<!--        <p>原始链接： <a class="post-url" href="/2021/09/26/%E3%80%90CSS%E3%80%91%E6%A0%B7%E5%BC%8F/" title="【CSS】样式">https://wisiw.github.io.git/2021/09/26/%E3%80%90CSS%E3%80%91%E6%A0%B7%E5%BC%8F/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/09/26/%E3%80%90CSS%E3%80%91%E6%A0%B7%E5%BC%8F/&title=《【CSS】样式》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/09/26/%E3%80%90CSS%E3%80%91%E6%A0%B7%E5%BC%8F/&title=《【CSS】样式》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/09/26/%E3%80%90CSS%E3%80%91%E6%A0%B7%E5%BC%8F/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【CSS】样式》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/09/26/%E3%80%90CSS%E3%80%91%E6%A0%B7%E5%BC%8F/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/09/26/%E3%80%90CSS%E3%80%91%E6%A0%B7%E5%BC%8F/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtklEQVR42u3aUY6cQAwE0Ln/pZMDZBlV2d0Jih5fKw0LvP6gTdmfT3z8ejj+PCc5//uZ3+/7uXHg4eHhHXr09nG/P9wT7Ozy/bAEeHh4eNd4T2/Up3O+v6yTLaHdAPLr4OHh4b2Nl28D7TWTqhgPDw/vf+UlBXG+/bxuY8DDw8OLw4jvF0rC2fycf5C14OHh4cW8vIv0nr+v9Pfw8PDw1l31fRQ7iyfaJtnjHfHw8PAu8PIXblL4JgMHm3bX7Dnx8PDwzvJmI1CzbaMdO8g3g8fiGw8PD+8Cb3/72dK0YwH5ktUhBR4eHl7Jy0ed2qZ+HjHsI4nhtwIeHh7evCN/bNA/jxjaQnzV2cPDw8P767x2KCppgM02pDYmxsPDw7vBawvlfNvIW2gXo2E8PDy8y7ykaJ6VufkQwB6Gh4eHd5uXN5ySDSMZjWrb//nVhrsfHh4eXslrw9k8rp0tXL4QqzACDw8Pb8Hbl7ynCt92QDYv/fHw8PDO8mahaj5kMCud8yGt4lsBDw8P7xBvNuS0CWE3Q1rtguLh4eHd5s3q8bxlNQuCZ3NkeHh4ePd47UOfGorKA9n8iDp7eHh4eGve5uW7b/C320YNw8PDw7vGq2PQOAKYha1JUT6MbvHw8PAO8dqGfTs60LbZ8vI9AuPh4eFd481aX20jqh0ymDXeotXFw8PDW/Pygjj/NV++dsCr2DDw8PDwrvHy6KH90k8ijFnTKyrx8fDw8I7yZnHAPsLIFytfjh9+xcPDw7vAa1++7TaQ335TmrejBnh4eHh7Xtt2yhtRbeSaxx/F8+Dh4eFd4+0bY5sRgTz+qJ8TDw8P7zW8pLBOXuLJfZMrPC4WHh4e3it5bUTblsh5IFL37vDw8PAWvDao3WwVs2GCWUiBh4eHd4N3YG5r9F97zCy8wMPDw1vwfgPxtH2CAM+VIAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/CSS/" class="color4">CSS</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E5%AD%97%E8%B6%85%E5%87%BA%E9%9A%90%E8%97%8F"><span class="post-toc-text">文字超出隐藏</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8D%95%E8%A1%8C%E6%96%87%E5%AD%97"><span class="post-toc-text">单行文字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97"><span class="post-toc-text">多行文字</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%B8%AD%E8%8B%B1%E6%96%87%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C"><span class="post-toc-text">中英文自动换行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#div%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD"><span class="post-toc-text">div垂直居中</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#div%E4%B8%AD%E5%9B%BE%E7%89%87%E5%92%8C%E6%96%87%E5%AD%97%E5%90%8C%E6%97%B6%E4%B8%8A%E4%B8%8B%E5%B1%85%E4%B8%AD"><span class="post-toc-text">div中图片和文字同时上下居中</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9B%BE%E7%89%87%E4%BF%9D%E6%8C%81%E5%AE%BD%E9%AB%98%E6%AF%94"><span class="post-toc-text">图片保持宽高比</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#placeholder%E6%A0%B7%E5%BC%8F"><span class="post-toc-text">placeholder样式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%A0%B7%E5%BC%8F"><span class="post-toc-text">滚动条样式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%9A%90%E8%97%8F%E6%BB%9A%E5%8A%A8%E6%9D%A1"><span class="post-toc-text">隐藏滚动条</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%B8%89%E8%A7%92%E5%BD%A2"><span class="post-toc-text">三角形</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%90%B8%E9%A1%B6"><span class="post-toc-text">吸顶</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%87%BA%E7%8E%B0"><span class="post-toc-text">滚动出现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%85%83%E7%B4%A0%E5%8D%A0%E6%BB%A1%E6%95%B4%E4%B8%AA%E5%B1%8F%E5%B9%95"><span class="post-toc-text">元素占满整个屏幕</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%A6%81%E6%AD%A2%E7%94%A8%E6%88%B7%E9%80%89%E6%8B%A9"><span class="post-toc-text">禁止用户选择</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%AD%97%E6%AF%8D%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="post-toc-text">字母大小写转换</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AF%86%E5%88%AB%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E2%80%99-n%E2%80%99%E5%B9%B6%E6%8D%A2%E8%A1%8C"><span class="post-toc-text">识别字符串中的’\n’并换行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB"><span class="post-toc-text">加载动画</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E5%AD%97%E6%B8%90%E5%8F%98"><span class="post-toc-text">文字渐变</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%98%B4%E5%BD%B1"><span class="post-toc-text">阴影</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%AB%8B%E4%BD%93%E5%AD%97"><span class="post-toc-text">立体字</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%85%A8%E5%B1%8F%E8%83%8C%E6%99%AF"><span class="post-toc-text">全屏背景</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E5%AD%97%E6%8F%8F%E8%BE%B9"><span class="post-toc-text">文字描边</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%B0%B4%E6%B5%81%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">水流的实现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text"></span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2021/09/26/%E3%80%90JavaScript%E3%80%91%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          【JavaScript】文件下载
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/09/23/%E3%80%90JavaScript%E3%80%91%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">【JavaScript】功能代码</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2021 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 11.43px;">CSS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/Java/" style="font-size: 12.86px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12.86px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 11.43px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Webpack/" style="font-size: 14.29px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 11.43px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11.43px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11.43px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 15.71px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 11.43px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11.43px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11.43px;">原理</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11.43px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12.86px;">架构</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 15.71px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 17.14px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.86px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 18.57px;">面试题</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 11.43px;">CSS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/Java/" style="font-size: 12.86px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12.86px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 11.43px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Webpack/" style="font-size: 14.29px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 11.43px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11.43px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11.43px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 15.71px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 11.43px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11.43px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11.43px;">原理</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11.43px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12.86px;">架构</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 15.71px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 17.14px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.86px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 18.57px;">面试题</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
