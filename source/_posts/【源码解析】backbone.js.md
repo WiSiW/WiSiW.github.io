@@ -4,6 +4,7 @@ date: 2021-09-10 14:55:28
 tags:
     - 源码
     - backbone.js
+cover_picture: /images/backbone.png
 ---
 
 ```javascript
