@@ -9,6 +9,107 @@ author: 不爽的麻雀
 comments: true
 ---
 
+**一、Vue 基础**
+
+1.  Vue的基本原理
+2.  双向数据绑定的原理
+3.  使用 Object.defineProperty() 来进行数据劫持有什么缺点？
+4.  MVVM、MVC、MVP的区别
+5.  Computed 和 Watch 的区别
+6.  Computed 和 Methods 的区别
+7.  slot是什么？有什么作用？原理是什么？
+8.  过滤器的作用，如何实现一个过滤器
+9.  如何保存页面的当前的状态
+10.  常见的事件修饰符及其作用
+11.  v-if、v-show、v-html 的原理
+12.  v-if和v-show的区别
+13.  v-model 是如何实现的，语法糖实际是什么？
+14.  v-model 可以被用在自定义组件上吗？如果可以，如何使用？
+15.  data为什么是一个函数而不是对象
+16.  对keep-alive的理解，它是如何实现的，具体缓存的是什么？
+17.  $nextTick 原理及作用
+18.  Vue 中给 data 中的对象属性添加一个新的属性时会发生什么？如何解决？
+19.  Vue中封装的数组方法有哪些，其如何实现页面更新
+20.  Vue 单页应用与多页应用的区别
+21.  Vue template 到 render 的过程
+22.  Vue data 中某一个属性的值发生改变后，视图会立即同步执行重新渲染吗？
+23.  简述 mixin、extends 的覆盖逻辑
+24.  描述下Vue自定义指令
+25.  子组件可以直接改变父组件的数据吗？
+26.  Vue是如何收集依赖的？
+27.  对 React 和 Vue 的理解，它们的异同
+28.  Vue的优点
+29.  assets和static的区别
+30.  delete和Vue.delete删除数组的区别
+31.  vue如何监听对象或者数组某个属性的变化
+32.  什么是 mixin ？
+33.  Vue模版编译原理
+34.  对SSR的理解
+35.  Vue的性能优化有哪些
+36.  对 SPA 单页面的理解，它的优缺点分别是什么？
+37.  template和jsx的有什么分别？
+38.  vue初始化页面闪动问题
+39.  extend 有什么作用
+40.  mixin 和 mixins 区别
+41.  MVVM的优缺点?
+
+**二、生命周期**
+
+1.  说一下Vue的生命周期
+2.  Vue 子组件和父组件执行顺序
+3.  created和mounted的区别
+4.  一般在哪个生命周期请求异步数据
+5.  keep-alive 中的生命周期哪些
+
+**三、组件通信**
+
+1.  组件通信的方式
+
+四、路由
+
+1.  Vue-Router 的懒加载如何实现
+2.  路由的hash和history模式的区别
+3.  如何获取页面的hash变化
+4.  route和route 和route和router 的区别
+5.  如何定义动态路由？如何获取传过来的动态参数？
+6.  Vue-router 路由钩子在生命周期的体现
+7.  Vue-router跳转和location.href有什么区别
+8.  params和query的区别
+9.  Vue-router 导航守卫有哪些
+10.  对前端路由的理解
+
+**五、Vuex**
+
+1.  Vuex 的原理
+2.  Vuex中action和mutation的区别
+3.  Vuex 和 localStorage 的区别
+4.  Redux 和 Vuex 有什么区别，它们的共同思想
+5.  为什么要用 Vuex 或者 Redux
+6.  Vuex有哪几种属性？
+7.  Vuex和单纯的全局对象有什么区别？
+8.  为什么 Vuex 的 mutation 中不能做异步操作？
+9.  Vuex的严格模式是什么,有什么作用，如何开启？
+10.  如何在组件中批量使用Vuex的getter属性
+11.  如何在组件中重复使用Vuex的mutation
+
+**六、Vue 3.0**
+
+1.  Vue3.0有什么更新
+2.  defineProperty和proxy的区别
+3.  Vue3.0 为什么要用 proxy？
+4.  Vue 3.0 中的 Vue Composition API？
+5.  Composition API与React Hook很像，区别是什么
+
+**七、虚拟DOM**
+
+1.  对虚拟DOM的理解？
+2.  虚拟DOM的解析过程
+3.  为什么要用虚拟DOM
+4.  虚拟DOM真的比真实DOM性能好吗
+5.  DIFF算法的原理
+6.  Vue中key的作用
+7.  为什么不建议用index作为key?
+
 # 生命周期
 
 **VUE实例从创建到销毁的过程**
