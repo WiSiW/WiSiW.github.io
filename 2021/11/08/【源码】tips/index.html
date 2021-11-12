@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【源码】tips | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta name="description" content="babel解析12345678class Person &amp;#123;  constructor () &amp;#123;    this.name &#x3D; &quot;haimeimei&quot;  &amp;#125;  getName() &amp;#123;    return this.name  &amp;#125;&amp;#125; 结果 123456789101112131415161718192021222324252">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【源码】tips">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/11/08/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91tips/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="babel解析12345678class Person &amp;#123;  constructor () &amp;#123;    this.name &#x3D; &quot;haimeimei&quot;  &amp;#125;  getName() &amp;#123;    return this.name  &amp;#125;&amp;#125; 结果 123456789101112131415161718192021222324252">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-11-08T01:43:08.000Z">
+<meta property="article:modified_time" content="2021-11-08T02:07:36.415Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="webpack">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-【源码】tips" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      【源码】tips
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-11-08
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="babel解析"><a href="#babel解析" class="headerlink" title="babel解析"></a>babel解析</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="title">constructor</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = <span class="string">&quot;haimeimei&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">getName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>结果</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_classCallCheck</span>(<span class="params">instance, Constructor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!(instance <span class="keyword">instanceof</span> Constructor)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Cannot call a class as a function&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_defineProperties</span>(<span class="params">target, props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; props.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> descriptor = props[i];</span><br><span class="line">    descriptor.enumerable = descriptor.enumerable || <span class="literal">false</span>;</span><br><span class="line">    descriptor.configurable = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;value&quot;</span> <span class="keyword">in</span> descriptor) descriptor.writable = <span class="literal">true</span>;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(target, descriptor.key, descriptor);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_createClass</span>(<span class="params">Constructor, protoProps, staticProps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (protoProps) _defineProperties(Constructor.prototype, protoProps);</span><br><span class="line">  <span class="keyword">if</span> (staticProps) _defineProperties(Constructor, staticProps);</span><br><span class="line">  <span class="keyword">return</span> Constructor;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Person = <span class="comment">/*#__PURE__*/</span><span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  &quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    _classCallCheck(<span class="built_in">this</span>, Person);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.name = <span class="string">&quot;haimeimei&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  _createClass(Person, [&#123;</span><br><span class="line">    key: <span class="string">&quot;getName&quot;</span>,</span><br><span class="line">    value: <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Person;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+
+
+<p><strong><code>/*#__PURE__*/</code>terser的行内注释，标识当前函数是一个纯函数，可以被安全的删除</strong></p>
+<h3 id="Annotations"><a href="#Annotations" class="headerlink" title="Annotations"></a>Annotations</h3><p>Annotations in Terser are a way to tell it to treat a certain function call differently. The following annotations are available:</p>
+<ul>
+<li>  <code>/*@__INLINE__*/</code> - forces a function to be inlined somewhere.</li>
+<li>  <code>/*@__NOINLINE__*/</code> - Makes sure the called function is not inlined into the call site.</li>
+<li>  <code>/*@__PURE__*/</code> - Marks a function call as pure. That means, it can safely be dropped.</li>
+</ul>
+<p>You can use either a <code>@</code> sign at the start, or a <code>#</code>.</p>
+<p>Here are some examples on how to use them:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*@__INLINE__*/</span></span><br><span class="line">function_always_inlined_here()</span><br><span class="line"></span><br><span class="line"><span class="comment">/*#__NOINLINE__*/</span></span><br><span class="line">function_cant_be_inlined_into_here()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> x = <span class="comment">/*#__PURE__*/</span>i_am_dropped_if_x_is_not_used()</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>terser源码<a target="_blank" rel="noopener" href="https://github.com/terser/terser">https://github.com/terser/terser</a></strong></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2021年11月08日 10:07</p>
+<!--        <p>原始链接： <a class="post-url" href="/2021/11/08/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91tips/" title="【源码】tips">https://wisiw.github.io.git/2021/11/08/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91tips/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/11/08/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91tips/&title=《【源码】tips》 — 韦绍炜的博客&pic=/images/webpack.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/11/08/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91tips/&title=《【源码】tips》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/11/08/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91tips/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【源码】tips》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/11/08/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91tips/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/11/08/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91tips/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwklEQVR42u3awW7jMAwE0Pz/T3evBXbjnSGlIgWeT0UbOHoqYNFDvl7x9fXtSn7/92eSO3//5Lvvet248PDw8BZLf/6yZ+Q7cHKf529P7vN2o/Hw8PCu8Z4f6Pmjv110sn35evDw8PA+k5cXvvlf87IbDw8P7/fy2oXmmzXbVjw8PLyf5yVhxPON8hBhXy5fyVrw8PDwYl7eRfqcn6/09/Dw8PDWXfWkWTUrwWehQ71aPDw8vAu8/IHbNrGSmKBtd802CA8PD+8GL19EG1vkQ1Sz0KEuvvHw8PAO8fJx0rPjAs+AZNOTzcLDw8M7y9s/1vNhqRwwGyB4+66Ah4eHd5S3edXfhwV5c2vV2cPDw8O7xmsf0LPSPL9PsonRZuHh4eFd4O0DhTwmSCLa2cFQtL7w8PDw1rxNoNAGrO3wwYGxBjw8PLyjvHZAKl9iXqDXsWxcyuPh4eHd4OUv+atJrriJlY8U5KvCw8PDO8tr2/nJ4TFrkiWfzGPc6FUCDw8Pb8Fr49EkMmgf4rPGW1RM4+Hh4V3jtYveNLTyuKE9tN5mLXh4eHiHeG2cmpS5bVtrdkgUsQgeHh7eBd5s0Kpt8OdBw2z0qpgpw8PDw1vw8jK6bUG1o1SzY+M//zc8PDy8C7y8wd8+xGcDUu2gVb0GPDw8vEO8WbN/s9z8IMmHG6LCGg8PD+8ob0a9US7nYUR0PODh4eFd4yWP49mCzpbpbVSBh4eHd4/Xlrx5U6o9hNprODSAh4eHN+J9lVe+HfmhkhxRyXb84694eHh4F3jtw7cNVWd9qLyg34x/4eHh4W14s8NgBmgPjPZgqAtrPDw8vAVvHzq0jbS23XUsa8HDw8P7cV4bE7RLz2OL6J54eHh4H8bbR7EtoC768fDw8K7xZss6FTe0h0Ex7oCHh4d3gde+8Lfg2dBVgnmduvDw8PBS3h/MKVS51Ui/0AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/webpack/" class="color3">webpack</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#babel%E8%A7%A3%E6%9E%90"><span class="post-toc-text">babel解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Annotations"><span class="post-toc-text">Annotations</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2021/11/12/%E3%80%90%E6%9E%B6%E6%9E%84%E3%80%91%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9Agit%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          【架构】前端工程化（三）：git分支管理
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/11/04/%E3%80%90%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E3%80%91%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">【功能模块】即时通讯</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2021 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 11.25px;">CSS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 18.75px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12.5px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 11.25px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Webpack/" style="font-size: 13.75px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 11.25px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 11.25px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11.25px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11.25px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 16.25px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12.5px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11.25px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11.25px;">原理</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11.25px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12.5px;">架构</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 15px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 16.25px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.25px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 17.5px;">面试题</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 11.25px;">CSS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 18.75px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12.5px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 11.25px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Webpack/" style="font-size: 13.75px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 11.25px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/npm/" style="font-size: 11.25px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11.25px;">《深入React技术栈》</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11.25px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 16.25px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12.5px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11.25px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11.25px;">原理</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">响应式</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11.25px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12.5px;">架构</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 15px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 16.25px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.25px;">算法</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 17.5px;">面试题</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
