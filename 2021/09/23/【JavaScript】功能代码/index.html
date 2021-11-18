@@ -16,7 +16,7 @@
 <meta property="og:description" content="获取数组深度12345678910111213const arr &#x3D; [1,2,[3,[4,5]],[1,2,3,[1,2,[1,[2,2],2],3]]]console.log(getArrDepth(arr)) &#x2F;&#x2F; 5function getArrDepth (arr, num &#x3D; 0) &amp;#123;    if (Array.isArray(arr)) &amp;#123;        num+">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-09-23T07:05:51.000Z">
-<meta property="article:modified_time" content="2021-09-23T07:14:11.152Z">
+<meta property="article:modified_time" content="2021-11-18T05:59:28.638Z">
 <meta property="article:author" content="wsw">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="功能代码">
@@ -143,7 +143,7 @@
 <h1 id="时长转化"><a href="#时长转化" class="headerlink" title="时长转化"></a>时长转化</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 时长转xx天xx小时xx分钟 （默认分钟单位）</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeStamp</span>(<span class="params">time, isSecond = <span class="literal">false</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> StatusMin = isSecond ? time / <span class="number">60</span> : time</span><br><span class="line">  <span class="keyword">const</span> day = <span class="built_in">parseInt</span>(StatusMin / <span class="number">60</span> / <span class="number">24</span>)</span><br><span class="line">  <span class="keyword">const</span> hour = <span class="built_in">parseInt</span>((StatusMin / <span class="number">60</span>) % <span class="number">24</span>)</span><br><span class="line">  <span class="keyword">let</span> min = <span class="built_in">parseInt</span>(StatusMin % <span class="number">60</span>)</span><br><span class="line">  <span class="keyword">if</span> (StatusMin &gt; <span class="number">0</span> &lt; <span class="number">60</span>) &#123;</span><br><span class="line">    min = <span class="built_in">Math</span>.ceil(StatusMin % <span class="number">60</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> res = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="keyword">if</span> (day &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    res = day + <span class="string">&#x27;天&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (hour &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    res += hour + <span class="string">&#x27;小时&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (min &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    res += <span class="built_in">parseFloat</span>(min) + <span class="string">&#x27;分钟&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res || <span class="string">&#x27;--&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2021年09月23日 15:14</p>
+        <p>最后更新： 2021年11月18日 13:59</p>
 <!--        <p>原始链接： <a class="post-url" href="/2021/09/23/%E3%80%90JavaScript%E3%80%91%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" title="【JavaScript】功能代码">https://wisiw.github.io.git/2021/09/23/%E3%80%90JavaScript%E3%80%91%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/</a></p>-->
         <footer>
             <a href="https://WiSiW.github.io.git">
@@ -170,7 +170,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/09/23/%E3%80%90JavaScript%E3%80%91%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/&title=《【JavaScript】功能代码》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/09/23/%E3%80%90JavaScript%E3%80%91%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/&title=《【JavaScript】功能代码》 — 韦绍炜的博客&pic=/images/javascript.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
