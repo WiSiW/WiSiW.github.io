@@ -3,6 +3,7 @@ title: 【CSS】样式
 date: 2021-09-26 10:06:53
 tags:
     - CSS
+cover_picture: /images/css.png
 ---
 # 文字超出隐藏
 ## 单行文字

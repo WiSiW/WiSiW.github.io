@@ -5,6 +5,8 @@ tags:
     - git
     - 前端工程化
     - 分支管理
+
+cover_picture: /images/git.png
 ---
 
 ![](/images/git_branch_manage.png)

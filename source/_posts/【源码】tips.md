@@ -3,7 +3,7 @@ title: 【源码】tips
 date: 2021-11-08 09:43:08
 tags:
     - webpack
-cover_picture: /images/webpack.png
+cover_picture: /images/babel.jpeg
 ---
 
 

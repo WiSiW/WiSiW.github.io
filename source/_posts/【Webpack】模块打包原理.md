@@ -4,6 +4,7 @@ date: 2021-09-30 10:11:07
 tags:
     - Webpack
     - 模块打包
+cover_picture: /images/webpack.jpeg
 ---
 **文件列表**
 ```text

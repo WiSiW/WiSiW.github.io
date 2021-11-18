@@ -5,7 +5,7 @@ tags:
 	- 前端
 	- 面试题
 	- browser
-cover_picture: /images/browser.png
+cover_picture: /images/chrome.png
 ---
 
 # 1.DNS解析

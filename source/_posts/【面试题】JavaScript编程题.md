@@ -4,6 +4,7 @@ date: 2021-02-18 12:09:21
 tags:
 	- 面试题
 	- 编程题
+cover_picture:/images/javaScript.png
 ---
 
 # 柯里化

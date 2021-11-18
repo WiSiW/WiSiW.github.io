@@ -3,6 +3,7 @@ title: 【面试题】vuex
 date: 2021-02-21 22:04:33
 tags:
 	- vuex
+cover_picture:/images/vue.png
 ---
 
 # vuex是什么？怎么使用？哪种功能场景使用它？
@@ -125,7 +126,7 @@ State , Getter , Mutation , Action , Module (就是mapAction)
 **action**：和mutation的功能大致相同，不同之处在于 ==》
 
 	1. Action 提交的是 mutation，而不是直接变更状态。 
- 	2. Action 可以包含任意异步操作。
+	2. Action 可以包含任意异步操作。
 
 **modules**：模块化vuex，可以让每一个模块拥有自己的state、mutation、action、getters,使得结构非常清晰，方便管理。
 

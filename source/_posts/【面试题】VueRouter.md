@@ -4,6 +4,7 @@ date: 2021-02-20 10:37:28
 tags:
 	- Vue
 	- VueRouter
+cover_picture:/images/vue.png
 ---
 
 

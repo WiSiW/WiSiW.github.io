@@ -5,6 +5,7 @@ date: 2020-01-25 15:17:13
 tags:
 	- Vue
 	- 面试题
+cover_picture:/images/vue.png
 author: 不爽的麻雀
 comments: true
 ---

@@ -4,6 +4,7 @@ date: 2021-02-04 17:20:55
 tags:
 	- JavaScript
 	- 面试题
+cover_picture: /images/javascript.png
 ---
 
 # 一、数据类型

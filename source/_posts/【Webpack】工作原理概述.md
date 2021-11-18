@@ -4,7 +4,7 @@ date: 2021-01-29 16:44:56
 tags:
 	- 原理
 	- Webpack
-cover_picture: /images/webpack.png
+cover_picture: /images/webpack.jpeg
 ---
 
 webpack的运行流程是一个串行的过程，从启动到结束会依次执行以下流程：

@@ -4,6 +4,7 @@ date: 2021-09-23 15:05:51
 tags:
     - JavaScript
     - 功能代码
+cover_picture: /images/javascript.png
 ---
 
 # 获取数组深度

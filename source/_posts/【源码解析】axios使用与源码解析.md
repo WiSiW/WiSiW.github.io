@@ -5,5 +5,5 @@ categories: axios
 tags:
 	- axios
 	- 源码
-cover_picture: /images/axios.png
+cover_picture: /images/axios.jpeg
 ---

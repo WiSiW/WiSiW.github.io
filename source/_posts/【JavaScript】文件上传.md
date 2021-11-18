@@ -4,4 +4,5 @@ date: 2021-09-26 15:50:34
 tags:
     - fileUpload
     - JavaScript
+cover_picture: /images/javascript.png
 ---
