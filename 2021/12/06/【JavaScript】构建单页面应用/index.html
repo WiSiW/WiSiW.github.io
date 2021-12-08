@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【JavaScript】构建单页面应用 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta name="description" content="页面目录1234567891011single  ├── frontend  |     ├── static  |     |     ├──js  |     |     |   └─ index.js  |     |     └─ views  |     |         ├─ View.js  |     |         └─ Setting.js  |     └─ index">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【JavaScript】构建单页面应用">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/12/06/%E3%80%90JavaScript%E3%80%91%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="页面目录1234567891011single  ├── frontend  |     ├── static  |     |     ├──js  |     |     |   └─ index.js  |     |     └─ views  |     |         ├─ View.js  |     |         └─ Setting.js  |     └─ index">
+<meta property="og:locale">
+<meta property="og:image" content="data:image/png;base64,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">
+<meta property="article:published_time" content="2021-12-06T05:13:06.000Z">
+<meta property="article:modified_time" content="2021-12-06T09:26:58.038Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="single">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsIAAAB+CAMAAAAZW4fMAAAAgVBMVEUhISHS0tLOzs6xsbGsrKyGhobDw8O3t7eTk5OYmJiAgICcnJyoqKiQkJCioqLKysq/v79gYGDHx8cnJyc9PT1ISEhvb29aWlo1NTUxMTG8vLxDQ0NlZWW6urpQUFArKytVVVVqampMTEx0dHQlJSV8fHw5OTmMjIx3d3d6enqLi4vDX+7+AAAPaElEQVR42uya63aqSBCFazcIXhARxfsFNR6TvP8DDt20UyvVQpyzZCYz09+Pk2O6Lru6t4DLkMfj8Xg8Ho/H4/F4PB6Px+PxeDwej8fj8Xg8Ho/H4/nPMhuMSvqWZaC5kufvZpkkK3oJ6yQpif6D7vkF9OhbhtCE9BRlHEU7esjHRiFP1q1rryfLE6Jrni9JE+T719T8W/I+gfNrum+BIT3D+Xxs6Nede7q3cHG73VpErBajYLQgwzQDmjbrBkO+bl17NVfgStQHTqSZQL2qZvd5bGFZpRsLc5zs9wL3dMQxDJf0FKpJxCyAISqqFyHQaOEToG6XPbBpXXsh7NlXWZhrdp3HFn5N93Wals9bWPZ7hXv+cZpEbHMgSsYhMHkjyoDks8HCMbAzhTBvXXstC+D2Ugtzze7z2MKySiewhZ/v93ILr5IDtVGkcRQnixlpDj1NQYbheHf8CLNkaSMvSVbF2WUhYtULs2C8qi1hvVECfaIgXdH7Ywuvgaj6sQMwaF1z6Y13dO5v4sGa6Hrb1b+7lUL1YyKombSw3AmeSPaTkVzTNF+OsnRepFlqAg+DINun73Rn3kuq16XIO47HxZfJiMpBvEmu7rRs4ct4fBDdq7jptr+Px3M3T9SslGoKcX6uztN4PAJiHTwX03bgnsb3UNQ7UhMD1CT8Cr17kyCCxoz9FkCTmmUpYqegUVO9b1Dne+2MNE0WXhh7znRu9Owa9661boxO0gAjofohU11ZWljuBE/k9uNIp2adlCvAjB6iJrKnf1UwpF/zZlq55Wh+M+Y82d1aeABER9G9itsro7p08kRNq3Qoz8/RGeBPTmLaDtzzmDk0Ydl4nioepJmttwiCmEXogZMN6hNOAZWECo9E7ADEI61yXrnOzNcL9v0dVKuFe8CCaASlMHl+zfbOgTyOhIWF6ofsgfUDC/NOyIlkP450airUJsomwC+iuAocjTJA3WfCPg1zBCIvR8YfATClK4Ag0R2daa2FR0B2FFXs7OkeUEeZJ2sOwjAGhuL81FzqHIZhAERhRSH6deGexxx7ESry25pcRtopFcXU/UypgLS+lOzMjV1Vh3J4KCIH9P1iCcTarmtaZ6hQQKuFB/q4ztVaBNW65qLsm7YYuhZm1Y8422uGtDDvhJxI9uNIp6aqwufARm/XpfLC5T6L/s9K2QvNdSDyEiieG7NKEcr648BCdLcWToH9THY3cWE9WV/miZr8jCundXVyHPfryj2NbFOFimBKkoCt74qo38wHM0HPzhE+EHEBxqTJABpoQyVA2IvRamETVVCEzOS1r0kUn4RjYVbNiImlhfn37kSyH0e6NZWWYM5OoccXkVrZALg9znvXw1Kiz2eDiKZAaL2zl92NhUMgllVs3Kr+ORF5oiZbU0yrhE6OE/06ck8buwAV6YOLXXSaNYmI+OkstTePhRBhi8ShJgIOAUb3M9t/Y+EQKIbAljbA2/NrdoPogYWlapc5bLS0MO+EnEj040i3pkK/+kd3VvW5lL20qlJftmKeROSt9P4czCuFlIb3O0iOnKdlC0fAxq3Cs2tryTxZk60pp2WdMo77deYeauNtCFRZgpVCRT6eSRHSGrHdlfKBiADMIqrmXQJns23tFh4BJ3PoEdTza7b35pGF5SuXxEhzLcw74Uwk+nGkW1PhZt070SdXRLCE2jw8iZsXaj1K++OiD7UgzQbKmfYTGvXLqWKfYyqMY0SerMnWlNOyThnH/TpzDzVThrqbupJkHhgZ6tIqgic/OCL0Gvp3tpNKx3sdPP/GwjdAIbcmenKNe/+WhVd8Hx1/tTDvhJxI9uNIp6bCJ7GFjxMgT/rjMUy2Qt6kJaiWMiicr8Bam6R2aAzIaY2FM2DjVuHZU0CqljXZmnJa1iniuF937qEGfvUnqNg3eHyZKkC9tYsI7eQ7R4RZO9KdrFpfAofGq/Db273VOypKvum0rX1v4fUzFh4BS/bCwlp4IneCJ5L9ZCTXdC18tQ8zR5jsDKpJSw84Qg3QT7SWcT0534GEhfvah2NZxcTt7wcyE3myJltTTss6RRz368A9rXxsUKEGc2omAg7tIgbA1N5+WURmt4en0opSOtZP3RtpYav4bpkCddwUCFvX2i08qQ+ufMLCR4WInw7xbmvlcid4ItlPRnJN18Kpnp9nCIFtg5YCGCA4I4u0+gtw5edJ18JnWist0FbJWKXdvUxa363J1pTTSp00B3pCdUfukbBQID5RK+m3Ikogrv2CHiunCl6rmFWK9qZeMN7gkYUDAIorFPWeLdvW2izMB5a0W5gfHixLILEnFIud+DKR6CciuaZr4cRG7GGyP2Cl0Urk6RzgYv4dGkOb4z0B4WML0w5Qx0dVlvURZjJP1mQLy2mlTnoDUrGDXbmnycJqsKImAmPuqQKoXQRlQFKcY7CIEbCfzue19YKqx/Ej2us9mtNxg4qJqXpaLFIgWSxOjk17QLR961WR1LrWbuHE3K+HaLewc8F9mwDjNZUT4PJ1J8REsh9HiprSwj0g3tIshLVNBITryk2bQOQZl+NIIeoLYGxMUypg22Bhc5HQQ3AVE4fJltYRcBJ5siZbWEwrdNoyarHmHezSPQ+ZTamFPQCFir69t94JpIiDgiZnEWsFTVV/NdFlVP1N5sSkfYTBbdW/mfQ7jk1nG8DWaF1rt3ABw+R7Cw+BK7/awbKXOyEmEv04UtaUH+dUHamshUtliwaOlj4QES3s+GebiJSaLEw5MJRVFGxeJvJETWlhnnbv6OSvpnesujP3/Aa3upAakxARswj7oWS+V1BxCXyQZR7r7KX2WwpD9G5uVQtiXAvbCyt/da6qEq1r7RamKyryudYpVLf/jeBuAk16lDshJhL9ONKpqdBjC1cHF9XK7tmrAJrJwtGyNDaYAXHtrgiQ32Tx3am4v3HnokoVFxsHzWSerGkrDElOK3TanrnSFmbVnbnnt5jvrpfDjJ5iZQxa0iOKy/tyfX9vpvQss+n7vHXtGda791+/9ZeN28VHeZQ7ISdiZKSs6XK+nL6UeDt8LArOa2Z1+jjTt1yAT2IUElpzx29qnoCLmNbV6e5gx+7pnhD4rtU6Bibh5/RQVMP9JCKo2U+pyXkv6c4Wfp4UKLtX7brnH2MZ9db01gMC+pYef9vyk5juDj+mJue9sPvzFt4WxUCxH7tULd3zz3Gyj+5qTt+zWgz2E6XUjjwd83sWhuFGneO655+jyFChgjV5fip/zcL5kBr5r7pndV6Rx+Pd4/F4PB6P5//DMU1K+gmskx8ixPMvw/yt3U/AfKfv8XgL/8HO3e0kDARRAM7ZumoMLsUgQiIm/AXx/R/QwlZOlokzvSEpdM6VJpPMzQks0P08Q0tvKrxIyQ8SnluusGeg0Uy1LF99U746ulvLdGj+oIN1rvA8jupqP/9PZqupjHGylb4a2Wt5lL3i66p9NLoRwdTJy+yyAXaxr1+PEXmuENNUC6hqHHPgw81APaWxihEQNfmqu0e25N3DZ2CiThahASb2ee4/UzQJ0lST8hXdLTy2F3rCqAJyhSd0twyZjZPCI9vn5marQJ0sQgOs3NcHotZz7dBU+xHvzkIgy+7WNrtbC2C8ON3OQ1TlK9paa8sjmyO37h1I6qTyjUS5zzOMZFMtFKaakK9Kd4sOVgVEQ77q7pHVCG0H1+qkWuG8zzOwCFNNyFelu0XVaAPELF+NKF+Jo3D9SY+Mk8Ije8mXa8d4Uya1CnOff5QbWqSpJsEK0N2iXPQBREW+oq31qHlkRB6r04v+szJpVJj7vMUDijDVZIVLd4skzDsQdfmKttbM9MiejrddEjBVJq0Kc1+/LjZ5rhBhqqkVLt2tipxStOWrbUePbAZs8vFFmaS+Jios9nnuP4WpplS4dLd4rIhAtOUr2yMjIJqPJuYkVQlWWO7z3H1oqpkVLt2tFZDaokRTvurukT0A+Sq2NknbR6tw8goPIjTVjAoLd2sMzE49QTTkq+rp0/DImAl/fROTdoXFPs/9h6aaXeF1AMLZ3dqg/Q9RKmNSZguGR1Yijk3kpF1hsc8z9ATKV9LdWgUAYZWbo8hXXTwyJoEEByeVs7A0wLjP49Hdra/dWpevdI/MjD0pDDDu6xl35fFYSYA/8u651bQGmL/uem41fwaYx3OjQZM3v/zp+WUPDgQAAAAAgPxfG0FVVVVVVVVVVVVVVVVVVWnv3nbTBqIoDO81NjYmxpijgXJKICTk/R+w9gzGsCcRVcmNxfqkSt2dPW0vfrWOoyhERERERERERERERERERET/Z5wk/J4Z1GZHoCNE7cWEqeW2YVgIEdETmWZxHqezsVjzTpoHH3NxOv2hvHXXcbIof/oq1rHf36jNhn9PTl9D92tfOxHp9VfbzzBPCxFvkk2nMhV15uzTvPxbVsdE1xI4qZ1WBhUzFMsgdOdriWDE6gJDvdnQ9/Q3Iy+nHJWTeJO4Ox0R/+wQoJLxUZmUIWDiJMsRnifELwFgJueMRsAojrCUD8DVOoLxNxvqnp8wEKVLwIg3ySwIYtuof5YBJg0NmDApL8BMSm9DlycKESmAuM7IVAfTnszhKp8Cmb/Z0Pd0wu56CKzUdPNGQp8tAHMU2TBh0gJgIrU90JdKDtQZzeQshzk3/6Y2FXVPJ2y2YlvsqekmYX3WOW+ETJiUBMhX42aI07AUAZtzRlLrAa8iMsDI39Sae37CkZS2QKKmm4T1WQYspDRjwqTMDUpR31YcoDFzGS2ltgUC+49i19vUmns64Z8nlbA6iwE77JgwaZPAoGSqEJdAt/bn/GZBLmKYsWTAxNtU7L3fTXgJY4cNEybfocgMYA72SXPrp1ibAXv337u/eT/hxUMJh4AdVpfjw+EgDX+iJ+MeaftAoVO8meLCJqQ2FXVvgLWUdg8lnJxf6XXr4xDAQEo/TvRcMpvwrnlFNtYpujRC92GVv+knrN5kpA8k3Px5g/o4ANzv++NETyKIVyIyNICdgGAusj1F628SHqJUHqjNOwmnQCLSw0MJSw6k000MJkzKGoAxALpSmg/qcalTdCOwF1GbdxKeusXB/YR7uAj02cagMmLCpHwYVExfrHEGK/r8LuHy0IzF21T0vXfb3gRIrqPV023CsT6TydrAxDvgdMl0IJY/8Vn4uUxW7/vNuJmn+89iIff9++Zi9XmUX3AUeQX4dUnUZvbDSaIWKqLOQg4dIBCiNnoFYKofEyFqo2mOkgn4GEHtNX+bC9GtwTW+h6L2Mdf42QBqn+tsmTC1EBOmdvoLhvcOZ8N6i8IAAAAASUVORK5CYII=">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-【JavaScript】构建单页面应用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      【JavaScript】构建单页面应用
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-12-06
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="页面目录"><a href="#页面目录" class="headerlink" title="页面目录"></a>页面目录</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">single</span><br><span class="line">  ├── frontend</span><br><span class="line">  |     ├── static</span><br><span class="line">  |     |     ├──js</span><br><span class="line">  |     |     |   └─ index.js</span><br><span class="line">  |     |     └─ views</span><br><span class="line">  |     |         ├─ View.js</span><br><span class="line">  |     |         └─ Setting.js</span><br><span class="line">  |     └─ index.html</span><br><span class="line">  ├── package.json</span><br><span class="line">  └── server.js</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="1-使用express构建应用"><a href="#1-使用express构建应用" class="headerlink" title="1.使用express构建应用"></a>1.使用express构建应用</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br><span class="line">npm i express</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server.js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolvePath</span>(<span class="params">_path</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> path.resolve(__dirname, <span class="string">&#x27;frontend&#x27;</span>, _path)</span><br><span class="line">&#125;</span><br><span class="line">app.use(<span class="string">&#x27;/static&#x27;</span>, express.static(resolvePath(<span class="string">&#x27;static&#x27;</span>)))</span><br><span class="line">app.get(<span class="string">&#x27;/*&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res.sendFile(resolvePath(<span class="string">&#x27;index.html&#x27;</span>))</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(process.env.PORT || <span class="number">5001</span> , <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;serve running...&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsIAAAB+CAMAAAAZW4fMAAAAgVBMVEUhISHS0tLOzs6xsbGsrKyGhobDw8O3t7eTk5OYmJiAgICcnJyoqKiQkJCioqLKysq/v79gYGDHx8cnJyc9PT1ISEhvb29aWlo1NTUxMTG8vLxDQ0NlZWW6urpQUFArKytVVVVqampMTEx0dHQlJSV8fHw5OTmMjIx3d3d6enqLi4vDX+7+AAAPaElEQVR42uya63aqSBCFazcIXhARxfsFNR6TvP8DDt20UyvVQpyzZCYz09+Pk2O6Lru6t4DLkMfj8Xg8Ho/H4/F4PB6Px+PxeDwej8fj8Xg8Ho/H4/nPMhuMSvqWZaC5kufvZpkkK3oJ6yQpif6D7vkF9OhbhtCE9BRlHEU7esjHRiFP1q1rryfLE6Jrni9JE+T719T8W/I+gfNrum+BIT3D+Xxs6Nede7q3cHG73VpErBajYLQgwzQDmjbrBkO+bl17NVfgStQHTqSZQL2qZvd5bGFZpRsLc5zs9wL3dMQxDJf0FKpJxCyAISqqFyHQaOEToG6XPbBpXXsh7NlXWZhrdp3HFn5N93Wals9bWPZ7hXv+cZpEbHMgSsYhMHkjyoDks8HCMbAzhTBvXXstC+D2Ugtzze7z2MKySiewhZ/v93ILr5IDtVGkcRQnixlpDj1NQYbheHf8CLNkaSMvSVbF2WUhYtULs2C8qi1hvVECfaIgXdH7Ywuvgaj6sQMwaF1z6Y13dO5v4sGa6Hrb1b+7lUL1YyKombSw3AmeSPaTkVzTNF+OsnRepFlqAg+DINun73Rn3kuq16XIO47HxZfJiMpBvEmu7rRs4ct4fBDdq7jptr+Px3M3T9SslGoKcX6uztN4PAJiHTwX03bgnsb3UNQ7UhMD1CT8Cr17kyCCxoz9FkCTmmUpYqegUVO9b1Dne+2MNE0WXhh7znRu9Owa9661boxO0gAjofohU11ZWljuBE/k9uNIp2adlCvAjB6iJrKnf1UwpF/zZlq55Wh+M+Y82d1aeABER9G9itsro7p08kRNq3Qoz8/RGeBPTmLaDtzzmDk0Ydl4nioepJmttwiCmEXogZMN6hNOAZWECo9E7ADEI61yXrnOzNcL9v0dVKuFe8CCaASlMHl+zfbOgTyOhIWF6ofsgfUDC/NOyIlkP450airUJsomwC+iuAocjTJA3WfCPg1zBCIvR8YfATClK4Ag0R2daa2FR0B2FFXs7OkeUEeZJ2sOwjAGhuL81FzqHIZhAERhRSH6deGexxx7ESry25pcRtopFcXU/UypgLS+lOzMjV1Vh3J4KCIH9P1iCcTarmtaZ6hQQKuFB/q4ztVaBNW65qLsm7YYuhZm1Y8422uGtDDvhJxI9uNIp6aqwufARm/XpfLC5T6L/s9K2QvNdSDyEiieG7NKEcr648BCdLcWToH9THY3cWE9WV/miZr8jCundXVyHPfryj2NbFOFimBKkoCt74qo38wHM0HPzhE+EHEBxqTJABpoQyVA2IvRamETVVCEzOS1r0kUn4RjYVbNiImlhfn37kSyH0e6NZWWYM5OoccXkVrZALg9znvXw1Kiz2eDiKZAaL2zl92NhUMgllVs3Kr+ORF5oiZbU0yrhE6OE/06ck8buwAV6YOLXXSaNYmI+OkstTePhRBhi8ShJgIOAUb3M9t/Y+EQKIbAljbA2/NrdoPogYWlapc5bLS0MO+EnEj040i3pkK/+kd3VvW5lL20qlJftmKeROSt9P4czCuFlIb3O0iOnKdlC0fAxq3Cs2tryTxZk60pp2WdMo77deYeauNtCFRZgpVCRT6eSRHSGrHdlfKBiADMIqrmXQJns23tFh4BJ3PoEdTza7b35pGF5SuXxEhzLcw74Uwk+nGkW1PhZt070SdXRLCE2jw8iZsXaj1K++OiD7UgzQbKmfYTGvXLqWKfYyqMY0SerMnWlNOyThnH/TpzDzVThrqbupJkHhgZ6tIqgic/OCL0Gvp3tpNKx3sdPP/GwjdAIbcmenKNe/+WhVd8Hx1/tTDvhJxI9uNIp6bCJ7GFjxMgT/rjMUy2Qt6kJaiWMiicr8Bam6R2aAzIaY2FM2DjVuHZU0CqljXZmnJa1iniuF937qEGfvUnqNg3eHyZKkC9tYsI7eQ7R4RZO9KdrFpfAofGq/Db273VOypKvum0rX1v4fUzFh4BS/bCwlp4IneCJ5L9ZCTXdC18tQ8zR5jsDKpJSw84Qg3QT7SWcT0534GEhfvah2NZxcTt7wcyE3myJltTTss6RRz368A9rXxsUKEGc2omAg7tIgbA1N5+WURmt4en0opSOtZP3RtpYav4bpkCddwUCFvX2i08qQ+ufMLCR4WInw7xbmvlcid4ItlPRnJN18Kpnp9nCIFtg5YCGCA4I4u0+gtw5edJ18JnWist0FbJWKXdvUxa363J1pTTSp00B3pCdUfukbBQID5RK+m3Ikogrv2CHiunCl6rmFWK9qZeMN7gkYUDAIorFPWeLdvW2izMB5a0W5gfHixLILEnFIud+DKR6CciuaZr4cRG7GGyP2Cl0Urk6RzgYv4dGkOb4z0B4WML0w5Qx0dVlvURZjJP1mQLy2mlTnoDUrGDXbmnycJqsKImAmPuqQKoXQRlQFKcY7CIEbCfzue19YKqx/Ej2us9mtNxg4qJqXpaLFIgWSxOjk17QLR961WR1LrWbuHE3K+HaLewc8F9mwDjNZUT4PJ1J8REsh9HiprSwj0g3tIshLVNBITryk2bQOQZl+NIIeoLYGxMUypg22Bhc5HQQ3AVE4fJltYRcBJ5siZbWEwrdNoyarHmHezSPQ+ZTamFPQCFir69t94JpIiDgiZnEWsFTVV/NdFlVP1N5sSkfYTBbdW/mfQ7jk1nG8DWaF1rt3ABw+R7Cw+BK7/awbKXOyEmEv04UtaUH+dUHamshUtliwaOlj4QES3s+GebiJSaLEw5MJRVFGxeJvJETWlhnnbv6OSvpnesujP3/Aa3upAakxARswj7oWS+V1BxCXyQZR7r7KX2WwpD9G5uVQtiXAvbCyt/da6qEq1r7RamKyryudYpVLf/jeBuAk16lDshJhL9ONKpqdBjC1cHF9XK7tmrAJrJwtGyNDaYAXHtrgiQ32Tx3am4v3HnokoVFxsHzWSerGkrDElOK3TanrnSFmbVnbnnt5jvrpfDjJ5iZQxa0iOKy/tyfX9vpvQss+n7vHXtGda791+/9ZeN28VHeZQ7ISdiZKSs6XK+nL6UeDt8LArOa2Z1+jjTt1yAT2IUElpzx29qnoCLmNbV6e5gx+7pnhD4rtU6Bibh5/RQVMP9JCKo2U+pyXkv6c4Wfp4UKLtX7brnH2MZ9db01gMC+pYef9vyk5juDj+mJue9sPvzFt4WxUCxH7tULd3zz3Gyj+5qTt+zWgz2E6XUjjwd83sWhuFGneO655+jyFChgjV5fip/zcL5kBr5r7pndV6Rx+Pd4/F4PB6P5//DMU1K+gmskx8ixPMvw/yt3U/AfKfv8XgL/8HO3e0kDARRAM7ZumoMLsUgQiIm/AXx/R/QwlZOlokzvSEpdM6VJpPMzQks0P08Q0tvKrxIyQ8SnluusGeg0Uy1LF99U746ulvLdGj+oIN1rvA8jupqP/9PZqupjHGylb4a2Wt5lL3i66p9NLoRwdTJy+yyAXaxr1+PEXmuENNUC6hqHHPgw81APaWxihEQNfmqu0e25N3DZ2CiThahASb2ee4/UzQJ0lST8hXdLTy2F3rCqAJyhSd0twyZjZPCI9vn5marQJ0sQgOs3NcHotZz7dBU+xHvzkIgy+7WNrtbC2C8ON3OQ1TlK9paa8sjmyO37h1I6qTyjUS5zzOMZFMtFKaakK9Kd4sOVgVEQ77q7pHVCG0H1+qkWuG8zzOwCFNNyFelu0XVaAPELF+NKF+Jo3D9SY+Mk8Ije8mXa8d4Uya1CnOff5QbWqSpJsEK0N2iXPQBREW+oq31qHlkRB6r04v+szJpVJj7vMUDijDVZIVLd4skzDsQdfmKttbM9MiejrddEjBVJq0Kc1+/LjZ5rhBhqqkVLt2tipxStOWrbUePbAZs8vFFmaS+Jios9nnuP4WpplS4dLd4rIhAtOUr2yMjIJqPJuYkVQlWWO7z3H1oqpkVLt2tFZDaokRTvurukT0A+Sq2NknbR6tw8goPIjTVjAoLd2sMzE49QTTkq+rp0/DImAl/fROTdoXFPs/9h6aaXeF1AMLZ3dqg/Q9RKmNSZguGR1Yijk3kpF1hsc8z9ATKV9LdWgUAYZWbo8hXXTwyJoEEByeVs7A0wLjP49Hdra/dWpevdI/MjD0pDDDu6xl35fFYSYA/8u651bQGmL/uem41fwaYx3OjQZM3v/zp+WUPDgQAAAAAgPxfG0FVVVVVVVVVVVVVVVVVVWnv3nbTBqIoDO81NjYmxpijgXJKICTk/R+w9gzGsCcRVcmNxfqkSt2dPW0vfrWOoyhERERERERERERERERERET/Z5wk/J4Z1GZHoCNE7cWEqeW2YVgIEdETmWZxHqezsVjzTpoHH3NxOv2hvHXXcbIof/oq1rHf36jNhn9PTl9D92tfOxHp9VfbzzBPCxFvkk2nMhV15uzTvPxbVsdE1xI4qZ1WBhUzFMsgdOdriWDE6gJDvdnQ9/Q3Iy+nHJWTeJO4Ox0R/+wQoJLxUZmUIWDiJMsRnifELwFgJueMRsAojrCUD8DVOoLxNxvqnp8wEKVLwIg3ySwIYtuof5YBJg0NmDApL8BMSm9DlycKESmAuM7IVAfTnszhKp8Cmb/Z0Pd0wu56CKzUdPNGQp8tAHMU2TBh0gJgIrU90JdKDtQZzeQshzk3/6Y2FXVPJ2y2YlvsqekmYX3WOW+ETJiUBMhX42aI07AUAZtzRlLrAa8iMsDI39Sae37CkZS2QKKmm4T1WQYspDRjwqTMDUpR31YcoDFzGS2ltgUC+49i19vUmns64Z8nlbA6iwE77JgwaZPAoGSqEJdAt/bn/GZBLmKYsWTAxNtU7L3fTXgJY4cNEybfocgMYA72SXPrp1ibAXv337u/eT/hxUMJh4AdVpfjw+EgDX+iJ+MeaftAoVO8meLCJqQ2FXVvgLWUdg8lnJxf6XXr4xDAQEo/TvRcMpvwrnlFNtYpujRC92GVv+knrN5kpA8k3Px5g/o4ANzv++NETyKIVyIyNICdgGAusj1F628SHqJUHqjNOwmnQCLSw0MJSw6k000MJkzKGoAxALpSmg/qcalTdCOwF1GbdxKeusXB/YR7uAj02cagMmLCpHwYVExfrHEGK/r8LuHy0IzF21T0vXfb3gRIrqPV023CsT6TydrAxDvgdMl0IJY/8Vn4uUxW7/vNuJmn+89iIff9++Zi9XmUX3AUeQX4dUnUZvbDSaIWKqLOQg4dIBCiNnoFYKofEyFqo2mOkgn4GEHtNX+bC9GtwTW+h6L2Mdf42QBqn+tsmTC1EBOmdvoLhvcOZ8N6i8IAAAAASUVORK5CYII=" alt="express开启"></p>
+<h1 id="2-创建首页"><a href="#2-创建首页" class="headerlink" title="2.创建首页"></a>2.创建首页</h1><p>此时点击链接会跳转相应页面，并刷新当前页</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- frontend/index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/&quot;</span> <span class="attr">data-link</span>&gt;</span>/<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/post&quot;</span> <span class="attr">data-link</span>&gt;</span>post<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/setting&quot;</span> <span class="attr">data-link</span>&gt;</span>setting<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span> <span class="attr">src</span>=<span class="string">&quot;/static/js/index.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="3-创建路由"><a href="#3-创建路由" class="headerlink" title="3.创建路由"></a>3.创建路由</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fronted/static/js/index.js</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> routes = [</span><br><span class="line">    &#123;<span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">view</span>: <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;/&#x27;</span>)&#125;,</span><br><span class="line">    &#123;<span class="attr">path</span>: <span class="string">&#x27;/setting&#x27;</span>, <span class="attr">view</span>: <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;/setting&#x27;</span>)&#125;</span><br><span class="line">  ]</span><br><span class="line">  <span class="comment">// 匹配当前路由。无匹配项则匹配根路由</span></span><br><span class="line">  <span class="keyword">const</span> potentialMatches = routes.map(<span class="function"><span class="params">route</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      route,</span><br><span class="line">      isMatch: route.path === location.pathname</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">let</span> match = potentialMatches.find(<span class="function"><span class="params">potentialMatche</span> =&gt;</span> potentialMatche.isMatch)</span><br><span class="line">  <span class="keyword">if</span>(!match) &#123;</span><br><span class="line">    match = &#123;</span><br><span class="line">      route: routes[<span class="number">0</span>],</span><br><span class="line">      isMatch: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(match.route.view())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="4-监听路由切换"><a href="#4-监听路由切换" class="headerlink" title="4.监听路由切换"></a>4.监听路由切换</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fronted/static/js/index.js</span></span><br><span class="line"><span class="comment">// 监听历史记录条目的更改</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&#x27;popstate&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;popstate&quot;</span>);</span><br><span class="line">  router()</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 当初始的HTML文档被完全加载和解析完毕后，监听页面的click事件，当触发clik的元素包含[data-link]属性，阻止冒泡，并对路由进行处理</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  router()</span><br><span class="line">  <span class="built_in">document</span>.body.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.target.matches(<span class="string">&#x27;[data-link]&#x27;</span>)) &#123;</span><br><span class="line">      e.preventDefault()</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="5-切换路由，但DOM不刷新"><a href="#5-切换路由，但DOM不刷新" class="headerlink" title="5.切换路由，但DOM不刷新"></a>5.切换路由，但DOM不刷新</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fronted/static/js/index.js</span></span><br><span class="line"><span class="keyword">const</span> navigateTo = <span class="function"><span class="params">url</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 切换路由，但不刷新页面</span></span><br><span class="line">  history.pushState(<span class="literal">null</span>, <span class="literal">null</span>, url)</span><br><span class="line">  router()</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  router()</span><br><span class="line">  <span class="built_in">document</span>.body.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.target.matches(<span class="string">&#x27;[data-link]&#x27;</span>)) &#123;</span><br><span class="line">      e.preventDefault()</span><br><span class="line">      navigateTo(e.target.href)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="6-创建单页面"><a href="#6-创建单页面" class="headerlink" title="6.创建单页面"></a>6.创建单页面</h1><h2 id="6-1-创建根页面"><a href="#6-1-创建根页面" class="headerlink" title="6-1.创建根页面"></a>6-1.创建根页面</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fronted/static/views/View.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.title = <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">setTitle</span>(<span class="params">title</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.title = title</span><br><span class="line">    <span class="built_in">document</span>.title = title</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="title">getHtml</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">``</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-2-创建-setting页面"><a href="#6-2-创建-setting页面" class="headerlink" title="6-2.创建/setting页面"></a>6-2.创建<code>/setting</code>页面</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fronted/static/views/Setting.js</span></span><br><span class="line"><span class="keyword">import</span> View <span class="keyword">from</span> <span class="string">&#x27;./View.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>()</span><br><span class="line">    <span class="built_in">this</span>.setTitle(<span class="string">&#x27;Setting&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="title">getHtml</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`&lt;h1&gt;Setting&lt;/h1&gt;`</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="6-3-在页面中创建展示页面的元素"><a href="#6-3-在页面中创建展示页面的元素" class="headerlink" title="6-3.在页面中创建展示页面的元素"></a>6-3.在页面中创建展示页面的元素</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- frontend/index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">nav</span>&gt;</span>...<span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span> <span class="attr">src</span>=<span class="string">&quot;/static/js/index.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="7-在框架中应用页面"><a href="#7-在框架中应用页面" class="headerlink" title="7.在框架中应用页面"></a>7.在框架中应用页面</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fronted/static/js/index.js</span></span><br><span class="line"><span class="keyword">import</span> SettingView <span class="keyword">from</span> <span class="string">&#x27;../views/Setting.js&#x27;</span></span><br><span class="line"><span class="keyword">import</span> View <span class="keyword">from</span> <span class="string">&#x27;../views/View.js&#x27;</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> routes = [</span><br><span class="line">    &#123;<span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">view</span>: View&#125;,</span><br><span class="line">    &#123;<span class="attr">path</span>: <span class="string">&#x27;/setting&#x27;</span>, <span class="attr">view</span>: SettingView&#125;</span><br><span class="line">  ]</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">const</span> view = <span class="keyword">new</span> match.route.view()</span><br><span class="line">  <span class="comment">// 将返回的当页面嵌入当前页面</span></span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>).innerHTML = <span class="keyword">await</span> view.getHtml()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="8-获取地址栏中的参数"><a href="#8-获取地址栏中的参数" class="headerlink" title="8.获取地址栏中的参数"></a>8.获取地址栏中的参数</h1><p>主要使用正则获取</p>
+<h2 id="8-1-路由匹配"><a href="#8-1-路由匹配" class="headerlink" title="8-1.路由匹配"></a>8-1.路由匹配</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> pathToRegex = <span class="function"><span class="params">path</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&#x27;^&#x27;</span> + path.replace(<span class="regexp">/\//g</span>, <span class="string">&#x27;\\/&#x27;</span>).replace(<span class="regexp">/:\w+/g</span>, <span class="string">&#x27;(.+)&#x27;</span>) + <span class="string">&#x27;$&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> SettingView <span class="keyword">from</span> <span class="string">&#x27;../views/Setting.js&#x27;</span></span><br><span class="line"><span class="keyword">import</span> View <span class="keyword">from</span> <span class="string">&#x27;../views/View.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> routes = [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">view</span>: View &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/setting/:id&#x27;</span>, <span class="attr">view</span>: SettingView &#125;</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> potentialMatches = routes.map(<span class="function"><span class="params">route</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      route,</span><br><span class="line">      result: location.pathname.match(pathToRegex(route.path))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">let</span> match = potentialMatches.find(<span class="function"><span class="params">potentialMatche</span> =&gt;</span> potentialMatche.result !== <span class="literal">null</span>)</span><br><span class="line">  <span class="keyword">if</span>(!match) &#123;</span><br><span class="line">    match = &#123;</span><br><span class="line">      route: routes[<span class="number">0</span>],</span><br><span class="line">      result: [location.pathname]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="8-2-路由传值"><a href="#8-2-路由传值" class="headerlink" title="8-2.路由传值"></a>8-2.路由传值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getParams = <span class="function"><span class="params">match</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> values = match.result.slice(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">const</span> keys = <span class="built_in">Array</span>.from(match.route.path.matchAll(<span class="regexp">/:(\w+)/g</span>)).map(<span class="function"><span class="params">result</span> =&gt;</span> result[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.fromEntries( keys.map( <span class="function">(<span class="params">key,i</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> [key, values[i]]</span><br><span class="line">    &#125;))</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">const</span> view = <span class="keyword">new</span> match.route.view(getParams(match))</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="8-3-页面接受参数"><a href="#8-3-页面接受参数" class="headerlink" title="8-3.页面接受参数"></a>8-3.页面接受参数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fronted/static/views/View.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">params</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.params = params</span><br><span class="line">    <span class="built_in">this</span>.title = <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">setTitle</span>(<span class="params">title</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.title = title</span><br><span class="line">    <span class="built_in">document</span>.title = title</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="title">getHtml</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">``</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fronted/static/views/Setting.js</span></span><br><span class="line"><span class="keyword">import</span> View <span class="keyword">from</span> <span class="string">&#x27;./View.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props)</span><br><span class="line">    <span class="built_in">this</span>.setTitle(<span class="string">&#x27;Setting&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="title">getHtml</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`&lt;h1&gt;Setting<span class="subst">$&#123;<span class="built_in">this</span>.params.id&#125;</span>&lt;/h1&gt;`</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="源码："><a href="#源码：" class="headerlink" title="源码："></a>源码：</h1><p><a target="_blank" rel="noopener" href="https://github.com/WiSiW/frontend/tree/master/single">https://github.com/WiSiW/frontend/tree/master/single</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2021年12月06日 17:26</p>
+<!--        <p>原始链接： <a class="post-url" href="/2021/12/06/%E3%80%90JavaScript%E3%80%91%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8/" title="【JavaScript】构建单页面应用">https://wisiw.github.io.git/2021/12/06/%E3%80%90JavaScript%E3%80%91%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/12/06/%E3%80%90JavaScript%E3%80%91%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8/&title=《【JavaScript】构建单页面应用》 — 韦绍炜的博客&pic=/images/javascript.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/12/06/%E3%80%90JavaScript%E3%80%91%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8/&title=《【JavaScript】构建单页面应用》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/12/06/%E3%80%90JavaScript%E3%80%91%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【JavaScript】构建单页面应用》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/12/06/%E3%80%90JavaScript%E3%80%91%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/12/06/%E3%80%90JavaScript%E3%80%91%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEiElEQVR42u3a24rjSBAFwP7/n/bCPA3M2pyTqQaVHHpqbFkqhRoqbz8/8fH6c3z+9u9z8vP/PTP59t2Zn6+WrG11YMKECROmWzK9Ph7JOe9u/HmJ7dI/rychzqH/57eYMGHChOlwptnlZuHCu18lK2k/SUKKKADChAkTJkxfwJQnxsmG/flhZrlnEnZgwoQJEyZM7caZIyap6SYgaNNaTJgwYcL0PUzt5Wbn5I+UhxfXFoUvqIVjwoQJE6abMbVb8pP+vvjAhAkTJkw3Y3qVR/LbNlzYbNhtG/U1OjBhwoQJ07lMVyWWmwJxvhe3v52dX1QIMGHChAnT7Zk2zchZKzQfqZkVlNsiclRQxoQJEyZMhzO1Qzz7Euqe+6qEOaLHhAkTJkyHM+W3yVPKTQl4VlCuM/48UMCECRMmTI9gmqWms006X2J73zxkKV4eJkyYMGF6BFOeKO4/b7uEs+28XcnbvzFhwoQJ0+FMP+XRLigB2m/8+cuuoTFhwoQJ0yOY2vbkpmXYPnzykvIr52OsmDBhwoTpdKbZxp80FNvmZcuar/mqFiwmTJgwYXoS01XF2Ws35g1l+4IxYcKECdMzmNqHuWq7bZPndsPOG5bRs2DChAkTpsOZ2oZfOwTze79qY59huo4JEyZMmB7EFA2yjJLJtkmZJL3JNfMhoaISgAkTJkyYjmLKE9S2Ybkpv7bjRDPQaOWYMGHChOlYprx02wYWs0Lw7L6zwm7dgsWECRMmTAcy/UZy24YLs7AgL0knRWRMmDBhwvQ9TJsxnc3Yzb7IO4uGoheACRMmTJiOZdoktLOwoCVui8UtR94ExYQJEyZMJzLVcvHSP2//V5V6N2FEXeTFhAkTJkwHMu230gRr/6izcKQtCv9sFDFhwoQJ042ZNg3IYkMdIV61nWPChAkTJkyzMdMkXEiCidmwzuZqs3QdEyZMmDCdyDRrK7YJcDs22o60zkrVRbMTEyZMmDAdyDTbJpOsMNmGN6lyyzoLblbRBCZMmDBhug3TbKSmXVySmuavoW2m5kXqtxETJkyYMGE6kKldSt38i7f5WRixWcmmHIwJEyZMmE5hyluY7SezrTp5MS16Xth9ez4mTJgwYTqcaVZ4zduNs2LxVXfcBCWYMGHChOl0prbMem3K2oYj+VBRu/0XKTQmTJgwYTqWqS31ti3GWahxbSqeBwcRHyZMmDBhuj1Tnpq2YzebVLNNkjejPBE0JkyYMGF6BFOC0hZt8+vnr6cNI9oXjAkTJkyYnsSUA+UpZR4uJKXVTSJd5PptyRsTJkyYMB3C9CqPtgWYX6FtVeZBxn5VmDBhwoTpXKZ2g8ybnW0hOB/caRuu+b0uGOjBhAkTJky3ZGoHdGZp8L5d+nut0+SfAxMmTJgwnc7Ujrm0ocMwEilLuvvC7tvfYsKECROmL2BKks92m2+DhtnLaAeDMGHChAnTNzN9To9ngcImrU1eW/7Ki6gEEyZMmDAdxZQXeWcjOO11kk/a4aHZiA8mTJgwYTqdaVMAbVPK5DHyb9szL0bBhAkTJkx3Z/oPoJRig/+OW+AAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/JavaScript/" class="color1">JavaScript</a>
+      
+    <a href="/tags/single/" class="color2">single</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%A1%B5%E9%9D%A2%E7%9B%AE%E5%BD%95"><span class="post-toc-text">页面目录</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1-%E4%BD%BF%E7%94%A8express%E6%9E%84%E5%BB%BA%E5%BA%94%E7%94%A8"><span class="post-toc-text">1.使用express构建应用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#2-%E5%88%9B%E5%BB%BA%E9%A6%96%E9%A1%B5"><span class="post-toc-text">2.创建首页</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#3-%E5%88%9B%E5%BB%BA%E8%B7%AF%E7%94%B1"><span class="post-toc-text">3.创建路由</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#4-%E7%9B%91%E5%90%AC%E8%B7%AF%E7%94%B1%E5%88%87%E6%8D%A2"><span class="post-toc-text">4.监听路由切换</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#5-%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%EF%BC%8C%E4%BD%86DOM%E4%B8%8D%E5%88%B7%E6%96%B0"><span class="post-toc-text">5.切换路由，但DOM不刷新</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#6-%E5%88%9B%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2"><span class="post-toc-text">6.创建单页面</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-1-%E5%88%9B%E5%BB%BA%E6%A0%B9%E9%A1%B5%E9%9D%A2"><span class="post-toc-text">6-1.创建根页面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-2-%E5%88%9B%E5%BB%BA-setting%E9%A1%B5%E9%9D%A2"><span class="post-toc-text">6-2.创建&#x2F;setting页面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-3-%E5%9C%A8%E9%A1%B5%E9%9D%A2%E4%B8%AD%E5%88%9B%E5%BB%BA%E5%B1%95%E7%A4%BA%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%85%83%E7%B4%A0"><span class="post-toc-text">6-3.在页面中创建展示页面的元素</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#7-%E5%9C%A8%E6%A1%86%E6%9E%B6%E4%B8%AD%E5%BA%94%E7%94%A8%E9%A1%B5%E9%9D%A2"><span class="post-toc-text">7.在框架中应用页面</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#8-%E8%8E%B7%E5%8F%96%E5%9C%B0%E5%9D%80%E6%A0%8F%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0"><span class="post-toc-text">8.获取地址栏中的参数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-1-%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D"><span class="post-toc-text">8-1.路由匹配</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-2-%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%80%BC"><span class="post-toc-text">8-2.路由传值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-3-%E9%A1%B5%E9%9D%A2%E6%8E%A5%E5%8F%97%E5%8F%82%E6%95%B0"><span class="post-toc-text">8-3.页面接受参数</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%BA%90%E7%A0%81%EF%BC%9A"><span class="post-toc-text">源码：</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2021/12/07/%E3%80%90CSS%E3%80%91%E5%BA%95%E9%83%A8%E6%A0%8F%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          【CSS】底部栏动态切换
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/12/03/%E3%80%90CSS%E3%80%91%E9%A1%B5%E9%9D%A2%E5%AE%B9%E5%99%A8%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">【CSS】页面容器响应式化</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2021 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 14.44px;">CSS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/Java/" style="font-size: 12.22px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 17.78px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12.22px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 11.11px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18.89px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Webpack/" style="font-size: 13.33px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10px;">electron</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 11.11px;">node</a> <a href="/tags/npm/" style="font-size: 12.22px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11.11px;">《深入React技术栈》</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11.11px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 15.56px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 10px;">使用教程</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12.22px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11.11px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11.11px;">原理</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 11.11px;">响应式</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 11.11px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11.11px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12.22px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 14.44px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 15.56px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 11.11px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.22px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 16.67px;">面试题</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 14.44px;">CSS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/Java/" style="font-size: 12.22px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 17.78px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12.22px;">Node</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 11.11px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18.89px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Webpack/" style="font-size: 13.33px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10px;">electron</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 11.11px;">node</a> <a href="/tags/npm/" style="font-size: 12.22px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11.11px;">《深入React技术栈》</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11.11px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 15.56px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 10px;">使用教程</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12.22px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11.11px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11.11px;">原理</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 11.11px;">响应式</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 11.11px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11.11px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12.22px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 14.44px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 15.56px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 11.11px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.22px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 16.67px;">面试题</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
