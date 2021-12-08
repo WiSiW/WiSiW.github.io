@@ -4,7 +4,7 @@ date: 2021-09-28 13:57:46
 tags:
     - 面试题
     - Webpack
-cover_picture:/images/webpack.png
+cover_picture: /images/webpack.png
 ---
 # 是什么
 **打包模块化js的工具，可以通过```loader```转换文件，通过plugin扩展功能**

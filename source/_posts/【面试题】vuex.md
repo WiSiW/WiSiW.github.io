@@ -3,7 +3,7 @@ title: 【面试题】vuex
 date: 2021-02-21 22:04:33
 tags:
 	- vuex
-cover_picture:/images/vue.png
+cover_picture: /images/vue.png
 ---
 
 # vuex是什么？怎么使用？哪种功能场景使用它？
