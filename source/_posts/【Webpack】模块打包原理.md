@@ -6,11 +6,21 @@ tags:
     - 模块打包
 cover_picture: /images/webpack.jpeg
 ---
-**文件列表**
-```text
+[源码](https://github.com/WiSiW/frontend/tree/master/webpackEx)
 
+**文件列表**
+
+```text
+webpackEx
+  ├── example
+  |     ├─ entry.js
+  |     ├─ message.js
+  |     └─ name.js
+  ├── bundle.js
+  └── package.json
 ```
 # 1.读取文件生成AST
+
 ```javascript
 const fs = require('fs')
 const traverse = require('babel-traverse').default
