@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【JavaScript】CommonJS与ES6的区别 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta name="description" content="Differences between ES modules and CommonJS Differences between ES modules and CommonJSNo require, exports, or module.exportsIn most cases, the ES module import can be used to load CommonJS modules. I">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【JavaScript】CommonJS与ES6的区别">
+<meta property="og:url" content="https://wisiw.github.io.git/2021/10/26/%E3%80%90JavaScript%E3%80%91CommonJs%E4%B8%8EES6%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="Differences between ES modules and CommonJS Differences between ES modules and CommonJSNo require, exports, or module.exportsIn most cases, the ES module import can be used to load CommonJS modules. I">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-10-26T09:22:08.000Z">
+<meta property="article:modified_time" content="2022-10-27T01:44:24.516Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="CommonJS">
+<meta property="article:tag" content="ES6">
+<meta property="article:tag" content="module">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-【JavaScript】CommonJs与ES6的区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      【JavaScript】CommonJS与ES6的区别
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2021-10-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p><a target="_blank" rel="noopener" href="https://nodejs.org/docs/latest/api/esm.html#esm_differences_between_es_modules_and_commonjs">Differences between ES modules and CommonJS</a></p>
+<h1 id="Differences-between-ES-modules-and-CommonJS"><a href="#Differences-between-ES-modules-and-CommonJS" class="headerlink" title="Differences between ES modules and CommonJS"></a>Differences between ES modules and CommonJS</h1><h2 id="No-require-exports-or-module-exports"><a href="#No-require-exports-or-module-exports" class="headerlink" title="No require, exports, or module.exports"></a>No require, exports, or module.exports</h2><p>In most cases, the ES module import can be used to load CommonJS modules.</p>
+<p>If needed, a require function can be constructed within an ES module using module.createRequire().</p>
+<h2 id="No-filename-or-dirname"><a href="#No-filename-or-dirname" class="headerlink" title="No __filename or __dirname"></a>No __filename or __dirname</h2><p>These CommonJS variables are not available in ES modules.</p>
+<p>__filename and __dirname use cases can be replicated via import.meta.url.</p>
+<h2 id="No-Native-Module-Loading"><a href="#No-Native-Module-Loading" class="headerlink" title="No Native Module Loading"></a>No Native Module Loading</h2><p>Native modules are not currently supported with ES module imports.</p>
+<p>They can instead be loaded with module.createRequire() or process.dlopen.</p>
+<h2 id="No-require-resolve"><a href="#No-require-resolve" class="headerlink" title="No require.resolve"></a>No require.resolve</h2><p>Relative resolution can be handled via new URL(‘./local’, import.meta.url).</p>
+<p>For a complete require.resolve replacement, there is a flagged experimental import.meta.resolve API.</p>
+<p>Alternatively module.createRequire() can be used.</p>
+<h2 id="No-NODE-PATH"><a href="#No-NODE-PATH" class="headerlink" title="No NODE_PATH"></a>No NODE_PATH</h2><p>NODE_PATH is not part of resolving import specifiers. Please use symlinks if this behavior is desired.</p>
+<h2 id="No-require-extensions"><a href="#No-require-extensions" class="headerlink" title="No require.extensions"></a>No require.extensions</h2><p>require.extensions is not used by import. The expectation is that loader hooks can provide this workflow in the future.</p>
+<h2 id="No-require-cache"><a href="#No-require-cache" class="headerlink" title="No require.cache"></a>No require.cache</h2><p>require.cache is not used by import as the ES module loader has its own separate cache.</p>
+<h1 id="导入导出"><a href="#导入导出" class="headerlink" title="导入导出"></a>导入导出</h1><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>CommonJS</th>
+<th>ES6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>导入</td>
+<td>```exports</td>
+<td>module.export```</td>
+</tr>
+<tr>
+<td>导出</td>
+<td><code>require</code></td>
+<td><code>import</code></td>
+</tr>
+</tbody></table>
+<p><code>export</code>指向<code>module.exports</code></p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="CommonJS输出的是一个值的拷贝，ES6输出的是值的引用"><a href="#CommonJS输出的是一个值的拷贝，ES6输出的是值的引用" class="headerlink" title="CommonJS输出的是一个值的拷贝，ES6输出的是值的引用"></a>CommonJS输出的是一个<font color="red">值的<u>拷贝</u></font>，ES6输出的是<font color="red">值的<u>引用</u></font></h3><p>CommonJS模块作为一个对象被导出，会加载一个新的对象，直接修改变量中的参数，会造成对象中的参数变化<br>如果通过解构获取模块中的变量，然后通过模块中暴露的方法修改模块内部的变量，不会造成当前模块创建的变量的变化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// common.js</span></span><br><span class="line"><span class="built_in">exports</span>.name = <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.changeName = <span class="function">(<span class="params">name</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> common = <span class="built_in">require</span>(<span class="string">&#x27;./common&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(common.name); <span class="comment">// aaa</span></span><br><span class="line"></span><br><span class="line">common.changeName(<span class="string">&#x27;bbb&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(common.name); <span class="comment">// bbb</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> &#123;name, changeName&#125; = <span class="built_in">require</span>(<span class="string">&#x27;./common&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// aaa</span></span><br><span class="line"></span><br><span class="line">changeName(<span class="string">&#x27;bbb&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// aaa</span></span><br></pre></td></tr></table></figure>
+<p>ES6的运行机制与CommonJS不一样，遇到模块加载命令import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6的import 有点像 Unix 系统的“符号连接”，原始值变了，import加载的值也会跟着变。因此，ES6模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> name = <span class="string">&quot;aaa&quot;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> changeName = <span class="function"><span class="params">name</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>);</span><br><span class="line">  <span class="built_in">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name,</span><br><span class="line">  changeName</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span> <span class="attr">src</span>=<span class="string">&quot;./common.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">import</span> common <span class="keyword">from</span> <span class="string">&#x27;./common.js&#x27;</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(common.name); <span class="comment">// aaa</span></span></span><br><span class="line"><span class="javascript">    common.changeName(<span class="string">&quot;bbb&quot;</span>); <span class="comment">// Uncaught TypeError: Cannot set properties of undefined (setting &#x27;name&#x27;)</span></span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>ES6支持再导出</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123; es &#125; <span class="keyword">from</span> <span class="string">&#x27;./es.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>动态导入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>(<span class="string">&#x27;es.js&#x27;</span>).then(<span class="function"><span class="params">es</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(es); <span class="comment">// Module &#123;Symbol(Symbol.toStringTag): &#x27;Module&#x27;&#125;</span></span><br><span class="line">    <span class="built_in">console</span>.log(es.default); <span class="comment">// &#123;name: &#x27;aaa&#x27;, changeName: ƒ&#125;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h1><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>CommonJS</th>
+<th>ES6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加载</td>
+<td>运行时</td>
+<td>编译时</td>
+</tr>
+<tr>
+<td>详情</td>
+<td>CommonJS 模块就是对象；即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法</td>
+<td>ES6 模块不是对象，而是通过 export 命令显式指定输出的代码，import时采用静态命令的形式。即在import时可以指定加载某个输出值，而不是加载整个模块</td>
+</tr>
+</tbody></table>
+<h1 id="文件命名"><a href="#文件命名" class="headerlink" title="文件命名"></a>文件命名</h1><p>Node.js 会将.cjs文件视为 CommonJS 模块，将.mjs文件视为 ECMAScript 模块。它会将.js文件视为项目的默认模块系统（除非package.json说的是 CommonJS “type”: “module”,）。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2022年10月27日 09:44</p>
+<!--        <p>原始链接： <a class="post-url" href="/2021/10/26/%E3%80%90JavaScript%E3%80%91CommonJs%E4%B8%8EES6%E7%9A%84%E5%8C%BA%E5%88%AB/" title="【JavaScript】CommonJS与ES6的区别">https://wisiw.github.io.git/2021/10/26/%E3%80%90JavaScript%E3%80%91CommonJs%E4%B8%8EES6%E7%9A%84%E5%8C%BA%E5%88%AB/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2021/10/26/%E3%80%90JavaScript%E3%80%91CommonJs%E4%B8%8EES6%E7%9A%84%E5%8C%BA%E5%88%AB/&title=《【JavaScript】CommonJS与ES6的区别》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2021/10/26/%E3%80%90JavaScript%E3%80%91CommonJs%E4%B8%8EES6%E7%9A%84%E5%8C%BA%E5%88%AB/&title=《【JavaScript】CommonJS与ES6的区别》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2021/10/26/%E3%80%90JavaScript%E3%80%91CommonJs%E4%B8%8EES6%E7%9A%84%E5%8C%BA%E5%88%AB/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【JavaScript】CommonJS与ES6的区别》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2021/10/26/%E3%80%90JavaScript%E3%80%91CommonJs%E4%B8%8EES6%E7%9A%84%E5%8C%BA%E5%88%AB/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2021/10/26/%E3%80%90JavaScript%E3%80%91CommonJs%E4%B8%8EES6%E7%9A%84%E5%8C%BA%E5%88%AB/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD80lEQVR42u3aS27jQAwFwNz/0jPbAIak98iWkUV5Zdhyt7oUgOHn5yd+/bt4XX37+fnnavcrf15ztcLVXp/XHHvhwIEDB47RUe8Plmzcfp78KlkzeWCXq+HAgQMHjkMcyQaz7TfBNVmh/fbh7Dhw4MCB4+scebi9D415sLxPBfNEEQcOHDhw/E2Offq0L0fO7goHDhw4cHyTo2385CvkiVwLmgfmV2qlOHDgwIGji3TH0rm/8P6V+Q4cOHDgwDEKkPkYQXsT7YBdW0asT4cDBw4cONYc+QHypGjTdkpKjTnl7Fw4cODAgWPDkSdCeUDdtJdy6GTHutCJAwcOHDgOceQDDacGC/LAvEnzovGF35/jwIEDB45DHHkATsLwrLzYjlAkiG1Qx4EDBw4cpziS8JkE1xY3LyYm6Vkewh8aTjhw4MCBY82R31w7HJAHv7b5lO8+HGXAgQMHDhwLjjawJanUvl20+dVsAAIHDhw4cOw58kvbclsbvPfTBfmDeXgAOHDgwIFjwTFr7eTNobxU15YUZ6njw8PGgQMHDhyHONqEZ3PlPrTPQnK0Jg4cOHDgOMrRbp83lvLU61SYHxYoceDAgQPHmqMNYPknm7JdfozZQ2obXThw4MCBI+doi315EH0vuG6yrYe7woEDBw4cL3PMBhqSgmB+4FlwHZLhwIEDB46j0afdLGlcbZKuWeFvM9aAAwcOHDj2HLONc4J8nSRUzxKzYn0cOHDgwHGIo91+lhTlvzoVdOviIw4cOHDg+ArHftTsVIKXFzGHuSwOHDhw4DjEcaq9tGkCbcam8wM/vMeBAwcOHIc42sZSO6bQDky0iVk+8PewJg4cOHDgWHO0oTQHzQcO2hGEe/TkMUToOHDgwIHjEMcs3ZqNwe2H5zbh/+GPAAcOHDhwjDjaDfbjCzOa5JB5ane5Fw4cOHDgWHMkA2RJuM2HDNqQOYPLQXHgwIEDxxscbdumLc+1BcHNmEUeVosqKQ4cOHDgiDlmt5skde3B2gRvVgF9uB8cOHDgwHGUYz8EkKyTv6/7ZmXz6bLthAMHDhw41hx56yi5xZxjs+8shD9ciQMHDhw41hzD3tSoOBjdSlzgy4f2aiAcOHDgwLHg2LeO8oRqU9p7pdu2f8I4cODAgWPxSgjyllLb0MrTyHb9IRYOHDhw4LjlyINrXuxLsPKDtUNys5EIHDhw4MBxliMp0uXXtIMIm9A+S88eaqU4cODAgeOLHG0g3IwgtMXB9p+GYsoDBw4cOHC8xpEXBNuD5Udtz1KcAgcOHDhwHOLIhxjadGsfmGfFx/zecODAgQPHWY68lHZq0KEdYtu0lPIkEAcOHDhwrDn+A+3QAZOSjIm6AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/JavaScript/" class="color1">JavaScript</a>
+      
+    <a href="/tags/CommonJS/" class="color4">CommonJS</a>
+      
+    <a href="/tags/ES6/" class="color4">ES6</a>
+      
+    <a href="/tags/module/" class="color2">module</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Differences-between-ES-modules-and-CommonJS"><span class="post-toc-text">Differences between ES modules and CommonJS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#No-require-exports-or-module-exports"><span class="post-toc-text">No require, exports, or module.exports</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#No-filename-or-dirname"><span class="post-toc-text">No __filename or __dirname</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#No-Native-Module-Loading"><span class="post-toc-text">No Native Module Loading</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#No-require-resolve"><span class="post-toc-text">No require.resolve</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#No-NODE-PATH"><span class="post-toc-text">No NODE_PATH</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#No-require-extensions"><span class="post-toc-text">No require.extensions</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#No-require-cache"><span class="post-toc-text">No require.cache</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA"><span class="post-toc-text">导入导出</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%A1%A5%E5%85%85"><span class="post-toc-text">补充</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CommonJS%E8%BE%93%E5%87%BA%E7%9A%84%E6%98%AF%E4%B8%80%E4%B8%AA%E5%80%BC%E7%9A%84%E6%8B%B7%E8%B4%9D%EF%BC%8CES6%E8%BE%93%E5%87%BA%E7%9A%84%E6%98%AF%E5%80%BC%E7%9A%84%E5%BC%95%E7%94%A8"><span class="post-toc-text">CommonJS输出的是一个值的拷贝，ES6输出的是值的引用</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8A%A0%E8%BD%BD"><span class="post-toc-text">加载</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D"><span class="post-toc-text">文件命名</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2021/11/04/%E3%80%90%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E3%80%91%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          【功能模块】权限管理（Vue版）
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2021/10/26/%E3%80%90npm%E3%80%91diff/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">【npm】diff</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2022 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 16px;">CSS</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 12px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/TypeScript/" style="font-size: 11px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 14px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 11px;">electron</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 11px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 16px;">node</a> <a href="/tags/npm/" style="font-size: 17px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 11px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11px;">《深入React技术栈》</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 15px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 15px;">使用教程</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 11px;">响应式</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 11px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 11px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 14px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 15px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 11px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 17px;">面试题</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 16px;">CSS</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 12px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/TypeScript/" style="font-size: 11px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 14px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 11px;">electron</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 11px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 16px;">node</a> <a href="/tags/npm/" style="font-size: 17px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 11px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11px;">《深入React技术栈》</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 15px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 15px;">使用教程</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 11px;">响应式</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 11px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 11px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 14px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 15px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 11px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 17px;">面试题</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

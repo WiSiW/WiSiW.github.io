@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【npm】electron-store | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta name="description" content="electron-store electron-store Simple data persistence for your Electron app or module - Save and load user preferences, app state, cache, etcElectron doesn’t have a built-in way to persist user prefer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【npm】electron-store">
+<meta property="og:url" content="https://wisiw.github.io.git/2022/10/26/%E3%80%90npm%E3%80%91electron-store/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="electron-store electron-store Simple data persistence for your Electron app or module - Save and load user preferences, app state, cache, etcElectron doesn’t have a built-in way to persist user prefer">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-10-26T09:14:41.000Z">
+<meta property="article:modified_time" content="2022-10-26T09:20:55.922Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="node">
+<meta property="article:tag" content="npm">
+<meta property="article:tag" content="electron">
+<meta property="article:tag" content="使用教程">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-【npm】electron-store" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      【npm】electron-store
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2022-10-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-store">electron-store</a></p>
+<h1 id="electron-store"><a href="#electron-store" class="headerlink" title="electron-store"></a>electron-store</h1><blockquote>
+<p>Simple data persistence for your <a target="_blank" rel="noopener" href="https://electronjs.org/">Electron</a> app or module - Save and load user preferences, app state, cache, etc<br>Electron doesn’t have a built-in way to persist user preferences and other data. This module handles that for you, so you can focus on building your app. The data is saved in a JSON file named config.json in <a target="_blank" rel="noopener" href="https://electronjs.org/docs/api/app#appgetpathname"><code>app.getPath(&#39;userData&#39;)</code></a>.</p>
+</blockquote>
+<p>You can use this module directly in both the main and renderer process. For use in the renderer process only, you need to call <code>Store.initRenderer()</code> in the main process, or create a new Store instance (<code>new Store()</code>) in the main process.</p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install electron-store</span><br></pre></td></tr></table></figure>
+<p><em>Requires Electron 11 or later.</em></p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store();</span><br><span class="line">store.set(<span class="string">&#x27;unicorn&#x27;</span>, <span class="string">&#x27;🦄&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;unicorn&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#x27;🦄&#x27;</span></span><br><span class="line"><span class="comment">// Use dot-notation to access nested properties</span></span><br><span class="line">store.set(<span class="string">&#x27;foo.bar&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;foo&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#123;bar: true&#125;</span></span><br><span class="line">store.delete(<span class="string">&#x27;unicorn&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;unicorn&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; undefined</span></span><br></pre></td></tr></table></figure>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p>Changes are written to disk atomically, so if the process crashes during a write, it will not corrupt the existing config.</p>
+<h3 id="Store-options"><a href="#Store-options" class="headerlink" title="Store(options?)"></a>Store(options?)</h3><p>Returns a new instance.</p>
+<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>Type: <code>object</code></p>
+<h4 id="defaults"><a href="#defaults" class="headerlink" title="defaults"></a>defaults</h4><p>Type: <code>object</code></p>
+<p>Default values for the store items.</p>
+<p><strong>Note:</strong> The values in <code>defaults</code> will overwrite the <code>default</code> key in the <code>schema</code> option.</p>
+<h4 id="schema"><a href="#schema" class="headerlink" title="schema"></a>schema</h4><p>type: <code>object</code></p>
+<p><a target="_blank" rel="noopener" href="https://json-schema.org/">JSON Schema</a> to validate your config data.</p>
+<p>Under the hood, the JSON Schema validator <a target="_blank" rel="noopener" href="https://github.com/epoberezkin/ajv">ajv</a> is used to validate your config. We use <a target="_blank" rel="noopener" href="http://json-schema.org/latest/json-schema-validation.html">JSON Schema draft-07</a> and support all <a target="_blank" rel="noopener" href="https://github.com/epoberezkin/ajv/blob/master/KEYWORDS.md">validation keywords</a> and <a target="_blank" rel="noopener" href="https://github.com/epoberezkin/ajv#formats">formats</a>.</p>
+<p>You should define your schema as an object where each key is the name of your data’s property and each value is a JSON schema used to validate that property. See more <a target="_blank" rel="noopener" href="https://json-schema.org/understanding-json-schema/reference/object.html#properties">here</a>.</p>
+<p>Example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> schema = &#123;</span><br><span class="line">	foo: &#123;</span><br><span class="line">		type: <span class="string">&#x27;number&#x27;</span>,</span><br><span class="line">		maximum: <span class="number">100</span>,</span><br><span class="line">		minimum: <span class="number">1</span>,</span><br><span class="line">		<span class="keyword">default</span>: <span class="number">50</span></span><br><span class="line">	&#125;,</span><br><span class="line">	bar: &#123;</span><br><span class="line">		type: <span class="string">&#x27;string&#x27;</span>,</span><br><span class="line">		format: <span class="string">&#x27;url&#x27;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store(&#123;schema&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;foo&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; 50</span></span><br><span class="line">store.set(<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"><span class="comment">// [Error: Config schema violation: `foo` should be number]</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong> The <code>default</code> value will be overwritten by the <code>defaults</code> option if set.</p>
+<h4 id="migrations"><a href="#migrations" class="headerlink" title="migrations"></a>migrations</h4><p>Type: <code>object</code></p>
+<p>You can use migrations to perform operations to the store whenever a version is upgraded.</p>
+<p>The <code>migrations</code> object should consist of a key-value pair of <code>&#39;version&#39;: handler</code>. The <code>version</code> can also be a <a target="_blank" rel="noopener" href="https://github.com/npm/node-semver#ranges">semver range</a>.</p>
+<p>Example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store(&#123;</span><br><span class="line">	migrations: &#123;</span><br><span class="line">		<span class="string">&#x27;0.0.1&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;debugPhase&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&#x27;1.0.0&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.delete(<span class="string">&#x27;debugPhase&#x27;</span>);</span><br><span class="line">			store.set(<span class="string">&#x27;phase&#x27;</span>, <span class="string">&#x27;1.0.0&#x27;</span>);</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&#x27;1.0.2&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;phase&#x27;</span>, <span class="string">&#x27;1.0.2&#x27;</span>);</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&#x27;&gt;=2.0.0&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;phase&#x27;</span>, <span class="string">&#x27;&gt;=2.0.0&#x27;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="beforeEachMigration"><a href="#beforeEachMigration" class="headerlink" title="beforeEachMigration"></a>beforeEachMigration</h3><p>Type: <code>Function</code><br>Default: <code>undefined</code></p>
+<p>The given callback function will be called before each migration step.</p>
+<p>The function receives the store as the first argument and a context object as the second argument with the following properties:</p>
+<ul>
+<li><code>fromVersion</code> - The version the migration step is being migrated from.</li>
+<li><code>toVersion</code> - The version the migration step is being migrated to.</li>
+<li><code>finalVersion</code> - The final version after all the migrations are applied.</li>
+<li><code>versions</code> - All the versions with a migration step.</li>
+</ul>
+<p>This can be useful for logging purposes, preparing migration data, etc.</p>
+<p>Example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log = someLogger.log;</span><br><span class="line"><span class="keyword">const</span> mainConfig = <span class="keyword">new</span> Store(&#123;</span><br><span class="line">	beforeEachMigration: <span class="function">(<span class="params">store, context</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">`[main-config] migrate from <span class="subst">$&#123;context.fromVersion&#125;</span> → <span class="subst">$&#123;context.toVersion&#125;</span>`</span>);</span><br><span class="line">	&#125;,</span><br><span class="line">	migrations: &#123;</span><br><span class="line">		<span class="string">&#x27;0.4.0&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;debugPhase&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> secondConfig = <span class="keyword">new</span> Store(&#123;</span><br><span class="line">	beforeEachMigration: <span class="function">(<span class="params">store, context</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">`[second-config] migrate from <span class="subst">$&#123;context.fromVersion&#125;</span> → <span class="subst">$&#123;context.toVersion&#125;</span>`</span>);</span><br><span class="line">	&#125;,</span><br><span class="line">	migrations: &#123;</span><br><span class="line">		<span class="string">&#x27;1.0.1&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;debugPhase&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="name"><a href="#name" class="headerlink" title="name"></a>name</h4><p>Type: <code>string</code><br>Default: <code>&#39;config&#39;</code></p>
+<p>Name of the storage file (without extension).</p>
+<p>This is useful if you want multiple storage files for your app. Or if you’re making a reusable Electron module that persists some data, in which case you should <strong>not</strong> use the name <code>config</code>.</p>
+<h4 id="cwd"><a href="#cwd" class="headerlink" title="cwd"></a>cwd</h4><p>Type: <code>string</code><br>Default: <a target="_blank" rel="noopener" href="https://electronjs.org/docs/api/app#appgetpathname"><code>app.getPath(&#39;userData&#39;)</code></a></p>
+<p>Storage file location. <em>Don’t specify this unless absolutely necessary! By default, it will pick the optimal location by adhering to system conventions. You are very likely to get this wrong and annoy users.</em></p>
+<p>If a relative path, it’s relative to the default cwd. For example, <code>&#123;cwd: &#39;unicorn&#39;&#125;</code> would result in a storage file in <code>~/Library/Application Support/App Name/unicorn</code>.</p>
+<h4 id="encryptionKey"><a href="#encryptionKey" class="headerlink" title="encryptionKey"></a>encryptionKey</h4><p>Type: <code>string | Buffer | TypedArray | DataView</code><br>Default: <code>undefined</code></p>
+<p>Note that this is <strong>not intended for security purposes</strong>, since the encryption key would be easily found inside a plain-text Node.js app.</p>
+<p>Its main use is for obscurity. If a user looks through the config directory and finds the config file, since it’s just a JSON file, they may be tempted to modify it. By providing an encryption key, the file will be obfuscated, which should hopefully deter any users from doing so.</p>
+<p>When specified, the store will be encrypted using the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation"><code>aes-256-cbc</code></a> encryption algorithm.</p>
+<h4 id="fileExtension"><a href="#fileExtension" class="headerlink" title="fileExtension"></a>fileExtension</h4><p>Type: <code>string</code><br>Default: <code>&#39;json&#39;</code></p>
+<p>Extension of the config file.</p>
+<p>You would usually not need this, but could be useful if you want to interact with a file with a custom file extension that can be associated with your app. These might be simple save/export/preference files that are intended to be shareable or saved outside of the app.</p>
+<h4 id="clearInvalidConfig"><a href="#clearInvalidConfig" class="headerlink" title="clearInvalidConfig"></a>clearInvalidConfig</h4><p>Type: <code>boolean</code><br>Default: <code>false</code></p>
+<p>The config is cleared if reading the config file causes a <code>SyntaxError</code>. This is a good behavior for unimportant data, as the config file is not intended to be hand-edited, so it usually means the config is corrupt and there’s nothing the user can do about it anyway. However, if you let the user edit the config file directly, mistakes might happen and it could be more useful to throw an error when the config is invalid instead of clearing.</p>
+<h4 id="serialize"><a href="#serialize" class="headerlink" title="serialize"></a>serialize</h4><p>Type: <code>Function</code><br>Default: <code>value =&gt; JSON.stringify(value, null, &#39;\t&#39;)</code></p>
+<p>Function to serialize the config object to a UTF-8 string when writing the config file.</p>
+<p>You would usually not need this, but it could be useful if you want to use a format other than JSON.</p>
+<h4 id="deserialize"><a href="#deserialize" class="headerlink" title="deserialize"></a>deserialize</h4><p>Type: <code>Function</code><br>Default: <code>JSON.parse</code></p>
+<p>Function to deserialize the config object from a UTF-8 string when reading the config file.</p>
+<p>You would usually not need this, but it could be useful if you want to use a format other than JSON.</p>
+<h4 id="accessPropertiesByDotNotation"><a href="#accessPropertiesByDotNotation" class="headerlink" title="accessPropertiesByDotNotation"></a>accessPropertiesByDotNotation</h4><p>Type: <code>boolean</code><br>Default: <code>true</code></p>
+<p>Accessing nested properties by dot notation. For example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store();</span><br><span class="line">store.set(&#123;</span><br><span class="line">	foo: &#123;</span><br><span class="line">		bar: &#123;</span><br><span class="line">			foobar: <span class="string">&#x27;🦄&#x27;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;foo.bar.foobar&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#x27;🦄&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Alternatively, you can set this option to <code>false</code> so the whole string would be treated as one key.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store(&#123;<span class="attr">accessPropertiesByDotNotation</span>: <span class="literal">false</span>&#125;);</span><br><span class="line">store.set(&#123;</span><br><span class="line">	<span class="string">`foo.bar.foobar`</span>: <span class="string">&#x27;🦄&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;foo.bar.foobar&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#x27;🦄&#x27;</span></span><br></pre></td></tr></table></figure>
+<h4 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h4><p>Type: <code>boolean</code><br>Default: <code>false</code></p>
+<p>Watch for any changes in the config file and call the callback for <code>onDidChange</code> or <code>onDidAnyChange</code> if set. This is useful if there are multiple processes changing the same config file, for example, if you want changes done in the main process to be reflected in a renderer process.</p>
+<h3 id="Instance"><a href="#Instance" class="headerlink" title="Instance"></a>Instance</h3><p>You can use <a target="_blank" rel="noopener" href="https://github.com/sindresorhus/dot-prop">dot-notation</a> in a <code>key</code> to access nested properties.</p>
+<p>The instance is <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Iteration_protocols"><code>iterable</code></a> so you can use it directly in a <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/for...of"><code>for…of</code></a> loop.</p>
+<h4 id="set-key-value"><a href="#set-key-value" class="headerlink" title=".set(key, value)"></a>.set(key, value)</h4><p>Set an item.</p>
+<p>The <code>value</code> must be JSON serializable. Trying to set the type <code>undefined</code>, <code>function</code>, or <code>symbol</code> will result in a TypeError.</p>
+<h4 id="set-object"><a href="#set-object" class="headerlink" title=".set(object)"></a>.set(object)</h4><p>Set multiple items at once.</p>
+<h4 id="get-key-defaultValue"><a href="#get-key-defaultValue" class="headerlink" title=".get(key, defaultValue?)"></a>.get(key, defaultValue?)</h4><p>Get an item or <code>defaultValue</code> if the item does not exist.</p>
+<h4 id="reset-…keys"><a href="#reset-…keys" class="headerlink" title=".reset(…keys)"></a>.reset(…keys)</h4><p>Reset items to their default values, as defined by the <code>defaults</code> or <code>schema</code> option.</p>
+<p>Use <code>.clear()</code> to reset all items.</p>
+<h4 id="has-key"><a href="#has-key" class="headerlink" title=".has(key)"></a>.has(key)</h4><p>Check if an item exists.</p>
+<h4 id="delete-key"><a href="#delete-key" class="headerlink" title=".delete(key)"></a>.delete(key)</h4><p>Delete an item.</p>
+<h4 id="clear"><a href="#clear" class="headerlink" title=".clear()"></a>.clear()</h4><p>Delete all items.</p>
+<p>This resets known items to their default values, if defined by the <code>defaults</code> or <code>schema</code> option.</p>
+<h4 id="onDidChange-key-callback"><a href="#onDidChange-key-callback" class="headerlink" title=".onDidChange(key, callback)"></a>.onDidChange(key, callback)</h4><p><code>callback</code>: <code>(newValue, oldValue) =&gt; &#123;&#125;</code></p>
+<p>Watches the given <code>key</code>, calling <code>callback</code> on any changes.</p>
+<p>When a key is first set <code>oldValue</code> will be <code>undefined</code>, and when a key is deleted <code>newValue</code> will be <code>undefined</code>.</p>
+<p>Returns a function which you can use to unsubscribe:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> unsubscribe = store.onDidChange(key, callback);</span><br><span class="line">unsubscribe();</span><br></pre></td></tr></table></figure>
+<h4 id="onDidAnyChange-callback"><a href="#onDidAnyChange-callback" class="headerlink" title=".onDidAnyChange(callback)"></a>.onDidAnyChange(callback)</h4><p><code>callback</code>: <code>(newValue, oldValue) =&gt; &#123;&#125;</code></p>
+<p>Watches the whole config object, calling <code>callback</code> on any changes.</p>
+<p><code>oldValue</code> and <code>newValue</code> will be the config object before and after the change, respectively. You must compare <code>oldValue</code> to <code>newValue</code> to find out what changed.</p>
+<p>Returns a function which you can use to unsubscribe:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> unsubscribe = store.onDidAnyChange(callback);</span><br><span class="line">unsubscribe();</span><br></pre></td></tr></table></figure>
+<h4 id="size"><a href="#size" class="headerlink" title=".size"></a>.size</h4><p>Get the item count.</p>
+<h4 id="store"><a href="#store" class="headerlink" title=".store"></a>.store</h4><p>Get all the data as an object or replace the current data with an object:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store();</span><br><span class="line">store.store = &#123;</span><br><span class="line">	hello: <span class="string">&#x27;world&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="path"><a href="#path" class="headerlink" title=".path"></a>.path</h4><p>Get the path to the storage file.</p>
+<h4 id="openInEditor"><a href="#openInEditor" class="headerlink" title=".openInEditor()"></a>.openInEditor()</h4><p>Open the storage file in the user’s editor.</p>
+<h3 id="initRenderer"><a href="#initRenderer" class="headerlink" title="initRenderer()"></a>initRenderer()</h3><p>Initializer to set up the required <code>ipc</code> communication channels for the module when a <code>Store</code> instance is not created in the main process and you are creating a <code>Store</code> instance in the Electron renderer process only.</p>
+<p>In the main process:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line">Store.initRenderer();</span><br></pre></td></tr></table></figure>
+<p>And in the renderer process:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store();</span><br><span class="line">store.set(<span class="string">&#x27;unicorn&#x27;</span>, <span class="string">&#x27;🦄&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;unicorn&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#x27;🦄&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h4 id="Advantages-over-window-localStorage"><a href="#Advantages-over-window-localStorage" class="headerlink" title="Advantages over window.localStorage"></a><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-store/issues/17">Advantages over <code>window.localStorage</code></a></h4><h4 id="Can-I-use-YAML-or-another-serialization-format"><a href="#Can-I-use-YAML-or-another-serialization-format" class="headerlink" title="Can I use YAML or another serialization format?"></a>Can I use YAML or another serialization format?</h4><p>The <code>serialize</code> and <code>deserialize</code> options can be used to customize the format of the config file, as long as the representation is compatible with <code>utf8</code> encoding.</p>
+<p>Example using YAML:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> yaml = <span class="built_in">require</span>(<span class="string">&#x27;js-yaml&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store(&#123;</span><br><span class="line">	fileExtension: <span class="string">&#x27;yaml&#x27;</span>,</span><br><span class="line">	serialize: yaml.safeDump,</span><br><span class="line">	deserialize: yaml.safeLoad</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="How-do-I-get-store-values-in-the-renderer-process-when-my-store-was-initialized-in-the-main-process"><a href="#How-do-I-get-store-values-in-the-renderer-process-when-my-store-was-initialized-in-the-main-process" class="headerlink" title="How do I get store values in the renderer process when my store was initialized in the main process?"></a>How do I get store values in the renderer process when my store was initialized in the main process?</h4><p>The store is not a singleton, so you will need to either <a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-store/issues/15">initialize the store in a file that is imported in both the main and renderer process</a>, or you have to pass the values back and forth as messages. Electron provides a handy <a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/ipc-main#ipcmainhandlechannel-listener"><code>invoke/handle</code> API</a> that works well for accessing these values.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipcMain.handle(<span class="string">&#x27;getStoreValue&#x27;</span>, <span class="function">(<span class="params">event, key</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> store.get(key);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> foo = <span class="keyword">await</span> ipcRenderer.invoke(<span class="string">&#x27;getStoreValue&#x27;</span>, <span class="string">&#x27;foo&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="Can-I-use-it-for-large-amounts-of-data"><a href="#Can-I-use-it-for-large-amounts-of-data" class="headerlink" title="Can I use it for large amounts of data?"></a>Can I use it for large amounts of data?</h4><p>This package is not a database. It simply uses a JSON file that is read/written on every change. Prefer using it for smaller amounts of data like user settings, value caching, state, etc.</p>
+<p>If you need to store large blobs of data, I recommend saving it to disk and to use this package to store the path to the file instead.</p>
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-util">electron-util</a> - Useful utilities for developing Electron apps and modules</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-debug">electron-debug</a> - Adds useful debug features to your Electron app</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-context-menu">electron-context-menu</a> - Context menu for your Electron app</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-dl">electron-dl</a> - Simplified file downloads for your Electron app</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-unhandled">electron-unhandled</a> - Catch unhandled errors and promise rejections in your Electron app</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-reloader">electron-reloader</a> - Simple auto-reloading for Electron apps during development</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-serve">electron-serve</a> - Static file serving for Electron apps</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/conf">conf</a> - Simple config handling for your app or module</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/search?q=user:sindresorhus+electron">More…</a></li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2022年10月26日 17:20</p>
+<!--        <p>原始链接： <a class="post-url" href="/2022/10/26/%E3%80%90npm%E3%80%91electron-store/" title="【npm】electron-store">https://wisiw.github.io.git/2022/10/26/%E3%80%90npm%E3%80%91electron-store/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2022/10/26/%E3%80%90npm%E3%80%91electron-store/&title=《【npm】electron-store》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2022/10/26/%E3%80%90npm%E3%80%91electron-store/&title=《【npm】electron-store》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2022/10/26/%E3%80%90npm%E3%80%91electron-store/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【npm】electron-store》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2022/10/26/%E3%80%90npm%E3%80%91electron-store/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2022/10/26/%E3%80%90npm%E3%80%91electron-store/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3aQW7DMAwEwPz/0ynQUy52lqSIusD4FKSGpXEBSVny9Yqv9+/1+fnzm+T7qzuvnpyMeOzCw8PDa0396qrecw++mmLyaqrzwcPDw9vm5ZvB/ZJdXb43XhMeHh7ec3jVv94v2dGyHo+Ih4eH9194CTtB3m8/eHh4eM/kVYOGXiCbbDN/lrXg4eHhxbxeAexvP6/X9/Dw8PBaVfVqIX+yQPc2gC+zxcPDw1vgJcfifNVN2rOqx+v8ZRV+MeDh4eGNedX4NdkA8inmh+lkQ4qyajw8PLwBr1qq720G+RKfvIhCWQ4PDw9vjZdPN2+cmpTQ8rLZl38MHh4e3gKv2mJVDQiigQetWoWZ4OHh4R3iVRfr+VI+6W7Ix/ryiwEPDw9vwMsbm3qH3aTtII8tqsUwPDw8vA1eHkZUD8Sn2gtG2w8eHh7eAq9aiMrbCOaNU+X9LR8LDw8Pb5nXi3TLkUHrteZPxsPDwzvLO1vgn0+r+uQvrxsPDw9vgTfBFHab4j15g1d5FDw8PLwFXvXonE8xj3Gr8XE1+MDDw8Pr8fLD6yu48iatvPTVizDw8PDw9ninCvynmgCSJzd7yvDw8PAO8ZJFfFJVmzRp5S/l8gl4eHh4C7x8WntFsjyo7TVy4eHh4W3wqsPkse+pwlU1wmjW9/Dw8PACXlKkr8YE+bG4OgoeHh7e03jV8DTfBubbxuF8Gg8PD2/A6wWykyJZL7rt5Qx4eHh4G7x38aoeu+fNB72mLjw8PLw9XnXBrUa991PpBQ2TDQkPDw/vFK8axeaAXnSbbwBRGIGHh4e3xjuVfCb5R35/L4zAw8PDew6vF1XkwUFhuc9jCDw8PLzH8PLpJoFCb1uKvsfDw8Nb4+UT7aXC+eF4EvUeiHHx8PDwAl7zR368YWyXxMoYPDw8vD7vBy2pAydKIFiVAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/node/" class="color5">node</a>
+      
+    <a href="/tags/npm/" class="color4">npm</a>
+      
+    <a href="/tags/electron/" class="color4">electron</a>
+      
+    <a href="/tags/使用教程/" class="color5">使用教程</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#electron-store"><span class="post-toc-text">electron-store</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Install"><span class="post-toc-text">Install</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Usage"><span class="post-toc-text">Usage</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#API"><span class="post-toc-text">API</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Store-options"><span class="post-toc-text">Store(options?)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#options"><span class="post-toc-text">options</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#defaults"><span class="post-toc-text">defaults</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#schema"><span class="post-toc-text">schema</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#migrations"><span class="post-toc-text">migrations</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#beforeEachMigration"><span class="post-toc-text">beforeEachMigration</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#name"><span class="post-toc-text">name</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cwd"><span class="post-toc-text">cwd</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#encryptionKey"><span class="post-toc-text">encryptionKey</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#fileExtension"><span class="post-toc-text">fileExtension</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#clearInvalidConfig"><span class="post-toc-text">clearInvalidConfig</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#serialize"><span class="post-toc-text">serialize</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#deserialize"><span class="post-toc-text">deserialize</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#accessPropertiesByDotNotation"><span class="post-toc-text">accessPropertiesByDotNotation</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#watch"><span class="post-toc-text">watch</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Instance"><span class="post-toc-text">Instance</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#set-key-value"><span class="post-toc-text">.set(key, value)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#set-object"><span class="post-toc-text">.set(object)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#get-key-defaultValue"><span class="post-toc-text">.get(key, defaultValue?)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#reset-%E2%80%A6keys"><span class="post-toc-text">.reset(…keys)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#has-key"><span class="post-toc-text">.has(key)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#delete-key"><span class="post-toc-text">.delete(key)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#clear"><span class="post-toc-text">.clear()</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#onDidChange-key-callback"><span class="post-toc-text">.onDidChange(key, callback)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#onDidAnyChange-callback"><span class="post-toc-text">.onDidAnyChange(callback)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#size"><span class="post-toc-text">.size</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#store"><span class="post-toc-text">.store</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#path"><span class="post-toc-text">.path</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#openInEditor"><span class="post-toc-text">.openInEditor()</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#initRenderer"><span class="post-toc-text">initRenderer()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FAQ"><span class="post-toc-text">FAQ</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Advantages-over-window-localStorage"><span class="post-toc-text">Advantages over window.localStorage</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Can-I-use-YAML-or-another-serialization-format"><span class="post-toc-text">Can I use YAML or another serialization format?</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#How-do-I-get-store-values-in-the-renderer-process-when-my-store-was-initialized-in-the-main-process"><span class="post-toc-text">How do I get store values in the renderer process when my store was initialized in the main process?</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Can-I-use-it-for-large-amounts-of-data"><span class="post-toc-text">Can I use it for large amounts of data?</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Related"><span class="post-toc-text">Related</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2022/10/27/%E3%80%90JavaScript%E3%80%91%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E7%9A%84%E5%AE%9E%E7%8E%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          【JavaScript】模板引擎的实现
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2022/10/24/%E3%80%90%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E3%80%91SPA%E4%B8%8E%E4%BC%A0%E7%BB%9F%E5%A4%9A%E9%A1%B5%E9%9D%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">【前端架构】SPA与传统多页面</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2022 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 16px;">CSS</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 12px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/TypeScript/" style="font-size: 11px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 14px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 11px;">electron</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 11px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 16px;">node</a> <a href="/tags/npm/" style="font-size: 17px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 11px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11px;">《深入React技术栈》</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 15px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 15px;">使用教程</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 11px;">响应式</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 11px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 11px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 14px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 15px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 11px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 17px;">面试题</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 16px;">CSS</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 12px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 12px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/React/" style="font-size: 12px;">React</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/TypeScript/" style="font-size: 11px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 14px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 11px;">electron</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 11px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 16px;">node</a> <a href="/tags/npm/" style="font-size: 17px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 11px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 11px;">《深入React技术栈》</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 11px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 15px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 15px;">使用教程</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 11px;">功能代码</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 11px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 11px;">响应式</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 11px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 11px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 11px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 12px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 14px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 15px;">源码解析</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 11px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 17px;">面试题</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
