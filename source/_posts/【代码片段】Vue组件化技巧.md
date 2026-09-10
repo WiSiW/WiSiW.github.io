@@ -7,7 +7,9 @@ tags:
 ---
 
 # 使用**插槽prop**实现组件的事件封装
+
 **子组件**
+
 ```javascript
 Vue.component('Child', {
     template: `<div>
@@ -20,7 +22,9 @@ Vue.component('Child', {
     }
 })
 ```
+
 **父组件**
+
 ```javascript
 var parent = new Vue({
     name: 'Parent',
@@ -32,6 +36,7 @@ var parent = new Vue({
 ```
 
 # 完整代码
+
 ```html
 <!DOCTYPE html>
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
