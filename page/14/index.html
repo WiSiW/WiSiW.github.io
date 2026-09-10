@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="韦绍炜的博客">
+<meta property="og:url" content="https://wisiw.github.io.git/page/14/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:locale">
+<meta property="article:author" content="wsw">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="韦绍炜的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">韦绍炜的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://WiSiW.github.io.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-【npm】hash-sum" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/26/%E3%80%90npm%E3%80%91hash-sum/" class="article-date">
+  <time class="dt-published" datetime="2021-10-26T07:20:18.000Z" itemprop="datePublished">2021-10-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/26/%E3%80%90npm%E3%80%91hash-sum/">【npm】hash-sum</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/bevacqua/hash-sum">hash-sum</a></p>
+<h1 id="hash-sum"><a href="#hash-sum" class="headerlink" title="hash-sum"></a>hash-sum</h1><blockquote>
+<p>blazing fast unique hash generator</p>
+</blockquote>
+<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hash-sum -S</span><br></pre></td></tr></table></figure>
+<h1 id="features"><a href="#features" class="headerlink" title="features"></a>features</h1><ul>
+<li>no dependencies</li>
+<li>minimal footprint</li>
+<li>works in all of node.js, io.js, and the browser</li>
+<li>hashes functions based on their source code</li>
+<li>produces different hashes for different object types</li>
+<li>support for circular references in objects</li>
+<li>ignores property assignment order</li>
+</ul>
+<h1 id="sum-value"><a href="#sum-value" class="headerlink" title="sum(value)"></a><code>sum(value)</code></h1><p>yields a four-byte hexadecimal hash based off of <code>value</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"># creates unique hashes</span><br><span class="line">00a34759 from: [ 0, 1, 2, 3 ]</span><br><span class="line">a8996f0c from: &#123; &#39;0&#39;: 0, &#39;1&#39;: 1, &#39;2&#39;: 2, &#39;3&#39;: 3 &#125;</span><br><span class="line">5b4c2116 from: &#123; &#39;0&#39;: 0, &#39;1&#39;: 1, &#39;2&#39;: 2, &#39;3&#39;: 3, length: 4 &#125;</span><br><span class="line">2c937c45 from: &#123; url: 12 &#125;</span><br><span class="line">31d55010 from: &#123; headers: 12 &#125;</span><br><span class="line">2d2e11bc from: &#123; headers: 122 &#125;</span><br><span class="line">ec99d958 from: &#123; headers: &#39;122&#39; &#125;</span><br><span class="line">18c00eee from: &#123; headers: &#123; accept: &#39;text&#x2F;plain&#39; &#125; &#125;</span><br><span class="line">6cb332c8 from: &#123; payload: [ 0, 1, 2, 3 ], headers: [ &#123; a: &#39;b&#39; &#125; ] &#125;</span><br><span class="line">12ff55db from: &#123; a: [Function: a] &#125;</span><br><span class="line">46f806d2 from: &#123; b: [Function: b] &#125;</span><br><span class="line">0660d9c4 from: &#123; b: [Function: b] &#125;</span><br><span class="line">6c95fc65 from: function () &#123;&#125;</span><br><span class="line">2941766e from: function (a) &#123;&#125;</span><br><span class="line">294f8def from: function (b) &#123;&#125;</span><br><span class="line">2d9c0cb8 from: function (a) &#123; return a;&#125;</span><br><span class="line">ed5c63fc from: function (a) &#123;return a;&#125;</span><br><span class="line">bba68bf6 from: &#39;&#39;</span><br><span class="line">2d27667d from: &#39;null&#39;</span><br><span class="line">774b96ed from: &#39;false&#39;</span><br><span class="line">2d2a1684 from: &#39;true&#39;</span><br><span class="line">8daa1a0c from: &#39;0&#39;</span><br><span class="line">8daa1a0a from: &#39;1&#39;</span><br><span class="line">e38f07cc from: &#39;void 0&#39;</span><br><span class="line">6037ea1a from: &#39;undefined&#39;</span><br><span class="line">9b7df12e from: null</span><br><span class="line">3c206f76 from: false</span><br><span class="line">01e34ba8 from: true</span><br><span class="line">8a8f9624 from: Infinity</span><br><span class="line">0315bf8f from: -Infinity</span><br><span class="line">64a48b16 from: NaN</span><br><span class="line">1a96284a from: 0</span><br><span class="line">1a96284b from: 1</span><br><span class="line">29172c1a from: undefined</span><br><span class="line">59322f29 from: &#123;&#125;</span><br><span class="line">095b3a22 from: &#123; a: &#123;&#125;, b: &#123;&#125; &#125;</span><br><span class="line">63be56dd from: &#123; valueOf: [Function: valueOf] &#125;</span><br><span class="line">63be4f5c from: &#123; valueOf: [Function: valueOf] &#125;</span><br><span class="line">5d844489 from: []</span><br><span class="line">ba0bfa14 from: 2019-06-28T21:24:31.215Z</span><br><span class="line">49324d16 from: 2019-06-28T03:00:00.000Z</span><br><span class="line">434c9188 from: 1988-06-09T03:00:00.000Z</span><br><span class="line">ce1b5e44 from: global</span><br></pre></td></tr></table></figure>
+<h1 id="license"><a href="#license" class="headerlink" title="license"></a>license</h1><p>MIT</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/26/%E3%80%90npm%E3%80%91hash-sum/" data-id="cmtv7lp0d006m14qjgs304e94" data-title="【npm】hash-sum" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【npm】sharp（images-format）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/26/%E3%80%90npm%E3%80%91sharp%EF%BC%88images-format%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2021-10-26T07:18:33.000Z" itemprop="datePublished">2021-10-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/26/%E3%80%90npm%E3%80%91sharp%EF%BC%88images-format%EF%BC%89/">【npm】sharp（images format）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/lovell/sharp">sharp</a></p>
+<h1 id="sharp"><a href="#sharp" class="headerlink" title="sharp"></a>sharp</h1><img src="https://cdn.jsdelivr.net/gh/lovell/sharp@main/docs/image/sharp-logo.svg" width="160" height="160" alt="sharp logo" align="right">
+
+<p>The typical use case for this high speed Node.js module<br>is to convert large images in common formats to<br>smaller, web-friendly JPEG, PNG, WebP, GIF and AVIF images of varying dimensions.</p>
+<p>Resizing an image is typically 4x-5x faster than using the<br>quickest ImageMagick and GraphicsMagick settings<br>due to its use of <a target="_blank" rel="noopener" href="https://github.com/libvips/libvips">libvips</a>.</p>
+<p>Colour spaces, embedded ICC profiles and alpha transparency channels are all handled correctly.<br>Lanczos resampling ensures quality is not sacrificed for speed.</p>
+<p>As well as image resizing, operations such as<br>rotation, extraction, compositing and gamma correction are available.</p>
+<p>Most modern macOS, Windows and Linux systems running Node.js &gt;= 14.15.0<br>do not require any additional install or runtime dependencies.</p>
+<h2 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h2><p>Visit <a target="_blank" rel="noopener" href="https://sharp.pixelplumbing.com/">sharp.pixelplumbing.com</a> for complete<br><a target="_blank" rel="noopener" href="https://sharp.pixelplumbing.com/install">installation instructions</a>,<br><a target="_blank" rel="noopener" href="https://sharp.pixelplumbing.com/api-constructor">API documentation</a>,<br><a target="_blank" rel="noopener" href="https://sharp.pixelplumbing.com/performance">benchmark tests</a> and<br><a target="_blank" rel="noopener" href="https://sharp.pixelplumbing.com/changelog">changelog</a>.</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install sharp</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharp = <span class="built_in">require</span>(<span class="string">&#x27;sharp&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="Callback"><a href="#Callback" class="headerlink" title="Callback"></a>Callback</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sharp(inputBuffer)</span><br><span class="line">  .resize(<span class="number">320</span>, <span class="number">240</span>)</span><br><span class="line">  .toFile(<span class="string">&#x27;output.webp&#x27;</span>, <span class="function">(<span class="params">err, info</span>) =&gt;</span> &#123; ... &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sharp(<span class="string">&#x27;input.jpg&#x27;</span>)</span><br><span class="line">  .rotate()</span><br><span class="line">  .resize(<span class="number">200</span>)</span><br><span class="line">  .jpeg(&#123; <span class="attr">mozjpeg</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  .toBuffer()</span><br><span class="line">  .then( <span class="function"><span class="params">data</span> =&gt;</span> &#123; ... &#125;)</span><br><span class="line">  .catch( <span class="function"><span class="params">err</span> =&gt;</span> &#123; ... &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Async-await"><a href="#Async-await" class="headerlink" title="Async/await"></a>Async/await</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> semiTransparentRedPng = <span class="keyword">await</span> sharp(&#123;</span><br><span class="line">  create: &#123;</span><br><span class="line">    width: <span class="number">48</span>,</span><br><span class="line">    height: <span class="number">48</span>,</span><br><span class="line">    channels: <span class="number">4</span>,</span><br><span class="line">    background: &#123; <span class="attr">r</span>: <span class="number">255</span>, <span class="attr">g</span>: <span class="number">0</span>, <span class="attr">b</span>: <span class="number">0</span>, <span class="attr">alpha</span>: <span class="number">0.5</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">  .png()</span><br><span class="line">  .toBuffer();</span><br></pre></td></tr></table></figure>
+<h3 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> roundedCorners = Buffer.from(</span><br><span class="line">  <span class="string">&#x27;&lt;svg&gt;&lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;200&quot; height=&quot;200&quot; rx=&quot;50&quot; ry=&quot;50&quot;/&gt;&lt;/svg&gt;&#x27;</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">const</span> roundedCornerResizer =</span><br><span class="line">  sharp()</span><br><span class="line">    .resize(<span class="number">200</span>, <span class="number">200</span>)</span><br><span class="line">    .composite([&#123;</span><br><span class="line">      input: roundedCorners,</span><br><span class="line">      blend: <span class="string">&#x27;dest-in&#x27;</span></span><br><span class="line">    &#125;])</span><br><span class="line">    .png();</span><br><span class="line">readableStream</span><br><span class="line">  .pipe(roundedCornerResizer)</span><br><span class="line">  .pipe(writableStream);</span><br></pre></td></tr></table></figure>
+<h2 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h2><p>A <a target="_blank" rel="noopener" href="https://github.com/lovell/sharp/blob/main/.github/CONTRIBUTING.md">guide for contributors</a><br>covers reporting bugs, requesting features and submitting code changes.</p>
+<p><a target="_blank" rel="noopener" href="https://nodejs.org/dist/latest/docs/api/n-api.html#n_api_n_api_version_matrix"><img src="https://img.shields.io/badge/Node--API-v5-green.svg" alt="Node-API v5"></a></p>
+<h2 id="Licensing"><a href="#Licensing" class="headerlink" title="Licensing"></a>Licensing</h2><p>Copyright 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022 Lovell Fuller and contributors.</p>
+<p>Licensed under the Apache License, Version 2.0 (the “License”);<br>you may not use this file except in compliance with the License.<br>You may obtain a copy of the License at<br><a target="_blank" rel="noopener" href="https://www.apache.org/licenses/LICENSE-2.0">https://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software<br>distributed under the License is distributed on an “AS IS” BASIS,<br>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br>See the License for the specific language governing permissions and<br>limitations under the License.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/26/%E3%80%90npm%E3%80%91sharp%EF%BC%88images-format%EF%BC%89/" data-id="cmtv7lp0g006v14qjdq620e0i" data-title="【npm】sharp（images format）" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【npm】images（Node.js轻量级跨平台图像编解码库）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/26/%E3%80%90npm%E3%80%91images%EF%BC%88Node.js%E8%BD%BB%E9%87%8F%E7%BA%A7%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%9B%BE%E5%83%8F%E7%BC%96%E8%A7%A3%E7%A0%81%E5%BA%93%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2021-10-26T06:47:47.000Z" itemprop="datePublished">2021-10-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/26/%E3%80%90npm%E3%80%91images%EF%BC%88Node.js%E8%BD%BB%E9%87%8F%E7%BA%A7%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%9B%BE%E5%83%8F%E7%BC%96%E8%A7%A3%E7%A0%81%E5%BA%93%EF%BC%89/">【npm】images（Node.js轻量级跨平台图像编解码库）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/zhangyuanwei/node-images">images</a></p>
+<h1 id=""><a href="#" class="headerlink" title=""></a><img src="https://raw.github.com/zhangyuanwei/node-images/master/demo/logo.png" alt="images logo"></h1><p>Cross-platform image decoder(png/jpeg/gif) and encoder(png/jpeg) for Node.js<br>Node.js轻量级跨平台图像编解码库</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> images = <span class="built_in">require</span>(<span class="string">&quot;images&quot;</span>);</span><br><span class="line">images(<span class="string">&quot;input.jpg&quot;</span>)                     <span class="comment">//Load image from file </span></span><br><span class="line">                                        <span class="comment">//加载图像文件</span></span><br><span class="line">    .size(<span class="number">400</span>)                          <span class="comment">//Geometric scaling the image to 400 pixels width</span></span><br><span class="line">                                        <span class="comment">//等比缩放图像到400像素宽</span></span><br><span class="line">    .draw(images(<span class="string">&quot;logo.png&quot;</span>), <span class="number">10</span>, <span class="number">10</span>)   <span class="comment">//Drawn logo at coordinates (10,10)</span></span><br><span class="line">                                        <span class="comment">//在(10,10)处绘制Logo</span></span><br><span class="line">    .save(<span class="string">&quot;output.jpg&quot;</span>, &#123;               <span class="comment">//Save the image to a file, with the quality of 50</span></span><br><span class="line">        quality : <span class="number">50</span>                    <span class="comment">//保存图片到文件,图片质量为50</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Support-支持情况"><a href="#Support-支持情况" class="headerlink" title="Support 支持情况"></a>Support 支持情况</h2><p>if node &gt;= 10.x, please install images@latest</p>
+<table>
+<thead>
+<tr>
+<th align="left">Platform</th>
+<th align="left">Architecture</th>
+<th align="left">Node Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Windows</td>
+<td align="left">x64</td>
+<td align="left">8, 9, 10, 11, 12</td>
+</tr>
+<tr>
+<td align="left">OSX</td>
+<td align="left">X64</td>
+<td align="left">8, 9, 10, 11, 12</td>
+</tr>
+<tr>
+<td align="left">Linux*</td>
+<td align="left">x64</td>
+<td align="left">8, 9, 10, 11, 12</td>
+</tr>
+</tbody></table>
+<ul>
+<li>The 32-bit system is not supported for the time being.</li>
+</ul>
+<p>if  node &lt;= 9.x, please install <a href="mailto:&#105;&#109;&#97;&#x67;&#x65;&#115;&#64;&#51;&#x2e;&#49;&#x2e;&#x31;">&#105;&#109;&#97;&#x67;&#x65;&#115;&#64;&#51;&#x2e;&#49;&#x2e;&#x31;</a></p>
+<table>
+<thead>
+<tr>
+<th align="left">Platform</th>
+<th align="left">Architecture</th>
+<th align="left">Node Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Windows</td>
+<td align="left">x86 &amp; x64</td>
+<td align="left">0.9.11, 0.10, 0.12, 1, 2, 3, 4, 5, 6, 8, 10</td>
+</tr>
+<tr>
+<td align="left">OSX</td>
+<td align="left">X64</td>
+<td align="left">0.9.11, 0.10, 0.12, 1, 2, 3, 4, 5, 6, 8, 9, 10</td>
+</tr>
+<tr>
+<td align="left">Linux*</td>
+<td align="left">x86 &amp; x64</td>
+<td align="left">0.9.11, 0.10, 0.12, 1, 2, 3, 4, 5, 6, 8, 10</td>
+</tr>
+</tbody></table>
+<h2 id="Features-功能特性"><a href="#Features-功能特性" class="headerlink" title="Features 功能特性"></a>Features 功能特性</h2><ul>
+<li>Lightweight: no need to install any image processing library.</li>
+<li>轻量级：无需安装任何图像处理库。</li>
+<li>Cross-platform: Released a compiled .node file on windows, just download and start.</li>
+<li>跨平台：Windows下发布了编译好的.node文件,下载就能用。</li>
+<li>Easy-to-use: Provide jQuery-like chaining API. Simple and reliable!</li>
+<li>方便用：jQuery风格的API，简单可依赖。</li>
+</ul>
+<h2 id="Installation-安装"><a href="#Installation-安装" class="headerlink" title="Installation 安装"></a>Installation 安装</h2><pre><code>$ npm install images</code></pre>
+<h2 id="API-接口"><a href="#API-接口" class="headerlink" title="API 接口"></a>API 接口</h2><p>node-images provide jQuery-like Chaining API,You can start the chain like this:<br>node-images 提供了类似jQuery的链式调用API,您可以这样开始:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Load and decode image from file */</span></span><br><span class="line"><span class="comment">/* 从指定文件加载并解码图像 */</span></span><br><span class="line">images(file)</span><br><span class="line"><span class="comment">/* Create a new transparent image */</span></span><br><span class="line"><span class="comment">/* 创建一个指定宽高的透明图像 */</span></span><br><span class="line">images(width, height)</span><br><span class="line"><span class="comment">/* Load and decode image from a buffer */</span></span><br><span class="line"><span class="comment">/* 从Buffer数据中解码图像 */</span></span><br><span class="line">images(buffer[, start[, end]])</span><br><span class="line"><span class="comment">/* Copy from another image */</span></span><br><span class="line"><span class="comment">/* 从另一个图像中复制区域来创建图像 */</span></span><br><span class="line">images(image[, x, y, width, height])</span><br></pre></td></tr></table></figure>
+<h3 id="images-file"><a href="#images-file" class="headerlink" title="images(file)"></a>images(file)</h3><p>Load and decode image from file<br>从指定文件加载并解码图像</p>
+<h3 id="images-width-height"><a href="#images-width-height" class="headerlink" title="images(width, height)"></a>images(width, height)</h3><p>Create a new transparent image<br>创建一个指定宽高的透明图像</p>
+<h3 id="images-buffer-start-end"><a href="#images-buffer-start-end" class="headerlink" title="images(buffer[, start[, end]])"></a>images(buffer[, start[, end]])</h3><p>Load and decode image from a buffer<br>从Buffer数据中解码图像</p>
+<h3 id="images-image-x-y-width-height"><a href="#images-image-x-y-width-height" class="headerlink" title="images(image[, x, y, width, height])"></a>images(image[, x, y, width, height])</h3><p>Copy from another image<br>从另一个图像中复制区域来创建图像</p>
+<h3 id="fill-red-green-blue-alpha"><a href="#fill-red-green-blue-alpha" class="headerlink" title=".fill(red, green, blue[, alpha])"></a>.fill(red, green, blue[, alpha])</h3><p>eg:<code>images(200, 100).fill(0xff, 0x00, 0x00, 0.5)</code><br>Fill image with color<br>以指定颜色填充图像</p>
+<h3 id="draw-image-x-y"><a href="#draw-image-x-y" class="headerlink" title=".draw(image, x, y)"></a>.draw(image, x, y)</h3><p>Draw <em>image</em> on the current image position( <em>x</em> , <em>y</em> )<br>在当前图像( <em>x</em> , <em>y</em> )上绘制 <em>image</em> 图像</p>
+<h3 id="encode-type-config"><a href="#encode-type-config" class="headerlink" title=".encode(type[, config])"></a>.encode(type[, config])</h3><p>eg:<code>images(&quot;input.png&quot;).encode(&quot;jpg&quot;, &#123;operation:50&#125;)</code><br>Encode image to buffer, <em>config</em> is image setting.<br>以指定格式编码当前图像到Buffer，config为图片设置，目前支持设置JPG图像质量<br>Return buffer<br>返回填充好的Buffer<br><strong>Note:The operation will cut off the chain</strong><br><strong>注意:该操作将会切断调用链</strong><br>See:.save(file[, type[, config]])<br>参考:.save(file[, type[, config]])</p>
+<h3 id="save-file-type-config"><a href="#save-file-type-config" class="headerlink" title=".save(file[, type[, config]])"></a>.save(file[, type[, config]])</h3><p>eg:<code>images(&quot;input.png&quot;).encode(&quot;output.jpg&quot;, &#123;operation:50&#125;)</code><br>Encoding and save the current image to a <em>file</em>, if the <em>type</em> is not specified, <em>type</em> well be automatically determined according to the <em>file</em>, <em>config</em> is image setting. eg: <code>&#123; operation:50 &#125;</code><br>编码并保存当前图像到 <em>file</em> ,如果type未指定,则根据 <em>file</em> 自动判断文件类型，config为图片设置，目前支持设置JPG图像质量</p>
+<h3 id="size-width-height"><a href="#size-width-height" class="headerlink" title=".size([width[, height]])"></a>.size([width[, height]])</h3><p>Get size of the image or set the size of the image,if the height is not specified, then scaling based on the current width and height<br>获取或者设置图像宽高，如果height未指定，则根据当前宽高等比缩放</p>
+<h3 id="resize-width-height"><a href="#resize-width-height" class="headerlink" title=".resize(width[, height])"></a>.resize(width[, height])</h3><p>Set the size of the image,if the height is not specified, then scaling based on the current width and height<br>设置图像宽高，如果height未指定，则根据当前宽高等比缩放, 默认采用 bicubic 算法。</p>
+<h3 id="width-width"><a href="#width-width" class="headerlink" title=".width([width])"></a>.width([width])</h3><p>Get width for the image or set width of the image<br>获取或设置图像宽度</p>
+<h3 id="height-height"><a href="#height-height" class="headerlink" title=".height([height])"></a>.height([height])</h3><p>Get height for the image or set height of the image<br>获取或设置图像高度</p>
+<h3 id="images-setLimit-width-height"><a href="#images-setLimit-width-height" class="headerlink" title="images.setLimit(width, height)"></a>images.setLimit(width, height)</h3><p>Set the limit size of each image<br>设置库处理图片的大小限制,设置后对所有新的操作生效(如果超限则抛出异常)</p>
+<h3 id="images-setGCThreshold-value"><a href="#images-setGCThreshold-value" class="headerlink" title="images.setGCThreshold(value)"></a>images.setGCThreshold(value)</h3><p>Set the garbage collection threshold<br>设置图像处理库自动gc的阈值(当<em>新增</em>内存使用超过该阈值时，执行垃圾回收)</p>
+<h3 id="images-getUsedMemory"><a href="#images-getUsedMemory" class="headerlink" title="images.getUsedMemory()"></a>images.getUsedMemory()</h3><p>Get used memory (in bytes)<br>得到图像处理库占用的内存大小(单位为字节)</p>
+<h3 id="images-gc"><a href="#images-gc" class="headerlink" title="images.gc()"></a>images.gc()</h3><p>Forced garbage collection<br>强制调用V8的垃圾回收机制</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/26/%E3%80%90npm%E3%80%91images%EF%BC%88Node.js%E8%BD%BB%E9%87%8F%E7%BA%A7%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%9B%BE%E5%83%8F%E7%BC%96%E8%A7%A3%E7%A0%81%E5%BA%93%EF%BC%89/" data-id="cmtv7lp0e006o14qj3ij54zf3" data-title="【npm】images（Node.js轻量级跨平台图像编解码库）" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【npm】inquirer命令行工具" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/26/%E3%80%90npm%E3%80%91inquirer%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" class="article-date">
+  <time class="dt-published" datetime="2021-10-26T06:33:53.000Z" itemprop="datePublished">2021-10-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/26/%E3%80%90npm%E3%80%91inquirer%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">【npm】inquirer命令行工具</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/SBoudrias/Inquirer.js">inquirer</a></p>
+<img width="75px" height="75px" align="right" alt="Inquirer Logo" src="https://raw.githubusercontent.com/SBoudrias/Inquirer.js/master/assets/inquirer_readme.svg?sanitize=true" title="Inquirer.js"/>
+
+<h1 id="Inquirer-js"><a href="#Inquirer-js" class="headerlink" title="Inquirer.js"></a>Inquirer.js</h1><p><a target="_blank" rel="noopener" href="http://badge.fury.io/js/inquirer"><img src="https://badge.fury.io/js/inquirer.svg" alt="npm"></a><br><a target="_blank" rel="noopener" href="https://codecov.io/gh/SBoudrias/Inquirer.js"><img src="https://codecov.io/gh/SBoudrias/Inquirer.js/branch/master/graph/badge.svg" alt="Coverage Status"></a><br><a target="_blank" rel="noopener" href="https://app.fossa.com/projects/git%2Bgithub.com%2FSBoudrias%2FInquirer.js?ref=badge_shield"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FSBoudrias%2FInquirer.js.svg?type=shield" alt="FOSSA Status"></a></p>
+<p>A collection of common interactive command line user interfaces.</p>
+<h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ol>
+<li><a href="#documentation">Documentation</a><ol>
+<li> <a href="#installation">Installation</a></li>
+<li> <a href="#examples">Examples</a></li>
+<li> <a href="#methods">Methods</a></li>
+<li> <a href="#objects">Objects</a></li>
+<li> <a href="#questions">Questions</a></li>
+<li> <a href="#answers">Answers</a></li>
+<li> <a href="#separator">Separator</a></li>
+<li> <a href="#prompt">Prompt Types</a></li>
+</ol>
+</li>
+<li><a href="#layouts">User Interfaces and Layouts</a><ol>
+<li> <a href="#reactive">Reactive Interface</a></li>
+</ol>
+</li>
+<li> <a href="#support">Support</a></li>
+<li> <a href="#issues">Known issues</a></li>
+<li> <a href="#news">News</a></li>
+<li> <a href="#contributing">Contributing</a></li>
+<li> <a href="#license">License</a></li>
+<li> <a href="#plugins">Plugins</a></li>
+</ol>
+<h2 id="Goal-and-Philosophy"><a href="#Goal-and-Philosophy" class="headerlink" title="Goal and Philosophy"></a>Goal and Philosophy</h2><p><strong><code>Inquirer.js</code></strong> strives to be an easily embeddable and beautiful command line interface for <a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js</a> (and perhaps the “CLI <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Citizen_Kane">Xanadu</a>“).</p>
+<p><strong><code>Inquirer.js</code></strong> should ease the process of</p>
+<ul>
+<li>providing <em>error feedback</em></li>
+<li><em>asking questions</em></li>
+<li><em>parsing</em> input</li>
+<li><em>validating</em> answers</li>
+<li>managing <em>hierarchical prompts</em></li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> <strong><code>Inquirer.js</code></strong> provides the user interface and the inquiry session flow. If you’re searching for a full blown command line program utility, then check out <a target="_blank" rel="noopener" href="https://github.com/visionmedia/commander.js">commander</a>, <a target="_blank" rel="noopener" href="https://github.com/dthree/vorpal">vorpal</a> or <a target="_blank" rel="noopener" href="https://github.com/leo/args">args</a>.</p>
+</blockquote>
+<h2 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a><a href="#documentation">Documentation</a></h2><p><a name="documentation"></a></p>
+<h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><p><a name="installation"></a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save inquirer</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> inquirer <span class="keyword">from</span> <span class="string">&#x27;inquirer&#x27;</span>;</span><br><span class="line">inquirer</span><br><span class="line">  .prompt([</span><br><span class="line">    <span class="comment">/* Pass your questions in here */</span></span><br><span class="line">  ])</span><br><span class="line">  .then(<span class="function">(<span class="params">answers</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Use user feedback for... whatever!!</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error.isTtyError) &#123;</span><br><span class="line">      <span class="comment">// Prompt couldn&#x27;t be rendered in the current environment</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Something else went wrong</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>Inquirer v9 and higher are native esm modules, this mean you cannot use the commonjs syntax <code>require(&#39;inquirer&#39;)</code> anymore. If you want to learn more about using native esm in Node, I’d recommend reading <a target="_blank" rel="noopener" href="https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c">the following guide</a>. Alternatively, you can rely on an older version until you’re ready to upgrade your environment:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save inquirer@^8.0.0</span><br></pre></td></tr></table></figure>
+<p>This will then allow import inquirer with the commonjs <code>require</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> inquirer = <span class="built_in">require</span>(<span class="string">&#x27;inquirer&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p><a name="examples"></a></p>
+<h3 id="Examples-Run-it-and-see-it"><a href="#Examples-Run-it-and-see-it" class="headerlink" title="Examples (Run it and see it)"></a>Examples (Run it and see it)</h3><p>Check out the <a target="_blank" rel="noopener" href="https://github.com/SBoudrias/Inquirer.js/tree/master/packages/inquirer/examples"><code>packages/inquirer/examples/</code></a> folder for code and interface examples.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node packages/inquirer/examples/pizza.js</span><br><span class="line">node packages/inquirer/examples/checkbox.js</span><br><span class="line"><span class="meta">#</span><span class="bash"> etc...</span></span><br></pre></td></tr></table></figure>
+<h3 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h3><p><a name="methods"></a></p>
+<h4 id="inquirer-prompt-questions-answers-gt-promise"><a href="#inquirer-prompt-questions-answers-gt-promise" class="headerlink" title="inquirer.prompt(questions, answers) -&gt; promise"></a><code>inquirer.prompt(questions, answers) -&gt; promise</code></h4><p>Launch the prompt interface (inquiry session)</p>
+<ul>
+<li><strong>questions</strong> (Array) containing <a href="#question">Question Object</a> (using the <a href="#reactive-interface">reactive interface</a>, you can also pass a <code>Rx.Observable</code> instance)</li>
+<li><strong>answers</strong> (object) contains values of already answered questions. Inquirer will avoid asking answers already provided here. Defaults <code>&#123;&#125;</code>.</li>
+<li>returns a <strong>Promise</strong></li>
+</ul>
+<h4 id="inquirer-registerPrompt-name-prompt"><a href="#inquirer-registerPrompt-name-prompt" class="headerlink" title="inquirer.registerPrompt(name, prompt)"></a><code>inquirer.registerPrompt(name, prompt)</code></h4><p>Register prompt plugins under <code>name</code>.</p>
+<ul>
+<li><strong>name</strong> (string) name of the this new prompt. (used for question <code>type</code>)</li>
+<li><strong>prompt</strong> (object) the prompt object itself (the plugin)</li>
+</ul>
+<h4 id="inquirer-createPromptModule-gt-prompt-function"><a href="#inquirer-createPromptModule-gt-prompt-function" class="headerlink" title="inquirer.createPromptModule() -&gt; prompt function"></a><code>inquirer.createPromptModule() -&gt; prompt function</code></h4><p>Create a self contained inquirer module. If you don’t want to affect other libraries that also rely on inquirer when you overwrite or add new prompt types.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> prompt = inquirer.createPromptModule();</span><br><span class="line">prompt(questions).then(<span class="comment">/* ... */</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h3><p><a name="objects"></a></p>
+<h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><p><a name="questions"></a><br>A question object is a <code>hash</code> containing question related values:</p>
+<ul>
+<li><strong>type</strong>: (String) Type of the prompt. Defaults: <code>input</code> - Possible values: <code>input</code>, <code>number</code>, <code>confirm</code>, <code>list</code>, <code>rawlist</code>, <code>expand</code>, <code>checkbox</code>, <code>password</code>, <code>editor</code></li>
+<li><strong>name</strong>: (String) The name to use when storing the answer in the answers hash. If the name contains periods, it will define a path in the answers hash.</li>
+<li><strong>message</strong>: (String|Function) The question to print. If defined as a function, the first parameter will be the current inquirer session answers. Defaults to the value of <code>name</code> (followed by a colon).</li>
+<li><strong>default</strong>: (String|Number|Boolean|Array|Function) Default value(s) to use if nothing is entered, or a function that returns the default value(s). If defined as a function, the first parameter will be the current inquirer session answers.</li>
+<li><strong>choices</strong>: (Array|Function) Choices array or a function returning a choices array. If defined as a function, the first parameter will be the current inquirer session answers.<br>Array values can be simple <code>numbers</code>, <code>strings</code>, or <code>objects</code> containing a <code>name</code> (to display in list), a <code>value</code> (to save in the answers hash), and a <code>short</code> (to display after selection) properties. The choices array can also contain <a href="#separator">a <code>Separator</code></a>.</li>
+<li><strong>validate</strong>: (Function) Receive the user input and answers hash. Should return <code>true</code> if the value is valid, and an error message (<code>String</code>) otherwise. If <code>false</code> is returned, a default error message is provided.</li>
+<li><strong>filter</strong>: (Function) Receive the user input and answers hash. Returns the filtered value to be used inside the program. The value returned will be added to the <em>Answers</em> hash.</li>
+<li><strong>transformer</strong>: (Function) Receive the user input, answers hash and option flags, and return a transformed value to display to the user. The transformation only impacts what is shown while editing. It does not modify the answers hash.</li>
+<li><strong>when</strong>: (Function, Boolean) Receive the current user answers hash and should return <code>true</code> or <code>false</code> depending on whether or not this question should be asked. The value can also be a simple boolean.</li>
+<li><strong>pageSize</strong>: (Number) Change the number of lines that will be rendered when using <code>list</code>, <code>rawList</code>, <code>expand</code> or <code>checkbox</code>.</li>
+<li><strong>prefix</strong>: (String) Change the default <em>prefix</em> message.</li>
+<li><strong>suffix</strong>: (String) Change the default <em>suffix</em> message.</li>
+<li><strong>askAnswered</strong>: (Boolean) Force to prompt the question if the answer already exists.</li>
+<li><strong>loop</strong>: (Boolean) Enable list looping. Defaults: <code>true</code></li>
+<li><strong>waitUserInput</strong>: (Boolean) Flag to enable/disable wait for user input before opening system editor - Defaults: <code>true</code></li>
+</ul>
+<p><code>default</code>, <code>choices</code>(if defined as functions), <code>validate</code>, <code>filter</code> and <code>when</code> functions can be called asynchronously. Either return a promise or use <code>this.async()</code> to get a callback you’ll call with the final value.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">/* Preferred way: with promise */</span></span><br><span class="line">  <span class="function"><span class="title">filter</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="comment">/* etc... */</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">/* Legacy way: with this.async */</span></span><br><span class="line">  validate: <span class="function"><span class="keyword">function</span> (<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Declare function as asynchronous, and save the done callback</span></span><br><span class="line">    <span class="keyword">const</span> done = <span class="built_in">this</span>.async();</span><br><span class="line">    <span class="comment">// Do async stuff</span></span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> input !== <span class="string">&#x27;number&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// Pass the return value in the done callback</span></span><br><span class="line">        done(<span class="string">&#x27;You need to provide a number&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// Pass the return value in the done callback</span></span><br><span class="line">      done(<span class="literal">null</span>, <span class="literal">true</span>);</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Answers"><a href="#Answers" class="headerlink" title="Answers"></a>Answers</h3><p><a name="answers"></a><br>A key/value hash containing the client answers in each prompt.</p>
+<ul>
+<li><strong>Key</strong> The <code>name</code> property of the <em>question</em> object</li>
+<li><strong>Value</strong> (Depends on the prompt)<ul>
+<li><code>confirm</code>: (Boolean)</li>
+<li><code>input</code> : User input (filtered if <code>filter</code> is defined) (String)</li>
+<li><code>number</code>: User input (filtered if <code>filter</code> is defined) (Number)</li>
+<li><code>rawlist</code>, <code>list</code> : Selected choice value (or name if no value specified) (String)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Separator"><a href="#Separator" class="headerlink" title="Separator"></a>Separator</h3><p><a name="separator"></a><br>A separator can be added to any <code>choices</code> array:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; In the question object</span><br><span class="line">choices: [ &quot;Choice A&quot;, new inquirer.Separator(), &quot;choice B&quot; ]</span><br><span class="line">&#x2F;&#x2F; Which&#39;ll be displayed this way</span><br><span class="line">[?] What do you want to do?</span><br><span class="line"> &gt; Order a pizza</span><br><span class="line">   Make a reservation</span><br><span class="line">   --------</span><br><span class="line">   Ask opening hours</span><br><span class="line">   Talk to the receptionist</span><br></pre></td></tr></table></figure>
+<p>The constructor takes a facultative <code>String</code> value that’ll be use as the separator. If omitted, the separator will be <code>--------</code>.</p>
+<p>Separator instances have a property <code>type</code> equal to <code>separator</code>. This should allow tools façading Inquirer interface from detecting separator types in lists.</p>
+<p><a name="prompt"></a></p>
+<h3 id="Prompt-types"><a href="#Prompt-types" class="headerlink" title="Prompt types"></a>Prompt types</h3><hr>
+<blockquote>
+<p><strong>Note:</strong>: <em>allowed options written inside square brackets (<code>[]</code>) are optional. Others are required.</em></p>
+</blockquote>
+<h4 id="List-type-39-list-39"><a href="#List-type-39-list-39" class="headerlink" title="List - {type: &#39;list&#39;}"></a>List - <code>&#123;type: &#39;list&#39;&#125;</code></h4><p>Take <code>type</code>, <code>name</code>, <code>message</code>, <code>choices</code>[, <code>default</code>, <code>filter</code>, <code>loop</code>] properties.<br>(Note: <code>default</code> must be set to the <code>index</code> or <code>value</code> of one of the entries in <code>choices</code>)</p>
+<p><img src="https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/list.svg" alt="List prompt"></p>
+<hr>
+<h4 id="Raw-List-type-39-rawlist-39"><a href="#Raw-List-type-39-rawlist-39" class="headerlink" title="Raw List - {type: &#39;rawlist&#39;}"></a>Raw List - <code>&#123;type: &#39;rawlist&#39;&#125;</code></h4><p>Take <code>type</code>, <code>name</code>, <code>message</code>, <code>choices</code>[, <code>default</code>, <code>filter</code>, <code>loop</code>] properties.<br>(Note: <code>default</code> must be set to the <code>index</code> of one of the entries in <code>choices</code>)</p>
+<p><img src="https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/rawlist.svg" alt="Raw list prompt"></p>
+<hr>
+<h4 id="Expand-type-39-expand-39"><a href="#Expand-type-39-expand-39" class="headerlink" title="Expand - {type: &#39;expand&#39;}"></a>Expand - <code>&#123;type: &#39;expand&#39;&#125;</code></h4><p>Take <code>type</code>, <code>name</code>, <code>message</code>, <code>choices</code>[, <code>default</code>] properties.<br>Note: <code>default</code> must be the <code>index</code> of the desired default selection of the array. If <code>default</code> key not provided, then <code>help</code> will be used as default choice</p>
+<p>Note that the <code>choices</code> object will take an extra parameter called <code>key</code> for the <code>expand</code> prompt. This parameter must be a single (lowercased) character. The <code>h</code> option is added by the prompt and shouldn’t be defined by the user.</p>
+<p>See <code>examples/expand.js</code> for a running example.</p>
+<p><img src="https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/expand-y.svg" alt="Expand prompt closed"><br><img src="https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/expand-d.svg" alt="Expand prompt expanded"></p>
+<hr>
+<h4 id="Checkbox-type-39-checkbox-39"><a href="#Checkbox-type-39-checkbox-39" class="headerlink" title="Checkbox - {type: &#39;checkbox&#39;}"></a>Checkbox - <code>&#123;type: &#39;checkbox&#39;&#125;</code></h4><p>Take <code>type</code>, <code>name</code>, <code>message</code>, <code>choices</code>[, <code>filter</code>, <code>validate</code>, <code>default</code>, <code>loop</code>] properties. <code>default</code> is expected to be an Array of the checked choices value.</p>
+<p>Choices marked as <code>&#123;checked: true&#125;</code> will be checked by default.</p>
+<p>Choices whose property <code>disabled</code> is truthy will be unselectable. If <code>disabled</code> is a string, then the string will be outputted next to the disabled choice, otherwise it’ll default to <code>&quot;Disabled&quot;</code>. The <code>disabled</code> property can also be a synchronous function receiving the current answers as argument and returning a boolean or a string.</p>
+<p><img src="https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/checkbox.svg" alt="Checkbox prompt"></p>
+<hr>
+<h4 id="Confirm-type-39-confirm-39"><a href="#Confirm-type-39-confirm-39" class="headerlink" title="Confirm - {type: &#39;confirm&#39;}"></a>Confirm - <code>&#123;type: &#39;confirm&#39;&#125;</code></h4><p>Take <code>type</code>, <code>name</code>, <code>message</code>, [<code>default</code>] properties. <code>default</code> is expected to be a boolean if used.</p>
+<p><img src="https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/confirm.svg" alt="Confirm prompt"></p>
+<hr>
+<h4 id="Input-type-39-input-39"><a href="#Input-type-39-input-39" class="headerlink" title="Input - {type: &#39;input&#39;}"></a>Input - <code>&#123;type: &#39;input&#39;&#125;</code></h4><p>Take <code>type</code>, <code>name</code>, <code>message</code>[, <code>default</code>, <code>filter</code>, <code>validate</code>, <code>transformer</code>] properties.</p>
+<p><img src="https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/input.svg" alt="Input prompt"></p>
+<hr>
+<h4 id="Input-type-39-number-39"><a href="#Input-type-39-number-39" class="headerlink" title="Input - {type: &#39;number&#39;}"></a>Input - <code>&#123;type: &#39;number&#39;&#125;</code></h4><p>Take <code>type</code>, <code>name</code>, <code>message</code>[, <code>default</code>, <code>filter</code>, <code>validate</code>, <code>transformer</code>] properties.</p>
+<hr>
+<h4 id="Password-type-39-password-39"><a href="#Password-type-39-password-39" class="headerlink" title="Password - {type: &#39;password&#39;}"></a>Password - <code>&#123;type: &#39;password&#39;&#125;</code></h4><p>Take <code>type</code>, <code>name</code>, <code>message</code>, <code>mask</code>,[, <code>default</code>, <code>filter</code>, <code>validate</code>] properties.</p>
+<p><img src="https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/password.svg" alt="Password prompt"></p>
+<hr>
+<p>Note that <code>mask</code> is required to hide the actual user input.</p>
+<h4 id="Editor-type-39-editor-39"><a href="#Editor-type-39-editor-39" class="headerlink" title="Editor - {type: &#39;editor&#39;}"></a>Editor - <code>&#123;type: &#39;editor&#39;&#125;</code></h4><p>Take <code>type</code>, <code>name</code>, <code>message</code>[, <code>default</code>, <code>filter</code>, <code>validate</code>, <code>postfix</code>, <code>waitUserInput</code>] properties</p>
+<p>Launches an instance of the users preferred editor on a temporary file. Once the user exits their editor, the contents of the temporary file are read in as the result. The editor to use is determined by reading the $VISUAL or $EDITOR environment variables. If neither of those are present, notepad (on Windows) or vim (Linux or Mac) is used.</p>
+<p>The <code>postfix</code> property is useful if you want to provide an extension.</p>
+<p><a name="layouts"></a></p>
+<h3 id="Use-in-Non-Interactive-Environments"><a href="#Use-in-Non-Interactive-Environments" class="headerlink" title="Use in Non-Interactive Environments"></a>Use in Non-Interactive Environments</h3><p><code>prompt()</code> requires that it is run in an interactive environment. (I.e. <a target="_blank" rel="noopener" href="https://nodejs.org/docs/latest-v12.x/api/process.html#process_a_note_on_process_i_o">One where <code>process.stdin.isTTY</code> is <code>true</code></a>). If <code>prompt()</code> is invoked outside of such an environment, then <code>prompt()</code> will return a rejected promise with an error. For convenience, the error will have a <code>isTtyError</code> property to programmatically indicate the cause.</p>
+<h2 id="User-Interfaces-and-layouts"><a href="#User-Interfaces-and-layouts" class="headerlink" title="User Interfaces and layouts"></a>User Interfaces and layouts</h2><p>Along with the prompts, Inquirer offers some basic text UI.</p>
+<h4 id="Bottom-Bar-inquirer-ui-BottomBar"><a href="#Bottom-Bar-inquirer-ui-BottomBar" class="headerlink" title="Bottom Bar - inquirer.ui.BottomBar"></a>Bottom Bar - <code>inquirer.ui.BottomBar</code></h4><p>This UI present a fixed text at the bottom of a free text zone. This is useful to keep a message to the bottom of the screen while outputting command outputs on the higher section.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ui = <span class="keyword">new</span> inquirer.ui.BottomBar();</span><br><span class="line"><span class="comment">// pipe a Stream to the log zone</span></span><br><span class="line">outputStream.pipe(ui.log);</span><br><span class="line"><span class="comment">// Or simply write output</span></span><br><span class="line">ui.log.write(<span class="string">&#x27;something just happened.&#x27;</span>);</span><br><span class="line">ui.log.write(<span class="string">&#x27;Almost over, standby!&#x27;</span>);</span><br><span class="line"><span class="comment">// During processing, update the bottom bar content to display a loader</span></span><br><span class="line"><span class="comment">// or output a progress bar, etc</span></span><br><span class="line">ui.updateBottomBar(<span class="string">&#x27;new bottom bar content&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p><a name="reactive"></a></p>
+<h2 id="Reactive-interface"><a href="#Reactive-interface" class="headerlink" title="Reactive interface"></a>Reactive interface</h2><p>Internally, Inquirer uses the <a target="_blank" rel="noopener" href="https://github.com/ReactiveX/rxjs">JS reactive extension</a> to handle events and async flows.</p>
+<p>This mean you can take advantage of this feature to provide more advanced flows. For example, you can dynamically add questions to be asked:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> prompts = <span class="keyword">new</span> Rx.Subject();</span><br><span class="line">inquirer.prompt(prompts);</span><br><span class="line"><span class="comment">// At some point in the future, push new questions</span></span><br><span class="line">prompts.next(&#123;</span><br><span class="line">  <span class="comment">/* question... */</span></span><br><span class="line">&#125;);</span><br><span class="line">prompts.next(&#123;</span><br><span class="line">  <span class="comment">/* question... */</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// When you&#x27;re done</span></span><br><span class="line">prompts.complete();</span><br></pre></td></tr></table></figure>
+<p>And using the return value <code>process</code> property, you can access more fine grained callbacks:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inquirer.prompt(prompts).ui.process.subscribe(onEachAnswer, onError, onComplete);</span><br></pre></td></tr></table></figure>
+<h2 id="Support-OS-Terminals"><a href="#Support-OS-Terminals" class="headerlink" title="Support (OS Terminals)"></a>Support (OS Terminals)</h2><p><a name="support"></a></p>
+<p>You should expect mostly good support for the CLI below. This does not mean we won’t<br>look at issues found on other command line - feel free to report any!</p>
+<ul>
+<li><strong>Mac OS</strong>:<ul>
+<li>Terminal.app</li>
+<li>iTerm</li>
+</ul>
+</li>
+<li><strong>Windows (<a href="#issues">Known issues</a>)</strong>:<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal">Windows Terminal</a></li>
+<li><a target="_blank" rel="noopener" href="https://conemu.github.io/">ConEmu</a></li>
+<li>cmd.exe</li>
+<li>Powershell</li>
+<li>Cygwin</li>
+</ul>
+</li>
+<li><strong>Linux (Ubuntu, openSUSE, Arch Linux, etc)</strong>:<ul>
+<li>gnome-terminal (Terminal GNOME)</li>
+<li>konsole</li>
+</ul>
+</li>
+</ul>
+<h2 id="Known-issues"><a href="#Known-issues" class="headerlink" title="Known issues"></a>Known issues</h2><p><a name="issues"></a></p>
+<p>Running Inquirer together with network streams in Windows platform inside some terminals can result in process hang.<br>Workaround: run inside another terminal.<br>Please refer to the <a target="_blank" rel="noopener" href="https://github.com/nodejs/node/issues/21771">https://github.com/nodejs/node/issues/21771</a></p>
+<p>Calling a node script that uses Inquirer from grunt-exec can cause the program to crash. To fix this, add to your grunt-exec config <code>stdio: &#39;inherit&#39;</code>.<br>Please refer to <a target="_blank" rel="noopener" href="https://github.com/jharding/grunt-exec/issues/85">https://github.com/jharding/grunt-exec/issues/85</a></p>
+<h2 id="News-on-the-march-Release-notes"><a href="#News-on-the-march-Release-notes" class="headerlink" title="News on the march (Release notes)"></a>News on the march (Release notes)</h2><p><a name="news"></a></p>
+<p>Please refer to the <a target="_blank" rel="noopener" href="https://github.com/SBoudrias/Inquirer.js/releases">GitHub releases section for the changelog</a></p>
+<h2 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h2><p><a name="contributing"></a></p>
+<p><strong>Unit test</strong><br>Unit test are written in <a target="_blank" rel="noopener" href="https://mochajs.org/">Mocha</a>. Please add a unit test for every new feature or bug fix. <code>npm test</code> to run the test suite.</p>
+<p><strong>Documentation</strong><br>Add documentation for every API change. Feel free to send typo fixes and better docs!</p>
+<p>We’re looking to offer good support for multiple prompts and environments. If you want to<br>help, we’d like to keep a list of testers for each terminal/OS so we can contact you and<br>get feedback before release. Let us know if you want to be added to the list (just tweet<br>to <a target="_blank" rel="noopener" href="https://twitter.com/Vaxilart">@vaxilart</a>) or just add your name to <a target="_blank" rel="noopener" href="https://github.com/SBoudrias/Inquirer.js/wiki/Testers">the wiki</a></p>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p><a name="license"></a></p>
+<p>Copyright (c) 2022 Simon Boudrias (twitter: <a target="_blank" rel="noopener" href="https://twitter.com/Vaxilart">@vaxilart</a>)<br>Licensed under the MIT license.</p>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p><a name="plugins"></a></p>
+<h3 id="Prompts"><a href="#Prompts" class="headerlink" title="Prompts"></a>Prompts</h3><p><a target="_blank" rel="noopener" href="https://github.com/mokkabonna/inquirer-autocomplete-prompt"><strong>autocomplete</strong></a><br><br>Presents a list of options as the user types, compatible with other packages such as fuzzy (for search)<br><br><br><br><img src="https://github.com/mokkabonna/inquirer-autocomplete-prompt/raw/master/inquirer.gif" alt="autocomplete prompt"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/faressoft/inquirer-checkbox-plus-prompt"><strong>checkbox-plus</strong></a><br><br>Checkbox list with autocomplete and other additions<br><br><br><br><img src="https://github.com/faressoft/inquirer-checkbox-plus-prompt/raw/master/demo.gif" alt="checkbox-plus"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/haversnail/inquirer-date-prompt"><strong>inquirer-date-prompt</strong></a><br><br>Customizable date/time selector with localization support<br><br><br><br><img src="https://github.com/haversnail/inquirer-date-prompt/raw/master/examples/demo.gif" alt="Date Prompt"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/DerekTBrown/inquirer-datepicker-prompt"><strong>datetime</strong></a><br><br>Customizable date/time selector using both number pad and arrow keys<br><br><br><br><img src="https://github.com/DerekTBrown/inquirer-datepicker-prompt/raw/master/example/datetime-prompt.png" alt="Datetime Prompt"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/adam-golab/inquirer-select-line"><strong>inquirer-select-line</strong></a><br><br>Prompt for selecting index in array where add new element<br><br><br><br><img src="https://media.giphy.com/media/xUA7b1MxpngddUvdHW/giphy.gif" alt="inquirer-select-line gif"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sullof/inquirer-command-prompt"><strong>command</strong></a><br><br>Simple prompt with command history and dynamic autocomplete<br></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/adelsz/inquirer-fuzzy-path"><strong>inquirer-fuzzy-path</strong></a><br><br>Prompt for fuzzy file/directory selection.<br><br><br><br><img src="https://raw.githubusercontent.com/adelsz/inquirer-fuzzy-path/master/recording.gif" alt="inquirer-fuzzy-path"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/tannerntannern/inquirer-emoji"><strong>inquirer-emoji</strong></a><br><br>Prompt for inputting emojis.<br><br><br><br><img src="https://github.com/tannerntannern/inquirer-emoji/raw/master/demo.gif" alt="inquirer-emoji"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/LitoMore/inquirer-chalk-pipe"><strong>inquirer-chalk-pipe</strong></a><br><br>Prompt for input chalk-pipe style strings<br><br><br><br><img src="https://github.com/LitoMore/inquirer-chalk-pipe/raw/master/screenshot.gif" alt="inquirer-chalk-pipe"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/clinyong/inquirer-search-checkbox"><strong>inquirer-search-checkbox</strong></a><br><br>Searchable Inquirer checkbox<br></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/robin-rpr/inquirer-search-list"><strong>inquirer-search-list</strong></a><br><br>Searchable Inquirer list<br><br><br><br><img src="https://github.com/robin-rpr/inquirer-search-list/blob/master/preview.gif" alt="inquirer-search-list"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/olistic/inquirer-prompt-suggest"><strong>inquirer-prompt-suggest</strong></a><br><br>Inquirer prompt for your less creative users.<br><br><br><br><img src="https://user-images.githubusercontent.com/5600126/40391192-d4f3d6d0-5ded-11e8-932f-4b75b642c09e.gif" alt="inquirer-prompt-suggest"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/HQarroum/inquirer-s3"><strong>inquirer-s3</strong></a><br><br>An S3 object selector for Inquirer.<br><br><br><br><img src="https://github.com/HQarroum/inquirer-s3/raw/master/docs/inquirer-screenshot.png" alt="inquirer-s3"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yaodingyd/inquirer-autosubmit-prompt"><strong>inquirer-autosubmit-prompt</strong></a><br><br>Auto submit based on your current input, saving one extra enter<br></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/anc95/inquirer-file-tree-selection"><strong>inquirer-file-tree-selection-prompt</strong></a><br><br>Inquirer prompt for to select a file or directory in file tree<br><br><br><br><img src="https://github.com/anc95/inquirer-file-tree-selection/blob/master/example/screenshot.gif" alt="inquirer-file-tree-selection-prompt"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/insightfuls/inquirer-tree-prompt"><strong>inquirer-tree-prompt</strong></a><br><br>Inquirer prompt to select from a tree<br><br><br><br><img src="https://github.com/insightfuls/inquirer-tree-prompt/blob/main/example/screenshot.gif" alt="inquirer-tree-prompt"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/eduardoboucas/inquirer-table-prompt"><strong>inquirer-table-prompt</strong></a><br><br>A table-like prompt for Inquirer.<br><br><br><br><img src="https://raw.githubusercontent.com/eduardoboucas/inquirer-table-prompt/master/screen-capture.gif" alt="inquirer-table-prompt"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lnquy065/inquirer-interrupted-prompt"><strong>inquirer-interrupted-prompt</strong></a><br><br>Turning any existing inquirer and its plugin prompts into prompts that can be interrupted with a custom key.<br><br><br><br><img src="https://raw.githubusercontent.com/lnquy065/inquirer-interrupted-prompt/master/example/demo-menu.gif" alt="inquirer-interrupted-prompt"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/leonzalion/inquirer-press-to-continue"><strong>inquirer-press-to-continue</strong></a><br><br>A “press any key to continue” prompt for Inquirer.js<br><br><br><br><img src="https://raw.githubusercontent.com/leonzalion/inquirer-press-to-continue/main/assets/demo.gif" alt="inquirer-press-to-continue"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/26/%E3%80%90npm%E3%80%91inquirer%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" data-id="cmtv7lp0f006q14qjafu19vg8" data-title="【npm】inquirer命令行工具" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【算法】数据压缩" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" class="article-date">
+  <time class="dt-published" datetime="2021-10-21T05:39:04.000Z" itemprop="datePublished">2021-10-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/">【算法】数据压缩</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>还在学~</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" data-id="cmtv7lp1a00a514qj9x0cd9s0" data-title="【算法】数据压缩" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" rel="tag">数据压缩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【算法】二叉树" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91/" class="article-date">
+  <time class="dt-published" datetime="2021-10-21T05:38:46.000Z" itemprop="datePublished">2021-10-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91/">【算法】二叉树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><ul>
+<li><p>树</p>
+<p>  由称作<strong>根（root）</strong>的节点r以及0个或者多个非空的（子）树T1，T2，…，Tk组成，这些子树中每一颗的根都来自根的一条有向的边<strong>（edge）</strong>所连结</p>
+</li>
+<li></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91/" data-id="cmtv7lp16009o14qjhodpc6as" data-title="【算法】二叉树" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【算法】哈希表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%93%88%E5%B8%8C%E8%A1%A8/" class="article-date">
+  <time class="dt-published" datetime="2021-10-21T05:38:40.000Z" itemprop="datePublished">2021-10-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%93%88%E5%B8%8C%E8%A1%A8/">【算法】哈希表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>还在学~</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmtv7lp17009v14qjhw958bqz" data-title="【算法】哈希表" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【算法】斐波那契查找" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" class="article-date">
+  <time class="dt-published" datetime="2021-10-21T05:38:24.000Z" itemprop="datePublished">2021-10-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/">【算法】斐波那契查找</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>还在学~</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" data-id="cmtv7lp1900a314qj1t9j834i" data-title="【算法】斐波那契查找" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" rel="tag">斐波那契查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【算法】插值查找" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" class="article-date">
+  <time class="dt-published" datetime="2021-10-21T05:38:05.000Z" itemprop="datePublished">2021-10-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/">【算法】插值查找</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>还在学~</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" data-id="cmtv7lp1900a214qj4mtpe8z7" data-title="【算法】插值查找" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" rel="tag">插值查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【算法】二分查找" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="article-date">
+  <time class="dt-published" datetime="2021-10-21T05:37:50.000Z" itemprop="datePublished">2021-10-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">【算法】二分查找</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>还在学~</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2021/10/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" data-id="cmtv7lp15009j14qj7r8adcom" data-title="【算法】二分查找" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/">Angular</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/axios/">axios</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cli/">cli</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" rel="tag">AST语法树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/" rel="tag">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BF%BB%E6%BB%9A/" rel="tag">CSS翻滚</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CommonJS/" rel="tag">CommonJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/" rel="tag">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Echarts/" rel="tag">Echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDE/" rel="tag">FDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flux/" rel="tag">Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/" rel="tag">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">JavaScript - 设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LangChain/" rel="tag">LangChain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis-Plus/" rel="tag">MyBatis-Plus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/" rel="tag">Node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/" rel="tag">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCR/" rel="tag">OCR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ollama/" rel="tag">Ollama</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/" rel="tag">OpenCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PPT/" rel="tag">PPT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/" rel="tag">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVG/" rel="tag">SVG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SysemJS/" rel="tag">SysemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SystemJS/" rel="tag">SystemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uni/" rel="tag">Uni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-cli/" rel="tag">Vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VueRouter/" rel="tag">VueRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Componetns/" rel="tag">Web Componetns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/" rel="tag">Webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/app/" rel="tag">app</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/axios/" rel="tag">axios</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backbone-js/" rel="tag">backbone.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cli/" rel="tag">cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echarts/" rel="tag">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/element-ui/" rel="tag">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-stream/" rel="tag">event-stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileDownload/" rel="tag">fileDownload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileUpload/" rel="tag">fileUpload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/map/" rel="tag">map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mixin/" rel="tag">mixin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/module/" rel="tag">module</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postcss/" rel="tag">postcss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/route/" rel="tag">route</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/single/" rel="tag">single</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transform/" rel="tag">transform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utils/" rel="tag">utils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-loader/" rel="tag">vue-loader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/" rel="tag">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" rel="tag">下载进度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" rel="tag">业务梳理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" rel="tag">二分法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" rel="tag">代码工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" rel="tag">代码片段</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8/" rel="tag">使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%89%E6%A0%87/" rel="tag">光标</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" rel="tag">全局弹窗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" rel="tag">八皇后问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" rel="tag">分支管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" rel="tag">前端 - 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">前端工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" rel="tag">前端架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">前端组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">前缀、中缀、后缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" rel="tag">功能代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" rel="tag">功能模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%86%E5%8F%B2/" rel="tag">历史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E7%90%86/" rel="tag">原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" rel="tag">古生物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" rel="tag">图像识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87/" rel="tag">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" rel="tag">图片压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" rel="tag">大模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">姿势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" rel="tag">局部样式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E8%A1%A8/" rel="tag">年表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" rel="tag">微前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%81%90%E9%BE%99/" rel="tag">恐龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%86%99/" rel="tag">手写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" rel="tag">手势控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">手势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%8B%BD/" rel="tag">拖拽</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" rel="tag">插值查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" rel="tag">数据、算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" rel="tag">数据压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">数据响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" rel="tag">数据流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" rel="tag">数组实现包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" rel="tag">文字滚动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" rel="tag">文本识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" rel="tag">文档版面识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" rel="tag">文档结构识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" rel="tag">斐波那契查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" rel="tag">断点续传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" rel="tag">权限管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" rel="tag">权限验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" rel="tag">样式功能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97/" rel="tag">模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" rel="tag">模块打包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" rel="tag">模板引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" rel="tag">模板生成器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" rel="tag">模板解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B0%B4%E5%8D%B0/" rel="tag">水印</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" rel="tag">流式回复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" rel="tag">流式问答</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B7%E5%85%A5/" rel="tag">混入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" rel="tag">滚动吸附</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" rel="tag">瀑布流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E5%9D%91/" rel="tag">爬坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%99%BD%E6%9D%BF/" rel="tag">白板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" rel="tag">研发手记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9DMyth/" rel="tag">神话Myth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" rel="tag">神话概要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" rel="tag">稀疏数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" rel="tag">第一章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%BE%E5%90%8D/" rel="tag">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" rel="tag">算法 -时间复杂度计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" rel="tag">系统架构设计师考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="tag">系统设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" rel="tag">约瑟夫问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" rel="tag">编程题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" rel="tag">网页截图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" rel="tag">聊天室</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag">自定义</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" rel="tag">虚拟DOM与diff算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">读书笔记 - React - 《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E7%BA%BF/" rel="tag">连线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" rel="tag">迷宫回溯</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" rel="tag">逆波兰式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E8%BD%BD/" rel="tag">重载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" rel="tag">问答系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" rel="tag">音视频播放</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" rel="tag">音量控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">页面编辑器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 18.18px;">CSS</a> <a href="/tags/CSS%E7%BF%BB%E6%BB%9A/" style="font-size: 10px;">CSS翻滚</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10.91px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10.91px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/FDE/" style="font-size: 10.91px;">FDE</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 11.82px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19.09px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/LLM/" style="font-size: 13.64px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 10px;">LangChain</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 13.64px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/OCR/" style="font-size: 10.91px;">OCR</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenCV/" style="font-size: 12.73px;">OpenCV</a> <a href="/tags/PPT/" style="font-size: 10px;">PPT</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.82px;">Python</a> <a href="/tags/React/" style="font-size: 11.82px;">React</a> <a href="/tags/SVG/" style="font-size: 10.91px;">SVG</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/SystemJS/" style="font-size: 10px;">SystemJS</a> <a href="/tags/TypeScript/" style="font-size: 11.82px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18.18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 13.64px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10.91px;">electron</a> <a href="/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/tags/event-stream/" style="font-size: 10px;">event-stream</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10.91px;">git</a> <a href="/tags/leetcode/" style="font-size: 12.73px;">leetcode</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 15.45px;">node</a> <a href="/tags/npm/" style="font-size: 17.27px;">npm</a> <a href="/tags/openCV/" style="font-size: 10.91px;">openCV</a> <a href="/tags/postcss/" style="font-size: 10px;">postcss</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 10.91px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webrtc/" style="font-size: 10px;">webrtc</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10.91px;">《深入React技术栈》</a> <a href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" style="font-size: 10px;">下载进度</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" style="font-size: 10px;">业务梳理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 10px;">二分法</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 10.91px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 14.55px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10.91px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 14.55px;">使用教程</a> <a href="/tags/%E5%85%89%E6%A0%87/" style="font-size: 10px;">光标</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 13.64px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 10.91px;">功能代码</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" style="font-size: 11.82px;">功能模块</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 10px;">历史</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 10.91px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10.91px;">响应式</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 10px;">图像处理</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">图像识别</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 10px;">图片</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大模型</a> <a href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10px;">姿势识别</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10.91px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 10.91px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%B9%B4%E8%A1%A8/" style="font-size: 10px;">年表</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 10.91px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">手势控制</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">手势识别</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" style="font-size: 10px;">数据流</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文本识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档版面识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档结构识别</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.82px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">样式功能</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10.91px;">模块</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10.91px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" style="font-size: 10px;">模板生成器</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" style="font-size: 10px;">流式回复</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" style="font-size: 10px;">流式问答</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 13.64px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 14.55px;">源码解析</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" style="font-size: 10px;">滚动吸附</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 10.91px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%99%BD%E6%9D%BF/" style="font-size: 10px;">白板</a> <a href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" style="font-size: 10.91px;">研发手记</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 10.91px;">系统设计</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" style="font-size: 10px;">网页截图</a> <a href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" style="font-size: 10px;">聊天室</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.73px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%9E%E7%BA%BF/" style="font-size: 10px;">连线</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%82%E9%85%8D/" style="font-size: 10px;">适配</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">问答系统</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 16.36px;">面试题</a> <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" style="font-size: 10px;">音视频播放</a> <a href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">音量控制</a> <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">页面编辑器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">September 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">July 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">June 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">February 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/10/%E3%80%90AI%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%8A%A5%E5%91%8A%E7%94%9F%E6%88%90%E7%9A%84%E5%89%8D%E7%AB%AF/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/docker%E4%BD%BF%E7%94%A8ollama%E5%AE%89%E8%A3%85openclaw/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/%E5%BE%85%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/08/%E3%80%90FDE%E3%80%91%E6%99%BA%E8%83%BD%E9%97%AE%E6%95%B0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】智能问数系统设计</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/07/%E3%80%90FDE%E3%80%91%E6%96%87%E7%AB%A0%E6%96%87%E6%9C%AC%E6%BA%AF%E6%BA%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】文章文本溯源系统设计</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 wsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

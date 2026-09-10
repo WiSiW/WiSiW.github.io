@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>【LLM】企业部署LLM的五种方式 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="企业部署LLM的五种方式1.作为基座基础设施部署以LLM作为基座基础设施的部署方式，将LLM是为企业整体基础设施的一个关键组成部分，与数字基础设施、算力基础设施等享有同等的战略地位，它并不直接与特定的业务相绑定，而是作为其他应用的基础模型，为其提供支撑。这种定位确保了LLM的通用性和灵活性，使其能够为企业内各种应用提供智能支持。 1-1.引入LLM的作用传统的企业IT架构是一个多层次、复杂地系统，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LLM】企业部署LLM的五种方式">
+<meta property="og:url" content="https://wisiw.github.io.git/2026/03/26/%E3%80%90LLM%E3%80%91%E4%BC%81%E4%B8%9A%E9%83%A8%E7%BD%B2LLM%E7%9A%84%E4%BA%94%E7%A7%8D%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="企业部署LLM的五种方式1.作为基座基础设施部署以LLM作为基座基础设施的部署方式，将LLM是为企业整体基础设施的一个关键组成部分，与数字基础设施、算力基础设施等享有同等的战略地位，它并不直接与特定的业务相绑定，而是作为其他应用的基础模型，为其提供支撑。这种定位确保了LLM的通用性和灵活性，使其能够为企业内各种应用提供智能支持。 1-1.引入LLM的作用传统的企业IT架构是一个多层次、复杂地系统，">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-03-26T12:23:36.000Z">
+<meta property="article:modified_time" content="2026-09-10T03:10:14.797Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="LLM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="韦绍炜的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">韦绍炜的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://WiSiW.github.io.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-【LLM】企业部署LLM的五种方式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/03/26/%E3%80%90LLM%E3%80%91%E4%BC%81%E4%B8%9A%E9%83%A8%E7%BD%B2LLM%E7%9A%84%E4%BA%94%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2026-03-26T12:23:36.000Z" itemprop="datePublished">2026-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      【LLM】企业部署LLM的五种方式
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="企业部署LLM的五种方式"><a href="#企业部署LLM的五种方式" class="headerlink" title="企业部署LLM的五种方式"></a>企业部署LLM的五种方式</h1><h2 id="1-作为基座基础设施部署"><a href="#1-作为基座基础设施部署" class="headerlink" title="1.作为基座基础设施部署"></a>1.作为基座基础设施部署</h2><p>以LLM作为基座基础设施的部署方式，将LLM是为企业整体基础设施的一个关键组成部分，与数字基础设施、算力基础设施等享有同等的战略地位，它并不直接与特定的业务相绑定，而是作为其他应用的基础模型，为其提供支撑。这种定位确保了LLM的通用性和灵活性，使其能够为企业内各种应用提供智能支持。</p>
+<h3 id="1-1-引入LLM的作用"><a href="#1-1-引入LLM的作用" class="headerlink" title="1-1.引入LLM的作用"></a>1-1.引入LLM的作用</h3><p>传统的企业IT架构是一个多层次、复杂地系统，它随着技术的不断进步和业务的持续发展而日益繁复。这一传统架构通常包含以下几个核心组成部分：</p>
+<ul>
+<li><strong>基础设施层</strong>：这一层奠定了IT架构的基石，涵盖了从硬件设备（如服务器、存储设备、网络设备等）到基础设施软件（如操作系统、虚拟化软件）的全方位组件。这些组件协同工作，为上层系统和应用提供了一个稳定、高效的运行环境，同时提供了计算、存储和网络等基本资源支持</li>
+<li><strong>数据层</strong>：这一层在It架构中占据举足轻重的地位。它涉及数据的采集、存储、处理和管理等以一系列活动，并依赖数据仓库、数据湖、数据集成和数据治理等组件，以支持企业的数据驱动决策和各种业务应用</li>
+<li><strong>应用层</strong>：在这一层包含诸如ERP（企业资源规划）、CRM（客户关系管理）和HRM（人力资源管理）等关键企业级应用系统。此外，这一层还包括为满足而定制开发的应用。</li>
+<li><strong>服务层</strong>：这一层专注于提供服务支持，包括服务治理、服务注册与发现以及服务监控等功能。它可能采用ESB（企业服务总线）或微服务架构，以确保不同系统之间的顺畅集成和通信</li>
+<li><strong>智能化层</strong>：随着技术的演进，越来越多的企业开始将智能化元素融入到IT架构中。这一层可能包括机器学习模型、智能决策引擎和智能推荐系统等，旨在提升业务的智能化水平和竞争力。</li>
+</ul>
+<p>LLM被引入企业IT架构后，显著改变了传统IT架构模式。以LLM作为核心，极大简化了整体架构，使其主要分为以下两层：</p>
+<ul>
+<li><strong>智能基础设施层</strong>：在这一层，LLM发挥着核心作用。它建立在传统的数据基础设施和软硬件基础设施之上，进一步否见了企业级的LLM基础设施。这包括基础大模型（即通用大模型），以及基于这些基础模型，结合行业、场景和企业数据进行再训练得到的各类专用大模型</li>
+<li><strong>智能应用层</strong>：这一层以企业级智能服务引擎为基础，主要构建在智能基础设施层之上。它包括数据资产服务引擎、AI应用服务引擎以及应用调度服务引擎等组件，旨在全面支持企业的各类智能应用需求</li>
+</ul>
+<h3 id="1-2-特点"><a href="#1-2-特点" class="headerlink" title="1-2.特点"></a>1-2.特点</h3><ul>
+<li>核心地位：LLM被置于企业IT架构的中心位置，这一部署模式凸显了LLM在企业智能化转型中的核心作用。在传统企业IT架构中，数据处理和分析往往分散在各个业务部门或应用系统中，而LLM作为基座基础设施，实现了数据和智能处理的集中化，从而成为企业智能决策和创新的”大脑“。这种核心地位确保了数据和智能资源的高效利用，并未企业提供了一个统一的、可扩展的智能处理平台。</li>
+<li>通用性和灵活性：LLM不针对某一具体业务，而是为多种应用提供智能支持。这种通用性使得LLM能够服务于企业内部的各个部门和业务线，无论市场营销、客户服务、供应链管理还是产品研发，都可以通过LLM进行数据分析、预测和优化。同时，LLM的灵活性也表现在其能够适应不同的数据格式和处理需求，以及能够与各种应用系统和工具无缝集成，从而实现企业数据的全面智能化处理。</li>
+<li>简化架构：相较于传统架构更为简洁，主要分为智能基础设施层和智能应用层。这种简洁的架构有助于降低系统的复杂性和维护成本，提高系统的稳定性和可靠性。同时，提高将智能处理功能集中在智能基础设施层，可以是西安智能资源的共享和复用，避免重复建设和资源浪费。此外，智能应用层可以更加专注于业务逻辑的实现和用户体验的优化，从而提高企业的整体运营效率和服务质量。</li>
+</ul>
+<h3 id="1-3-适合这种部署的企业类型"><a href="#1-3-适合这种部署的企业类型" class="headerlink" title="1-3.适合这种部署的企业类型"></a>1-3.适合这种部署的企业类型</h3><h4 id="1）数据驱动型企业"><a href="#1）数据驱动型企业" class="headerlink" title="1）数据驱动型企业"></a>1）数据驱动型企业</h4><p>对于该类企业，数据是其核心资源和决策基础。这类企业通过收集、分析和利用数据来优化产品、提升服务、精准营销等。</p>
+<ul>
+<li><strong>高级数据分析</strong>：LLM能够处理海量的数据，捕捉其中的复杂关联，为企业提供更深层次的数据洞察。</li>
+<li><strong>预测建模</strong>：利用LLM进行预测建模，企业可以更准确地预测市场趋势、客户需求等，从而做出更明智的决策。</li>
+<li><strong>个性化服务</strong>：基于LLM的数据分析，企业可以为客户提供更加个性化的产品和服务，提升客户满意度。</li>
+</ul>
+<h4 id="2）创新型企业"><a href="#2）创新型企业" class="headerlink" title="2）创新型企业"></a>2）创新型企业</h4><p>该类企业注重技术研发和产品创新，以在竞争激烈的市场中脱颖而出。对于这类企业，LLM部署方式的优势如下：</p>
+<ul>
+<li><strong>加速研发</strong>：LLM可以协助处理复杂的研发数据，加速新产品的开发和上市速度</li>
+<li><strong>探索新市场</strong>：通过LLM的数据挖掘和分析，企业可以发现新的市场机会和客户需求，从而开发出新的产品或服务</li>
+<li><strong>技术创新</strong>：LLM本身就是一种技术创新工具，它可以帮助企业探索新的技术方向和应用场景</li>
+</ul>
+<h4 id="3）大型跨国企业或集团"><a href="#3）大型跨国企业或集团" class="headerlink" title="3）大型跨国企业或集团"></a>3）大型跨国企业或集团</h4><p>对于业务复杂、数据量庞大的大型跨国企业或集团，LLM作为基座基础设施的部署方式具有以下优势：</p>
+<ul>
+<li><strong>集中化数据处理</strong>：该类企业往往拥有多个业务部门和地区分支，LLM可以实现数据的集中化处理，确保数据的一致性和准确性</li>
+<li><strong>高效决策支持</strong>：通过LLM的数据分析，企业高层可以更快地获得全面的业务洞察，从而做出更高效的决策</li>
+<li><strong>全球化运营支持</strong>：对于跨国公司来说，LLM可以帮助其更好地管理全球业务，包括市场分析、风险管理等</li>
+</ul>
+<h2 id="2-作为企业知识中台部署"><a href="#2-作为企业知识中台部署" class="headerlink" title="2.作为企业知识中台部署"></a>2.作为企业知识中台部署</h2><p>以LLM作为企业知识中台的部署方式，将企业的数据中台升级为知识中台。LLM被用来实现企业所有数据的知识化、能够智能化、自动化地处理数据异常、提取数据价值、抽象数据知识，并推动基于业务地数据知识融合。这种方式有助于企业更有效地利用数据资源，提升决策水平和创新能力。</p>
+<h3 id="2-1-知识中台的关键作用"><a href="#2-1-知识中台的关键作用" class="headerlink" title="2-1.知识中台的关键作用"></a>2-1.知识中台的关键作用</h3><h4 id="1）提升知识管理能力"><a href="#1）提升知识管理能力" class="headerlink" title="1）提升知识管理能力"></a>1）提升知识管理能力</h4><p>为企业量身定做了一套全面的知识管理解决方案。这套方案不仅能够帮助企业从零开始构建自己的知识管理体系，还能显著提升企业知识管理的专业性和效率。同时，通过先进的数据集成技术，知识中台实现了企业内部各类数据源的统一管理和共享。同时，严格的数据治理机制确保了数据的准确性、安全性和合规性。</p>
+<h4 id="2）促进企业内部的知识共享"><a href="#2）促进企业内部的知识共享" class="headerlink" title="2）促进企业内部的知识共享"></a>2）促进企业内部的知识共享</h4><p>在传统的企业架构中，知识往往分散在各个独立的业务单元，形成”信息孤岛“。知识中台的出现打破了这种鼓励状态，使得企业内部的知识得以快速流通和共享。同时，知识中台不仅是实现了企业内部知识资源的标准化管理，还通过服务化的方式，使得这些知识资源能够被各个业务部门和系统高效调用和交互。</p>
+<h4 id="3）激发企业创新能力"><a href="#3）激发企业创新能力" class="headerlink" title="3）激发企业创新能力"></a>3）激发企业创新能力</h4><p>隐性知识时企业宝贵的资产，但往往难以被有效利用。知识中台通过智能化首都按，将这些隐性知识显性化，从而极大地激发了员工的创新能力和企业的整体创新活力。</p>
+<h4 id="4）企业决策支持"><a href="#4）企业决策支持" class="headerlink" title="4）企业决策支持"></a>4）企业决策支持</h4><p>整合了大数据分析、机器学习等智能化技术的知识中台，为企业的应用系统提供了强大的智能支持，推动了企业业务决策和应用场景的智能化升级。知识中台通过深度分析这些数据，为企业提供了全面、准确的数据支持，使得企业的每一项决策都更加科学、合理。</p>
+<p>通过建立数据中台，企业不仅实现了数据和知识的全面共享和协同，还有效避免了信息孤岛和重复建设的问题。这不仅大幅提高了数据的利用价值和业务的整体效率，还未企业的数字化转型和智能化发展奠定了坚实的基础。在未来的竞争中，拥有高效知识中台的企业无疑将占据更有利的位置。</p>
+<h3 id="2-2-什么是基于LLM的知识中台"><a href="#2-2-什么是基于LLM的知识中台" class="headerlink" title="2-2.什么是基于LLM的知识中台"></a>2-2.什么是基于LLM的知识中台</h3><p>一种利用先进的大型预训练模型技术来构建一个集数据整合、知识提取、智能化应用于一体的企业级知识服务平台。这种部署方式能够将企业的数据中台升级为知识平台，通过深度学习和自然语言处理技术，实现了对海量知识的有效整合、管理和应用，从而为企业提供智能化、高效化的知识服务。</p>
+<h4 id="1）LLM的作用"><a href="#1）LLM的作用" class="headerlink" title="1）LLM的作用"></a>1）LLM的作用</h4><ul>
+<li>处理复杂任务，如自然语言处理、图像识别等</li>
+<li>处理自然语言理解和生成、图像识别和生成等</li>
+<li>自动化知识抽取、建模和更新</li>
+</ul>
+<h4 id="2）基于LLM的知识中台的功能"><a href="#2）基于LLM的知识中台的功能" class="headerlink" title="2）基于LLM的知识中台的功能"></a>2）基于LLM的知识中台的功能</h4><ul>
+<li><strong>智能搜索与推荐</strong>：利用LLM的跨模态语义理解能力，知识中台可以提供智能化的搜索服务。用户可以通过自然语言提问，系统能够准确理解其语义，并从知识库中获取相关信息。同时，根据用户的历史行为和偏好，知识中台还能提供个性化的内容推荐</li>
+<li><strong>知识图谱构建与应用</strong>：LLM技术使得知识中台能够自动构建和维护企业的知识图谱。这些图谱展示了实体之间的关系和属性，有助于企业发现新的知识和洞察。此外，知识图谱还能支持语义搜索、智能客服、智能风控等多种应用场景。</li>
+<li><strong>智能化决策支持</strong>：通过挖掘和分析知识库中的信息，知识中台能为企业提供智能化的决策支持。例如，在金融行业，知识中台可以从海量金融数据中提取有用信息，帮助决策者做出更明智的投资决策。</li>
+</ul>
+<h3 id="2-3-部署方式"><a href="#2-3-部署方式" class="headerlink" title="2-3.部署方式"></a>2-3.部署方式</h3><h4 id="1）数据存储与整合"><a href="#1）数据存储与整合" class="headerlink" title="1）数据存储与整合"></a>1）数据存储与整合</h4><p>在构建基于LLM的企业知识中台时，数据存储和额整合是基石。这一环节不仅设计传统的数据存储功能，还需要实现数据的高效整合和利用。</p>
+<ul>
+<li><strong>升级原有的数据中台</strong>：首先，需要对现有的数据中台进行升级，以适应LLM处理的需求。这包括提升<strong>存储能力</strong>、<strong>数据处理速度</strong>和<strong>数据安全</strong>。</li>
+<li><strong>集成数据存储能力</strong>：需要集成数据中台中的各类数据库存储能力，包括关系型数据库、NoSQL数据库以及分布式文件系统等。这种集成能力可以确保各种类型的数据都能得到有效管理和高效利用。可以采用分布式存储系统，以应对海量数据的存储需求。同时，利用数据压缩、去重等技术，优化存储空间的使用效率。对于数据的整合，则需要通过数据抽取、转换和加载（Extract-Transform-Load，ETL）过程，将分散在各个业务系统中的数据整合到统一的数据平台上。</li>
+<li><strong>数据整合与预处理</strong>：为了实现数据的高效利用，需要对数据进行整合和预处理。这包括去除重复数据、纠正错误数据、错误缺失值等操作。通过这些步骤，可以确保后续基于LLM的知识引擎能够获取准确、一致的数据。</li>
+</ul>
+<h4 id="2）基于LLM的知识引擎"><a href="#2）基于LLM的知识引擎" class="headerlink" title="2）基于LLM的知识引擎"></a>2）基于LLM的知识引擎</h4><p>基于LLM的知识引擎是知识中台的核心组件。该引擎包括多个子引擎，如<strong>知识图谱任务引擎</strong>、<strong>企业大模型业务引擎</strong>、<strong>基础大模型知识引擎</strong>、<strong>私有知识增强引擎</strong>、<strong>规则算子流程引擎</strong>。这些引擎各司其职，共同支撑着跨模态的知识化能力</p>
+<ul>
+<li><strong>知识图谱任务引擎</strong>：负责处理和知识图谱相关的任务，如实体识别、关系抽取和图谱构建等。它能够将分散的数据整合成结构化的知识图谱，便于后续的分析和应用。</li>
+<li><strong>企业大模型业务引擎</strong>：主要针对企业特定业务场景进行建模和优化。通过训练LLM来理解和处理业务数据，提供精准的业务洞察和决策支持。</li>
+<li><strong>基础大模型知识引擎</strong>：利用通用的LLM技术来处理和解析各类知识，提供基础的知识理解和推理能力。</li>
+<li><strong>私有知识增强引擎</strong>：专注于企业内部的私有知识库建设，通过增强学习等技术手段，不断提升私有知识的应用效果。</li>
+<li><strong>规则算子流程引擎</strong>：负责处理基于规则的业务流程，确保业务流程的自动化和高效执行。</li>
+</ul>
+<p>为了进一步提升知识引擎的性能和效果，还需要利用多模态超融合知识引擎将这些各类引擎融合在一起。这种融合方式可以实现跨模态的知识化能力支撑，使得企业能够更全面地利用和挖掘各类知识资源。它不仅能够处理文本数据，还能够处理图像、音频等多模态数据，实现全方位的知识理解和应用。</p>
+<h4 id="3）跨模态知识建模"><a href="#3）跨模态知识建模" class="headerlink" title="3）跨模态知识建模"></a>3）跨模态知识建模</h4><p>跨模态知识建模时知识中台的重要环节之一。它主要是对企业的所有类型知识进行知识化建模，包括知识图谱类知识、文档类非结构化知识以及业务类知识等。在建模过程中，需要利用上述提到的各类引擎工具进行知识的抽取、计算、表示、融合和可视化等操作。</p>
+<ul>
+<li><strong>图谱知识建模</strong>：利用知识图谱任务引擎进行知识抽取、知识计算、知识表示、知识融合和知识可视化等操作，将分散的数据转化为结构化的知识图谱。</li>
+<li><strong>文档知识建模</strong>：对文档进行解析、切片、渲染以及内容提取和融合等操作，将非结构化的文档数据转化为可查询和可利用的知识形式。</li>
+<li><strong>业务知识建模</strong>：针对企业特定的业务场景进行知识建模和知识化，一边更好地支撑业务决策和流程优化。</li>
+<li><strong>规则知识建模</strong>：对基于规则的知识进行建模和知识化，以确保业务流程的自动化和准确性。</li>
+</ul>
+<h4 id="4）知识智能化能力"><a href="#4）知识智能化能力" class="headerlink" title="4）知识智能化能力"></a>4）知识智能化能力</h4><p>在跨模态知识建模的基础上，知识智能化能力是进一步提升知识应用效果的关键环节。它主要包括知识检索、知识推荐、知识推理、文档生成、业务理解、知识挖掘以及多模态融合等功能模块。这些模块可以实现对建模后的知识进行智能化检索、推荐和应用等操作，以便于企业更好地利用和挖掘知识资源。</p>
+<ul>
+<li><strong>知识检索</strong>：提供高效的知识检索功能，支持基于语义的检索方式，确保用户能够快速找到所需的知识</li>
+<li><strong>知识推荐</strong>：根据用户的需求和行为，智能推荐相关的知识和内容</li>
+<li><strong>知识推理</strong>：利用LLM的推理能力，实现知识的自动推理和预测，为用户提供更深入的知识洞察</li>
+<li><strong>文档生成</strong>：基于已有的知识库，自动生成相关的文档和报告，提高工作效率</li>
+<li><strong>业务理解</strong>：识别和理解企业业务场景中的关键信息和需求，为业务决策提供支持</li>
+<li><strong>知识挖掘</strong>：从海量数据中挖掘出有价值的知识和信息，为企业的创新和发展提供动力</li>
+<li><strong>多模态融合</strong>：将文本、图像、音频等多模态数据进行有效融合，提供更全面的知识呈现方式</li>
+</ul>
+<h4 id="5）知识应用"><a href="#5）知识应用" class="headerlink" title="5）知识应用"></a>5）知识应用</h4><p>最终，将知识应用到企业的实际业务场景中，以实现业务价值的最大化</p>
+<ul>
+<li><strong>决策支持与辅助</strong>：利用LLM的数据分析能力，为企业提供支持和辅助。例如，通过预测市场趋势和客户需求，帮助企业制定更明智的商业策略</li>
+<li><strong>流程优化</strong>：借助LLM的自动化处理能力，优化企业内部流程。例如，自动化处理客户服务请求、自动化生成报告等</li>
+<li><strong>事件分析</strong>：对企业内外部发生的事件进行深入分析，为企业提供及时有效的应对策略</li>
+<li><strong>内容分析</strong>：对企业内部和外部的内容进行深入分析，提取有价值的信息和知识，为企业决策提供支持</li>
+<li><strong>智能问答与推荐</strong>：基于LLM的语义理解能力，实现智能问答系统，能够准确回答用户的问题。同时，根据用户的历史行为和偏好，提供个性化的内容推荐</li>
+</ul>
+<p>通过以上部署方式，企业可以将传统的数据中台升级为知识中台，实现数据的全面知识化。这不仅有助于提升企业的运营效率和决策水平，还能推动企业的创新发展和业务增长。</p>
+<h3 id="2-4-适用的企业类型"><a href="#2-4-适用的企业类型" class="headerlink" title="2-4.适用的企业类型"></a>2-4.适用的企业类型</h3><ul>
+<li><strong>知识密集型企业</strong>：企业所在的行业或领域需要大量依赖专业知识，如金融、法律、医疗等。这些行业需要准确、快速地处理大量信息，并基于这些信息进行决策</li>
+<li><strong>数据驱动型企业</strong>：企业已经积累了大量数据，并希望通过挖掘这些数据中地价值来优化业务流程、提升服务质量或开发新产品</li>
+<li><strong>追求创新的企业</strong>：企业注重技术创新和业务模式创新，希望通过引入先进技术来提升竞争力</li>
+<li><strong>有国际化需求的企业</strong>：对于需要处理多语言信息火灾多个国家开展业务地企业，基于LLM的知识中台可以帮助其更好地管理和利用语言知识</li>
+</ul>
+<h2 id="3-作为业务知识库升级部署"><a href="#3-作为业务知识库升级部署" class="headerlink" title="3.作为业务知识库升级部署"></a>3.作为业务知识库升级部署</h2><h2 id="4-作为智能体部署"><a href="#4-作为智能体部署" class="headerlink" title="4.作为智能体部署"></a>4.作为智能体部署</h2><h2 id="5-作为个人办公辅助工具部署"><a href="#5-作为个人办公辅助工具部署" class="headerlink" title="5.作为个人办公辅助工具部署"></a>5.作为个人办公辅助工具部署</h2><p>LLM具有强大的自然语言处理、数据分析和预测能力，为办公自动化和智能化提供了有力支持。</p>
+<h3 id="5-1-LLM在办公场所的应用功能"><a href="#5-1-LLM在办公场所的应用功能" class="headerlink" title="5-1.LLM在办公场所的应用功能"></a>5-1.LLM在办公场所的应用功能</h3><h4 id="1）自动化文档处理"><a href="#1）自动化文档处理" class="headerlink" title="1）自动化文档处理"></a>1）自动化文档处理</h4><p>LLM能够自动对文档进行分类、摘要生成和关键信息提取，极大地提高了文档处理地效率。例如，通过自然语言处理技术，LLM可以是被文档中的主题、关键词和段落结构，自动生成摘要，帮助用户快速了解文档内容。此外，LLM还可以根据文档内容自动进行分类标签的添加，便于用户进行文档管理和检索。</p>
+<h4 id="2）智能写作助手"><a href="#2）智能写作助手" class="headerlink" title="2）智能写作助手"></a>2）智能写作助手</h4><p>LLM可以作为智能写作助手，为用户提供写作建议和语法校对。通过分析大量文本数据，LLM能够学习到优秀的写作风格和技巧，为用户提供高质量的写作参考。同时，LLM还可以实时检查语法错误和拼写错误，提高文本的质量和准确性。</p>
+<h4 id="3）日程管理与提醒"><a href="#3）日程管理与提醒" class="headerlink" title="3）日程管理与提醒"></a>3）日程管理与提醒</h4><p>LLM可以自动分析用户的邮件、聊天记录等信息，识别出重要的会议、事件和任务，并自动添加到用户的日程表中。此外，LLM还可以根据用户的习惯和偏好，智能地设置提醒时间和方式，确保用户不会错过任何重要事件。</p>
+<h4 id="4）数据分析与可视化"><a href="#4）数据分析与可视化" class="headerlink" title="4）数据分析与可视化"></a>4）数据分析与可视化</h4><p>LLM具备强大的数据处理和分析能力，可以帮助用户快速挖掘数据中有价值的信息和趋势。同时，LLM还可以根据用户需求生成各种图表和报告，直观地展示数据分析结果，便于用户做出决策。</p>
+<h4 id="5）个性化推荐与搜索"><a href="#5）个性化推荐与搜索" class="headerlink" title="5）个性化推荐与搜索"></a>5）个性化推荐与搜索</h4><p>根据用户的搜索历史、浏览习惯和兴趣偏好，智能地推荐相关资料和信息。同时，LLM还可以优化搜索算法，提高搜索结果的准确性和相关性，帮助用户快速找到所需的信息</p>
+<h3 id="5-2-问题"><a href="#5-2-问题" class="headerlink" title="5-2.问题"></a>5-2.问题</h3><ul>
+<li>数据保护：必须采取严格的数据保护措施，确保用户数据不被非法访问、篡改或泄露。这包括使用强密码保护、加密技术和访问控制等手段来保护数据的机密性和完整性。</li>
+<li>合规性：在部署LLM时，必须遵守相关的数据保护和隐私法规，如欧盟的《通用数据保护条例》（GDPR）等。这要求组织在收集、存储和处理用户数据时遵循合法、公正和透明的原则，并确保用户对某个人数据的处理有明确的知情权和同意权</li>
+<li>透明度和可解释性：LLM的决策过程应该是透明和可解释的，以便用户理解模型是如何处理其数据的。这有助于建立用户对模型的信任，并减少对数据滥用和无用的担忧</li>
+<li>数据最小化原则：在收集客户数据时，遵循数据最小化原则，即只收集实现特定目的所必需的最小数据集</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2026/03/26/%E3%80%90LLM%E3%80%91%E4%BC%81%E4%B8%9A%E9%83%A8%E7%BD%B2LLM%E7%9A%84%E4%BA%94%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-id="cmtv7lozg003d14qjcx9jf5cl" data-title="【LLM】企业部署LLM的五种方式" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/06/11/%E3%80%90OCR%E3%80%91pdf%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E9%A1%B5%E7%9C%89%E3%80%81%E9%A1%B5%E8%84%9A%E3%80%81%E9%A1%B5%E7%A0%81/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          【OCR】pdf文档版面分析——页眉、页脚、页码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/03/26/%E3%80%90LLM%E3%80%91LLM%E7%9A%84%E5%85%AD%E7%B1%BB%E5%BA%94%E7%94%A8%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">【LLM】LLM的六类应用模式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/">Angular</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/axios/">axios</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cli/">cli</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" rel="tag">AST语法树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/" rel="tag">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BF%BB%E6%BB%9A/" rel="tag">CSS翻滚</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CommonJS/" rel="tag">CommonJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/" rel="tag">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Echarts/" rel="tag">Echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDE/" rel="tag">FDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flux/" rel="tag">Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/" rel="tag">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">JavaScript - 设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LangChain/" rel="tag">LangChain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis-Plus/" rel="tag">MyBatis-Plus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/" rel="tag">Node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/" rel="tag">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCR/" rel="tag">OCR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ollama/" rel="tag">Ollama</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/" rel="tag">OpenCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PPT/" rel="tag">PPT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/" rel="tag">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVG/" rel="tag">SVG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SysemJS/" rel="tag">SysemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SystemJS/" rel="tag">SystemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uni/" rel="tag">Uni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-cli/" rel="tag">Vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VueRouter/" rel="tag">VueRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Componetns/" rel="tag">Web Componetns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/" rel="tag">Webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/app/" rel="tag">app</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/axios/" rel="tag">axios</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backbone-js/" rel="tag">backbone.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cli/" rel="tag">cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echarts/" rel="tag">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/element-ui/" rel="tag">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-stream/" rel="tag">event-stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileDownload/" rel="tag">fileDownload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileUpload/" rel="tag">fileUpload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/map/" rel="tag">map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mixin/" rel="tag">mixin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/module/" rel="tag">module</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postcss/" rel="tag">postcss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/route/" rel="tag">route</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/single/" rel="tag">single</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transform/" rel="tag">transform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utils/" rel="tag">utils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-loader/" rel="tag">vue-loader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/" rel="tag">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" rel="tag">下载进度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" rel="tag">业务梳理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" rel="tag">二分法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" rel="tag">代码工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" rel="tag">代码片段</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8/" rel="tag">使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%89%E6%A0%87/" rel="tag">光标</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" rel="tag">全局弹窗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" rel="tag">八皇后问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" rel="tag">分支管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" rel="tag">前端 - 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">前端工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" rel="tag">前端架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">前端组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">前缀、中缀、后缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" rel="tag">功能代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" rel="tag">功能模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%86%E5%8F%B2/" rel="tag">历史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E7%90%86/" rel="tag">原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" rel="tag">古生物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" rel="tag">图像识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87/" rel="tag">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" rel="tag">图片压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" rel="tag">大模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">姿势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" rel="tag">局部样式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E8%A1%A8/" rel="tag">年表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" rel="tag">微前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%81%90%E9%BE%99/" rel="tag">恐龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%86%99/" rel="tag">手写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" rel="tag">手势控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">手势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%8B%BD/" rel="tag">拖拽</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" rel="tag">插值查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" rel="tag">数据、算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" rel="tag">数据压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">数据响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" rel="tag">数据流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" rel="tag">数组实现包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" rel="tag">文字滚动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" rel="tag">文本识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" rel="tag">文档版面识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" rel="tag">文档结构识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" rel="tag">斐波那契查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" rel="tag">断点续传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" rel="tag">权限管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" rel="tag">权限验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" rel="tag">样式功能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97/" rel="tag">模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" rel="tag">模块打包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" rel="tag">模板引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" rel="tag">模板生成器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" rel="tag">模板解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B0%B4%E5%8D%B0/" rel="tag">水印</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" rel="tag">流式回复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" rel="tag">流式问答</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B7%E5%85%A5/" rel="tag">混入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" rel="tag">滚动吸附</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" rel="tag">瀑布流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E5%9D%91/" rel="tag">爬坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%99%BD%E6%9D%BF/" rel="tag">白板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" rel="tag">研发手记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9DMyth/" rel="tag">神话Myth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" rel="tag">神话概要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" rel="tag">稀疏数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" rel="tag">第一章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%BE%E5%90%8D/" rel="tag">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" rel="tag">算法 -时间复杂度计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" rel="tag">系统架构设计师考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="tag">系统设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" rel="tag">约瑟夫问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" rel="tag">编程题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" rel="tag">网页截图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" rel="tag">聊天室</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag">自定义</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" rel="tag">虚拟DOM与diff算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">读书笔记 - React - 《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E7%BA%BF/" rel="tag">连线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" rel="tag">迷宫回溯</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" rel="tag">逆波兰式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E8%BD%BD/" rel="tag">重载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" rel="tag">问答系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" rel="tag">音视频播放</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" rel="tag">音量控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">页面编辑器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 18.18px;">CSS</a> <a href="/tags/CSS%E7%BF%BB%E6%BB%9A/" style="font-size: 10px;">CSS翻滚</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10.91px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10.91px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/FDE/" style="font-size: 10.91px;">FDE</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 11.82px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19.09px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/LLM/" style="font-size: 13.64px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 10px;">LangChain</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 13.64px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/OCR/" style="font-size: 10.91px;">OCR</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenCV/" style="font-size: 12.73px;">OpenCV</a> <a href="/tags/PPT/" style="font-size: 10px;">PPT</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.82px;">Python</a> <a href="/tags/React/" style="font-size: 11.82px;">React</a> <a href="/tags/SVG/" style="font-size: 10.91px;">SVG</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/SystemJS/" style="font-size: 10px;">SystemJS</a> <a href="/tags/TypeScript/" style="font-size: 11.82px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18.18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 13.64px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10.91px;">electron</a> <a href="/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/tags/event-stream/" style="font-size: 10px;">event-stream</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10.91px;">git</a> <a href="/tags/leetcode/" style="font-size: 12.73px;">leetcode</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 15.45px;">node</a> <a href="/tags/npm/" style="font-size: 17.27px;">npm</a> <a href="/tags/openCV/" style="font-size: 10.91px;">openCV</a> <a href="/tags/postcss/" style="font-size: 10px;">postcss</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 10.91px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webrtc/" style="font-size: 10px;">webrtc</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10.91px;">《深入React技术栈》</a> <a href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" style="font-size: 10px;">下载进度</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" style="font-size: 10px;">业务梳理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 10px;">二分法</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 10.91px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 14.55px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10.91px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 14.55px;">使用教程</a> <a href="/tags/%E5%85%89%E6%A0%87/" style="font-size: 10px;">光标</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 13.64px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 10.91px;">功能代码</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" style="font-size: 11.82px;">功能模块</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 10px;">历史</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 10.91px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10.91px;">响应式</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 10px;">图像处理</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">图像识别</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 10px;">图片</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大模型</a> <a href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10px;">姿势识别</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10.91px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 10.91px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%B9%B4%E8%A1%A8/" style="font-size: 10px;">年表</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 10.91px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">手势控制</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">手势识别</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" style="font-size: 10px;">数据流</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文本识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档版面识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档结构识别</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.82px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">样式功能</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10.91px;">模块</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10.91px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" style="font-size: 10px;">模板生成器</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" style="font-size: 10px;">流式回复</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" style="font-size: 10px;">流式问答</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 13.64px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 14.55px;">源码解析</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" style="font-size: 10px;">滚动吸附</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 10.91px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%99%BD%E6%9D%BF/" style="font-size: 10px;">白板</a> <a href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" style="font-size: 10.91px;">研发手记</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 10.91px;">系统设计</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" style="font-size: 10px;">网页截图</a> <a href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" style="font-size: 10px;">聊天室</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.73px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%9E%E7%BA%BF/" style="font-size: 10px;">连线</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%82%E9%85%8D/" style="font-size: 10px;">适配</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">问答系统</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 16.36px;">面试题</a> <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" style="font-size: 10px;">音视频播放</a> <a href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">音量控制</a> <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">页面编辑器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">September 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">July 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">June 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">February 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/10/%E3%80%90AI%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%8A%A5%E5%91%8A%E7%94%9F%E6%88%90%E7%9A%84%E5%89%8D%E7%AB%AF/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/docker%E4%BD%BF%E7%94%A8ollama%E5%AE%89%E8%A3%85openclaw/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/%E5%BE%85%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/08/%E3%80%90FDE%E3%80%91%E6%99%BA%E8%83%BD%E9%97%AE%E6%95%B0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】智能问数系统设计</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/07/%E3%80%90FDE%E3%80%91%E6%96%87%E7%AB%A0%E6%96%87%E6%9C%AC%E6%BA%AF%E6%BA%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】文章文本溯源系统设计</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 wsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

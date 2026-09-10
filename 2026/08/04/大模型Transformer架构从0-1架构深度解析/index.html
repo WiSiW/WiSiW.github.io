@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>大模型Transformer架构从0-1架构深度解析 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="大模型Transformer架构从0-1架构深度解析 【Transformer入门到实战】transformer基本介绍和常见激活函数一、Transformer到底是个啥?简单来说，Transformer就是一种神经网络架构，就像盖房子的图纸一样。2017年Google的研究人员在论文《Attention is All You Need》中提出了它，从此改变了整个AI界。  1.1  Transf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大模型Transformer架构从0-1架构深度解析">
+<meta property="og:url" content="https://wisiw.github.io.git/2026/08/04/%E5%A4%A7%E6%A8%A1%E5%9E%8BTransformer%E6%9E%B6%E6%9E%84%E4%BB%8E0-1%E6%9E%B6%E6%9E%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="大模型Transformer架构从0-1架构深度解析 【Transformer入门到实战】transformer基本介绍和常见激活函数一、Transformer到底是个啥?简单来说，Transformer就是一种神经网络架构，就像盖房子的图纸一样。2017年Google的研究人员在论文《Attention is All You Need》中提出了它，从此改变了整个AI界。  1.1  Transf">
+<meta property="og:locale">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjkwNTU2YTIyZThmZmQyYzM1MGJhYzIyNDVjMGRhMmFfM21tVExMRDdLc004YnV6R0E4ejl0MldlOXJYOTM4VGpfVG9rZW46QkN0TWJyZ0M1b2FCbFJ4eGxzOWNKNWpZbmFmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MzgwMWRkYjI3MGM2NDVmY2Y2ZjY3YmUzZWE1M2IxZmJfTkg1Uk43RmJ6RGpNR3lRZmFDbTh1b1k0WmtGRjFsZ0tfVG9rZW46RUpoMmJDTHZnb0VHVGh4bzV6emNOMjFKbnNiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MjcxODU0MTBlZjk4MzNkNTA0MzhhMjVhOTgxYjc2NDhfOENicU53aGtwbDVCbng5ME1DYks0aDlCOVh0SWdaWWFfVG9rZW46SXQyamJRQ2dDb0RuZXJ4MUd5MGNSMVppbnpoXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MTAzOTg5NDMyMzFjMGYyOGNhZTFjZjI4Y2NlMDE0NThfb3JkRUN4OVFTT1lGWktvRmpsTm13bmZsTTRnRTJMOXRfVG9rZW46QkltZGJERzQyb1plOWh4YmhiaGN2Y2lCbkFjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmMxMTcyMmI0YjEyYWU2ZWVhOTA3ZDFhN2EzNzBlZThfWk1UQXBGMzZWUjNLSUx6YnF4RGpmT0FpNkdSVG5tMWRfVG9rZW46TlBFQmJlOFpxb2VlV1B4bG9mRWNPd2xUbmliXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NWVhMWE3MGFkODYyN2Y5NGE3NzdiZGMyMDg0ZmFmM2RfalFNbWFNbDlmMTR3Y3dtemdwTmNiUkl6T1MyamdBRWZfVG9rZW46WjlJcWJrVUFHbzZiNlF4eEFmZGN5NEdUbmxiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmZkYzFiMWMxYjNiZGE0MGNjOGMxZGY0OWMwN2YxYmFfN0gwOFRDd1VCZm1rNDdUUnFXRWVNbzc1SGQzZmNQQ2NfVG9rZW46U3hScGJQUmZ4b0prekN4eG1GVmNCNUQ3bm5lXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MzA0MTkyN2M0ZGQ3MmY0MTAxZTg0NGZhNTY2ZGRiOWVfODNPdjB0eXhnazlkOVVLZmN4Z3lBT3hXTTU2elBNQTZfVG9rZW46Tkcwa2Jsb282b2F4b0t4TGZSSWNBTWdxbk1oXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NTE0M2I0YzUyYjMwNTczYjQ0NzQyOGY3ODcxYzNkZTNfOVB6eGhVcjlhd0p3NGpHelpaWlhjeGdwY2xqaVZSV29fVG9rZW46RUFiZWJ1Ujc2b2pTTlJ4UUJBRGNCUVV0bmNkXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NTRkZmJhODA4MDAxYzJlN2U4NjE0ZWU4ZTgyYmE4OGVfb2R5UWU0cmRyZ0RRWWFucGlVQzBRTHFQMFluM2FiSndfVG9rZW46Q1VWZmJyeGZzb3V5M2Z4b1VXSWNLMFJrbkNiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjA5ZGVlN2YwMTJlY2Y4NDllYWZjY2MwM2ZlMTYyYWFfeTl5SUFvM285NTd6NXQ5SkpSNG5vRDU3Y2kxNWRiNUVfVG9rZW46Um51Y2JOWEFOb1FONTZ4OEFqcmNwUHg0bjViXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmRjNWIyNmJkZGMzZDZlODI2OTU5MThhNDY5NjgxZTJfdU1jeDFKODhGWUpDbXRXaEZsQnhYRFlUQVg2TktCblNfVG9rZW46WDdtb2JmeklLb3VNcFF4YThwMGMzdDVabmdjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ODU0MGQ4NTU0M2I0Yzg0ZTAzN2EzMTBjNjY0MDA0MDFfWG50b2NpdmlzY2NOZWdRcTN5RXpzall3amhtQTZGN01fVG9rZW46Sjd5d2Jsc2oxb1Z5R2F4dmczc2MyYlk2blFkXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MmY3MmYwNDhiMzY3ZDQ2ZDYxZTAyZTkxZDNjZWRjYzRfdlhhZm1rUlZ3amF6aUJ0VEtpTHpBOG9GbUZMS0U2Zm9fVG9rZW46S0puc2JaYWxlb3VZUHR4cUpzWGNZOTl5bmZnXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzk2ZWNhOTYwNGFlOTFkMWQxNWZhMWFjOTBhNDFkYjJfQjc2VWJKSEthYll0VkFROTBkZGV2V3pDMmlIWGNvSExfVG9rZW46VFJpRWJwdUFNb2J1UEZ4cEdMY2NDVDFEbnNmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NzE0OGZiYjY3ODc2MWJjYmVkNzc5ZjJjMTk4MDQ4OTlfaU9RMFJGOWw4b1Vyb2lBVmR5NEtBZ25yQ1BnblpCRklfVG9rZW46UmtKaGJnT2JEb01Eb1l4TVFaQWN3WWVMbk5lXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=YjlhYTEyZWQ3ZjRiZmUxZDA1MmI2ZWE5Nzc4YjJmMTZfOHpLYzk2SVZjdzg5aGNwVjM0RkR0R3NYb3BMODYwaXJfVG9rZW46RlU1aWJhcjJXb0VpRVd4cnh6UmNaUEFtbjdnXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NTU1NDljMDM4NTg4ZTM2MzAwZDhlMmFkZjQwMjI3MjhfdzBzWVVBVEtxUlp3OVgwNVU2MGlCNUlBNmpPbFB2d2hfVG9rZW46U0pKV2I4N3FHb0oyS3N4TW1DZ2M0ZnU2blpjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MDg0OGZiNWRkNTNjMTRhNDU3N2ZjMWYxYzVhNzc5OTNfU1FBOFdudDNPalhjRDlmY29udmpibXkzcUtOd3pzam5fVG9rZW46S2owSmJOYkpIb3M0REF4bzNFdGNEOTJQbjRmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=YTI0ZGFkODdjZTNmZGVjNjZlODE2ZDA2Yzg1YTMwYjJfaU15T3lBcHA3TFRGODFidlZGS0dzVmc3MUdHMWJRZHFfVG9rZW46REpoVGJoZEVsb0FCZTV4cFYxOWNLOHRRblNkXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NTQ5MDYzYjZlYWZmOGVjYzg1ZTQxZWUwYTI4NDFjZGJfYTZocEoyTzhEQ2ZPd0k3ZmRxVVlJN3VYM1R4dDBEY0xfVG9rZW46R2tuYmJOc1JHb3FhQ1N4QVRkemNvR0tnblZoXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NzY4MTZjN2ZhYTk4MjJiMTRjYTFiZTNlNTdlNjQ5ZGJfYllUcks3cGxITXQ0TU41SnFTd0I0eUFzWEloaW9GWk5fVG9rZW46SjN6SGJDcmZPb2JqVFF4djdpSWNnWTFRbjhiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NWNiYWQwMTQ3MzQ0MjZmN2I2ODgwOTViN2Q4OTY3NTJfTVJSUGpMRUFkSlhXb2JYNDNpSXFNdExTWU5KVjN0YXlfVG9rZW46TFdWMGJpTWZzb0lIdWR4UGhqV2NlQ1VibmplXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=YzI3ZmJkMThkNTg4NTg0YjRkNzBkMTU5NzdmY2IxY2NfbTNmTHpGV0N2cWhnMExDcFpORTRFS3dHTW9tamlxUFhfVG9rZW46TGdQc2JiaUZnb1Noa2J4NnEwdGNnWjNabmdnXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2QwZmFmYmQyYzM2MjJhYjAyMGYwZWRhYTczYzYzMGFfaXJKSXFleXU2Uk1zZVJOeHdGeTZZc3h3S3RlUkh5bzNfVG9rZW46QnBRNWJLaFd2bzhTNzZ4eWtHcGNCeG1QbnVmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MmVjM2RkOTVhMzYxNmNiNDFlNjdjNWIyODU5YzU4YzlfRkE5eXpUZWI5ZmJjakVtblhvZkpCZTBkcW1acWR4cWxfVG9rZW46UEVMNmJqaWFUb2xicXF4QWJMNGN5cm02blRjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=YzE2MTljOGE1YWU5ODFjYzk1ZTI4YTE4ODdmMjEzZDBfdnVHaHI3dVBLYU5YVjFGaTBMVG5aRUd4bWN2cHVQdWhfVG9rZW46WG1HRmJ5V0w5b0xaTXV4czRMUmNXZDR4bm5iXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NzE5ZjliYTdmOTVjYjg0Y2E5NjBmMTZmN2JiZDFkNTFfVXFScEZTQnRtbU1hNGx6VlBCRVNUSjdQU2pjSEFKTGtfVG9rZW46VDlmMmJFeGFBb3pmN0h4RkpqWWNzdVVzbnZjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjgxZGZkZjVjZTJkZDJlY2IyNjVmYzg1YTJlMzEzZmFfMzJOZnIwTFgyMG1hRTlGVXM2ampHUlh6VnN4NzVYVHJfVG9rZW46TGhnS2IyQnlEbzduTm94N0FuNGNEZmw5bkNiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=N2FjM2YwZGI1YTQxZWNmZjI3MGViNWQ3ZjEzZWMzMzFfZjJod1BEdDR1c1Z2QVpadGVUdFh6aW5pek16WUNIU1NfVG9rZW46REl4VGJweU02b0N5a2V4UmFmQWN2aDZ3bkRjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NmZhMDVlNmRlZGMwOGNjZjM1NTFlNzBkNmVjY2VlNTRfdjFYcGxxczM5Z0Z5clhyYUpKcVpMaExoYUdSWU1FYmRfVG9rZW46UlNtTmJZRmthb255V3V4U3paVGNuVkIyblhmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NjY5MDE3OWM5MDE1YWI1MGRkMzJmYmY0NjgxMTZhMTVfSkVmR3l6c1N2TzB2c3M0MTlIWkxDa00xOUZ5MU9sM2NfVG9rZW46TTFicmJLaHh6b1pEOHl4Tkl0MWNDTnlJbkllXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Mjg3OTcxN2U3Mzg1MDM3NjQxNWMzODRhOGFkMmRiNDVfZDF4SmR0eTRYcEJOdG9PVm1SOHJmV2w5S3Fqc0xIUndfVG9rZW46QWVLU2J4eVAwb0ZNMTZ4NkJ1bWM2b2RCblBlXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=M2MyMzM5NGIyYzY2ZWIzNjlmY2VmMzQzZTcwOGI3OTFfaWxSWE5qUngwMXdBZ2c4ZDFPWVVrR0tCVWVNTXAxUElfVG9rZW46V0czQWJ6MWI2b0JjMHd4S0U1VGNFMU5XbjRmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=M2E4M2JhYTQ2NWIzYmM5N2UyYTg5NmE5ZWE5MTAyMGVfQVpDN2EzMDFjN0pDRThiUHQyTXdKQ3BuYTlGT1Bha3BfVG9rZW46VVM2bGJQa1Vpb1g5QTN4Mmg2dWNhaGs5bmtiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NGNmN2M4YWMxMzIzZjYxYjk1ZGRmMzI1ZmVkMDc3MjZfaWx3ekpBbkZCMU96MlMwWk03QUk2QTRTZDBUUTNwVmdfVG9rZW46T01UYWJWVHVpb1RRcWp4ejZheWNOMEx5blNkXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MWE5NTQ1YTBkZDQyYWI5YjQwM2EyMjQ4MmJmNjc0YmVfQ1piZjhxY2xVdUVlYmx0MlZlSkhrQ3R4dVp6b0RUeXJfVG9rZW46RFdPb2JZY2dJb0tSNnV4OXMxeGNCZVlsblhjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjI3ODUyNjJlMDA4YjVlOTE0NTgxNjJjNjUxMGNjMzJfSUdrTmRhRUlxRVEwS0R3cGE1UnBnczNHMDA5QWZEQmdfVG9rZW46UHNhdWJaZkN5b1pSeDl4S2I3NmNyM1F6blhjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+<meta property="article:published_time" content="2026-08-04T06:04:05.000Z">
+<meta property="article:modified_time" content="2026-09-10T03:10:14.740Z">
+<meta property="article:author" content="wsw">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjkwNTU2YTIyZThmZmQyYzM1MGJhYzIyNDVjMGRhMmFfM21tVExMRDdLc004YnV6R0E4ejl0MldlOXJYOTM4VGpfVG9rZW46QkN0TWJyZ0M1b2FCbFJ4eGxzOWNKNWpZbmFmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM">
+  
+    <link rel="alternate" href="/atom.xml" title="韦绍炜的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">韦绍炜的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://WiSiW.github.io.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-大模型Transformer架构从0-1架构深度解析" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/04/%E5%A4%A7%E6%A8%A1%E5%9E%8BTransformer%E6%9E%B6%E6%9E%84%E4%BB%8E0-1%E6%9E%B6%E6%9E%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" class="article-date">
+  <time class="dt-published" datetime="2026-08-04T06:04:05.000Z" itemprop="datePublished">2026-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      大模型Transformer架构从0-1架构深度解析
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>大模型Transformer架构从0-1架构深度解析</p>
+<h1 id="【Transformer入门到实战】transformer基本介绍和常见激活函数"><a href="#【Transformer入门到实战】transformer基本介绍和常见激活函数" class="headerlink" title="【Transformer入门到实战】transformer基本介绍和常见激活函数"></a>【Transformer入门到实战】transformer基本介绍和常见激活函数</h1><h2 id="一、Transformer到底是个啥"><a href="#一、Transformer到底是个啥" class="headerlink" title="一、Transformer到底是个啥?"></a>一、Transformer到底是个啥?</h2><p>简单来说，<strong>Transformer就是一种神经网络架构</strong>，就像盖房子的图纸一样。2017年Google的研究人员在论文《Attention is All You Need》中提出了它，从此改变了整个AI界。</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjkwNTU2YTIyZThmZmQyYzM1MGJhYzIyNDVjMGRhMmFfM21tVExMRDdLc004YnV6R0E4ejl0MldlOXJYOTM4VGpfVG9rZW46QkN0TWJyZ0M1b2FCbFJ4eGxzOWNKNWpZbmFmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h3 id="1-1-Transformer解决了什么问题"><a href="#1-1-Transformer解决了什么问题" class="headerlink" title="1.1  Transformer解决了什么问题?"></a><strong>1.1  Transformer解决了什么问题?</strong></h3><p>在Transformer出现之前，处理文本主要用RNN(循环神经网络)和LSTM。但这些模型有个大问题：<strong>处理长文本时太慢了</strong>！</p>
+<p>举个例子：</p>
+<ul>
+<li>你要翻译一句话：”我今天早上吃了一个苹果”</li>
+<li>传统RNN要这样处理：先看”我”，再看”今天”，再看”早上”…一个字一个字按顺序来</li>
+<li>这就像你排队买奶茶，前面的人不走，你就得一直等</li>
+<li>架构</li>
+</ul>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MzgwMWRkYjI3MGM2NDVmY2Y2ZjY3YmUzZWE1M2IxZmJfTkg1Uk43RmJ6RGpNR3lRZmFDbTh1b1k0WmtGRjFsZ0tfVG9rZW46RUpoMmJDTHZnb0VHVGh4bzV6emNOMjFKbnNiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>而Transformer用了<strong>自注意力机制(Self-Attention)**，可以</strong>同时看所有的字**，就像开了很多个窗口，大家一起办业务，效率高多了！</p>
+<h3 id="1-2-Transformer的核心思想"><a href="#1-2-Transformer的核心思想" class="headerlink" title="1.2 Transformer的核心思想"></a>1.2 Transformer的核心思想</h3><p>Transformer的核心是”<strong>注意力机制</strong>“。什么意思呢？</p>
+<p>想象你在读一篇文章：</p>
+<ul>
+<li>当你看到”它”这个字时，你的大脑会自动往前找，”它”指的是什么</li>
+<li>可能是前面提到的”猫”，也可能是”汽车”</li>
+<li>你的大脑会自动”注意”到相关的词</li>
+</ul>
+<p><strong>Transformer就是模仿这个过程，让模型学会关注句子中最重要的部分。</strong></p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MjcxODU0MTBlZjk4MzNkNTA0MzhhMjVhOTgxYjc2NDhfOENicU53aGtwbDVCbng5ME1DYks0aDlCOVh0SWdaWWFfVG9rZW46SXQyamJRQ2dDb0RuZXJ4MUd5MGNSMVppbnpoXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h2 id="二、Transformer和大模型是什么关系"><a href="#二、Transformer和大模型是什么关系" class="headerlink" title="二、Transformer和大模型是什么关系?"></a>二、Transformer和大模型是什么关系?</h2><h3 id="2-1-简单类比"><a href="#2-1-简单类比" class="headerlink" title="2.1 简单类比"></a>2.1 简单类比</h3><ul>
+<li><strong>Transformer = 建筑设计图纸</strong></li>
+<li><strong>大模型 = 用这个图纸建出来的摩天大楼</strong></li>
+</ul>
+<p>更具体地说：</p>
+<ul>
+<li><strong>Transformer是架构</strong>，告诉你神经网络应该怎么搭建</li>
+<li><strong>大模型是用这个架构训练出来的具体模型</strong></li>
+</ul>
+<h3 id="2-2-著名的大模型都用Transformer"><a href="#2-2-著名的大模型都用Transformer" class="headerlink" title="2.2 著名的大模型都用Transformer"></a>2.2 著名的大模型都用Transformer</h3><p>看看这些你肯定听过的名字：</p>
+<ol>
+<li><strong>GPT系列</strong> (GPT-3, GPT-4, ChatGPT)<ol>
+<li>只用了Transformer的**解码器(Decoder)**部分</li>
+<li>擅长生成文本、对话、写代码</li>
+</ol>
+</li>
+<li><strong>BERT</strong><ol>
+<li>只用了Transformer的**编码器(Encoder)**部分</li>
+<li>擅长理解文本、分类、问答</li>
+</ol>
+</li>
+<li><strong>T5、BART</strong><ol>
+<li>用了完整的Transformer(Encoder + Decoder)</li>
+<li>擅长翻译、摘要等任务</li>
+</ol>
+</li>
+</ol>
+<h3 id="2-3-训练大模型的过程"><a href="#2-3-训练大模型的过程" class="headerlink" title="2.3 训练大模型的过程"></a>2.3 训练大模型的过程</h3><p><strong>大模型使用了Transformer架构训练</strong>过程是这样的：</p>
+<ol>
+<li><strong>准备数据</strong>：收集海量文本(比如整个互联网的文章)</li>
+<li><strong>搭建架构</strong>：按照Transformer设计搭建神经网络</li>
+<li><strong>开始训练</strong>：让模型不断学习，调整参数</li>
+<li><strong>得到大模型</strong>：训练好后就能用了</li>
+</ol>
+<p>就像：</p>
+<ul>
+<li>Transformer = 健身房的器材和训练计划</li>
+<li>训练过程 = 你每天去健身</li>
+<li>大模型 = 练出来的好身材</li>
+</ul>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MTAzOTg5NDMyMzFjMGYyOGNhZTFjZjI4Y2NlMDE0NThfb3JkRUN4OVFTT1lGWktvRmpsTm13bmZsTTRnRTJMOXRfVG9rZW46QkltZGJERzQyb1plOWh4YmhiaGN2Y2lCbkFjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h2 id="三、神经网络是什么"><a href="#三、神经网络是什么" class="headerlink" title="三、神经网络是什么?"></a>三、神经网络是什么?</h2><p>在讲激活函数之前，我们得先理解什么是神经网络。</p>
+<h3 id="3-1-人脑神经元的启发"><a href="#3-1-人脑神经元的启发" class="headerlink" title="3.1 人脑神经元的启发"></a>3.1 人脑神经元的启发</h3><p>人的大脑有大约860亿个神经元，它们互相连接，传递信息。神经网络就是模仿这个原理！</p>
+<p><strong>一个神经元的工作原理：</strong></p>
+<ol>
+<li><strong>接收信号</strong>：从其他神经元接收电信号</li>
+<li><strong>处理信号</strong>：把这些信号加起来</li>
+<li><strong>决定是否激活</strong>：如果信号够强，就”点亮”，传给下一个神经元</li>
+</ol>
+<h3 id="3-2-人工神经元"><a href="#3-2-人工神经元" class="headerlink" title="3.2 人工神经元"></a>3.2 人工神经元</h3><p>计算机里的神经元是这样工作的：</p>
+<p>输入1 × 权重1 ＋ 输入2 × 权重2 ＋ 输入3 × 权重3 ＋ 偏置 = 输出</p>
+<p>举个实际例子，判断要不要出门买奶茶：</p>
+<ul>
+<li><strong>输入1</strong>：天气好不好 (0-10分)</li>
+<li><strong>输入2</strong>：有多渴 (0-10分)</li>
+<li><strong>输入3</strong>：钱包里有多少钱 (0-10分)</li>
+</ul>
+<p>每个输入都有一个<strong>权重</strong>（重要性）：</p>
+<ul>
+<li>天气权重 = 0.3 (不太重要)</li>
+<li>渴的程度权重 = 0.5 (比较重要)</li>
+<li>钱的数量权重 = 0.2 (不太重要)</li>
+</ul>
+<p>计算：</p>
+<p>决策分数 = 天气×0.3 + 渴×0.5 + 钱×0.2 + 偏置</p>
+<p>如果分数 &gt; 5，就去买奶茶！</p>
+<h3 id="3-3-神经网络-很多神经元连在一起"><a href="#3-3-神经网络-很多神经元连在一起" class="headerlink" title="3.3 神经网络 = 很多神经元连在一起"></a>3.3 神经网络 = 很多神经元连在一起</h3><p>一个神经元只能做简单判断，但把成千上万个神经元连起来，分成好几层，就能处理超级复杂的任务！</p>
+<p><strong>典型的三层结构：</strong></p>
+<ol>
+<li><strong>输入层</strong>：接收原始数据</li>
+<li><strong>隐藏层</strong>：进行复杂计算（可以有很多层）</li>
+<li><strong>输出层</strong>：给出最终结果</li>
+</ol>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmMxMTcyMmI0YjEyYWU2ZWVhOTA3ZDFhN2EzNzBlZThfWk1UQXBGMzZWUjNLSUx6YnF4RGpmT0FpNkdSVG5tMWRfVG9rZW46TlBFQmJlOFpxb2VlV1B4bG9mRWNPd2xUbmliXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NWVhMWE3MGFkODYyN2Y5NGE3NzdiZGMyMDg0ZmFmM2RfalFNbWFNbDlmMTR3Y3dtemdwTmNiUkl6T1MyamdBRWZfVG9rZW46WjlJcWJrVUFHbzZiNlF4eEFmZGN5NEdUbmxiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h2 id="四、激活函数：神经网络的灵魂"><a href="#四、激活函数：神经网络的灵魂" class="headerlink" title="四、激活函数：神经网络的灵魂"></a>四、激活函数：神经网络的灵魂</h2><p>激活函数是神经网络中非常重要的部分。</p>
+<h3 id="4-1-为什么需要激活函数"><a href="#4-1-为什么需要激活函数" class="headerlink" title="4.1 为什么需要激活函数?"></a>4.1 为什么需要激活函数?</h3><p><strong>不用激活函数会怎样？</strong></p>
+<p>如果没有激活函数，神经网络就只能做线性计算：</p>
+<p>y = w1×x1 + w2×x2 + w3×x3 + b</p>
+<p>这样不管你堆多少层，本质上都等于一个简单的线性函数！就像：</p>
+<ul>
+<li>1层线性 = y = 2x + 1</li>
+<li>100层线性堆叠 = 还是 y = 某个数×x + 某个数</li>
+</ul>
+<p>这太简单了，根本处理不了复杂问题！</p>
+<p><strong>有了激活函数之后：</strong></p>
+<p>激活函数引入了<strong>非线性</strong>，让神经网络可以学习复杂的模式。就像：</p>
+<ul>
+<li>线性 = 只能画直线</li>
+<li>非线性 = 可以画曲线、圆、各种复杂图形</li>
+</ul>
+<h3 id="4-2-常见的激活函数"><a href="#4-2-常见的激活函数" class="headerlink" title="4.2 常见的激活函数"></a>4.2 常见的激活函数</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmZkYzFiMWMxYjNiZGE0MGNjOGMxZGY0OWMwN2YxYmFfN0gwOFRDd1VCZm1rNDdUUnFXRWVNbzc1SGQzZmNQQ2NfVG9rZW46U3hScGJQUmZ4b0prekN4eG1GVmNCNUQ3bm5lXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<ol>
+<li>Sigmoid函数</li>
+</ol>
+<p><strong>公式：</strong> σ(x) = 1 / (1 + e^(-x))</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>输出范围：0到1之间</li>
+<li>形状：S形曲线</li>
+<li>可以理解为”概率”</li>
+</ul>
+<p><strong>形象理解：</strong> 就像一个温柔的开关：</p>
+<ul>
+<li>当输入很小时(负数)，输出接近0 = “关”</li>
+<li>当输入很大时(正数)，输出接近1 = “开”</li>
+<li>中间过渡是平滑的</li>
+</ul>
+<p><strong>什么时候用？</strong></p>
+<ul>
+<li>二分类问题的输出层(判断是或否)</li>
+<li>需要输出概率的时候</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>容易梯度消失(训练变慢)</li>
+<li>计算相对慢</li>
+</ul>
+<ol>
+<li>ReLU (Rectified Linear Unit) - 最常用！</li>
+</ol>
+<p><strong>公式：</strong> f(x) = max(0, x)</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>输入为负数时，输出0</li>
+<li>输入为正数时，输出就是输入本身</li>
+</ul>
+<p><strong>形象理解：</strong> 就像一个严格的门卫：</p>
+<ul>
+<li>负面情绪(负数)一律拦住 = 输出0</li>
+<li>正面能量(正数)直接放行 = 输出原值</li>
+</ul>
+<p><strong>为什么这么受欢迎？</strong></p>
+<ul>
+<li>计算超快(只需要比较大小)</li>
+<li>缓解梯度消失问题</li>
+<li>训练效果好</li>
+</ul>
+<p><strong>什么时候用？</strong></p>
+<ul>
+<li>隐藏层的默认选择</li>
+<li>几乎所有的深度学习模型</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>“Dead ReLU”问题：有些神经元可能永远输出0</li>
+</ul>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MzA0MTkyN2M0ZGQ3MmY0MTAxZTg0NGZhNTY2ZGRiOWVfODNPdjB0eXhnazlkOVVLZmN4Z3lBT3hXTTU2elBNQTZfVG9rZW46Tkcwa2Jsb282b2F4b0t4TGZSSWNBTWdxbk1oXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<ol>
+<li>Leaky ReLU - ReLU的改进版</li>
+</ol>
+<p><strong>公式：</strong> f(x) = max(0.01x, x)</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>负数时不是完全为0，而是一个很小的负数(0.01x)</li>
+</ul>
+<p><strong>形象理解：</strong> 比ReLU温柔一点的门卫：</p>
+<ul>
+<li>负面情绪不是完全拦住，而是让它稍微进来一点点</li>
+</ul>
+<p><strong>优点：</strong></p>
+<ul>
+<li>解决了Dead ReLU问题</li>
+<li>保留了ReLU的优点</li>
+</ul>
+<ol>
+<li>GELU (Gaussian Error Linear Unit) - Transformer最爱！</li>
+</ol>
+<p><strong>公式：</strong> f(x) = x × Φ(x) (其中Φ(x)是高斯分布的累积分布函数)</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>更平滑的曲线</li>
+<li>结合了概率的思想</li>
+</ul>
+<p><strong>形象理解：</strong> 就像一个会思考的智能门卫：</p>
+<ul>
+<li>不只看正负，还看”有多正”或”有多负”</li>
+<li>决策更细腻、更智能</li>
+</ul>
+<p><strong>为什么Transformer用它？</strong></p>
+<ul>
+<li>训练效果更好</li>
+<li>更符合自然语言的分布特征</li>
+<li>GPT、BERT都在用！</li>
+</ul>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NTE0M2I0YzUyYjMwNTczYjQ0NzQyOGY3ODcxYzNkZTNfOVB6eGhVcjlhd0p3NGpHelpaWlhjeGdwY2xqaVZSV29fVG9rZW46RUFiZWJ1Ujc2b2pTTlJ4UUJBRGNCUVV0bmNkXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<ol>
+<li>Tanh (双曲正切函数)</li>
+</ol>
+<p><strong>公式：</strong> tanh(x) = (e^x - e^(-x)) / (e^x + e^(-x))</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>输出范围：-1到1之间</li>
+<li>形状：S形曲线，但中心在0</li>
+</ul>
+<p><strong>形象理解：</strong> 类似Sigmoid，但更对称：</p>
+<ul>
+<li>负输入给负输出</li>
+<li>正输入给正输出</li>
+<li>比Sigmoid收敛更快</li>
+</ul>
+<p><strong>什么时候用？</strong></p>
+<ul>
+<li>需要输出正负值的场景</li>
+<li>LSTM等循环神经网络</li>
+</ul>
+<ol>
+<li>Softmax - 多分类专用</li>
+</ol>
+<p><strong>公式：</strong> Softmax(xi) = e^xi / Σe^xj</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>把一堆数字转成概率分布</li>
+<li>所有输出加起来=1</li>
+</ul>
+<p><strong>形象理解：</strong> 就像评委打分：</p>
+<ul>
+<li>输入：[猫:5分, 狗:2分, 兔子:1分]</li>
+<li>输出：[猫:70%, 狗:24%, 兔子:6%]</li>
+<li>把分数变成百分比，加起来刚好100%</li>
+</ul>
+<p><strong>什么时候用？</strong></p>
+<ul>
+<li>多分类问题的输出层</li>
+<li>需要概率分布的时候</li>
+</ul>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NTRkZmJhODA4MDAxYzJlN2U4NjE0ZWU4ZTgyYmE4OGVfb2R5UWU0cmRyZ0RRWWFucGlVQzBRTHFQMFluM2FiSndfVG9rZW46Q1VWZmJyeGZzb3V5M2Z4b1VXSWNLMFJrbkNiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h2 id="五、总结：把所有知识串起来"><a href="#五、总结：把所有知识串起来" class="headerlink" title="五、总结：把所有知识串起来"></a>五、总结：把所有知识串起来</h2><h3 id="📚-知识框架"><a href="#📚-知识框架" class="headerlink" title="📚 知识框架"></a>📚 知识框架</h3><ol>
+<li><strong>Transformer是什么？</strong><ol>
+<li>一种神经网络架构（设计图纸）</li>
+<li>基于自注意力机制</li>
+<li>可以并行处理，速度快</li>
+</ol>
+</li>
+<li><strong>Transformer和大模型的关系</strong><ol>
+<li>Transformer = 架构设计</li>
+<li>大模型 = 用这个架构训练出来的成品</li>
+<li>GPT、BERT都是基于Transformer</li>
+</ol>
+</li>
+<li><strong>神经网络基础</strong><ol>
+<li>模仿人脑神经元</li>
+<li>由输入层、隐藏层、输出层组成</li>
+<li>通过权重和偏置进行计算</li>
+</ol>
+</li>
+<li><strong>激活函数的作用</strong><ol>
+<li>引入非线性</li>
+<li>让网络能学习复杂模式</li>
+<li>不同场景选择不同的激活函数</li>
+</ol>
+</li>
+</ol>
+<p><strong>如果你要做NLP任务（比如训练一个小型语言模型）：</strong></p>
+<p>架构：Transformer</p>
+<p>隐藏层激活函数：GELU</p>
+<p>输出层：Softmax（分类）或Linear（生成）</p>
+<p><strong>如果你要做图像识别：</strong></p>
+<p>架构：CNN</p>
+<p>隐藏层激活函数：ReLU</p>
+<p>输出层：Softmax</p>
+<p><strong>如果你遇到训练问题：</strong></p>
+<ul>
+<li>ReLU导致神经元死亡 → 试试Leaky ReLU</li>
+<li>训练太慢 → 检查是不是用了Sigmoid/Tanh在隐藏层</li>
+<li>Transformer效果不好 → 确认是否用了GELU</li>
+</ul>
+<h1 id="深度理解Transformer的注意力机制"><a href="#深度理解Transformer的注意力机制" class="headerlink" title="深度理解Transformer的注意力机制"></a>深度理解Transformer的注意力机制</h1><h2 id="一、先搞清楚：PyTorch和Transformer到底啥关系？"><a href="#一、先搞清楚：PyTorch和Transformer到底啥关系？" class="headerlink" title="一、先搞清楚：PyTorch和Transformer到底啥关系？"></a>一、先搞清楚：PyTorch和Transformer到底啥关系？</h2><p>很多刚入门的朋友容易搞混这两个概念，但是压根不是一个层面的东西：</p>
+<p><strong>PyTorch是什么？</strong></p>
+<ul>
+<li>它是一个深度学习<strong>框架</strong>，就像你盖房子用的工具箱</li>
+<li>提供了张量计算、自动求导、GPU加速等基础功能</li>
+<li>你可以用它来实现各种神经网络模型</li>
+</ul>
+<p><strong>Transformer是什么？</strong></p>
+<ul>
+<li>它是一种神经网络<strong>架构</strong>，是一种具体的模型设计方案</li>
+<li>就像房子的设计图纸，规定了怎么组织各个组件</li>
+<li>可以用PyTorch、TensorFlow等任何框架来实现</li>
+</ul>
+<p><strong>打个比方：</strong></p>
+<ul>
+<li>PyTorch = 锤子、钉子、电钻（工具）</li>
+<li>Transformer = 房子设计图（架构方案）</li>
+<li>你用PyTorch这套工具，按照Transformer的设计图，把模型搭建出来</li>
+</ul>
+<p>所以当你听到”用PyTorch实现Transformer”，意思就是用PyTorch这个工具箱，按照Transformer的架构把模型代码写出来。</p>
+<h2 id="二、AI建模的核心：特征抽取器"><a href="#二、AI建模的核心：特征抽取器" class="headerlink" title="二、AI建模的核心：特征抽取器"></a>二、AI建模的核心：特征抽取器</h2><h3 id="什么是特征抽取？"><a href="#什么是特征抽取？" class="headerlink" title="什么是特征抽取？"></a>什么是特征抽取？</h3><p>咱们先从一个简单例子说起。假设你要教电脑识别猫和狗：</p>
+<p><strong>原始数据：</strong> 一张图片（比如256×256像素，3个颜色通道） <strong>最终目标：</strong> 判断是猫还是狗</p>
+<p>中间这个把”原始像素”转化成”可以用来分类的有用信息”的过程，就叫<strong>特征抽取</strong>。</p>
+<p><strong>传统方法的困境：</strong></p>
+<p>原始像素 → 手工设计的特征（边缘、纹理、颜色等）→ 分类器</p>
+<p>​           ↑ 这一步需要专家经验，很难</p>
+<p><strong>深度学习的突破：</strong></p>
+<p>原始数据 → 神经网络（自动学习特征）→ 输出结果</p>
+<p>​           ↑ 这就是特征抽取器！</p>
+<h3 id="为什么说Transformer是最核心的特征抽取器？"><a href="#为什么说Transformer是最核心的特征抽取器？" class="headerlink" title="为什么说Transformer是最核心的特征抽取器？"></a>为什么说Transformer是最核心的特征抽取器？</h3><p>在深度学习发展史上，特征抽取器经历了几个时代：</p>
+<ol>
+<li><strong>CNN时代（2012-2017）：</strong> 卷积神经网络，擅长处理图像</li>
+<li><strong>RNN/LSTM时代（2014-2017）：</strong> 循环神经网络，擅长处理序列</li>
+<li><strong>Transformer时代（2017-至今）：</strong> 统治级架构，横扫NLP、CV、语音等所有领域</li>
+</ol>
+<p><strong>Transformer为什么这么牛？</strong></p>
+<p>因为它有一个超级武器——<strong>注意力机制（Attention）</strong>！这个机制让模型能够：</p>
+<ol>
+<li><strong>并行处理：</strong> 不像RNN那样必须一个一个字处理，Transformer可以同时看所有输入</li>
+<li><strong>长距离依赖：</strong> 轻松捕捉句子中相隔很远的词之间的关系</li>
+<li><strong>动态权重：</strong> 根据上下文动态调整每个词的重要性</li>
+</ol>
+<p>举个例子：</p>
+<p>句子：”银行账户里的钱不够了”</p>
+<ul>
+<li>传统方法：按顺序处理，”银行”的信息可能传到”钱”时已经衰减了</li>
+<li>Transformer：同时看整个句子，立刻知道”银行”指的是金融机构而不是河岸</li>
+</ul>
+<p>这就是为什么GPT、BERT、DALL-E、Stable Diffusion等顶级模型全都基于Transformer架构！</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjA5ZGVlN2YwMTJlY2Y4NDllYWZjY2MwM2ZlMTYyYWFfeTl5SUFvM285NTd6NXQ5SkpSNG5vRDU3Y2kxNWRiNUVfVG9rZW46Um51Y2JOWEFOb1FONTZ4OEFqcmNwUHg0bjViXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h2 id="三、Transformer整体架构详解"><a href="#三、Transformer整体架构详解" class="headerlink" title="三、Transformer整体架构详解"></a>三、Transformer整体架构详解</h2><p>好，现在进入重头戏！咱们来看看Transformer长什么样。</p>
+<h3 id="3-1-高层视角：黑盒模型"><a href="#3-1-高层视角：黑盒模型" class="headerlink" title="3.1 高层视角：黑盒模型"></a>3.1 高层视角：黑盒模型</h3><p>最简单的理解：Transformer就是一个”翻译机器”</p>
+<ul>
+<li><strong>输入：</strong> 一句法语</li>
+<li><strong>输出：</strong> 对应的英语翻译</li>
+</ul>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmRjNWIyNmJkZGMzZDZlODI2OTU5MThhNDY5NjgxZTJfdU1jeDFKODhGWUpDbXRXaEZsQnhYRFlUQVg2TktCblNfVG9rZW46WDdtb2JmeklLb3VNcFF4YThwMGMzdDVabmdjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h3 id="3-2-打开黑盒：编码器-解码器结构"><a href="#3-2-打开黑盒：编码器-解码器结构" class="headerlink" title="3.2 打开黑盒：编码器-解码器结构"></a>3.2 打开黑盒：编码器-解码器结构</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ODU0MGQ4NTU0M2I0Yzg0ZTAzN2EzMTBjNjY0MDA0MDFfWG50b2NpdmlzY2NOZWdRcTN5RXpzall3amhtQTZGN01fVG9rZW46Sjd5d2Jsc2oxb1Z5R2F4dmczc2MyYlk2blFkXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p><strong>Transformer由两大部分组成：</strong></p>
+<ol>
+<li><strong>编码器（Encoder）：</strong> 理解输入的含义</li>
+<li><strong>解码器（Decoder）：</strong> 生成输出</li>
+</ol>
+<p>这就像你听到法语（编码器理解），然后用英语说出来（解码器生成）。</p>
+<h3 id="3-3-堆叠结构：6层编码器-6层解码器"><a href="#3-3-堆叠结构：6层编码器-6层解码器" class="headerlink" title="3.3 堆叠结构：6层编码器 + 6层解码器"></a>3.3 堆叠结构：6层编码器 + 6层解码器</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MmY3MmYwNDhiMzY3ZDQ2ZDYxZTAyZTkxZDNjZWRjYzRfdlhhZm1rUlZ3amF6aUJ0VEtpTHpBOG9GbUZMS0U2Zm9fVG9rZW46S0puc2JaYWxlb3VZUHR4cUpzWGNZOTl5bmZnXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>原始论文中：</p>
+<ul>
+<li>6个相同结构的编码器堆叠起来（不共享权重）</li>
+<li>6个相同结构的解码器堆叠起来</li>
+<li>为什么是6？没有特别原因，你可以试试其他数字</li>
+</ul>
+<h3 id="3-4-编码器内部结构"><a href="#3-4-编码器内部结构" class="headerlink" title="3.4 编码器内部结构"></a>3.4 编码器内部结构</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzk2ZWNhOTYwNGFlOTFkMWQxNWZhMWFjOTBhNDFkYjJfQjc2VWJKSEthYll0VkFROTBkZGV2V3pDMmlIWGNvSExfVG9rZW46VFJpRWJwdUFNb2J1UEZ4cEdMY2NDVDFEbnNmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>每个编码器有两个子层：</p>
+<ol>
+<li><strong>Self-Attention层（自注意力层）：</strong><ol>
+<li>让模型在处理每个词时，能看到句子中的其他所有词</li>
+<li>这是核心！后面会详细讲</li>
+</ol>
+</li>
+<li><strong>Feed Forward层（前馈神经网络）：</strong><ol>
+<li>就是普通的全连接神经网络</li>
+<li>对每个位置独立应用（位置之间不共享信息）</li>
+</ol>
+</li>
+</ol>
+<p><strong>数据流动过程：</strong></p>
+<p>输入词 → Embedding（词向量）</p>
+<p>​      ↓</p>
+<p>Self-Attention（关注上下文）</p>
+<p>​      ↓</p>
+<p>Add &amp; Norm（残差连接+归一化）</p>
+<p>​      ↓</p>
+<p>Feed Forward（非线性变换）</p>
+<p>​      ↓</p>
+<p>Add &amp; Norm</p>
+<p>​      ↓</p>
+<p>输出到下一层编码器</p>
+<h3 id="3-5-解码器内部结构"><a href="#3-5-解码器内部结构" class="headerlink" title="3.5 解码器内部结构"></a>3.5 解码器内部结构</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NzE0OGZiYjY3ODc2MWJjYmVkNzc5ZjJjMTk4MDQ4OTlfaU9RMFJGOWw4b1Vyb2lBVmR5NEtBZ25yQ1BnblpCRklfVG9rZW46UmtKaGJnT2JEb01Eb1l4TVFaQWN3WWVMbk5lXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>解码器比编码器多了一层，有三个子层：</p>
+<ol>
+<li><strong>Masked Self-Attention：</strong> 只能看到当前位置之前的词（不能偷看后面的答案）</li>
+<li><strong>Encoder-Decoder Attention：</strong> 关注编码器的输出（读取原文信息）</li>
+<li><strong>Feed Forward：</strong> 和编码器一样</li>
+</ol>
+<p><strong>为什么要Mask？</strong></p>
+<p>假设你在翻译”我爱你”→”I love you”：</p>
+<ul>
+<li>生成”I”时：只能基于”我”</li>
+<li>生成”love”时：可以看”我爱”和已生成的”I”</li>
+<li>生成”you”时：可以看”我爱你”和”I love”</li>
+</ul>
+<p>不能让模型在生成”I”的时候就看到答案里的”love”，那不就作弊了吗？</p>
+<h3 id="3-6-完整数据流"><a href="#3-6-完整数据流" class="headerlink" title="3.6 完整数据流"></a>3.6 完整数据流</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=YjlhYTEyZWQ3ZjRiZmUxZDA1MmI2ZWE5Nzc4YjJmMTZfOHpLYzk2SVZjdzg5aGNwVjM0RkR0R3NYb3BMODYwaXJfVG9rZW46RlU1aWJhcjJXb0VpRVd4cnh6UmNaUEFtbjdnXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p><strong>训练时的完整流程：</strong></p>
+<ol>
+<li>输入句子 → Embedding + 位置编码 → 进入编码器</li>
+<li>编码器逐层处理，提取特征</li>
+<li>编码器输出 → 传给解码器的Encoder-Decoder Attention</li>
+<li>解码器逐词生成翻译</li>
+<li>最后Linear层 + Softmax → 输出概率分布</li>
+</ol>
+<h2 id="四、Decoder-Only架构的应用（GPT系列的秘密）"><a href="#四、Decoder-Only架构的应用（GPT系列的秘密）" class="headerlink" title="四、Decoder-Only架构的应用（GPT系列的秘密）"></a>四、Decoder-Only架构的应用（GPT系列的秘密）</h2><p>现在最火的<strong>GPT系列</strong>（ChatGPT、GPT-4等）用的不是完整的Transformer，而是<strong>只用了解码器（Decoder-Only）</strong>！</p>
+<h3 id="4-1-为什么只用Decoder？"><a href="#4-1-为什么只用Decoder？" class="headerlink" title="4.1 为什么只用Decoder？"></a>4.1 为什么只用Decoder？</h3><p>原始Transformer是为了<strong>翻译任务</strong>设计的：</p>
+<ul>
+<li>编码器：理解源语言</li>
+<li>解码器：生成目标语言</li>
+</ul>
+<p>但对于<strong>文本生成任务</strong>（比如写文章、对话），我们只需要：</p>
+<ul>
+<li>输入：一段文本提示</li>
+<li>输出：续写的内容</li>
+</ul>
+<p>这种情况下，不需要分开的编码器和解码器，只用解码器就够了！</p>
+<h3 id="4-2-Decoder-Only的工作原理"><a href="#4-2-Decoder-Only的工作原理" class="headerlink" title="4.2 Decoder-Only的工作原理"></a>4.2 Decoder-Only的工作原理</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NTU1NDljMDM4NTg4ZTM2MzAwZDhlMmFkZjQwMjI3MjhfdzBzWVVBVEtxUlp3OVgwNVU2MGlCNUlBNmpPbFB2d2hfVG9rZW46U0pKV2I4N3FHb0oyS3N4TW1DZ2M0ZnU2blpjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p><strong>核心思想：</strong> 把输入和输出看成同一个序列</p>
+<p>举个例子：</p>
+<p>输入提示：”今天天气”</p>
+<p>模型处理：”今天 天气 真 好 啊”</p>
+<p>​           ↑输入↑ ←→ ↑输出↑</p>
+<p>模型在生成”真”的时候：</p>
+<ul>
+<li>可以看到”今天 天气”（输入）</li>
+<li>不能看到”好 啊”（未来的输出）</li>
+</ul>
+<p><strong>关键配置：</strong></p>
+<ul>
+<li>使用Masked Self-Attention（遮住未来信息）</li>
+<li>没有Encoder-Decoder Attention层</li>
+<li>堆叠N个相同的Decoder Block</li>
+</ul>
+<p><strong>著名的Decoder-Only模型：</strong></p>
+<ul>
+<li><strong>GPT系列：</strong> GPT-2、GPT-3、GPT-4、ChatGPT</li>
+<li><strong>LLaMA系列：</strong> Meta开源的大模型</li>
+<li><strong>Claude：</strong> </li>
+<li><strong>PaLM：</strong> Google的大模型</li>
+</ul>
+<h3 id="4-3-Decoder-Only-vs-完整Transformer"><a href="#4-3-Decoder-Only-vs-完整Transformer" class="headerlink" title="4.3 Decoder-Only vs 完整Transformer"></a>4.3 Decoder-Only vs 完整Transformer</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>完整Transformer</th>
+<th>Decoder-Only</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>典型应用</td>
+<td>机器翻译</td>
+<td>文本生成、对话</td>
+</tr>
+<tr>
+<td>结构</td>
+<td>Encoder + Decoder</td>
+<td>仅Decoder</td>
+</tr>
+<tr>
+<td>输入输出</td>
+<td>输入和输出是不同序列</td>
+<td>输入输出是同一序列</td>
+</tr>
+<tr>
+<td>训练目标</td>
+<td>Seq2Seq（序列到序列）</td>
+<td>语言建模（预测下一个词）</td>
+</tr>
+<tr>
+<td>代表模型</td>
+<td>BERT（只用Encoder）、T5</td>
+<td>GPT系列、LLaMA</td>
+</tr>
+</tbody></table>
+<h2 id="五、注意力机制图解（Self-Attention的魔法）"><a href="#五、注意力机制图解（Self-Attention的魔法）" class="headerlink" title="五、注意力机制图解（Self-Attention的魔法）"></a>五、注意力机制图解（Self-Attention的魔法）</h2><p>好了，终于到最核心的部分了！注意力机制到底是什么？</p>
+<h3 id="5-1-直观理解：什么是”注意力”？"><a href="#5-1-直观理解：什么是”注意力”？" class="headerlink" title="5.1 直观理解：什么是”注意力”？"></a>5.1 直观理解：什么是”注意力”？</h3><p>咱们先看一个经典例子：</p>
+<p><strong>句子：</strong> “The animal didn’t cross the street because it was too tired” <strong>问题：</strong> “it”指的是什么？</p>
+<p>人类秒懂：it = animal（而不是street）</p>
+<p>但对于计算机，怎么让它理解这种关系呢？这就需要<strong>注意力机制</strong>！</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MDg0OGZiNWRkNTNjMTRhNDU3N2ZjMWYxYzVhNzc5OTNfU1FBOFdudDNPalhjRDlmY29udmpibXkzcUtOd3pzam5fVG9rZW46S2owSmJOYkpIb3M0REF4bzNFdGNEOTJQbjRmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>当模型处理”it”这个词时：</p>
+<ul>
+<li>注意力机制让它”关注”句子中的其他词</li>
+<li>发现”animal”和”it”的关系最强</li>
+<li>把”animal”的信息融入到”it”的表示中</li>
+</ul>
+<h3 id="5-2-注意力计算的直观过程"><a href="#5-2-注意力计算的直观过程" class="headerlink" title="5.2 注意力计算的直观过程"></a>5.2 注意力计算的直观过程</h3><p>假设我们在处理句子：”Thinking Machines”</p>
+<p><strong>Step 1：为每个词创建三个向量</strong></p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=YTI0ZGFkODdjZTNmZGVjNjZlODE2ZDA2Yzg1YTMwYjJfaU15T3lBcHA3TFRGODFidlZGS0dzVmc3MUdHMWJRZHFfVG9rZW46REpoVGJoZEVsb0FCZTV4cFYxOWNLOHRRblNkXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>对于每个词（比如”Thinking”），我们创建三个向量：</p>
+<ul>
+<li><strong>Query（查询）：</strong> “我想查询什么信息？”</li>
+<li><strong>Key（键）：</strong> “我能提供什么信息？”</li>
+<li><strong>Value（值）：</strong> “我的具体信息内容是什么？”</li>
+</ul>
+<p><strong>类比：图书馆检索系统</strong></p>
+<ul>
+<li>Query = 你输入的搜索关键词：”人工智能”</li>
+<li>Key = 每本书的索引标签：”机器学习”、”深度学习”、”AI”…</li>
+<li>Value = 书的实际内容</li>
+</ul>
+<p><strong>怎么得到这三个向量？</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X &#x3D; 词的embedding向量（维度：512）</span><br><span class="line">Q &#x3D; X @ W_Q  # 查询向量（维度：64）</span><br><span class="line">K &#x3D; X @ W_K  # 键向量（维度：64）</span><br><span class="line">V &#x3D; X @ W_V  # 值向量（维度：64）</span><br></pre></td></tr></table></figure>
+<p>其中W_Q、W_K、W_V是模型训练学习到的权重矩阵。</p>
+<p><strong>Step 2：计算注意力分数</strong></p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NTQ5MDYzYjZlYWZmOGVjYzg1ZTQxZWUwYTI4NDFjZGJfYTZocEoyTzhEQ2ZPd0k3ZmRxVVlJN3VYM1R4dDBEY0xfVG9rZW46R2tuYmJOc1JHb3FhQ1N4QVRkemNvR0tnblZoXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>假设我们在处理”Thinking”这个词：</p>
+<ul>
+<li>计算”Thinking”的Q和所有词的K的点积（dot product）</li>
+<li>这给出了”Thinking”对每个词的”关注程度”</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">对于第一个词&quot;Thinking&quot;</span><br><span class="line">score_1 &#x3D; Q_thinking · K_thinking  # 自己和自己</span><br><span class="line">score_2 &#x3D; Q_thinking · K_machines  # 和&quot;Machines&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>为什么用点积？</strong></p>
+<ul>
+<li>点积大 → 两个向量方向相似 → 关系密切</li>
+<li>点积小 → 两个向量方向不同 → 关系不大</li>
+</ul>
+<p><strong>Step 3 &amp; 4：缩放 + Softmax归一化</strong></p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NzY4MTZjN2ZhYTk4MjJiMTRjYTFiZTNlNTdlNjQ5ZGJfYllUcks3cGxITXQ0TU41SnFTd0I0eUFzWEloaW9GWk5fVG9rZW46SjN6SGJDcmZPb2JqVFF4djdpSWNnWTFRbjhiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">缩放：除以sqrt(d_k)，这里d_k&#x3D;64</span><br><span class="line">scaled_scores &#x3D; scores &#x2F; sqrt(64) &#x3D; scores &#x2F; 8</span><br><span class="line">Softmax：转换成概率分布（和为1）</span><br><span class="line">attention_weights &#x3D; softmax(scaled_scores)</span><br></pre></td></tr></table></figure>
+<p><strong>为什么要除以8？</strong></p>
+<ul>
+<li>点积的结果可能很大，导致梯度消失</li>
+<li>除以sqrt(d_k)让数值更稳定</li>
+</ul>
+<p><strong>Softmax的作用：</strong></p>
+<p>原始分数：[12, 8, 15]</p>
+<p>Softmax后：[0.2, 0.1, 0.7]  ← 变成概率，和为1</p>
+<p>这样我们就知道了：对于”Thinking”这个词，应该给”Machines”0.7的权重。</p>
+<p><strong>Step 5 &amp; 6：加权求和</strong></p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NWNiYWQwMTQ3MzQ0MjZmN2I2ODgwOTViN2Q4OTY3NTJfTVJSUGpMRUFkSlhXb2JYNDNpSXFNdExTWU5KVjN0YXlfVG9rZW46TFdWMGJpTWZzb0lIdWR4UGhqV2NlQ1VibmplXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>最后一步：用注意力权重对Value向量加权求和</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">output &#x3D; attention_weights[0] * V_thinking + \</span><br><span class="line">         attention_weights[1] * V_machines</span><br></pre></td></tr></table></figure>
+<p>这个output就是”Thinking”这个词经过Self-Attention后的新表示，它融合了句子中其他词的信息！</p>
+<h3 id="5-3-矩阵形式计算（实际代码中的做法）"><a href="#5-3-矩阵形式计算（实际代码中的做法）" class="headerlink" title="5.3 矩阵形式计算（实际代码中的做法）"></a>5.3 矩阵形式计算（实际代码中的做法）</h3><p>实际中，我们不会一个词一个词算，而是用矩阵一次性处理所有词：</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=YzI3ZmJkMThkNTg4NTg0YjRkNzBkMTU5NzdmY2IxY2NfbTNmTHpGV0N2cWhnMExDcFpORTRFS3dHTW9tamlxUFhfVG9rZW46TGdQc2JiaUZnb1Noa2J4NnEwdGNnWjNabmdnXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p><strong>Step 1：计算Q、K、V矩阵</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X: (seq_len, d_model) &#x3D; (句子长度, 512)</span><br><span class="line">W_Q, W_K, W_V: (d_model, d_k) &#x3D; (512, 64)</span><br><span class="line">Q &#x3D; X @ W_Q  # (seq_len, 64)</span><br><span class="line">K &#x3D; X @ W_K  # (seq_len, 64)</span><br><span class="line">V &#x3D; X @ W_V  # (seq_len, 64)</span><br></pre></td></tr></table></figure>
+<p><strong>Step 2：一个公式搞定所有！</strong></p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2QwZmFmYmQyYzM2MjJhYjAyMGYwZWRhYTczYzYzMGFfaXJKSXFleXU2Uk1zZVJOeHdGeTZZc3h3S3RlUkh5bzNfVG9rZW46QnBRNWJLaFd2bzhTNzZ4eWtHcGNCeG1QbnVmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Attention(Q, K, V) &#x3D; softmax(Q @ K^T &#x2F; sqrt(d_k)) @ V</span><br></pre></td></tr></table></figure>
+<p>这一个公式包含了之前所有步骤：</p>
+<ol>
+<li><code>Q @ K^T</code> → 计算所有词对之间的分数</li>
+<li><code>/ sqrt(d_k)</code> → 缩放</li>
+<li><code>softmax(...)</code> → 归一化成概率</li>
+<li><code>@ V</code> → 加权求和</li>
+</ol>
+<p><strong>维度变化：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Q: (seq_len, d_k)</span><br><span class="line">K^T: (d_k, seq_len)</span><br><span class="line">Q@K^T: (seq_len, seq_len)  ← 注意力矩阵！</span><br><span class="line">softmax: (seq_len, seq_len)</span><br><span class="line">@V: (seq_len, d_k)  ← 输出维度</span><br></pre></td></tr></table></figure>
+<h3 id="5-4-真实案例演示"><a href="#5-4-真实案例演示" class="headerlink" title="5.4 真实案例演示"></a>5.4 真实案例演示</h3><p>让我们用一个真实例子走一遍流程：</p>
+<p><strong><code>输入句子：</code></strong><code> &quot;I love AI&quot;（3个词）</code></p>
+<p><strong><code>假设参数：</code></strong></p>
+<ul>
+<li><code>词向量维度 d_model = 512</code></li>
+<li><code>Q/K/V 维度 d_k = 64</code></li>
+</ul>
+<p><strong><code>数据流：</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">第1步：Embedding</span><br><span class="line">&quot;I&quot;    → x1: [0.2, 0.5, ..., 0.3]  # 512维</span><br><span class="line">&quot;love&quot; → x2: [0.8, 0.1, ..., 0.7]  # 512维</span><br><span class="line">&quot;AI&quot;   → x3: [0.4, 0.9, ..., 0.2]  # 512维</span><br><span class="line">第2步：生成Q、K、V</span><br><span class="line">q1 &#x3D; x1 @ W_Q → [0.1, 0.3, ..., 0.5]  # 64维</span><br><span class="line">k1 &#x3D; x1 @ W_K → [0.2, 0.1, ..., 0.8]  # 64维</span><br><span class="line">v1 &#x3D; x1 @ W_V → [0.5, 0.4, ..., 0.2]  # 64维</span><br><span class="line">同样处理 love、AI</span><br><span class="line">第3步：计算attention scores（以&quot;I&quot;为例）</span><br><span class="line">score_I_I    &#x3D; q1 · k1 &#x3D; 32.5</span><br><span class="line">score_I_love &#x3D; q1 · k2 &#x3D; 28.3</span><br><span class="line">score_I_AI   &#x3D; q1 · k3 &#x3D; 15.7</span><br><span class="line">第4步：缩放</span><br><span class="line">scaled_scores &#x3D; [32.5&#x2F;8, 28.3&#x2F;8, 15.7&#x2F;8] &#x3D; [4.06, 3.54, 1.96]</span><br><span class="line">第5步：Softmax</span><br><span class="line">weights &#x3D; softmax([4.06, 3.54, 1.96]) &#x3D; [0.51, 0.41, 0.08]</span><br><span class="line">意思是：&quot;I&quot;主要关注自己(51%)和love(41%)，很少关注AI(8%)</span><br><span class="line">第6步：加权求和</span><br><span class="line">output_I &#x3D; 0.51*v1 + 0.41*v2 + 0.08*v3</span><br></pre></td></tr></table></figure>
+<p>最终，<code>output_I</code>就是”I”这个词在这个句子中的新表示，它已经融入了”love”和”AI”的上下文信息！</p>
+<h2 id="六、多头注意力（Multi-Head-Attention）"><a href="#六、多头注意力（Multi-Head-Attention）" class="headerlink" title="六、多头注意力（Multi-Head Attention）"></a>六、多头注意力（Multi-Head Attention）</h2><h3 id="6-1-为什么需要多个头？"><a href="#6-1-为什么需要多个头？" class="headerlink" title="6.1 为什么需要多个头？"></a>6.1 为什么需要多个头？</h3><p>单头注意力有个问题：它只能学习一种关系模式。</p>
+<p>但语言中的关系是多样的：</p>
+<ul>
+<li>语法关系：”主语-动词”、”动词-宾语”</li>
+<li>语义关系：”同义词”、”反义词”</li>
+<li>位置关系：”相邻词”、”远距离依赖”</li>
+</ul>
+<p><strong>多头注意力的思想：</strong> 让模型同时学习多种不同的关系！</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MmVjM2RkOTVhMzYxNmNiNDFlNjdjNWIyODU5YzU4YzlfRkE5eXpUZWI5ZmJjakVtblhvZkpCZTBkcW1acWR4cWxfVG9rZW46UEVMNmJqaWFUb2xicXF4QWJMNGN5cm02blRjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h3 id="6-2-多头注意力的实现"><a href="#6-2-多头注意力的实现" class="headerlink" title="6.2 多头注意力的实现"></a>6.2 多头注意力的实现</h3><p>原理很简单：<strong>并行运行h个不同的注意力机制</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Transformer使用8个注意力头</span><br><span class="line">h &#x3D; 8</span><br><span class="line">每个头有自己的W_Q、W_K、W_V</span><br><span class="line">for i in range(h):</span><br><span class="line">    Q_i &#x3D; X @ W_Q_i</span><br><span class="line">    K_i &#x3D; X @ W_K_i</span><br><span class="line">    V_i &#x3D; X @ W_V_i</span><br><span class="line">    # 独立计算attention</span><br><span class="line">    Z_i &#x3D; Attention(Q_i, K_i, V_i)</span><br></pre></td></tr></table></figure>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=YzE2MTljOGE1YWU5ODFjYzk1ZTI4YTE4ODdmMjEzZDBfdnVHaHI3dVBLYU5YVjFGaTBMVG5aRUd4bWN2cHVQdWhfVG9rZW46WG1HRmJ5V0w5b0xaTXV4czRMUmNXZDR4bm5iXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>最后得到8个输出：Z_0, Z_1, …, Z_7</p>
+<h3 id="6-3-合并多头输出"><a href="#6-3-合并多头输出" class="headerlink" title="6.3 合并多头输出"></a>6.3 合并多头输出</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NzE5ZjliYTdmOTVjYjg0Y2E5NjBmMTZmN2JiZDFkNTFfVXFScEZTQnRtbU1hNGx6VlBCRVNUSjdQU2pjSEFKTGtfVG9rZW46VDlmMmJFeGFBb3pmN0h4RkpqWWNzdVVzbnZjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>问题：前馈网络期望一个矩阵输入，但我们现在有8个！</p>
+<p><strong><code>解决办法：拼接 + 线性变换</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">拼接所有头的输出</span><br><span class="line">Z_concat &#x3D; concat(Z_0, Z_1, ..., Z_7)  # (seq_len, 8*d_k)</span><br><span class="line">线性变换回原始维度</span><br><span class="line">Z_final &#x3D; Z_concat @ W_O  # (seq_len, d_model)</span><br></pre></td></tr></table></figure>
+<h3 id="6-4-完整流程图"><a href="#6-4-完整流程图" class="headerlink" title="6.4 完整流程图"></a>6.4 完整流程图</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjgxZGZkZjVjZTJkZDJlY2IyNjVmYzg1YTJlMzEzZmFfMzJOZnIwTFgyMG1hRTlGVXM2ampHUlh6VnN4NzVYVHJfVG9rZW46TGhnS2IyQnlEbzduTm94N0FuNGNEZmw5bkNiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p><strong>总结：</strong></p>
+<ol>
+<li>输入X分别传给8个注意力头</li>
+<li>每个头独立计算attention</li>
+<li>拼接8个头的输出</li>
+<li>线性变换得到最终结果</li>
+</ol>
+<h3 id="6-5-多头注意力的可视化"><a href="#6-5-多头注意力的可视化" class="headerlink" title="6.5 多头注意力的可视化"></a>6.5 多头注意力的可视化</h3><p>看看不同的头在关注什么：</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=N2FjM2YwZGI1YTQxZWNmZjI3MGViNWQ3ZjEzZWMzMzFfZjJod1BEdDR1c1Z2QVpadGVUdFh6aW5pek16WUNIU1NfVG9rZW46REl4VGJweU02b0N5a2V4UmFmQWN2aDZ3bkRjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>当模型处理”it”这个词时：</p>
+<ul>
+<li><strong>头1：</strong> 主要关注”animal”（语义关系）</li>
+<li><strong>头2：</strong> 关注”tired”（属性关系）</li>
+<li>其他头关注不同的语法和语义模式</li>
+</ul>
+<p>这就是为什么多头注意力这么强大——它能同时从多个角度理解句子！</p>
+<h2 id="七、位置编码（Positional-Encoding）"><a href="#七、位置编码（Positional-Encoding）" class="headerlink" title="七、位置编码（Positional Encoding）"></a>七、位置编码（Positional Encoding）</h2><h3 id="7-1-为什么需要位置信息？"><a href="#7-1-为什么需要位置信息？" class="headerlink" title="7.1 为什么需要位置信息？"></a>7.1 为什么需要位置信息？</h3><p>Self-Attention有个严重问题：<strong>它不知道词的顺序</strong>！</p>
+<p>想象一下：</p>
+<ul>
+<li>“狗咬了人” 和 “人咬了狗” 在Self-Attention眼里是一样的！</li>
+<li>因为注意力只看词之间的关系，不管它们的位置</li>
+</ul>
+<p>但词的顺序在语言中太重要了！</p>
+<h3 id="7-2-位置编码的方案"><a href="#7-2-位置编码的方案" class="headerlink" title="7.2 位置编码的方案"></a>7.2 位置编码的方案</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NmZhMDVlNmRlZGMwOGNjZjM1NTFlNzBkNmVjY2VlNTRfdjFYcGxxczM5Z0Z5clhyYUpKcVpMaExoYUdSWU1FYmRfVG9rZW46UlNtTmJZRmthb255V3V4U3paVGNuVkIyblhmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NjY5MDE3OWM5MDE1YWI1MGRkMzJmYmY0NjgxMTZhMTVfSkVmR3l6c1N2TzB2c3M0MTlIWkxDa00xOUZ5MU9sM2NfVG9rZW46TTFicmJLaHh6b1pEOHl4Tkl0MWNDTnlJbkllXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h3 id="7-3-位置编码可视化"><a href="#7-3-位置编码可视化" class="headerlink" title="7.3 位置编码可视化"></a>7.3 位置编码可视化</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Mjg3OTcxN2U3Mzg1MDM3NjQxNWMzODRhOGFkMmRiNDVfZDF4SmR0eTRYcEJOdG9PVm1SOHJmV2w5S3Fqc0xIUndfVG9rZW46QWVLU2J4eVAwb0ZNMTZ4NkJ1bWM2b2RCblBlXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>这是20个位置、512维的位置编码：</p>
+<ul>
+<li>每一行是一个位置的编码</li>
+<li>颜色代表数值大小</li>
+<li>可以看出明显的周期性模式</li>
+</ul>
+<p><strong>为什么用sin/cos函数？</strong></p>
+<ol>
+<li>值在[-1, 1]之间，不会太大</li>
+<li>对于任意长度的句子都能生成编码</li>
+<li>相对位置关系可以通过简单的线性变换得到</li>
+</ol>
+<h2 id="八、QKV架构细节深入剖析"><a href="#八、QKV架构细节深入剖析" class="headerlink" title="八、QKV架构细节深入剖析"></a>八、QKV架构细节深入剖析</h2><h3 id="8-1-为什么是Query、Key、Value？"><a href="#8-1-为什么是Query、Key、Value？" class="headerlink" title="8.1 为什么是Query、Key、Value？"></a>8.1 为什么是Query、Key、Value？</h3><p>这个命名来自于信息检索领域，让我们用一个完整类比理解：</p>
+<p><strong>场景：你在YouTube搜视频</strong></p>
+<p>┌─────────────────────────────────────┐</p>
+<p>│ 1. 你输入搜索词：”transformer教程” │  ← Query（查询）</p>
+<p>└─────────────────────────────────────┘</p>
+<p>​            ↓</p>
+<p>┌─────────────────────────────────────────────────┐</p>
+<p>│ 2. YouTube数据库里每个视频都有标签：          │</p>
+<p>│    视频1: “AI, 机器学习, 神经网络”    │  ← Key（索引）</p>
+<p>│    视频2: “transformer, NLP, 注意力”  │  ← Key</p>
+<p>│    视频3: “做饭, 美食, 教程”          │  ← Key</p>
+<p>└─────────────────────────────────────────────────┘</p>
+<p>​            ↓</p>
+<p>┌─────────────────────────────────────────────────┐</p>
+<p>│ 3. 匹配度计算：                                │</p>
+<p>│    视频1: 匹配度 0.2（有点相关）              │</p>
+<p>│    视频2: 匹配度 0.9（非常相关！）            │</p>
+<p>│    视频3: 匹配度 0.0（不相关）                │</p>
+<p>└─────────────────────────────────────────────────┘</p>
+<p>​            ↓</p>
+<p>┌─────────────────────────────────────────────────┐</p>
+<p>│ 4. 返回视频内容（根据匹配度加权）：           │</p>
+<p>│    主要展示视频2的内容(90%)        │  ← Value（内容）</p>
+<p>│    少量展示视频1的内容(10%)        │  ← Value</p>
+<p>│    不展示视频3                     │</p>
+<p>└─────────────────────────────────────────────────┘</p>
+<p><strong>对应到Self-Attention：</strong></p>
+<ul>
+<li><strong>Query:</strong> 当前词想要查找什么信息</li>
+<li><strong>Key:</strong> 每个词能被什么样的查询匹配到</li>
+<li><strong>Value:</strong> 每个词实际包含的信息内容</li>
+</ul>
+<h3 id="8-2-QKV的维度设计"><a href="#8-2-QKV的维度设计" class="headerlink" title="8.2 QKV的维度设计"></a>8.2 QKV的维度设计</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=M2MyMzM5NGIyYzY2ZWIzNjlmY2VmMzQzZTcwOGI3OTFfaWxSWE5qUngwMXdBZ2c4ZDFPWVVrR0tCVWVNTXAxUElfVG9rZW46V0czQWJ6MWI2b0JjMHd4S0U1VGNFMU5XbjRmXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h3 id="8-3-QKV变换的详细过程"><a href="#8-3-QKV变换的详细过程" class="headerlink" title="8.3 QKV变换的详细过程"></a>8.3 QKV变换的详细过程</h3><p><strong>单个词的变换：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">假设词&quot;love&quot;的embedding</span><br><span class="line">x_love &#x3D; [0.8, 0.1, 0.3, ..., 0.7]  # 512维</span><br><span class="line">三个权重矩阵（512×64）</span><br><span class="line">W_Q &#x3D; [[0.1, 0.2, ..., 0.5],</span><br><span class="line">       [0.3, 0.1, ..., 0.8],</span><br><span class="line">       ...]  # 512行64列</span><br><span class="line">W_K &#x3D; [...]  # 512×64</span><br><span class="line">W_V &#x3D; [...]  # 512×64</span><br><span class="line">矩阵乘法</span><br><span class="line">q_love &#x3D; x_love @ W_Q  # (1, 512) @ (512, 64) &#x3D; (1, 64)</span><br><span class="line">k_love &#x3D; x_love @ W_K  # (1, 64)</span><br><span class="line">v_love &#x3D; x_love @ W_V  # (1, 64)</span><br></pre></td></tr></table></figure>
+<p><strong>整个句子的变换：</strong></p>
+<p>句子矩阵：每行是一个词</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">X &#x3D; [[x_I],      # 512维</span><br><span class="line">     [x_love],   # 512维</span><br><span class="line">     [x_AI]]     # 512维</span><br><span class="line">X的形状：(3, 512)</span><br><span class="line">批量计算</span><br><span class="line">Q &#x3D; X @ W_Q  # (3, 512) @ (512, 64) &#x3D; (3, 64)</span><br><span class="line">K &#x3D; X @ W_K  # (3, 64)</span><br><span class="line">V &#x3D; X @ W_V  # (3, 64)</span><br><span class="line">结果：</span><br><span class="line">Q[0] &#x3D; &quot;I&quot;的query向量</span><br><span class="line">Q[1] &#x3D; &quot;love&quot;的query向量</span><br><span class="line">Q[2] &#x3D; &quot;AI&quot;的query向量</span><br></pre></td></tr></table></figure>
+<h3 id="8-4-实际代码实现"><a href="#8-4-实际代码实现" class="headerlink" title="8.4 实际代码实现"></a>8.4 实际代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">class SelfAttention(nn.Module):</span><br><span class="line">    def __init__(self, d_model&#x3D;512, d_k&#x3D;64):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.d_k &#x3D; d_k</span><br><span class="line">        # 定义三个线性变换</span><br><span class="line">        self.W_Q &#x3D; nn.Linear(d_model, d_k, bias&#x3D;False)</span><br><span class="line">        self.W_K &#x3D; nn.Linear(d_model, d_k, bias&#x3D;False)</span><br><span class="line">        self.W_V &#x3D; nn.Linear(d_model, d_k, bias&#x3D;False)</span><br><span class="line">    def forward(self, X):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        X: (batch_size, seq_len, d_model)</span><br><span class="line">        输出: (batch_size, seq_len, d_k)</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        # Step 1: 生成Q、K、V</span><br><span class="line">        Q &#x3D; self.W_Q(X)  # (batch, seq_len, d_k)</span><br><span class="line">        K &#x3D; self.W_K(X)  # (batch, seq_len, d_k)</span><br><span class="line">        V &#x3D; self.W_V(X)  # (batch, seq_len, d_k)</span><br><span class="line">        # Step 2: 计算attention scores</span><br><span class="line">        scores &#x3D; torch.matmul(Q, K.transpose(-2, -1))  # (batch, seq_len, seq_len)</span><br><span class="line">        scores &#x3D; scores &#x2F; (self.d_k ** 0.5)  # 缩放</span><br><span class="line">        # Step 3: Softmax</span><br><span class="line">        attention_weights &#x3D; torch.softmax(scores, dim&#x3D;-1)</span><br><span class="line">        # Step 4: 加权求和</span><br><span class="line">        output &#x3D; torch.matmul(attention_weights, V)  # (batch, seq_len, d_k)</span><br><span class="line">        return output, attention_weights</span><br></pre></td></tr></table></figure>
+<h2 id="九、Attention输出计算的完整演示"><a href="#九、Attention输出计算的完整演示" class="headerlink" title="九、Attention输出计算的完整演示"></a>九、Attention输出计算的完整演示</h2><h3 id="9-1-手算一个简单例子"><a href="#9-1-手算一个简单例子" class="headerlink" title="9.1 手算一个简单例子"></a>9.1 手算一个简单例子</h3><p>假设我们有一个极简化的例子（方便手算）：</p>
+<p><strong>输入：</strong> 2个词，维度为4</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">词向量（实际是512维，这里简化成4维）</span><br><span class="line">X &#x3D; [[1, 0, 1, 0],   # &quot;I&quot;</span><br><span class="line">     [0, 2, 0, 2]]   # &quot;love&quot;</span><br><span class="line">权重矩阵（实际是512×64，这里简化成4×2）</span><br><span class="line">W_Q &#x3D; [[1, 0],</span><br><span class="line">       [0, 1],</span><br><span class="line">       [1, 0],</span><br><span class="line">       [0, 1]]</span><br><span class="line">W_K &#x3D; [[0, 1],</span><br><span class="line">       [1, 0],</span><br><span class="line">       [0, 1],</span><br><span class="line">       [1, 0]]</span><br><span class="line">W_V &#x3D; [[1, 1],</span><br><span class="line">       [1, 1],</span><br><span class="line">       [0, 0],</span><br><span class="line">       [0, 0]]</span><br></pre></td></tr></table></figure>
+<p><strong>Step 1: 计算Q、K、V</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Q &#x3D; X @ W_Q</span><br><span class="line">  &#x3D; [[1, 0, 1, 0],    @ [[1, 0],</span><br><span class="line">     [0, 2, 0, 2]]       [0, 1],</span><br><span class="line">                         [1, 0],</span><br><span class="line">                         [0, 1]]</span><br><span class="line">  &#x3D; [[1*1+0*0+1*1+0*0, 1*0+0*1+1*0+0*1],</span><br><span class="line">     [0*1+2*0+0*1+2*0, 0*0+2*1+0*0+2*1]]</span><br><span class="line">  &#x3D; [[2, 0],</span><br><span class="line">     [0, 4]]</span><br><span class="line">K &#x3D; X @ W_K &#x3D; [[0, 1],</span><br><span class="line">               [2, 2]]</span><br><span class="line">V &#x3D; X @ W_V &#x3D; [[2, 2],</span><br><span class="line">               [2, 2]]</span><br></pre></td></tr></table></figure>
+<p><strong>Step 2: 计算Attention Scores</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Scores &#x3D; Q @ K^T</span><br><span class="line">       &#x3D; [[2, 0],  @ [[0, 2],</span><br><span class="line">          [0, 4]]     [1, 2]]</span><br><span class="line">       &#x3D; [[2*0+0*1, 2*2+0*2],</span><br><span class="line">          [0*0+4*1, 0*2+4*2]]</span><br><span class="line">       &#x3D; [[0, 4],</span><br><span class="line">          [4, 8]]</span><br></pre></td></tr></table></figure>
+<p>意义解读：</p>
+<ul>
+<li>Scores0 = 0: “I”对”I”的关注度</li>
+<li>Scores0 = 4: “I”对”love”的关注度</li>
+<li>Scores1 = 4: “love”对”I”的关注度</li>
+<li>Scores1 = 8: “love”对”love”的关注度</li>
+</ul>
+<p><strong>Step 3: 缩放（d_k=2）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Scaled &#x3D; Scores &#x2F; sqrt(2) &#x3D; Scores &#x2F; 1.414</span><br><span class="line">       &#x3D; [[0, 2.83],</span><br><span class="line">          [2.83, 5.66]]</span><br></pre></td></tr></table></figure>
+<p><strong>Step 4: Softmax</strong></p>
+<p>对每一行做softmax</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Row 0: [0, 2.83]</span><br><span class="line">  exp: [1, 16.95]</span><br><span class="line">  sum: 17.95</span><br><span class="line">  softmax: [0.06, 0.94]</span><br><span class="line">Row 1: [2.83, 5.66]</span><br><span class="line">  exp: [16.95, 287.28]</span><br><span class="line">  sum: 304.23</span><br><span class="line">  softmax: [0.06, 0.94]</span><br><span class="line">Attention_Weights &#x3D; [[0.06, 0.94],</span><br><span class="line">                     [0.06, 0.94]]</span><br></pre></td></tr></table></figure>
+<p>意义：</p>
+<ul>
+<li>“I”这个词：6%关注自己，94%关注”love”</li>
+<li>“love”这个词：6%关注”I”，94%关注自己</li>
+</ul>
+<p><strong>Step 5: 加权求和</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Output &#x3D; Attention_Weights @ V</span><br><span class="line">       &#x3D; [[0.06, 0.94],  @ [[2, 2],</span><br><span class="line">          [0.06, 0.94]]     [2, 2]]</span><br><span class="line">       &#x3D; [[0.06*2+0.94*2, 0.06*2+0.94*2],</span><br><span class="line">          [0.06*2+0.94*2, 0.06*2+0.94*2]]</span><br><span class="line">       &#x3D; [[2, 2],</span><br><span class="line">          [2, 2]]</span><br></pre></td></tr></table></figure>
+<h3 id="9-2-完整架构图演示"><a href="#9-2-完整架构图演示" class="headerlink" title="9.2 完整架构图演示"></a>9.2 完整架构图演示</h3><p>让我们画一个完整的Attention计算流程图：</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=M2E4M2JhYTQ2NWIzYmM5N2UyYTg5NmE5ZWE5MTAyMGVfQVpDN2EzMDFjN0pDRThiUHQyTXdKQ3BuYTlGT1Bha3BfVG9rZW46VVM2bGJQa1Vpb1g5QTN4Mmg2dWNhaGs5bmtiXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h3 id="9-3-实际尺寸的计算"><a href="#9-3-实际尺寸的计算" class="headerlink" title="9.3 实际尺寸的计算"></a>9.3 实际尺寸的计算</h3><p>让我们用真实的Transformer参数走一遍：</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=NGNmN2M4YWMxMzIzZjYxYjk1ZGRmMzI1ZmVkMDc3MjZfaWx3ekpBbkZCMU96MlMwWk03QUk2QTRTZDBUUTNwVmdfVG9rZW46T01UYWJWVHVpb1RRcWp4ejZheWNOMEx5blNkXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h3 id="9-4-可视化Attention矩阵"><a href="#9-4-可视化Attention矩阵" class="headerlink" title="9.4 可视化Attention矩阵"></a>9.4 可视化Attention矩阵</h3><p>Attention Weights矩阵（seq_len × seq_len）是最关键的，它告诉我们每个词关注哪些词。</p>
+<p><strong>例子：</strong> “The cat sat on the mat”</p>
+<p>​       The   cat   sat   on   the   mat</p>
+<p>The  [ 0.8   0.1   0.0   0.0   0.1   0.0 ]</p>
+<p>cat  [ 0.2   0.5   0.2   0.0   0.0   0.1 ]</p>
+<p>sat  [ 0.0   0.3   0.4   0.2   0.0   0.1 ]</p>
+<p>on   [ 0.0   0.0   0.3   0.4   0.2   0.1 ]</p>
+<p>the  [ 0.0   0.0   0.0   0.3   0.5   0.2 ]</p>
+<p>mat  [ 0.0   0.1   0.0   0.1   0.3   0.5 ]</p>
+<p><strong>解读：</strong></p>
+<ul>
+<li>“cat”这个词：50%关注自己，20%关注”The”，20%关注”sat”</li>
+<li>“sat”这个词：40%关注自己，30%关注”cat”，20%关注”on”</li>
+<li>可以看出动词”sat”关注了主语”cat”和介词”on”</li>
+</ul>
+<h2 id="十、实战：用PyTorch实现完整的Transformer-Block"><a href="#十、实战：用PyTorch实现完整的Transformer-Block" class="headerlink" title="十、实战：用PyTorch实现完整的Transformer Block"></a>十、实战：用PyTorch实现完整的Transformer Block</h2><h3 id="10-1-完整代码"><a href="#10-1-完整代码" class="headerlink" title="10.1 完整代码"></a>10.1 完整代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import math</span><br><span class="line">class MultiHeadAttention(nn.Module):</span><br><span class="line">    &quot;&quot;&quot;多头注意力层&quot;&quot;&quot;</span><br><span class="line">    def __init__(self, d_model&#x3D;512, num_heads&#x3D;8):</span><br><span class="line">        super().__init__()</span><br><span class="line">        assert d_model % num_heads &#x3D;&#x3D; 0, &quot;d_model必须能被num_heads整除&quot;</span><br><span class="line">        self.d_model &#x3D; d_model</span><br><span class="line">        self.num_heads &#x3D; num_heads</span><br><span class="line">        self.d_k &#x3D; d_model &#x2F;&#x2F; num_heads  # 每个头的维度</span><br><span class="line">        # Q、K、V的权重矩阵（包含所有头）</span><br><span class="line">        self.W_Q &#x3D; nn.Linear(d_model, d_model)</span><br><span class="line">        self.W_K &#x3D; nn.Linear(d_model, d_model)</span><br><span class="line">        self.W_V &#x3D; nn.Linear(d_model, d_model)</span><br><span class="line">        # 最后的线性变换</span><br><span class="line">        self.W_O &#x3D; nn.Linear(d_model, d_model)</span><br><span class="line">    def split_heads(self, x, batch_size):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        将最后一维分成(num_heads, d_k)</span><br><span class="line">        x: (batch, seq_len, d_model)</span><br><span class="line">        输出: (batch, num_heads, seq_len, d_k)</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        x &#x3D; x.view(batch_size, -1, self.num_heads, self.d_k)</span><br><span class="line">        return x.transpose(1, 2)</span><br><span class="line">    def forward(self, Q, K, V, mask&#x3D;None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Q, K, V: (batch, seq_len, d_model)</span><br><span class="line">        mask: (batch, seq_len, seq_len) 可选</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        batch_size &#x3D; Q.shape[0]</span><br><span class="line">        # 1. 线性变换</span><br><span class="line">        Q &#x3D; self.W_Q(Q)  # (batch, seq_len, d_model)</span><br><span class="line">        K &#x3D; self.W_K(K)</span><br><span class="line">        V &#x3D; self.W_V(V)</span><br><span class="line">        # 2. 分成多头</span><br><span class="line">        Q &#x3D; self.split_heads(Q, batch_size)  # (batch, num_heads, seq_len, d_k)</span><br><span class="line">        K &#x3D; self.split_heads(K, batch_size)</span><br><span class="line">        V &#x3D; self.split_heads(V, batch_size)</span><br><span class="line">        # 3. 计算attention</span><br><span class="line">        scores &#x3D; torch.matmul(Q, K.transpose(-2, -1))  # (batch, num_heads, seq_len, seq_len)</span><br><span class="line">        scores &#x3D; scores &#x2F; math.sqrt(self.d_k)  # 缩放</span><br><span class="line">        # 4. 应用mask（如果有）</span><br><span class="line">        if mask is not None:</span><br><span class="line">            scores &#x3D; scores.masked_fill(mask &#x3D;&#x3D; 0, -1e9)</span><br><span class="line">        # 5. Softmax</span><br><span class="line">        attention_weights &#x3D; torch.softmax(scores, dim&#x3D;-1)</span><br><span class="line">        # 6. 加权求和</span><br><span class="line">        output &#x3D; torch.matmul(attention_weights, V)  # (batch, num_heads, seq_len, d_k)</span><br><span class="line">        # 7. 合并多头</span><br><span class="line">        output &#x3D; output.transpose(1, 2).contiguous()  # (batch, seq_len, num_heads, d_k)</span><br><span class="line">        output &#x3D; output.view(batch_size, -1, self.d_model)  # (batch, seq_len, d_model)</span><br><span class="line">        # 8. 最后的线性变换</span><br><span class="line">        output &#x3D; self.W_O(output)</span><br><span class="line">        return output, attention_weights</span><br><span class="line">class FeedForward(nn.Module):</span><br><span class="line">    &quot;&quot;&quot;前馈神经网络&quot;&quot;&quot;</span><br><span class="line">    def __init__(self, d_model&#x3D;512, d_ff&#x3D;2048):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear1 &#x3D; nn.Linear(d_model, d_ff)</span><br><span class="line">        self.linear2 &#x3D; nn.Linear(d_ff, d_model)</span><br><span class="line">        self.relu &#x3D; nn.ReLU()</span><br><span class="line">    def forward(self, x):</span><br><span class="line">        # x: (batch, seq_len, d_model)</span><br><span class="line">        return self.linear2(self.relu(self.linear1(x)))</span><br><span class="line">class TransformerBlock(nn.Module):</span><br><span class="line">    &quot;&quot;&quot;Transformer编码器块&quot;&quot;&quot;</span><br><span class="line">    def __init__(self, d_model&#x3D;512, num_heads&#x3D;8, d_ff&#x3D;2048, dropout&#x3D;0.1):</span><br><span class="line">        super().__init__()</span><br><span class="line">        # 多头注意力</span><br><span class="line">        self.attention &#x3D; MultiHeadAttention(d_model, num_heads)</span><br><span class="line">        # 前馈网络</span><br><span class="line">        self.feed_forward &#x3D; FeedForward(d_model, d_ff)</span><br><span class="line">        # Layer Normalization</span><br><span class="line">        self.norm1 &#x3D; nn.LayerNorm(d_model)</span><br><span class="line">        self.norm2 &#x3D; nn.LayerNorm(d_model)</span><br><span class="line">        # Dropout</span><br><span class="line">        self.dropout &#x3D; nn.Dropout(dropout)</span><br><span class="line">    def forward(self, x, mask&#x3D;None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        x: (batch, seq_len, d_model)</span><br><span class="line">        mask: (batch, seq_len, seq_len)</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        &#96;&#96;# 1. 多头注意力 + 残差连接 + LayerNorm</span><br><span class="line">        attn_output, attention_weights &#x3D; self.attention(x, x, x, mask)</span><br><span class="line">        x &#x3D; self.norm1(x + self.dropout(attn_output))</span><br><span class="line">        # 2. 前馈网络 + 残差连接 + LayerNorm</span><br><span class="line">        ff_output &#x3D; self.feed_forward(x)</span><br><span class="line">        x &#x3D; self.norm2(x + self.dropout(ff_output))</span><br><span class="line">        return x, attention_weights</span><br></pre></td></tr></table></figure>
+<p><strong><code>使用示例</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">if &#96;**&#96;name&#96;**&#96; &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    # 参数</span><br><span class="line">    batch_size &#x3D; 2</span><br><span class="line">    seq_len &#x3D; 10</span><br><span class="line">    d_model &#x3D; 512</span><br><span class="line">    # 创建模型</span><br><span class="line">    transformer_block &#x3D; TransformerBlock(d_model&#x3D;512, num_heads&#x3D;8)</span><br><span class="line">    # 随机输入</span><br><span class="line">    x &#x3D; torch.randn(batch_size, seq_len, d_model)</span><br><span class="line">    # 前向传播</span><br><span class="line">    output, attention_weights &#x3D; transformer_block(x)</span><br><span class="line">    print(f&quot;输入形状: &#123;x.shape&#125;&quot;)</span><br><span class="line">    print(f&quot;输出形状: &#123;output.shape&#125;&quot;)</span><br><span class="line">    print(f&quot;注意力权重形状: &#123;attention_weights.shape&#125;&quot;)</span><br><span class="line">    # 输出:</span><br><span class="line">    # 输入形状: torch.Size([2, 10, 512])</span><br><span class="line">    # 输出形状: torch.Size([2, 10, 512])</span><br><span class="line">    # 注意力权重形状: torch.Size([2, 8, 10, 10])</span><br></pre></td></tr></table></figure>
+<h3 id="10-2-代码详解"><a href="#10-2-代码详解" class="headerlink" title="10.2 代码详解"></a>10.2 代码详解</h3><p><strong>关键点1：split_heads函数</strong></p>
+<p>这个函数把(batch, seq_len, d_model)转换成(batch, num_heads, seq_len, d_k)</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MWE5NTQ1YTBkZDQyYWI5YjQwM2EyMjQ4MmJmNjc0YmVfQ1piZjhxY2xVdUVlYmx0MlZlSkhrQ3R4dVp6b0RUeXJfVG9rZW46RFdPb2JZY2dJb0tSNnV4OXMxeGNCZVlsblhjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p><strong>关键点2：残差连接（Residual Connection）</strong></p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjI3ODUyNjJlMDA4YjVlOTE0NTgxNjJjNjUxMGNjMzJfSUdrTmRhRUlxRVEwS0R3cGE1UnBnczNHMDA5QWZEQmdfVG9rZW46UHNhdWJaZkN5b1pSeDl4S2I3NmNyM1F6blhjXzE3ODU4MjM1MTU6MTc4NTgyNzExNV9WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>为什么重要？</p>
+<ul>
+<li>防止梯度消失</li>
+<li>允许更深的网络（Transformer可以堆叠100+层）</li>
+<li>加速训练</li>
+</ul>
+<p><strong>关键点3：Layer Normalization</strong></p>
+<h1 id="归一化每个样本的每个位置"><a href="#归一化每个样本的每个位置" class="headerlink" title="归一化每个样本的每个位置"></a>归一化每个样本的每个位置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; self.norm(x)  # 在d_model维度上归一化</span><br></pre></td></tr></table></figure>
+<p>作用：</p>
+<ul>
+<li>稳定训练</li>
+<li>加速收敛</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2026/08/04/%E5%A4%A7%E6%A8%A1%E5%9E%8BTransformer%E6%9E%B6%E6%9E%84%E4%BB%8E0-1%E6%9E%B6%E6%9E%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" data-id="cmtv7lp1s00cj14qjaqxp58hy" data-title="大模型Transformer架构从0-1架构深度解析" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/08/04/%E5%A4%A7%E6%A8%A1%E5%9E%8BAI-Agent%E7%9F%A5%E8%AF%86%E4%BB%8E0-1%E7%AC%94%E8%AE%B0-%E4%B8%87%E5%AD%97%E8%AF%A6%E8%A7%A3%E7%89%88%E6%9C%AC%EF%BC%81/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          大模型AI Agent知识从0-1笔记-万字详解版本！
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/08/04/AI%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%EF%BC%9ALangchain%E6%A1%86%E6%9E%B6%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91-%E9%99%84%E4%BB%A3%E7%A0%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">AI开发基础：Langchain框架从入门到实战开发-附代码</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/">Angular</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/axios/">axios</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cli/">cli</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" rel="tag">AST语法树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/" rel="tag">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BF%BB%E6%BB%9A/" rel="tag">CSS翻滚</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CommonJS/" rel="tag">CommonJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/" rel="tag">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Echarts/" rel="tag">Echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDE/" rel="tag">FDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flux/" rel="tag">Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/" rel="tag">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">JavaScript - 设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LangChain/" rel="tag">LangChain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis-Plus/" rel="tag">MyBatis-Plus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/" rel="tag">Node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/" rel="tag">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCR/" rel="tag">OCR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ollama/" rel="tag">Ollama</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/" rel="tag">OpenCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PPT/" rel="tag">PPT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/" rel="tag">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVG/" rel="tag">SVG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SysemJS/" rel="tag">SysemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SystemJS/" rel="tag">SystemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uni/" rel="tag">Uni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-cli/" rel="tag">Vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VueRouter/" rel="tag">VueRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Componetns/" rel="tag">Web Componetns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/" rel="tag">Webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/app/" rel="tag">app</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/axios/" rel="tag">axios</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backbone-js/" rel="tag">backbone.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cli/" rel="tag">cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echarts/" rel="tag">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/element-ui/" rel="tag">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-stream/" rel="tag">event-stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileDownload/" rel="tag">fileDownload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileUpload/" rel="tag">fileUpload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/map/" rel="tag">map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mixin/" rel="tag">mixin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/module/" rel="tag">module</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postcss/" rel="tag">postcss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/route/" rel="tag">route</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/single/" rel="tag">single</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transform/" rel="tag">transform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utils/" rel="tag">utils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-loader/" rel="tag">vue-loader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/" rel="tag">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" rel="tag">下载进度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" rel="tag">业务梳理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" rel="tag">二分法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" rel="tag">代码工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" rel="tag">代码片段</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8/" rel="tag">使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%89%E6%A0%87/" rel="tag">光标</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" rel="tag">全局弹窗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" rel="tag">八皇后问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" rel="tag">分支管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" rel="tag">前端 - 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">前端工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" rel="tag">前端架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">前端组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">前缀、中缀、后缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" rel="tag">功能代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" rel="tag">功能模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%86%E5%8F%B2/" rel="tag">历史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E7%90%86/" rel="tag">原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" rel="tag">古生物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" rel="tag">图像识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87/" rel="tag">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" rel="tag">图片压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" rel="tag">大模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">姿势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" rel="tag">局部样式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E8%A1%A8/" rel="tag">年表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" rel="tag">微前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%81%90%E9%BE%99/" rel="tag">恐龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%86%99/" rel="tag">手写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" rel="tag">手势控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">手势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%8B%BD/" rel="tag">拖拽</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" rel="tag">插值查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" rel="tag">数据、算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" rel="tag">数据压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">数据响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" rel="tag">数据流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" rel="tag">数组实现包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" rel="tag">文字滚动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" rel="tag">文本识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" rel="tag">文档版面识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" rel="tag">文档结构识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" rel="tag">斐波那契查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" rel="tag">断点续传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" rel="tag">权限管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" rel="tag">权限验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" rel="tag">样式功能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97/" rel="tag">模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" rel="tag">模块打包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" rel="tag">模板引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" rel="tag">模板生成器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" rel="tag">模板解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B0%B4%E5%8D%B0/" rel="tag">水印</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" rel="tag">流式回复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" rel="tag">流式问答</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B7%E5%85%A5/" rel="tag">混入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" rel="tag">滚动吸附</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" rel="tag">瀑布流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E5%9D%91/" rel="tag">爬坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%99%BD%E6%9D%BF/" rel="tag">白板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" rel="tag">研发手记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9DMyth/" rel="tag">神话Myth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" rel="tag">神话概要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" rel="tag">稀疏数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" rel="tag">第一章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%BE%E5%90%8D/" rel="tag">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" rel="tag">算法 -时间复杂度计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" rel="tag">系统架构设计师考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="tag">系统设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" rel="tag">约瑟夫问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" rel="tag">编程题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" rel="tag">网页截图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" rel="tag">聊天室</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag">自定义</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" rel="tag">虚拟DOM与diff算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">读书笔记 - React - 《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E7%BA%BF/" rel="tag">连线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" rel="tag">迷宫回溯</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" rel="tag">逆波兰式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E8%BD%BD/" rel="tag">重载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" rel="tag">问答系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" rel="tag">音视频播放</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" rel="tag">音量控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">页面编辑器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 18.18px;">CSS</a> <a href="/tags/CSS%E7%BF%BB%E6%BB%9A/" style="font-size: 10px;">CSS翻滚</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10.91px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10.91px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/FDE/" style="font-size: 10.91px;">FDE</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 11.82px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19.09px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/LLM/" style="font-size: 13.64px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 10px;">LangChain</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 13.64px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/OCR/" style="font-size: 10.91px;">OCR</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenCV/" style="font-size: 12.73px;">OpenCV</a> <a href="/tags/PPT/" style="font-size: 10px;">PPT</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.82px;">Python</a> <a href="/tags/React/" style="font-size: 11.82px;">React</a> <a href="/tags/SVG/" style="font-size: 10.91px;">SVG</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/SystemJS/" style="font-size: 10px;">SystemJS</a> <a href="/tags/TypeScript/" style="font-size: 11.82px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18.18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 13.64px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10.91px;">electron</a> <a href="/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/tags/event-stream/" style="font-size: 10px;">event-stream</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10.91px;">git</a> <a href="/tags/leetcode/" style="font-size: 12.73px;">leetcode</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 15.45px;">node</a> <a href="/tags/npm/" style="font-size: 17.27px;">npm</a> <a href="/tags/openCV/" style="font-size: 10.91px;">openCV</a> <a href="/tags/postcss/" style="font-size: 10px;">postcss</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 10.91px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webrtc/" style="font-size: 10px;">webrtc</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10.91px;">《深入React技术栈》</a> <a href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" style="font-size: 10px;">下载进度</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" style="font-size: 10px;">业务梳理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 10px;">二分法</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 10.91px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 14.55px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10.91px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 14.55px;">使用教程</a> <a href="/tags/%E5%85%89%E6%A0%87/" style="font-size: 10px;">光标</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 13.64px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 10.91px;">功能代码</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" style="font-size: 11.82px;">功能模块</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 10px;">历史</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 10.91px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10.91px;">响应式</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 10px;">图像处理</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">图像识别</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 10px;">图片</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大模型</a> <a href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10px;">姿势识别</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10.91px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 10.91px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%B9%B4%E8%A1%A8/" style="font-size: 10px;">年表</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 10.91px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">手势控制</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">手势识别</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" style="font-size: 10px;">数据流</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文本识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档版面识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档结构识别</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.82px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">样式功能</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10.91px;">模块</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10.91px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" style="font-size: 10px;">模板生成器</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" style="font-size: 10px;">流式回复</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" style="font-size: 10px;">流式问答</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 13.64px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 14.55px;">源码解析</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" style="font-size: 10px;">滚动吸附</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 10.91px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%99%BD%E6%9D%BF/" style="font-size: 10px;">白板</a> <a href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" style="font-size: 10.91px;">研发手记</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 10.91px;">系统设计</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" style="font-size: 10px;">网页截图</a> <a href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" style="font-size: 10px;">聊天室</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.73px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%9E%E7%BA%BF/" style="font-size: 10px;">连线</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%82%E9%85%8D/" style="font-size: 10px;">适配</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">问答系统</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 16.36px;">面试题</a> <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" style="font-size: 10px;">音视频播放</a> <a href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">音量控制</a> <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">页面编辑器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">September 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">July 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">June 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">February 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/10/%E3%80%90AI%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%8A%A5%E5%91%8A%E7%94%9F%E6%88%90%E7%9A%84%E5%89%8D%E7%AB%AF/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/docker%E4%BD%BF%E7%94%A8ollama%E5%AE%89%E8%A3%85openclaw/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/%E5%BE%85%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/08/%E3%80%90FDE%E3%80%91%E6%99%BA%E8%83%BD%E9%97%AE%E6%95%B0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】智能问数系统设计</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/07/%E3%80%90FDE%E3%80%91%E6%96%87%E7%AB%A0%E6%96%87%E6%9C%AC%E6%BA%AF%E6%BA%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】文章文本溯源系统设计</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 wsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

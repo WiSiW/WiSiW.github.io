@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="韦绍炜的博客">
+<meta property="og:url" content="https://wisiw.github.io.git/page/10/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:locale">
+<meta property="article:author" content="wsw">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="韦绍炜的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">韦绍炜的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://WiSiW.github.io.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-【Node】SystemJS安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/07/%E3%80%90Node%E3%80%91SystemJS%E5%AE%89%E8%A3%85/" class="article-date">
+  <time class="dt-published" datetime="2022-11-06T19:36:51.000Z" itemprop="datePublished">2022-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/07/%E3%80%90Node%E3%80%91SystemJS%E5%AE%89%E8%A3%85/">【Node】SystemJS安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/systemjs/systemjs">SystemJS</a></p>
+<h1 id="1-what"><a href="#1-what" class="headerlink" title="1. what"></a>1. what</h1><p>SystemJS是一个可配置的模块加载器（Configurable Module Loader），它能在浏览器或Node.js上动态加载模块，并且支持CommonJS、AMD、全局模块对象及ES 6模块等。</p>
+<h1 id="2-how"><a href="#2-how" class="headerlink" title="2. how"></a>2. how</h1><h2 id="2-1-构建运行环境"><a href="#2-1-构建运行环境" class="headerlink" title="2-1. 构建运行环境"></a>2-1. 构建运行环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir test</span><br><span class="line">cd test</span><br><span class="line">npm init -y</span><br><span class="line">npm install typescript systemjs@0.19.47 --save</span><br><span class="line">npm install lite-server --save</span><br></pre></td></tr></table></figure>
+<p><strong>注：SystemJS安装时使用@标记出具体的版本号，这是因为从SystemJS v0.2版开始将TypeScript加载变成插件方式了，而SystemJS v0.2之前的版本则直接内置TypeScript加载功能，为了简单起见，这里就直接使用SystemJS v0.19.47版了。</strong></p>
+<h2 id="2-2-使用SystemJS"><a href="#2-2-使用SystemJS" class="headerlink" title="2-2.使用SystemJS"></a>2-2.使用SystemJS</h2><h3 id="2-2-1-创建index-html"><a href="#2-2-1-创建index-html" class="headerlink" title="2-2-1. 创建index.html"></a>2-2-1. 创建index.html</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// ./index.html</span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;node_modules/systemjs/dist/system.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;node_modules/typescript/lib/typescript.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">    System.config(&#123;</span><br><span class="line"><span class="javascript">      transpiler : <span class="string">&#x27;typescript&#x27;</span> , <span class="comment">// 要使用TypeScript编译（转译）器</span></span></span><br><span class="line">      packages : &#123;</span><br><span class="line"><span class="javascript">        <span class="string">&#x27;./ &#x27;</span>: &#123; <span class="attr">defaultExtension</span> : <span class="string">&#x27;ts&#x27;</span> &#125; <span class="comment">// 要转义package.json同一目录下的所有ts文件</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    System</span><br><span class="line"><span class="javascript">      .import(<span class="string">&#x27;main.ts&#x27;</span>) <span class="comment">// 要导入的ts入口文件名</span></span></span><br><span class="line"><span class="javascript">      .then(<span class="literal">null</span>, <span class="built_in">console</span>.error.bind(<span class="built_in">console</span>));<span class="comment">// 如果产生错误，将错误发送到浏览器控制台窗口</span></span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-2-创建模块"><a href="#2-2-2-创建模块" class="headerlink" title="2-2-2. 创建模块"></a>2-2-2. 创建模块</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./main.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; name &#125; <span class="keyword">from</span> <span class="string">&#x27;./src/common.ts&#x27;</span>;</span><br><span class="line"></span><br><span class="line">alert(name);</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./src/common.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> name = <span class="string">&#x27;common&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-本地运行"><a href="#2-3-本地运行" class="headerlink" title="2-3. 本地运行"></a>2-3. 本地运行</h2><h3 id="2-3-1-安装lite-server"><a href="#2-3-1-安装lite-server" class="headerlink" title="2-3-1. 安装lite-server"></a>2-3-1. 安装<code>lite-server</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install lite-server</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-2-添加运行脚本"><a href="#2-3-2-添加运行脚本" class="headerlink" title="2-3-2. 添加运行脚本"></a>2-3-2. 添加运行脚本</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;dev&quot;</span>: <span class="string">&quot;lite-server&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;keywords&quot;</span>: [],</span><br><span class="line">  <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;license&quot;</span>: <span class="string">&quot;ISC&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;lite-server&quot;</span>: <span class="string">&quot;^2.4.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;systemjs&quot;</span>: <span class="string">&quot;^0.19.47&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;typescript&quot;</span>: <span class="string">&quot;^3.4.1&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-3-本地运行"><a href="#2-3-3-本地运行" class="headerlink" title="2-3-3. 本地运行"></a>2-3-3. 本地运行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/11/07/%E3%80%90Node%E3%80%91SystemJS%E5%AE%89%E8%A3%85/" data-id="cmtv7lozi003m14qjfdws7urk" data-title="【Node】SystemJS安装" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SystemJS/" rel="tag">SystemJS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【JavaScript】-script-延迟执行" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/06/%E3%80%90JavaScript%E3%80%91-script-%E5%BB%B6%E8%BF%9F%E6%89%A7%E8%A1%8C/" class="article-date">
+  <time class="dt-published" datetime="2022-11-05T21:33:51.000Z" itemprop="datePublished">2022-11-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/06/%E3%80%90JavaScript%E3%80%91-script-%E5%BB%B6%E8%BF%9F%E6%89%A7%E8%A1%8C/">【JavaScript】&lt;script&gt;延迟执行</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="why"><a href="#why" class="headerlink" title="why"></a>why</h1><p>当脚本放在<code>&lt;head&gt;</code>标签中，并且初始化需要调用<code>&lt;body&gt;</code>中的节点时，由于此时<code>&lt;body&gt;</code>未被加载，所以脚本会运行错误</p>
+<h1 id="how"><a href="#how" class="headerlink" title="how"></a>how</h1><ul>
+<li>将<code>&lt;script&gt;</code>至于<code>&lt;body&gt;</code>之后，等节点被加载后，再执行脚本</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(docment.body.id)</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>&lt;script</code>添加<code>defer</code>参数</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">defer</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(docment.body.id)</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>window.onload()</code></li>
+</ul>
+<p><code>window.onload()</code>将会在网页加载完毕后立即执行</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/11/06/%E3%80%90JavaScript%E3%80%91-script-%E5%BB%B6%E8%BF%9F%E6%89%A7%E8%A1%8C/" data-id="cmtv7loz4002114qj6s0jewqq" data-title="【JavaScript】&lt;script&gt;延迟执行" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【TypeScript】1-构建TypeScript开发、编译和调试环境" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/06/%E3%80%90TypeScript%E3%80%911-%E6%9E%84%E5%BB%BATypeScript%E5%BC%80%E5%8F%91%E3%80%81%E7%BC%96%E8%AF%91%E5%92%8C%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83/" class="article-date">
+  <time class="dt-published" datetime="2022-11-05T21:24:11.000Z" itemprop="datePublished">2022-11-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/06/%E3%80%90TypeScript%E3%80%911-%E6%9E%84%E5%BB%BATypeScript%E5%BC%80%E5%8F%91%E3%80%81%E7%BC%96%E8%AF%91%E5%92%8C%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83/">【TypeScript】1.构建TypeScript开发、编译和调试环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1. 安装环境"></a>1. 安装环境</h1><h2 id="1-1-安装Node"><a href="#1-1-安装Node" class="headerlink" title="1.1 安装Node"></a>1.1 安装Node</h2><p><a target="_blank" rel="noopener" href="https://nodejs.org/">官网</a><br>安装Node.js时，一般会提供两个版本：LTS版和Current版。其中，LTS是Long Term Support（官方长期支持版）的缩写，在生产环境中，请使用LTS版</p>
+<h2 id="1-2-全局安装ts"><a href="#1-2-全局安装ts" class="headerlink" title="1.2 全局安装ts"></a>1.2 全局安装ts</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g typescript</span><br></pre></td></tr></table></figure>
+<h1 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h1><h2 id="2-1-手动编译（一般用法）"><a href="#2-1-手动编译（一般用法）" class="headerlink" title="2.1 手动编译（一般用法）"></a>2.1 手动编译（一般用法）</h2><p>例如将当前路径下的<code>main.ts</code>转译为<code>main.js</code><br>使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc main.ts</span><br></pre></td></tr></table></figure>
+<p>当前路径下会生成<code>main.js</code>文件</p>
+<h2 id="2-2-编译器"><a href="#2-2-编译器" class="headerlink" title="2.2 编译器"></a>2.2 编译器</h2><p>实现自动编译</p>
+<h3 id="2-2-1-生成tsconfig-json文件"><a href="#2-2-1-生成tsconfig-json文件" class="headerlink" title="2.2.1 生成tsconfig.json文件"></a>2.2.1 生成<code>tsconfig.json</code>文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc --init</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-2-自动编译"><a href="#2-2-2-自动编译" class="headerlink" title="2.2.2 自动编译"></a>2.2.2 自动编译</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;compilerOptions&quot;</span> : &#123;</span><br><span class="line">        <span class="attr">&quot;target&quot;</span> : <span class="string">&quot;es5&quot;</span> ,</span><br><span class="line">        <span class="attr">&quot;module&quot;</span> : <span class="string">&quot;commonjs&quot;</span> ,</span><br><span class="line">        <span class="attr">&quot;strict&quot;</span> : <span class="literal">true</span> ,</span><br><span class="line">        <span class="attr">&quot;esModuleInterop&quot;</span> : <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">&quot;watch&quot;</span> : <span class="literal">true</span> <span class="comment">// 是否开启监控.ts文件变化，实现自动编译</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/11/06/%E3%80%90TypeScript%E3%80%911-%E6%9E%84%E5%BB%BATypeScript%E5%BC%80%E5%8F%91%E3%80%81%E7%BC%96%E8%AF%91%E5%92%8C%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83/" data-id="cmtv7lozx005614qj3gv45168" data-title="【TypeScript】1.构建TypeScript开发、编译和调试环境" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8/" rel="tag">使用</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【JavaScript】严格模式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/05/%E3%80%90JavaScript%E3%80%91%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2022-11-05T13:29:33.000Z" itemprop="datePublished">2022-11-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/05/%E3%80%90JavaScript%E3%80%91%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F/">【JavaScript】严格模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="目的："><a href="#目的：" class="headerlink" title="目的："></a>目的：</h1><ul>
+<li>消除 JavaScript 语法中一些不合理、不严谨的地方；</li>
+<li>消除代码中一些不安全的地方，保证代码的安全运行；</li>
+<li>提高 JavaScript 程序的运行效率；</li>
+<li>为以后新版本的 JavaScript 做好铺垫。</li>
+</ul>
+<p><strong>目前，主流浏览器包括 IE10 及其之后的版本都已支持严格模式</strong></p>
+<p>注意：”use strict”;或’use strict’;指令只有在整个脚本第一行或者函数第一行时才能被识别，除了 IE9 以及更低的版本外，所有的浏览器都支持该指令。</p>
+<h1 id="相较于普通模式"><a href="#相较于普通模式" class="headerlink" title="相较于普通模式"></a>相较于普通模式</h1><h2 id="1-不允许使用未声明的变量"><a href="#1-不允许使用未声明的变量" class="headerlink" title="1.不允许使用未声明的变量"></a>1.不允许使用未声明的变量</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line">v = <span class="number">1</span>;        <span class="comment">// 此处报错：Uncaught ReferenceError: v is not defined</span></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123; <span class="comment">// 此处报错：Uncaught ReferenceError: i is not defined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-不允许删除变量或函数"><a href="#2-不允许删除变量或函数" class="headerlink" title="2.不允许删除变量或函数"></a>2.不允许删除变量或函数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> person = &#123;<span class="attr">name</span>: <span class="string">&quot;Peter&quot;</span>, <span class="attr">age</span>: <span class="number">28</span>&#125;;</span><br><span class="line"><span class="keyword">delete</span> person;  <span class="comment">// 此处报错：Uncaught SyntaxError: Delete of an unqualified identifier in strict mode.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">delete</span> sum;  <span class="comment">// 此处报错：Uncaught SyntaxError: Delete of an unqualified identifier in strict mode.</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-函数中不允许同名的参数"><a href="#3-函数中不允许同名的参数" class="headerlink" title="3.函数中不允许同名的参数"></a>3.函数中不允许同名的参数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">square</span>(<span class="params">a, a</span>) </span>&#123;     <span class="comment">// 此处报错：Uncaught SyntaxError: Duplicate parameter name not allowed in this context</span></span><br><span class="line">    <span class="keyword">return</span> a * a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-eval语句的作用域是独立的"><a href="#4-eval语句的作用域是独立的" class="headerlink" title="4.eval语句的作用域是独立的"></a>4.eval语句的作用域是独立的</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;var x = 5; console.log(x);&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(x);     <span class="comment">// 此处报错：Uncaught ReferenceError: x is not defined</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-不允许使用with语句"><a href="#5-不允许使用with语句" class="headerlink" title="5.不允许使用with语句"></a>5.不允许使用with语句</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> radius1 = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> area1 = <span class="built_in">Math</span>.PI * radius1 * radius1;</span><br><span class="line"><span class="keyword">var</span> radius2 = <span class="number">5</span>;</span><br><span class="line"><span class="function"><span class="title">with</span>(<span class="params"><span class="built_in">Math</span></span>)</span> &#123;        <span class="comment">// 此处报错：Uncaught SyntaxError: Strict mode code may not include a with statement</span></span><br><span class="line">    <span class="keyword">var</span> area2 = PI * radius2 * radius2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-不允许写入只读属性"><a href="#6-不允许写入只读属性" class="headerlink" title="6.不允许写入只读属性"></a>6.不允许写入只读属性</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> person = &#123;<span class="attr">name</span>: <span class="string">&quot;Peter&quot;</span>, <span class="attr">age</span>: <span class="number">28</span>&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(person, <span class="string">&quot;gender&quot;</span>, &#123;<span class="attr">value</span>: <span class="string">&quot;male&quot;</span>, <span class="attr">writable</span>: <span class="literal">false</span>&#125;);</span><br><span class="line">person.gender = <span class="string">&quot;female&quot;</span>; <span class="comment">// 此处报错：Uncaught TypeError: Cannot assign to read only property &#x27;gender&#x27; of object &#x27;#&lt;Object&gt;&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="7-不允许使用八进制数"><a href="#7-不允许使用八进制数" class="headerlink" title="7.不允许使用八进制数"></a>7.不允许使用八进制数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> x = <span class="number">010</span>; <span class="comment">// 此处报错：Uncaught SyntaxError: Octal literals are not allowed in strict mode.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(x));</span><br></pre></td></tr></table></figure>
+<h2 id="8-不能在if语句中声明函数"><a href="#8-不能在if语句中声明函数" class="headerlink" title="8.不能在if语句中声明函数"></a>8.不能在if语句中声明函数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="comment">//如果在if语句中声明函数，则会产生语法错误</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">demo</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 此处报错：Uncaught ReferenceError: demo is not defined</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">111</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">demo();</span><br></pre></td></tr></table></figure>
+<h2 id="9-禁止使用this表示全局对象"><a href="#9-禁止使用this表示全局对象" class="headerlink" title="9.禁止使用this表示全局对象"></a>9.禁止使用this表示全局对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;name&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">demoTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>);</span><br><span class="line">&#125;</span><br><span class="line">demoTest();</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/11/05/%E3%80%90JavaScript%E3%80%91%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F/" data-id="cmtv7loz6002914qjhrosgi01" data-title="【JavaScript】严格模式" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【Node】CommonJS的模块规范" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/04/%E3%80%90Node%E3%80%91CommonJS%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" class="article-date">
+  <time class="dt-published" datetime="2022-11-03T17:03:36.000Z" itemprop="datePublished">2022-11-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/04/%E3%80%90Node%E3%80%91CommonJS%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/">【Node】CommonJS的模块规范</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1-模块引用"><a href="#1-模块引用" class="headerlink" title="1.模块引用"></a>1.模块引用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;javascript</span><br><span class="line">&#x2F;&#x2F; 示例代码</span><br><span class="line">var common &#x3D; require(&#39;common&#39;)</span><br></pre></td></tr></table></figure>
+<h1 id="2-模块定义"><a href="#2-模块定义" class="headerlink" title="2.模块定义"></a>2.模块定义</h1><p>对于<code>1.</code>中的<code>require()</code>方法引入的外部模块中，使用<code>exports</code>对象用于导出当前模块的方法或者变量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例代码</span></span><br><span class="line"><span class="built_in">exports</span>.name = <span class="string">&#x27;common&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.changeName = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) =&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-模块标识"><a href="#3-模块标识" class="headerlink" title="3.模块标识"></a>3.模块标识</h1><p>模块标识其实就是传递给<code>require()</code>的参数，它必须是符合小驼峰命名的字符串，以<code>.</code>、<code>..</code>开头，或者绝对路径。它可以没有文件名后缀。</p>
+<p><strong>模块的定义十分简单，接口也十分简洁。它的意义在于将类聚的方法和变量等限定在私有的作用域中，同时支持接入和导出功能以顺畅地连接上下游依赖。</strong></p>
+<p>每个模块具有独立的空间，互不干扰。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/11/04/%E3%80%90Node%E3%80%91CommonJS%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" data-id="cmtv7lozi003j14qjal0x8zmb" data-title="【Node】CommonJS的模块规范" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node/" rel="tag">Node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【JavaScript】网页截图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/29/%E3%80%90JavaScript%E3%80%91%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" class="article-date">
+  <time class="dt-published" datetime="2022-10-29T13:37:57.000Z" itemprop="datePublished">2022-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/29/%E3%80%90JavaScript%E3%80%91%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/">【JavaScript】网页截图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>之前使用的截图都是使用的<code>html2canvas</code>插件，能够满足大多数情况，但在实际使用过程中（微信浏览器），因为种类繁多的手机型号，会造成白屏。因此，在查找了相关资料后，尝试使用<code>webrtc</code>实现截图效果。</p>
+<p><strong>ps：</strong> 因为公司项目中截图功能是用来生成合同的，而且不希望有太大的改动，因此功能惨遭pass，连个上线机会都不给我。最后使用了前端只负责生成签名图片，然后传给服务器，服务器将签名图片与合同模板合成后返回地址。<strong>世事无常，大肠包小肠</strong>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/10/29/%E3%80%90JavaScript%E3%80%91%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" data-id="cmtv7lozb002u14qj3gj5hozl" data-title="【JavaScript】网页截图" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" rel="tag">网页截图</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【JavaScript】动态导入" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/28/%E3%80%90JavaScript%E3%80%91%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5/" class="article-date">
+  <time class="dt-published" datetime="2022-10-28T15:09:17.000Z" itemprop="datePublished">2022-10-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/28/%E3%80%90JavaScript%E3%80%91%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5/">【JavaScript】动态导入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>将变量作为标识符，并动态导入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> jsFile = <span class="keyword">new</span> Blob([<span class="string">&#x27;export default true&#x27;</span>], &#123; <span class="attr">type</span>: <span class="string">&#x27;application/javscript&#x27;</span>&#125;);</span><br><span class="line"><span class="keyword">const</span> jsURL = URL.createObjectURL(jsFile);</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>(jsURL).then(<span class="function"><span class="params">module</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">module</span>.default); <span class="comment">// true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/10/28/%E3%80%90JavaScript%E3%80%91%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5/" data-id="cmtv7loz7002e14qj4nogeo23" data-title="【JavaScript】动态导入" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【JavaScript】模板引擎的实现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/27/%E3%80%90JavaScript%E3%80%91%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time class="dt-published" datetime="2022-10-26T20:30:13.000Z" itemprop="datePublished">2022-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/27/%E3%80%90JavaScript%E3%80%91%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E7%9A%84%E5%AE%9E%E7%8E%B0/">【JavaScript】模板引擎的实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是模板引擎"><a href="#什么是模板引擎" class="headerlink" title="什么是模板引擎"></a>什么是模板引擎</h1><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/10/27/%E3%80%90JavaScript%E3%80%91%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E7%9A%84%E5%AE%9E%E7%8E%B0/" data-id="cmtv7loza002s14qj6sy516ze" data-title="【JavaScript】模板引擎的实现" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" rel="tag">模板引擎</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【npm】electron-store" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/26/%E3%80%90npm%E3%80%91electron-store/" class="article-date">
+  <time class="dt-published" datetime="2022-10-26T09:14:41.000Z" itemprop="datePublished">2022-10-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/26/%E3%80%90npm%E3%80%91electron-store/">【npm】electron-store</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-store">electron-store</a></p>
+<h1 id="electron-store"><a href="#electron-store" class="headerlink" title="electron-store"></a>electron-store</h1><blockquote>
+<p>Simple data persistence for your <a target="_blank" rel="noopener" href="https://electronjs.org/">Electron</a> app or module - Save and load user preferences, app state, cache, etc<br>Electron doesn’t have a built-in way to persist user preferences and other data. This module handles that for you, so you can focus on building your app. The data is saved in a JSON file named config.json in <a target="_blank" rel="noopener" href="https://electronjs.org/docs/api/app#appgetpathname"><code>app.getPath(&#39;userData&#39;)</code></a>.</p>
+</blockquote>
+<p>You can use this module directly in both the main and renderer process. For use in the renderer process only, you need to call <code>Store.initRenderer()</code> in the main process, or create a new Store instance (<code>new Store()</code>) in the main process.</p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install electron-store</span><br></pre></td></tr></table></figure>
+<p><em>Requires Electron 11 or later.</em></p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store();</span><br><span class="line">store.set(<span class="string">&#x27;unicorn&#x27;</span>, <span class="string">&#x27;🦄&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;unicorn&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#x27;🦄&#x27;</span></span><br><span class="line"><span class="comment">// Use dot-notation to access nested properties</span></span><br><span class="line">store.set(<span class="string">&#x27;foo.bar&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;foo&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#123;bar: true&#125;</span></span><br><span class="line">store.delete(<span class="string">&#x27;unicorn&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;unicorn&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; undefined</span></span><br></pre></td></tr></table></figure>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p>Changes are written to disk atomically, so if the process crashes during a write, it will not corrupt the existing config.</p>
+<h3 id="Store-options"><a href="#Store-options" class="headerlink" title="Store(options?)"></a>Store(options?)</h3><p>Returns a new instance.</p>
+<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>Type: <code>object</code></p>
+<h4 id="defaults"><a href="#defaults" class="headerlink" title="defaults"></a>defaults</h4><p>Type: <code>object</code></p>
+<p>Default values for the store items.</p>
+<p><strong>Note:</strong> The values in <code>defaults</code> will overwrite the <code>default</code> key in the <code>schema</code> option.</p>
+<h4 id="schema"><a href="#schema" class="headerlink" title="schema"></a>schema</h4><p>type: <code>object</code></p>
+<p><a target="_blank" rel="noopener" href="https://json-schema.org/">JSON Schema</a> to validate your config data.</p>
+<p>Under the hood, the JSON Schema validator <a target="_blank" rel="noopener" href="https://github.com/epoberezkin/ajv">ajv</a> is used to validate your config. We use <a target="_blank" rel="noopener" href="http://json-schema.org/latest/json-schema-validation.html">JSON Schema draft-07</a> and support all <a target="_blank" rel="noopener" href="https://github.com/epoberezkin/ajv/blob/master/KEYWORDS.md">validation keywords</a> and <a target="_blank" rel="noopener" href="https://github.com/epoberezkin/ajv#formats">formats</a>.</p>
+<p>You should define your schema as an object where each key is the name of your data’s property and each value is a JSON schema used to validate that property. See more <a target="_blank" rel="noopener" href="https://json-schema.org/understanding-json-schema/reference/object.html#properties">here</a>.</p>
+<p>Example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> schema = &#123;</span><br><span class="line">	foo: &#123;</span><br><span class="line">		type: <span class="string">&#x27;number&#x27;</span>,</span><br><span class="line">		maximum: <span class="number">100</span>,</span><br><span class="line">		minimum: <span class="number">1</span>,</span><br><span class="line">		<span class="keyword">default</span>: <span class="number">50</span></span><br><span class="line">	&#125;,</span><br><span class="line">	bar: &#123;</span><br><span class="line">		type: <span class="string">&#x27;string&#x27;</span>,</span><br><span class="line">		format: <span class="string">&#x27;url&#x27;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store(&#123;schema&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;foo&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; 50</span></span><br><span class="line">store.set(<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"><span class="comment">// [Error: Config schema violation: `foo` should be number]</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong> The <code>default</code> value will be overwritten by the <code>defaults</code> option if set.</p>
+<h4 id="migrations"><a href="#migrations" class="headerlink" title="migrations"></a>migrations</h4><p>Type: <code>object</code></p>
+<p>You can use migrations to perform operations to the store whenever a version is upgraded.</p>
+<p>The <code>migrations</code> object should consist of a key-value pair of <code>&#39;version&#39;: handler</code>. The <code>version</code> can also be a <a target="_blank" rel="noopener" href="https://github.com/npm/node-semver#ranges">semver range</a>.</p>
+<p>Example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store(&#123;</span><br><span class="line">	migrations: &#123;</span><br><span class="line">		<span class="string">&#x27;0.0.1&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;debugPhase&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&#x27;1.0.0&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.delete(<span class="string">&#x27;debugPhase&#x27;</span>);</span><br><span class="line">			store.set(<span class="string">&#x27;phase&#x27;</span>, <span class="string">&#x27;1.0.0&#x27;</span>);</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&#x27;1.0.2&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;phase&#x27;</span>, <span class="string">&#x27;1.0.2&#x27;</span>);</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&#x27;&gt;=2.0.0&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;phase&#x27;</span>, <span class="string">&#x27;&gt;=2.0.0&#x27;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="beforeEachMigration"><a href="#beforeEachMigration" class="headerlink" title="beforeEachMigration"></a>beforeEachMigration</h3><p>Type: <code>Function</code><br>Default: <code>undefined</code></p>
+<p>The given callback function will be called before each migration step.</p>
+<p>The function receives the store as the first argument and a context object as the second argument with the following properties:</p>
+<ul>
+<li><code>fromVersion</code> - The version the migration step is being migrated from.</li>
+<li><code>toVersion</code> - The version the migration step is being migrated to.</li>
+<li><code>finalVersion</code> - The final version after all the migrations are applied.</li>
+<li><code>versions</code> - All the versions with a migration step.</li>
+</ul>
+<p>This can be useful for logging purposes, preparing migration data, etc.</p>
+<p>Example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log = someLogger.log;</span><br><span class="line"><span class="keyword">const</span> mainConfig = <span class="keyword">new</span> Store(&#123;</span><br><span class="line">	beforeEachMigration: <span class="function">(<span class="params">store, context</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">`[main-config] migrate from <span class="subst">$&#123;context.fromVersion&#125;</span> → <span class="subst">$&#123;context.toVersion&#125;</span>`</span>);</span><br><span class="line">	&#125;,</span><br><span class="line">	migrations: &#123;</span><br><span class="line">		<span class="string">&#x27;0.4.0&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;debugPhase&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> secondConfig = <span class="keyword">new</span> Store(&#123;</span><br><span class="line">	beforeEachMigration: <span class="function">(<span class="params">store, context</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">`[second-config] migrate from <span class="subst">$&#123;context.fromVersion&#125;</span> → <span class="subst">$&#123;context.toVersion&#125;</span>`</span>);</span><br><span class="line">	&#125;,</span><br><span class="line">	migrations: &#123;</span><br><span class="line">		<span class="string">&#x27;1.0.1&#x27;</span>: <span class="function"><span class="params">store</span> =&gt;</span> &#123;</span><br><span class="line">			store.set(<span class="string">&#x27;debugPhase&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="name"><a href="#name" class="headerlink" title="name"></a>name</h4><p>Type: <code>string</code><br>Default: <code>&#39;config&#39;</code></p>
+<p>Name of the storage file (without extension).</p>
+<p>This is useful if you want multiple storage files for your app. Or if you’re making a reusable Electron module that persists some data, in which case you should <strong>not</strong> use the name <code>config</code>.</p>
+<h4 id="cwd"><a href="#cwd" class="headerlink" title="cwd"></a>cwd</h4><p>Type: <code>string</code><br>Default: <a target="_blank" rel="noopener" href="https://electronjs.org/docs/api/app#appgetpathname"><code>app.getPath(&#39;userData&#39;)</code></a></p>
+<p>Storage file location. <em>Don’t specify this unless absolutely necessary! By default, it will pick the optimal location by adhering to system conventions. You are very likely to get this wrong and annoy users.</em></p>
+<p>If a relative path, it’s relative to the default cwd. For example, <code>&#123;cwd: &#39;unicorn&#39;&#125;</code> would result in a storage file in <code>~/Library/Application Support/App Name/unicorn</code>.</p>
+<h4 id="encryptionKey"><a href="#encryptionKey" class="headerlink" title="encryptionKey"></a>encryptionKey</h4><p>Type: <code>string | Buffer | TypedArray | DataView</code><br>Default: <code>undefined</code></p>
+<p>Note that this is <strong>not intended for security purposes</strong>, since the encryption key would be easily found inside a plain-text Node.js app.</p>
+<p>Its main use is for obscurity. If a user looks through the config directory and finds the config file, since it’s just a JSON file, they may be tempted to modify it. By providing an encryption key, the file will be obfuscated, which should hopefully deter any users from doing so.</p>
+<p>When specified, the store will be encrypted using the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation"><code>aes-256-cbc</code></a> encryption algorithm.</p>
+<h4 id="fileExtension"><a href="#fileExtension" class="headerlink" title="fileExtension"></a>fileExtension</h4><p>Type: <code>string</code><br>Default: <code>&#39;json&#39;</code></p>
+<p>Extension of the config file.</p>
+<p>You would usually not need this, but could be useful if you want to interact with a file with a custom file extension that can be associated with your app. These might be simple save/export/preference files that are intended to be shareable or saved outside of the app.</p>
+<h4 id="clearInvalidConfig"><a href="#clearInvalidConfig" class="headerlink" title="clearInvalidConfig"></a>clearInvalidConfig</h4><p>Type: <code>boolean</code><br>Default: <code>false</code></p>
+<p>The config is cleared if reading the config file causes a <code>SyntaxError</code>. This is a good behavior for unimportant data, as the config file is not intended to be hand-edited, so it usually means the config is corrupt and there’s nothing the user can do about it anyway. However, if you let the user edit the config file directly, mistakes might happen and it could be more useful to throw an error when the config is invalid instead of clearing.</p>
+<h4 id="serialize"><a href="#serialize" class="headerlink" title="serialize"></a>serialize</h4><p>Type: <code>Function</code><br>Default: <code>value =&gt; JSON.stringify(value, null, &#39;\t&#39;)</code></p>
+<p>Function to serialize the config object to a UTF-8 string when writing the config file.</p>
+<p>You would usually not need this, but it could be useful if you want to use a format other than JSON.</p>
+<h4 id="deserialize"><a href="#deserialize" class="headerlink" title="deserialize"></a>deserialize</h4><p>Type: <code>Function</code><br>Default: <code>JSON.parse</code></p>
+<p>Function to deserialize the config object from a UTF-8 string when reading the config file.</p>
+<p>You would usually not need this, but it could be useful if you want to use a format other than JSON.</p>
+<h4 id="accessPropertiesByDotNotation"><a href="#accessPropertiesByDotNotation" class="headerlink" title="accessPropertiesByDotNotation"></a>accessPropertiesByDotNotation</h4><p>Type: <code>boolean</code><br>Default: <code>true</code></p>
+<p>Accessing nested properties by dot notation. For example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store();</span><br><span class="line">store.set(&#123;</span><br><span class="line">	foo: &#123;</span><br><span class="line">		bar: &#123;</span><br><span class="line">			foobar: <span class="string">&#x27;🦄&#x27;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;foo.bar.foobar&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#x27;🦄&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Alternatively, you can set this option to <code>false</code> so the whole string would be treated as one key.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store(&#123;<span class="attr">accessPropertiesByDotNotation</span>: <span class="literal">false</span>&#125;);</span><br><span class="line">store.set(&#123;</span><br><span class="line">	<span class="string">`foo.bar.foobar`</span>: <span class="string">&#x27;🦄&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;foo.bar.foobar&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#x27;🦄&#x27;</span></span><br></pre></td></tr></table></figure>
+<h4 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h4><p>Type: <code>boolean</code><br>Default: <code>false</code></p>
+<p>Watch for any changes in the config file and call the callback for <code>onDidChange</code> or <code>onDidAnyChange</code> if set. This is useful if there are multiple processes changing the same config file, for example, if you want changes done in the main process to be reflected in a renderer process.</p>
+<h3 id="Instance"><a href="#Instance" class="headerlink" title="Instance"></a>Instance</h3><p>You can use <a target="_blank" rel="noopener" href="https://github.com/sindresorhus/dot-prop">dot-notation</a> in a <code>key</code> to access nested properties.</p>
+<p>The instance is <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Iteration_protocols"><code>iterable</code></a> so you can use it directly in a <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/for...of"><code>for…of</code></a> loop.</p>
+<h4 id="set-key-value"><a href="#set-key-value" class="headerlink" title=".set(key, value)"></a>.set(key, value)</h4><p>Set an item.</p>
+<p>The <code>value</code> must be JSON serializable. Trying to set the type <code>undefined</code>, <code>function</code>, or <code>symbol</code> will result in a TypeError.</p>
+<h4 id="set-object"><a href="#set-object" class="headerlink" title=".set(object)"></a>.set(object)</h4><p>Set multiple items at once.</p>
+<h4 id="get-key-defaultValue"><a href="#get-key-defaultValue" class="headerlink" title=".get(key, defaultValue?)"></a>.get(key, defaultValue?)</h4><p>Get an item or <code>defaultValue</code> if the item does not exist.</p>
+<h4 id="reset-…keys"><a href="#reset-…keys" class="headerlink" title=".reset(…keys)"></a>.reset(…keys)</h4><p>Reset items to their default values, as defined by the <code>defaults</code> or <code>schema</code> option.</p>
+<p>Use <code>.clear()</code> to reset all items.</p>
+<h4 id="has-key"><a href="#has-key" class="headerlink" title=".has(key)"></a>.has(key)</h4><p>Check if an item exists.</p>
+<h4 id="delete-key"><a href="#delete-key" class="headerlink" title=".delete(key)"></a>.delete(key)</h4><p>Delete an item.</p>
+<h4 id="clear"><a href="#clear" class="headerlink" title=".clear()"></a>.clear()</h4><p>Delete all items.</p>
+<p>This resets known items to their default values, if defined by the <code>defaults</code> or <code>schema</code> option.</p>
+<h4 id="onDidChange-key-callback"><a href="#onDidChange-key-callback" class="headerlink" title=".onDidChange(key, callback)"></a>.onDidChange(key, callback)</h4><p><code>callback</code>: <code>(newValue, oldValue) =&gt; &#123;&#125;</code></p>
+<p>Watches the given <code>key</code>, calling <code>callback</code> on any changes.</p>
+<p>When a key is first set <code>oldValue</code> will be <code>undefined</code>, and when a key is deleted <code>newValue</code> will be <code>undefined</code>.</p>
+<p>Returns a function which you can use to unsubscribe:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> unsubscribe = store.onDidChange(key, callback);</span><br><span class="line">unsubscribe();</span><br></pre></td></tr></table></figure>
+<h4 id="onDidAnyChange-callback"><a href="#onDidAnyChange-callback" class="headerlink" title=".onDidAnyChange(callback)"></a>.onDidAnyChange(callback)</h4><p><code>callback</code>: <code>(newValue, oldValue) =&gt; &#123;&#125;</code></p>
+<p>Watches the whole config object, calling <code>callback</code> on any changes.</p>
+<p><code>oldValue</code> and <code>newValue</code> will be the config object before and after the change, respectively. You must compare <code>oldValue</code> to <code>newValue</code> to find out what changed.</p>
+<p>Returns a function which you can use to unsubscribe:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> unsubscribe = store.onDidAnyChange(callback);</span><br><span class="line">unsubscribe();</span><br></pre></td></tr></table></figure>
+<h4 id="size"><a href="#size" class="headerlink" title=".size"></a>.size</h4><p>Get the item count.</p>
+<h4 id="store"><a href="#store" class="headerlink" title=".store"></a>.store</h4><p>Get all the data as an object or replace the current data with an object:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store();</span><br><span class="line">store.store = &#123;</span><br><span class="line">	hello: <span class="string">&#x27;world&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="path"><a href="#path" class="headerlink" title=".path"></a>.path</h4><p>Get the path to the storage file.</p>
+<h4 id="openInEditor"><a href="#openInEditor" class="headerlink" title=".openInEditor()"></a>.openInEditor()</h4><p>Open the storage file in the user’s editor.</p>
+<h3 id="initRenderer"><a href="#initRenderer" class="headerlink" title="initRenderer()"></a>initRenderer()</h3><p>Initializer to set up the required <code>ipc</code> communication channels for the module when a <code>Store</code> instance is not created in the main process and you are creating a <code>Store</code> instance in the Electron renderer process only.</p>
+<p>In the main process:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line">Store.initRenderer();</span><br></pre></td></tr></table></figure>
+<p>And in the renderer process:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store();</span><br><span class="line">store.set(<span class="string">&#x27;unicorn&#x27;</span>, <span class="string">&#x27;🦄&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(store.get(<span class="string">&#x27;unicorn&#x27;</span>));</span><br><span class="line"><span class="comment">//=&gt; &#x27;🦄&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h4 id="Advantages-over-window-localStorage"><a href="#Advantages-over-window-localStorage" class="headerlink" title="Advantages over window.localStorage"></a><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-store/issues/17">Advantages over <code>window.localStorage</code></a></h4><h4 id="Can-I-use-YAML-or-another-serialization-format"><a href="#Can-I-use-YAML-or-another-serialization-format" class="headerlink" title="Can I use YAML or another serialization format?"></a>Can I use YAML or another serialization format?</h4><p>The <code>serialize</code> and <code>deserialize</code> options can be used to customize the format of the config file, as long as the representation is compatible with <code>utf8</code> encoding.</p>
+<p>Example using YAML:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Store = <span class="built_in">require</span>(<span class="string">&#x27;electron-store&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> yaml = <span class="built_in">require</span>(<span class="string">&#x27;js-yaml&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Store(&#123;</span><br><span class="line">	fileExtension: <span class="string">&#x27;yaml&#x27;</span>,</span><br><span class="line">	serialize: yaml.safeDump,</span><br><span class="line">	deserialize: yaml.safeLoad</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="How-do-I-get-store-values-in-the-renderer-process-when-my-store-was-initialized-in-the-main-process"><a href="#How-do-I-get-store-values-in-the-renderer-process-when-my-store-was-initialized-in-the-main-process" class="headerlink" title="How do I get store values in the renderer process when my store was initialized in the main process?"></a>How do I get store values in the renderer process when my store was initialized in the main process?</h4><p>The store is not a singleton, so you will need to either <a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-store/issues/15">initialize the store in a file that is imported in both the main and renderer process</a>, or you have to pass the values back and forth as messages. Electron provides a handy <a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/ipc-main#ipcmainhandlechannel-listener"><code>invoke/handle</code> API</a> that works well for accessing these values.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipcMain.handle(<span class="string">&#x27;getStoreValue&#x27;</span>, <span class="function">(<span class="params">event, key</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> store.get(key);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> foo = <span class="keyword">await</span> ipcRenderer.invoke(<span class="string">&#x27;getStoreValue&#x27;</span>, <span class="string">&#x27;foo&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="Can-I-use-it-for-large-amounts-of-data"><a href="#Can-I-use-it-for-large-amounts-of-data" class="headerlink" title="Can I use it for large amounts of data?"></a>Can I use it for large amounts of data?</h4><p>This package is not a database. It simply uses a JSON file that is read/written on every change. Prefer using it for smaller amounts of data like user settings, value caching, state, etc.</p>
+<p>If you need to store large blobs of data, I recommend saving it to disk and to use this package to store the path to the file instead.</p>
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-util">electron-util</a> - Useful utilities for developing Electron apps and modules</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-debug">electron-debug</a> - Adds useful debug features to your Electron app</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-context-menu">electron-context-menu</a> - Context menu for your Electron app</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-dl">electron-dl</a> - Simplified file downloads for your Electron app</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-unhandled">electron-unhandled</a> - Catch unhandled errors and promise rejections in your Electron app</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-reloader">electron-reloader</a> - Simple auto-reloading for Electron apps during development</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/electron-serve">electron-serve</a> - Static file serving for Electron apps</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/conf">conf</a> - Simple config handling for your app or module</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/search?q=user:sindresorhus+electron">More…</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/10/26/%E3%80%90npm%E3%80%91electron-store/" data-id="cmtv7lp0d006j14qj44i40ply" data-title="【npm】electron-store" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-【前端架构】SPA与传统多页面" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/24/%E3%80%90%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E3%80%91SPA%E4%B8%8E%E4%BC%A0%E7%BB%9F%E5%A4%9A%E9%A1%B5%E9%9D%A2/" class="article-date">
+  <time class="dt-published" datetime="2022-10-24T14:37:04.000Z" itemprop="datePublished">2022-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/24/%E3%80%90%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E3%80%91SPA%E4%B8%8E%E4%BC%A0%E7%BB%9F%E5%A4%9A%E9%A1%B5%E9%9D%A2/">【前端架构】SPA与传统多页面</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>SPA（Single Page Application）：单页面应用，渲染以及路由交由客户端运行，服务端RESTFul API只提供HTML所需的JSON数据</p>
+<p>优点：<br>    减轻了服务器的资源消耗<br>    与HTML文档比起来，JSON数据的体积小很多，减少了网络请求的时间消耗<br>    页面路由控制更快速灵活<br>    可以离线使用</p>
+<p>缺点：<br>    浏览器需要等到JavaScript文件加载完成后才可以渲染后续的HTML文档内容，白屏时间影响用户体验<br>    客户端与服务端编程语言不同，可能会存在一些诸如数据格式的差异，甚至路由逻辑冲突，增加维护难度<br>    SPA不利于常规SEO爬虫（Google针对SPA进行了SEO优化，但是目前国内搜索殷勤支持不理想）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2022/10/24/%E3%80%90%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E3%80%91SPA%E4%B8%8E%E4%BC%A0%E7%BB%9F%E5%A4%9A%E9%A1%B5%E9%9D%A2/" data-id="cmtv7lp0n007h14qjazp03p9s" data-title="【前端架构】SPA与传统多页面" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">前端工程化</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/">Angular</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/axios/">axios</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cli/">cli</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" rel="tag">AST语法树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/" rel="tag">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BF%BB%E6%BB%9A/" rel="tag">CSS翻滚</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CommonJS/" rel="tag">CommonJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/" rel="tag">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Echarts/" rel="tag">Echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDE/" rel="tag">FDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flux/" rel="tag">Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/" rel="tag">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">JavaScript - 设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LangChain/" rel="tag">LangChain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis-Plus/" rel="tag">MyBatis-Plus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/" rel="tag">Node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/" rel="tag">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCR/" rel="tag">OCR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ollama/" rel="tag">Ollama</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/" rel="tag">OpenCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PPT/" rel="tag">PPT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/" rel="tag">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVG/" rel="tag">SVG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SysemJS/" rel="tag">SysemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SystemJS/" rel="tag">SystemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uni/" rel="tag">Uni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-cli/" rel="tag">Vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VueRouter/" rel="tag">VueRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Componetns/" rel="tag">Web Componetns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/" rel="tag">Webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/app/" rel="tag">app</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/axios/" rel="tag">axios</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backbone-js/" rel="tag">backbone.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cli/" rel="tag">cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echarts/" rel="tag">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/element-ui/" rel="tag">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-stream/" rel="tag">event-stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileDownload/" rel="tag">fileDownload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileUpload/" rel="tag">fileUpload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/map/" rel="tag">map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mixin/" rel="tag">mixin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/module/" rel="tag">module</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postcss/" rel="tag">postcss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/route/" rel="tag">route</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/single/" rel="tag">single</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transform/" rel="tag">transform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utils/" rel="tag">utils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-loader/" rel="tag">vue-loader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/" rel="tag">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" rel="tag">下载进度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" rel="tag">业务梳理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" rel="tag">二分法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" rel="tag">代码工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" rel="tag">代码片段</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8/" rel="tag">使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%89%E6%A0%87/" rel="tag">光标</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" rel="tag">全局弹窗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" rel="tag">八皇后问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" rel="tag">分支管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" rel="tag">前端 - 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">前端工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" rel="tag">前端架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">前端组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">前缀、中缀、后缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" rel="tag">功能代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" rel="tag">功能模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%86%E5%8F%B2/" rel="tag">历史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E7%90%86/" rel="tag">原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" rel="tag">古生物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" rel="tag">图像识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87/" rel="tag">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" rel="tag">图片压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" rel="tag">大模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">姿势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" rel="tag">局部样式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E8%A1%A8/" rel="tag">年表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" rel="tag">微前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%81%90%E9%BE%99/" rel="tag">恐龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%86%99/" rel="tag">手写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" rel="tag">手势控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">手势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%8B%BD/" rel="tag">拖拽</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" rel="tag">插值查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" rel="tag">数据、算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" rel="tag">数据压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">数据响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" rel="tag">数据流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" rel="tag">数组实现包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" rel="tag">文字滚动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" rel="tag">文本识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" rel="tag">文档版面识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" rel="tag">文档结构识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" rel="tag">斐波那契查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" rel="tag">断点续传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" rel="tag">权限管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" rel="tag">权限验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" rel="tag">样式功能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97/" rel="tag">模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" rel="tag">模块打包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" rel="tag">模板引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" rel="tag">模板生成器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" rel="tag">模板解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B0%B4%E5%8D%B0/" rel="tag">水印</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" rel="tag">流式回复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" rel="tag">流式问答</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B7%E5%85%A5/" rel="tag">混入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" rel="tag">滚动吸附</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" rel="tag">瀑布流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E5%9D%91/" rel="tag">爬坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%99%BD%E6%9D%BF/" rel="tag">白板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" rel="tag">研发手记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9DMyth/" rel="tag">神话Myth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" rel="tag">神话概要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" rel="tag">稀疏数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" rel="tag">第一章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%BE%E5%90%8D/" rel="tag">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" rel="tag">算法 -时间复杂度计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" rel="tag">系统架构设计师考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="tag">系统设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" rel="tag">约瑟夫问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" rel="tag">编程题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" rel="tag">网页截图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" rel="tag">聊天室</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag">自定义</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" rel="tag">虚拟DOM与diff算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">读书笔记 - React - 《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E7%BA%BF/" rel="tag">连线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" rel="tag">迷宫回溯</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" rel="tag">逆波兰式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E8%BD%BD/" rel="tag">重载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" rel="tag">问答系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" rel="tag">音视频播放</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" rel="tag">音量控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">页面编辑器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 18.18px;">CSS</a> <a href="/tags/CSS%E7%BF%BB%E6%BB%9A/" style="font-size: 10px;">CSS翻滚</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10.91px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10.91px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/FDE/" style="font-size: 10.91px;">FDE</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 11.82px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19.09px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/LLM/" style="font-size: 13.64px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 10px;">LangChain</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 13.64px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/OCR/" style="font-size: 10.91px;">OCR</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenCV/" style="font-size: 12.73px;">OpenCV</a> <a href="/tags/PPT/" style="font-size: 10px;">PPT</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.82px;">Python</a> <a href="/tags/React/" style="font-size: 11.82px;">React</a> <a href="/tags/SVG/" style="font-size: 10.91px;">SVG</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/SystemJS/" style="font-size: 10px;">SystemJS</a> <a href="/tags/TypeScript/" style="font-size: 11.82px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18.18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 13.64px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10.91px;">electron</a> <a href="/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/tags/event-stream/" style="font-size: 10px;">event-stream</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10.91px;">git</a> <a href="/tags/leetcode/" style="font-size: 12.73px;">leetcode</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 15.45px;">node</a> <a href="/tags/npm/" style="font-size: 17.27px;">npm</a> <a href="/tags/openCV/" style="font-size: 10.91px;">openCV</a> <a href="/tags/postcss/" style="font-size: 10px;">postcss</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 10.91px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webrtc/" style="font-size: 10px;">webrtc</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10.91px;">《深入React技术栈》</a> <a href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" style="font-size: 10px;">下载进度</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" style="font-size: 10px;">业务梳理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 10px;">二分法</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 10.91px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 14.55px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10.91px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 14.55px;">使用教程</a> <a href="/tags/%E5%85%89%E6%A0%87/" style="font-size: 10px;">光标</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 13.64px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 10.91px;">功能代码</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" style="font-size: 11.82px;">功能模块</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 10px;">历史</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 10.91px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10.91px;">响应式</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 10px;">图像处理</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">图像识别</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 10px;">图片</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大模型</a> <a href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10px;">姿势识别</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10.91px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 10.91px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%B9%B4%E8%A1%A8/" style="font-size: 10px;">年表</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 10.91px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">手势控制</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">手势识别</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" style="font-size: 10px;">数据流</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文本识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档版面识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档结构识别</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.82px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">样式功能</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10.91px;">模块</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10.91px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" style="font-size: 10px;">模板生成器</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" style="font-size: 10px;">流式回复</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" style="font-size: 10px;">流式问答</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 13.64px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 14.55px;">源码解析</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" style="font-size: 10px;">滚动吸附</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 10.91px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%99%BD%E6%9D%BF/" style="font-size: 10px;">白板</a> <a href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" style="font-size: 10.91px;">研发手记</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 10.91px;">系统设计</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" style="font-size: 10px;">网页截图</a> <a href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" style="font-size: 10px;">聊天室</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.73px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%9E%E7%BA%BF/" style="font-size: 10px;">连线</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%82%E9%85%8D/" style="font-size: 10px;">适配</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">问答系统</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 16.36px;">面试题</a> <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" style="font-size: 10px;">音视频播放</a> <a href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">音量控制</a> <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">页面编辑器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">September 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">July 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">June 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">February 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/10/%E3%80%90AI%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%8A%A5%E5%91%8A%E7%94%9F%E6%88%90%E7%9A%84%E5%89%8D%E7%AB%AF/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/docker%E4%BD%BF%E7%94%A8ollama%E5%AE%89%E8%A3%85openclaw/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/%E5%BE%85%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/08/%E3%80%90FDE%E3%80%91%E6%99%BA%E8%83%BD%E9%97%AE%E6%95%B0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】智能问数系统设计</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/07/%E3%80%90FDE%E3%80%91%E6%96%87%E7%AB%A0%E6%96%87%E6%9C%AC%E6%BA%AF%E6%BA%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】文章文本溯源系统设计</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 wsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

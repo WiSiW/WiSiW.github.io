@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>AI应用开发实战：RAG知识库助手实战-附带前后端和完整可运行服务 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="AI应用开发实战：RAG知识库助手实战-附带前后端和完整可运行服务   RAG 知识库问答系统 - 从零开始的完整指南 基于 Milvus 向量数据库 + LangChain + DashScope 的本地知识库问答解决方案  直接可以运行的代码已经整理好了，需要的话找老师拿   什么是 RAG？  1.1 RAG 的定义RAG（Retrieval-Augmented Generation，检索增">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI应用开发实战：RAG知识库助手实战-附带前后端和完整可运行服务">
+<meta property="og:url" content="https://wisiw.github.io.git/2026/08/04/AI%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%EF%BC%9ARAG%E7%9F%A5%E8%AF%86%E5%BA%93%E5%8A%A9%E6%89%8B%E5%AE%9E%E6%88%98-%E9%99%84%E5%B8%A6%E5%89%8D%E5%90%8E%E7%AB%AF%E5%92%8C%E5%AE%8C%E6%95%B4%E5%8F%AF%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="AI应用开发实战：RAG知识库助手实战-附带前后端和完整可运行服务   RAG 知识库问答系统 - 从零开始的完整指南 基于 Milvus 向量数据库 + LangChain + DashScope 的本地知识库问答解决方案  直接可以运行的代码已经整理好了，需要的话找老师拿   什么是 RAG？  1.1 RAG 的定义RAG（Retrieval-Augmented Generation，检索增">
+<meta property="og:locale">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Mzg0ZjliM2FhMzliZjQ1M2Y5MDIyMzUzMmVkNTI2ZWRfVGp5SkdNZmRTZ3c1MHZ0WE1NNWpBbDBvNXUxcVI2TjBfVG9rZW46SEtyTmIwYmNEb3NMTDV4ekdrUmNKUUQ0bjZiXzE3ODU4MjUwMzM6MTc4NTgyODYzM19WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MjhiZDE0Yjg3ZDc4YzYyYWFjMDcxOWU4YTJmOTEyY2FfMFd0R0RHWElnT1FIWmNqVEt0OWpmb0NhZ3NRS1JxOWxfVG9rZW46U1RvN2JmWUdTb1VlbGN4Q2lTZ2NhQ2hFbjhlXzE3ODU4MjUwMzM6MTc4NTgyODYzM19WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzg2NDdjMjM4YmYxOTA3OGJmMjdlNjk0YTQ4MmRmOTNfc2VZV3M3TGozOFR5RVY4WThRbVB2VThCb1J2TXZBT2NfVG9rZW46UWRsemJHWHNJbzRHeXV4cGpUVGNUZDE0bkNiXzE3ODU4MjUwMzM6MTc4NTgyODYzM19WNA&add_watermark=true&scene_type=CCM">
+<meta property="og:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MTFjNTI2Zjg2NDJkNzc4ZGE1NTZiMTU4YmI2YWRiYzZfTklSb0d6YlZuY1RPOUlIRHZCcjZOSHlscHh1azVoa1JfVG9rZW46QjV1V2IyNERrbzhWVEN4cXhqamN5a1Y0bklmXzE3ODU4MjUwMzM6MTc4NTgyODYzM19WNA&add_watermark=true&scene_type=CCM">
+<meta property="article:published_time" content="2026-08-04T06:30:20.000Z">
+<meta property="article:modified_time" content="2026-09-10T03:10:14.537Z">
+<meta property="article:author" content="wsw">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Mzg0ZjliM2FhMzliZjQ1M2Y5MDIyMzUzMmVkNTI2ZWRfVGp5SkdNZmRTZ3c1MHZ0WE1NNWpBbDBvNXUxcVI2TjBfVG9rZW46SEtyTmIwYmNEb3NMTDV4ekdrUmNKUUQ0bjZiXzE3ODU4MjUwMzM6MTc4NTgyODYzM19WNA&add_watermark=true&scene_type=CCM">
+  
+    <link rel="alternate" href="/atom.xml" title="韦绍炜的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">韦绍炜的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://WiSiW.github.io.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-AI应用开发实战：RAG知识库助手实战-附带前后端和完整可运行服务" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/04/AI%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%EF%BC%9ARAG%E7%9F%A5%E8%AF%86%E5%BA%93%E5%8A%A9%E6%89%8B%E5%AE%9E%E6%88%98-%E9%99%84%E5%B8%A6%E5%89%8D%E5%90%8E%E7%AB%AF%E5%92%8C%E5%AE%8C%E6%95%B4%E5%8F%AF%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1/" class="article-date">
+  <time class="dt-published" datetime="2026-08-04T06:30:20.000Z" itemprop="datePublished">2026-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      AI应用开发实战：RAG知识库助手实战-附带前后端和完整可运行服务
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>AI应用开发实战：RAG知识库助手实战-附带前后端和完整可运行服务 </p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Mzg0ZjliM2FhMzliZjQ1M2Y5MDIyMzUzMmVkNTI2ZWRfVGp5SkdNZmRTZ3c1MHZ0WE1NNWpBbDBvNXUxcVI2TjBfVG9rZW46SEtyTmIwYmNEb3NMTDV4ekdrUmNKUUQ0bjZiXzE3ODU4MjUwMzM6MTc4NTgyODYzM19WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h1 id="RAG-知识库问答系统-从零开始的完整指南"><a href="#RAG-知识库问答系统-从零开始的完整指南" class="headerlink" title="RAG 知识库问答系统 - 从零开始的完整指南"></a>RAG 知识库问答系统 - 从零开始的完整指南</h1><blockquote>
+<p>基于 Milvus 向量数据库 + LangChain + DashScope 的本地知识库问答解决方案</p>
+</blockquote>
+<p>直接可以运行的代码已经整理好了，需要的话找老师拿</p>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MjhiZDE0Yjg3ZDc4YzYyYWFjMDcxOWU4YTJmOTEyY2FfMFd0R0RHWElnT1FIWmNqVEt0OWpmb0NhZ3NRS1JxOWxfVG9rZW46U1RvN2JmWUdTb1VlbGN4Q2lTZ2NhQ2hFbjhlXzE3ODU4MjUwMzM6MTc4NTgyODYzM19WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<ol>
+<li><h2 id="什么是-RAG？"><a href="#什么是-RAG？" class="headerlink" title="什么是 RAG？"></a>什么是 RAG？</h2></li>
+</ol>
+<h3 id="1-1-RAG-的定义"><a href="#1-1-RAG-的定义" class="headerlink" title="1.1 RAG 的定义"></a>1.1 RAG 的定义</h3><p><strong>RAG（Retrieval-Augmented Generation，检索增强生成）</strong> 是一种将<strong>信息检索</strong>与<strong>大语言模型（LLM）生成</strong>相结合的技术。</p>
+<p>用一个简单的比喻来理解：</p>
+<blockquote>
+<p>想象你在参加一场开卷考试。RAG 就像是：</p>
+<ul>
+<li>📚 <strong>你的参考书</strong>（知识库）</li>
+<li>🔍 <strong>快速翻书找答案的能力</strong>（检索系统）</li>
+<li>🧠 <strong>理解并组织答案的大脑</strong>（大语言模型）</li>
+</ul>
+</blockquote>
+<h3 id="1-2-为什么需要-RAG？"><a href="#1-2-为什么需要-RAG？" class="headerlink" title="1.2 为什么需要 RAG？"></a>1.2 为什么需要 RAG？</h3><p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzg2NDdjMjM4YmYxOTA3OGJmMjdlNjk0YTQ4MmRmOTNfc2VZV3M3TGozOFR5RVY4WThRbVB2VThCb1J2TXZBT2NfVG9rZW46UWRsemJHWHNJbzRHeXV4cGpUVGNUZDE0bkNiXzE3ODU4MjUwMzM6MTc4NTgyODYzM19WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<p>传统大语言模型存在几个问题：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>说明</th>
+<th>RAG 如何解决</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>知识过时</td>
+<td>模型训练后不再更新</td>
+<td>可以随时更新知识库</td>
+</tr>
+<tr>
+<td>幻觉问题</td>
+<td>模型可能”编造”答案</td>
+<td>基于真实文档生成回答</td>
+</tr>
+<tr>
+<td>领域限制</td>
+<td>缺乏专业/私有知识</td>
+<td>可导入任意专业文档</td>
+</tr>
+<tr>
+<td>不可追溯</td>
+<td>无法知道答案来源</td>
+<td>可以引用原始文档</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-RAG-的工作流程"><a href="#1-3-RAG-的工作流程" class="headerlink" title="1.3 RAG 的工作流程"></a>1.3 RAG 的工作流程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────────────────────────────┐</span><br><span class="line">│                    RAG 完整工作流程                          │</span><br><span class="line">├─────────────────────────────────────────────────────────────┤</span><br><span class="line">│                                                             │</span><br><span class="line">│  【索引阶段 - 离线处理】                                      │</span><br><span class="line">│                                                             │</span><br><span class="line">│  文档 → 加载 → 切分 → 向量化 → 存入向量数据库                  │</span><br><span class="line">│                                                             │</span><br><span class="line">├─────────────────────────────────────────────────────────────┤</span><br><span class="line">│                                                             │</span><br><span class="line">│  【检索阶段 - 在线查询】                                      │</span><br><span class="line">│                                                             │</span><br><span class="line">│  问题 → 向量化 → 相似度搜索 → 获取相关文档 → LLM生成答案       │</span><br><span class="line">│                                                             │</span><br><span class="line">└─────────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+<ol>
+<li><h2 id="什么是-Milvus？"><a href="#什么是-Milvus？" class="headerlink" title="什么是 Milvus？"></a>什么是 Milvus？</h2></li>
+</ol>
+<h3 id="2-1-向量数据库简介"><a href="#2-1-向量数据库简介" class="headerlink" title="2.1 向量数据库简介"></a>2.1 向量数据库简介</h3><p>在理解 Milvus 之前，我们需要先了解什么是<strong>向量</strong>：</p>
+<p><strong>向量（Vector）</strong> 是一组数字，用来表示文本、图片等数据的”语义特征”。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;猫&quot;  → [0.23, -0.45, 0.78, ..., 0.12]  (1536维向量)</span><br><span class="line">&quot;狗&quot;  → [0.21, -0.42, 0.75, ..., 0.15]  (相似度高！)</span><br><span class="line">&quot;汽车&quot; → [0.89, 0.23, -0.56, ..., 0.67]  (相似度低)</span><br></pre></td></tr></table></figure>
+<p><strong>向量数据库</strong> 就是专门用来存储和快速搜索这些向量的数据库。</p>
+<h3 id="2-2-Milvus-是什么？"><a href="#2-2-Milvus-是什么？" class="headerlink" title="2.2 Milvus 是什么？"></a>2.2 Milvus 是什么？</h3><p><strong>Milvus</strong> 是一个开源的向量数据库，专门为 AI 应用设计：</p>
+<ul>
+<li>🚀 <strong>高性能</strong>：支持亿级向量的毫秒级搜索</li>
+<li>📊 <strong>可扩展</strong>：支持分布式部署</li>
+<li>🔧 <strong>易集成</strong>：提供 Python、Java、Go 等多种 SDK</li>
+<li>💾 <strong>持久化</strong>：数据可靠存储，支持备份恢复</li>
+</ul>
+<h3 id="2-3-Milvus-的核心概念"><a href="#2-3-Milvus-的核心概念" class="headerlink" title="2.3 Milvus 的核心概念"></a>2.3 Milvus 的核心概念</h3><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>类比</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Collection</td>
+<td>数据库表</td>
+<td>存储向量数据的容器</td>
+</tr>
+<tr>
+<td>Entity</td>
+<td>表中的行</td>
+<td>一条向量数据记录</td>
+</tr>
+<tr>
+<td>Field</td>
+<td>表中的列</td>
+<td>向量字段、标量字段等</td>
+</tr>
+<tr>
+<td>Index</td>
+<td>索引</td>
+<td>加速搜索的数据结构</td>
+</tr>
+</tbody></table>
+<h3 id="2-4-本项目中的-Milvus-配置"><a href="#2-4-本项目中的-Milvus-配置" class="headerlink" title="2.4 本项目中的 Milvus 配置"></a>2.4 本项目中的 Milvus 配置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 连接配置</span></span><br><span class="line">MILVUS_HOST = <span class="string">&quot;localhost&quot;</span></span><br><span class="line">MILVUS_PORT = <span class="string">&quot;19530&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 集合 Schema</span></span><br><span class="line">fields = [</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;id&quot;</span>, dtype=DataType.INT64, is_primary=<span class="literal">True</span>, auto_id=<span class="literal">True</span>),</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;name&quot;</span>, dtype=DataType.VARCHAR, max_length=<span class="number">255</span>),</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;text&quot;</span>, dtype=DataType.VARCHAR, max_length=<span class="number">5000</span>),</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;embedding&quot;</span>, dtype=DataType.FLOAT_VECTOR, dim=<span class="number">1536</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ol>
+<li><h2 id="项目架构概览"><a href="#项目架构概览" class="headerlink" title="项目架构概览"></a>项目架构概览</h2></li>
+</ol>
+<h3 id="3-1-整体架构图"><a href="#3-1-整体架构图" class="headerlink" title="3.1 整体架构图"></a>3.1 整体架构图</h3><p>本项目的架构可以分为两大流程：</p>
+<p><strong>📥 文档索引流程（Indexing Pipeline）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">本地文档 → DocumentLoader → TextSplitter → Embedding Model → Milvus</span><br><span class="line">   ①            ②              ③              ④             ⑤</span><br></pre></td></tr></table></figure>
+<p><strong>🔍 检索问答流程（Retrieval Pipeline）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户提问 → Query Embedding → Vector Search → Top-K Results → LLM → 答案</span><br><span class="line">   ⑥            ⑦              ⑧             ⑨           ⑩    ⑪</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-技术栈"><a href="#3-2-技术栈" class="headerlink" title="3.2 技术栈"></a>3.2 技术栈</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>技术选型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>向量数据库</td>
+<td>Milvus</td>
+<td>存储和检索向量</td>
+</tr>
+<tr>
+<td>应用框架</td>
+<td>LangChain</td>
+<td>构建 RAG 流水线</td>
+</tr>
+<tr>
+<td>嵌入模型</td>
+<td>DashScope text-embedding-v1</td>
+<td>文本向量化</td>
+</tr>
+<tr>
+<td>大语言模型</td>
+<td>Qwen-Plus</td>
+<td>生成回答</td>
+</tr>
+<tr>
+<td>Web 框架</td>
+<td>Flask</td>
+<td>提供 REST API</td>
+</tr>
+<tr>
+<td>文档处理</td>
+<td>PyPDF、Docx2txt 等</td>
+<td>解析各类文档</td>
+</tr>
+</tbody></table>
+<ol>
+<li><h2 id="核心概念详解"><a href="#核心概念详解" class="headerlink" title="核心概念详解"></a>核心概念详解</h2></li>
+</ol>
+<p><img src="https://dqej47nflyz.feishu.cn/space/api/box/stream/download/asynccode/?code=MTFjNTI2Zjg2NDJkNzc4ZGE1NTZiMTU4YmI2YWRiYzZfTklSb0d6YlZuY1RPOUlIRHZCcjZOSHlscHh1azVoa1JfVG9rZW46QjV1V2IyNERrbzhWVEN4cXhqamN5a1Y0bklmXzE3ODU4MjUwMzM6MTc4NTgyODYzM19WNA&add_watermark=true&scene_type=CCM" alt="img"></p>
+<h3 id="4-1-文本切分（Text-Splitting）"><a href="#4-1-文本切分（Text-Splitting）" class="headerlink" title="4.1 文本切分（Text Splitting）"></a>4.1 文本切分（Text Splitting）</h3><p>为什么需要切分文本？</p>
+<ol>
+<li><strong>嵌入模型有长度限制</strong>：大多数模型最多处理 512-8192 个 token</li>
+<li><strong>检索精度</strong>：较短的文本块更容易精确匹配</li>
+<li><strong>上下文控制</strong>：LLM 的上下文窗口有限</li>
+</ol>
+<p>本项目使用 <code>RecursiveCharacterTextSplitter</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">self.text_splitter = RecursiveCharacterTextSplitter(</span><br><span class="line">    chunk_size=<span class="number">500</span>,           <span class="comment"># 每块最大 500 字符</span></span><br><span class="line">    chunk_overlap=<span class="number">50</span>,         <span class="comment"># 相邻块重叠 50 字符</span></span><br><span class="line">    separators=[<span class="string">&quot;\n\n&quot;</span>, <span class="string">&quot;\n&quot;</span>, <span class="string">&quot;。&quot;</span>, <span class="string">&quot;！&quot;</span>, <span class="string">&quot;？&quot;</span>, <span class="string">&quot;；&quot;</span>, <span class="string">&quot;，&quot;</span>, <span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-向量嵌入（Embedding）"><a href="#4-2-向量嵌入（Embedding）" class="headerlink" title="4.2 向量嵌入（Embedding）"></a>4.2 向量嵌入（Embedding）</h3><p>嵌入是将文本转换为数值向量的过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;Milvus是一个向量数据库&quot; </span><br><span class="line">        ↓</span><br><span class="line">    Embedding Model</span><br><span class="line">        ↓</span><br><span class="line">[0.023, -0.156, 0.892, ..., 0.445]  # 1536维向量</span><br></pre></td></tr></table></figure>
+<p>本项目使用阿里云 DashScope 的 <code>text-embedding-v1</code> 模型，输出 1536 维向量。</p>
+<h3 id="4-3-相似度搜索（Similarity-Search）"><a href="#4-3-相似度搜索（Similarity-Search）" class="headerlink" title="4.3 相似度搜索（Similarity Search）"></a>4.3 相似度搜索（Similarity Search）</h3><p>向量相似度通常使用以下方法计算：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>公式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>L2 距离</td>
+<td>√Σ(aᵢ-bᵢ)²</td>
+<td>值越小越相似</td>
+</tr>
+<tr>
+<td>余弦相似度</td>
+<td>cos(θ)</td>
+<td>值越大越相似</td>
+</tr>
+<tr>
+<td>内积</td>
+<td>Σ(aᵢ×bᵢ)</td>
+<td>值越大越相似</td>
+</tr>
+</tbody></table>
+<p>本项目使用 <strong>L2 距离</strong>（欧氏距离）。</p>
+<ol>
+<li><h2 id="项目文件结构"><a href="#项目文件结构" class="headerlink" title="项目文件结构"></a>项目文件结构</h2></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">project&#x2F;</span><br><span class="line">├── vector_db_manager.py    # 核心：向量数据库管理器</span><br><span class="line">├── document_loader.py      # 文档加载器（支持多格式）</span><br><span class="line">├── vector_retriever.py     # 向量检索器 + 问答</span><br><span class="line">├── query_system.py         # 独立查询系统（命令行）</span><br><span class="line">├── upload_document.py      # 独立上传脚本（命令行）</span><br><span class="line">├── api_integration.py      # Flask API 蓝图</span><br><span class="line">├── server.py              # Flask 服务器入口</span><br><span class="line">└── .env                   # 环境变量配置</span><br></pre></td></tr></table></figure>
+<h3 id="文件职责说明"><a href="#文件职责说明" class="headerlink" title="文件职责说明"></a>文件职责说明</h3><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>主要类/函数</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="http://vector_db_manager.py/">vector_db_manager.py</a></td>
+<td>VectorDatabaseManager</td>
+<td>连接 Milvus、文档处理、向量存储</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://document_loader.py/">document_loader.py</a></td>
+<td>DocumentLoader</td>
+<td>加载 PDF/TXT/DOCX/CSV/Excel</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://vector_retriever.py/">vector_retriever.py</a></td>
+<td>VectorRetriever</td>
+<td>封装搜索逻辑、生成回答</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://query_system.py/">query_system.py</a></td>
+<td>SimpleQuerySystem</td>
+<td>独立的 RAG 查询实现</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://api_integration.py/">api_integration.py</a></td>
+<td>Flask Blueprint</td>
+<td>REST API 端点定义</td>
+</tr>
+</tbody></table>
+<ol>
+<li><h2 id="关键代码讲解"><a href="#关键代码讲解" class="headerlink" title="关键代码讲解"></a>关键代码讲解</h2></li>
+</ol>
+<h3 id="6-1-向量数据库管理器-vector-db-manager-py"><a href="#6-1-向量数据库管理器-vector-db-manager-py" class="headerlink" title="6.1 向量数据库管理器 (vector_db_manager.py)"></a>6.1 向量数据库管理器 (vector_db_manager.py)</h3><p>这是项目的核心模块，负责整个 RAG 的”写入”流程。</p>
+<h4 id="初始化连接"><a href="#初始化连接" class="headerlink" title="初始化连接"></a>初始化连接</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VectorDatabaseManager</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, milvus_host, milvus_port, ...</span>):</span></span><br><span class="line">        <span class="comment"># 1. 配置参数</span></span><br><span class="line">        self.milvus_host = milvus_host <span class="keyword">or</span> os.getenv(<span class="string">&quot;MILVUS_HOST&quot;</span>, <span class="string">&quot;127.0.0.1&quot;</span>)</span><br><span class="line">        self.milvus_port = <span class="built_in">str</span>(milvus_port <span class="keyword">or</span> os.getenv(<span class="string">&quot;MILVUS_PORT&quot;</span>, <span class="string">&quot;19530&quot;</span>))</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 2. 初始化嵌入模型</span></span><br><span class="line">        self._init_embeddings()</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 3. 初始化文本切分器</span></span><br><span class="line">        self.text_splitter = RecursiveCharacterTextSplitter(</span><br><span class="line">            chunk_size=<span class="number">500</span>,</span><br><span class="line">            chunk_overlap=<span class="number">50</span>,</span><br><span class="line">            separators=[<span class="string">&quot;\n\n&quot;</span>, <span class="string">&quot;\n&quot;</span>, <span class="string">&quot;。&quot;</span>, <span class="string">&quot;！&quot;</span>, <span class="string">&quot;？&quot;</span>, <span class="string">&quot;；&quot;</span>, <span class="string">&quot;，&quot;</span>, <span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>]</span><br><span class="line">        )</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 4. 连接到 Milvus</span></span><br><span class="line">        self._connect_to_milvus()</span><br></pre></td></tr></table></figure>
+<h4 id="文档处理流水线"><a href="#文档处理流水线" class="headerlink" title="文档处理流水线"></a>文档处理流水线</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">process_file</span>(<span class="params">self, file_path: <span class="built_in">str</span>, collection_name: <span class="built_in">str</span> = <span class="literal">None</span></span>) -&gt; bool:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;处理单个文件：加载 → 切分 → 存储&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 步骤1: 加载文档</span></span><br><span class="line">    documents = self.load_document(file_path)</span><br><span class="line">    <span class="comment"># 例如: PDF 文件会被解析为多个 Document 对象</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 步骤2: 切分文档</span></span><br><span class="line">    split_docs = self.split_documents(documents)</span><br><span class="line">    <span class="comment"># 将长文档切分为多个小块</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 步骤3: 存入向量数据库</span></span><br><span class="line">    self.add_documents_to_db(split_docs, collection_name)</span><br><span class="line">    <span class="comment"># 自动调用嵌入模型，生成向量并存储</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<h4 id="向量存储逻辑"><a href="#向量存储逻辑" class="headerlink" title="向量存储逻辑"></a>向量存储逻辑</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_documents_to_db</span>(<span class="params">self, documents: List[Document], collection_name: <span class="built_in">str</span> = <span class="literal">None</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;将文档添加到 Milvus&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    target_collection = collection_name <span class="keyword">or</span> self.collection_name</span><br><span class="line">    collection_exists = utility.has_collection(target_collection)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> collection_exists:</span><br><span class="line">        <span class="comment"># 集合已存在：加载并追加数据</span></span><br><span class="line">        self.vectorstore = Milvus(</span><br><span class="line">            embedding_function=self.embeddings,</span><br><span class="line">            collection_name=target_collection,</span><br><span class="line">            connection_args=&#123;<span class="string">&quot;host&quot;</span>: self.milvus_host, <span class="string">&quot;port&quot;</span>: self.milvus_port&#125;</span><br><span class="line">        )</span><br><span class="line">        self.vectorstore.add_documents(documents)  <span class="comment"># 追加</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 集合不存在：创建新集合并插入</span></span><br><span class="line">        self.vectorstore = Milvus.from_documents(</span><br><span class="line">            documents=documents,</span><br><span class="line">            embedding=self.embeddings,</span><br><span class="line">            collection_name=target_collection,</span><br><span class="line">            connection_args=&#123;<span class="string">&quot;host&quot;</span>: self.milvus_host, <span class="string">&quot;port&quot;</span>: self.milvus_port&#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<h3 id="6-2-向量检索器-vector-retriever-py"><a href="#6-2-向量检索器-vector-retriever-py" class="headerlink" title="6.2 向量检索器 (vector_retriever.py)"></a>6.2 向量检索器 (vector_retriever.py)</h3><p>这个模块负责 RAG 的”读取”流程。</p>
+<h4 id="相似度搜索"><a href="#相似度搜索" class="headerlink" title="相似度搜索"></a>相似度搜索</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search_similar_content</span>(<span class="params">self, query: <span class="built_in">str</span>, collection_name: <span class="built_in">str</span>, k: <span class="built_in">int</span> = <span class="literal">None</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;搜索相似内容&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 执行向量搜索（内部会自动将 query 转为向量）</span></span><br><span class="line">    search_results = self.db_manager.search(</span><br><span class="line">        query=query, </span><br><span class="line">        k=k, </span><br><span class="line">        collection_name=collection_name</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 过滤低相似度结果</span></span><br><span class="line">    results = []</span><br><span class="line">    <span class="keyword">for</span> doc, score <span class="keyword">in</span> search_results:</span><br><span class="line">        <span class="keyword">if</span> score &gt;= self.similarity_threshold:  <span class="comment"># 默认 0.5</span></span><br><span class="line">            results.append((doc, score))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> results</span><br></pre></td></tr></table></figure>
+<h4 id="问答生成"><a href="#问答生成" class="headerlink" title="问答生成"></a>问答生成</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">answer_question</span>(<span class="params">self, question: <span class="built_in">str</span>, collection_name: <span class="built_in">str</span>, k: <span class="built_in">int</span> = <span class="number">5</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;回答问题 - RAG 的核心逻辑&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 步骤1: 检索相关文档</span></span><br><span class="line">    relevant_docs = self.search_similar_content(</span><br><span class="line">        query=question,</span><br><span class="line">        collection_name=collection_name,</span><br><span class="line">        k=k</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 步骤2: 构建上下文</span></span><br><span class="line">    context_parts = []</span><br><span class="line">    <span class="keyword">for</span> i, (doc, score) <span class="keyword">in</span> <span class="built_in">enumerate</span>(relevant_docs):</span><br><span class="line">        context_parts.append(<span class="string">f&quot;参考资料<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>: <span class="subst">&#123;doc.page_content&#125;</span>&quot;</span>)</span><br><span class="line">    context = <span class="string">&quot;\n\n&quot;</span>.join(context_parts)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 步骤3: 调用 LLM 生成回答</span></span><br><span class="line">    answer = self._generate_answer_with_llm(question, context)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> AnswerResult(</span><br><span class="line">        answer=answer,</span><br><span class="line">        source_documents=source_documents,</span><br><span class="line">        scores=scores</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<h4 id="LLM-调用"><a href="#LLM-调用" class="headerlink" title="LLM 调用"></a>LLM 调用</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_generate_answer_with_llm</span>(<span class="params">self, question: <span class="built_in">str</span>, context: <span class="built_in">str</span></span>) -&gt; str:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;使用 LLM 生成回答&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    client = OpenAI(</span><br><span class="line">        api_key=os.environ.get(<span class="string">&quot;DASHSCOPE_API_KEY&quot;</span>),</span><br><span class="line">        base_url=<span class="string">&quot;https://dashscope.aliyuncs.com/compatible-mode/v1&quot;</span></span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    system_prompt = <span class="string">&quot;&quot;&quot;你是一个智能助手。请基于提供的【参考资料】回答用户的问题。</span></span><br><span class="line"><span class="string">    如果参考资料为空或与问题无关，请利用你的通用知识进行回答...&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    response = client.chat.completions.create(</span><br><span class="line">        model=<span class="string">&quot;qwen-plus&quot;</span>,</span><br><span class="line">        messages=[</span><br><span class="line">            &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;system&quot;</span>, <span class="string">&quot;content&quot;</span>: system_prompt&#125;,</span><br><span class="line">            &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;user&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">f&quot;问题：<span class="subst">&#123;question&#125;</span>\n\n【参考资料】：\n<span class="subst">&#123;context&#125;</span>&quot;</span>&#125;</span><br><span class="line">        ]</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> response.choices[<span class="number">0</span>].message.content</span><br></pre></td></tr></table></figure>
+<h3 id="6-3-API-接口-api-integration-py"><a href="#6-3-API-接口-api-integration-py" class="headerlink" title="6.3 API 接口 (api_integration.py)"></a>6.3 API 接口 (api_integration.py)</h3><p>提供 REST API 供外部调用。</p>
+<h4 id="上传文档端点"><a href="#上传文档端点" class="headerlink" title="上传文档端点"></a>上传文档端点</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@vector_bp.route(<span class="params"><span class="string">&#x27;/upload_document&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload_document</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;POST /api/vector/upload_document&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    data = request.get_json()</span><br><span class="line">    file_path = data[<span class="string">&#x27;file_path&#x27;</span>]</span><br><span class="line">    collection_name = data[<span class="string">&#x27;collection_name&#x27;</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 调用核心处理逻辑</span></span><br><span class="line">    success = vector_manager.process_file(file_path, collection_name)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> success:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;</span><br><span class="line">            <span class="string">&#x27;success&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">            <span class="string">&#x27;message&#x27;</span>: <span class="string">f&#x27;文档处理成功: <span class="subst">&#123;file_path&#125;</span>&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;database_info&#x27;</span>: vector_manager.get_database_info(collection_name)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="查询端点"><a href="#查询端点" class="headerlink" title="查询端点"></a>查询端点</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@vector_bp.route(<span class="params"><span class="string">&#x27;/query&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">query_documents</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;POST /api/vector/query&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    data = request.get_json()</span><br><span class="line">    question = data[<span class="string">&#x27;question&#x27;</span>]</span><br><span class="line">    collection_name = data[<span class="string">&#x27;collection_name&#x27;</span>]</span><br><span class="line">    k = data.get(<span class="string">&#x27;k&#x27;</span>, <span class="number">5</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 执行 RAG 问答</span></span><br><span class="line">    result = vector_retriever.answer_question(</span><br><span class="line">        question, </span><br><span class="line">        k=k, </span><br><span class="line">        collection_name=collection_name</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;</span><br><span class="line">        <span class="string">&#x27;success&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">&#x27;question&#x27;</span>: question,</span><br><span class="line">        <span class="string">&#x27;answer&#x27;</span>: result.answer,</span><br><span class="line">        <span class="string">&#x27;confidence&#x27;</span>: result.confidence,</span><br><span class="line">        <span class="string">&#x27;sources&#x27;</span>: [...]  <span class="comment"># 来源文档信息</span></span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><h2 id="快速上手指南"><a href="#快速上手指南" class="headerlink" title="快速上手指南"></a>快速上手指南</h2></li>
+</ol>
+<h3 id="7-1-环境准备"><a href="#7-1-环境准备" class="headerlink" title="7.1 环境准备"></a>7.1 环境准备</h3><ol>
+<li><strong>启动 Milvus（使用 Docker）</strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 docker-compose.yml 并启动</span></span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>安装 Python 依赖</strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip install langchain langchain-community langchain-milvus</span><br><span class="line">pip install pymilvus dashscope openai</span><br><span class="line">pip install flask flask-cors python-dotenv</span><br><span class="line">pip install pypdf docx2txt pandas openpyxl</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>配置环境变量</strong></li>
+</ol>
+<p>创建 <code>.env</code> 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MILVUS_HOST&#x3D;localhost</span><br><span class="line">MILVUS_PORT&#x3D;19530</span><br><span class="line">COLLECTION_NAME&#x3D;agent_rag</span><br><span class="line">DASHSCOPE_API_KEY&#x3D;your_api_key_here</span><br><span class="line">EMBEDDING_MODEL&#x3D;text-embedding-v1</span><br><span class="line">LLM_MODEL&#x3D;qwen-plus</span><br></pre></td></tr></table></figure>
+<h3 id="7-2-命令行使用"><a href="#7-2-命令行使用" class="headerlink" title="7.2 命令行使用"></a>7.2 命令行使用</h3><p><strong>上传文档：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改 upload_document.py 中的 FILE_PATH</span></span><br><span class="line">python upload_document.py</span><br></pre></td></tr></table></figure>
+<p><strong>查询问答：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改 query_system.py 中的 QUESTION</span></span><br><span class="line">python query_system.py</span><br></pre></td></tr></table></figure>
+<h3 id="7-3-API-使用"><a href="#7-3-API-使用" class="headerlink" title="7.3 API 使用"></a>7.3 API 使用</h3><p><strong>启动服务：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python server.py</span><br></pre></td></tr></table></figure>
+<p><strong>上传文档：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:5000/api/vector/upload_document \</span><br><span class="line">  -H <span class="string">&quot;Content-Type: application/json&quot;</span> \</span><br><span class="line">  -d <span class="string">&#x27;&#123;&quot;file_path&quot;: &quot;/path/to/doc.pdf&quot;, &quot;collection_name&quot;: &quot;my_docs&quot;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>提问：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:5000/api/vector/query \</span><br><span class="line">  -H <span class="string">&quot;Content-Type: application/json&quot;</span> \</span><br><span class="line">  -d <span class="string">&#x27;&#123;&quot;question&quot;: &quot;什么是RAG？&quot;, &quot;collection_name&quot;: &quot;my_docs&quot;, &quot;k&quot;: 5&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><h2 id="API-接口说明"><a href="#API-接口说明" class="headerlink" title="API 接口说明"></a>API 接口说明</h2></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>端点</th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/api/vector/upload_document</td>
+<td>POST</td>
+<td>上传并处理文档（路径方式）</td>
+</tr>
+<tr>
+<td>/api/vector/upload_file</td>
+<td>POST</td>
+<td>上传文件流</td>
+</tr>
+<tr>
+<td>/api/vector/query</td>
+<td>POST</td>
+<td>RAG 问答</td>
+</tr>
+<tr>
+<td>/api/vector/search</td>
+<td>POST</td>
+<td>纯相似度搜索</td>
+</tr>
+<tr>
+<td>/api/vector/collection_info</td>
+<td>GET</td>
+<td>获取集合信息</td>
+</tr>
+<tr>
+<td>/api/vector/clear_collection</td>
+<td>POST</td>
+<td>清空集合</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wisiw.github.io.git/2026/08/04/AI%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%EF%BC%9ARAG%E7%9F%A5%E8%AF%86%E5%BA%93%E5%8A%A9%E6%89%8B%E5%AE%9E%E6%88%98-%E9%99%84%E5%B8%A6%E5%89%8D%E5%90%8E%E7%AB%AF%E5%92%8C%E5%AE%8C%E6%95%B4%E5%8F%AF%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1/" data-id="cmtv7loyg000214qjgaljc0j9" data-title="AI应用开发实战：RAG知识库助手实战-附带前后端和完整可运行服务" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/08/04/AI%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%EF%BC%9A-%E5%AE%9E%E6%88%98%E6%99%BA%E8%83%BD%E5%87%BA%E8%A1%8CAgent%E5%8A%A9%E6%89%8B-%E9%99%84%E4%BB%A3%E7%A0%81%E5%92%8C%E5%89%8D%E5%90%8E%E7%AB%AF%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          AI应用开发实战：  实战智能出行Agent助手-附代码和前后端可视化界面
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/08/04/%E4%B8%87%E5%AD%97%E8%AF%A6%E8%A7%A3%EF%BC%81AI-Harness-%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5%EF%BC%81%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87%E7%BB%99%E4%BD%A0%E8%AE%B2%E9%80%8F%EF%BC%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">万字详解！AI Harness 入门与实践！一篇博文给你讲透！</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/">Angular</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/axios/">axios</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cli/">cli</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" rel="tag">AST语法树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/" rel="tag">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BF%BB%E6%BB%9A/" rel="tag">CSS翻滚</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CommonJS/" rel="tag">CommonJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/" rel="tag">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Echarts/" rel="tag">Echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDE/" rel="tag">FDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flux/" rel="tag">Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/" rel="tag">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">JavaScript - 设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LangChain/" rel="tag">LangChain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis-Plus/" rel="tag">MyBatis-Plus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/" rel="tag">Node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/" rel="tag">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCR/" rel="tag">OCR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ollama/" rel="tag">Ollama</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/" rel="tag">OpenCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PPT/" rel="tag">PPT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/" rel="tag">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVG/" rel="tag">SVG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SysemJS/" rel="tag">SysemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SystemJS/" rel="tag">SystemJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uni/" rel="tag">Uni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-cli/" rel="tag">Vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VueRouter/" rel="tag">VueRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Componetns/" rel="tag">Web Componetns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/" rel="tag">Webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/app/" rel="tag">app</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/axios/" rel="tag">axios</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backbone-js/" rel="tag">backbone.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cli/" rel="tag">cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echarts/" rel="tag">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/element-ui/" rel="tag">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-stream/" rel="tag">event-stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileDownload/" rel="tag">fileDownload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileUpload/" rel="tag">fileUpload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/map/" rel="tag">map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mixin/" rel="tag">mixin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/module/" rel="tag">module</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postcss/" rel="tag">postcss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/route/" rel="tag">route</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/single/" rel="tag">single</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transform/" rel="tag">transform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utils/" rel="tag">utils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-loader/" rel="tag">vue-loader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/" rel="tag">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" rel="tag">下载进度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" rel="tag">业务梳理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" rel="tag">二分法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" rel="tag">代码工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" rel="tag">代码片段</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8/" rel="tag">使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="tag">使用教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%89%E6%A0%87/" rel="tag">光标</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" rel="tag">全局弹窗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" rel="tag">八皇后问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" rel="tag">分支管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" rel="tag">前端 - 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">前端工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" rel="tag">前端架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">前端组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">前缀、中缀、后缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" rel="tag">功能代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" rel="tag">功能模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%86%E5%8F%B2/" rel="tag">历史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E7%90%86/" rel="tag">原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" rel="tag">古生物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" rel="tag">图像识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87/" rel="tag">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" rel="tag">图片压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" rel="tag">大模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">姿势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" rel="tag">局部样式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E8%A1%A8/" rel="tag">年表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" rel="tag">微前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%81%90%E9%BE%99/" rel="tag">恐龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%86%99/" rel="tag">手写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" rel="tag">手势控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" rel="tag">手势识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%8B%BD/" rel="tag">拖拽</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" rel="tag">插值查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" rel="tag">数据、算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" rel="tag">数据压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">数据响应式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" rel="tag">数据流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" rel="tag">数组实现包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" rel="tag">文字滚动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" rel="tag">文本识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" rel="tag">文档版面识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" rel="tag">文档结构识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" rel="tag">斐波那契查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" rel="tag">断点续传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" rel="tag">权限管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" rel="tag">权限验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" rel="tag">样式功能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97/" rel="tag">模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" rel="tag">模块打包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" rel="tag">模板引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" rel="tag">模板生成器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" rel="tag">模板解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B0%B4%E5%8D%B0/" rel="tag">水印</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" rel="tag">流式回复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" rel="tag">流式问答</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B7%E5%85%A5/" rel="tag">混入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" rel="tag">滚动吸附</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" rel="tag">瀑布流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E5%9D%91/" rel="tag">爬坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%99%BD%E6%9D%BF/" rel="tag">白板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" rel="tag">研发手记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9DMyth/" rel="tag">神话Myth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" rel="tag">神话概要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" rel="tag">稀疏数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" rel="tag">第一章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%BE%E5%90%8D/" rel="tag">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" rel="tag">算法 -时间复杂度计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" rel="tag">系统架构设计师考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="tag">系统设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" rel="tag">约瑟夫问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" rel="tag">编程题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" rel="tag">网页截图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" rel="tag">聊天室</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag">自定义</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" rel="tag">虚拟DOM与diff算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" rel="tag">读书笔记 - React - 《深入React技术栈》</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E7%BA%BF/" rel="tag">连线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" rel="tag">迷宫回溯</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" rel="tag">逆波兰式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E8%BD%BD/" rel="tag">重载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" rel="tag">问答系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" rel="tag">音视频播放</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" rel="tag">音量控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">页面编辑器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 18.18px;">CSS</a> <a href="/tags/CSS%E7%BF%BB%E6%BB%9A/" style="font-size: 10px;">CSS翻滚</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10.91px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10.91px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/FDE/" style="font-size: 10.91px;">FDE</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 11.82px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19.09px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/LLM/" style="font-size: 13.64px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 10px;">LangChain</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 13.64px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/OCR/" style="font-size: 10.91px;">OCR</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenCV/" style="font-size: 12.73px;">OpenCV</a> <a href="/tags/PPT/" style="font-size: 10px;">PPT</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.82px;">Python</a> <a href="/tags/React/" style="font-size: 11.82px;">React</a> <a href="/tags/SVG/" style="font-size: 10.91px;">SVG</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/SystemJS/" style="font-size: 10px;">SystemJS</a> <a href="/tags/TypeScript/" style="font-size: 11.82px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18.18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 13.64px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10.91px;">electron</a> <a href="/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/tags/event-stream/" style="font-size: 10px;">event-stream</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10.91px;">git</a> <a href="/tags/leetcode/" style="font-size: 12.73px;">leetcode</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 15.45px;">node</a> <a href="/tags/npm/" style="font-size: 17.27px;">npm</a> <a href="/tags/openCV/" style="font-size: 10.91px;">openCV</a> <a href="/tags/postcss/" style="font-size: 10px;">postcss</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 10.91px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webrtc/" style="font-size: 10px;">webrtc</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10.91px;">《深入React技术栈》</a> <a href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" style="font-size: 10px;">下载进度</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" style="font-size: 10px;">业务梳理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 10px;">二分法</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 10.91px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 14.55px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10.91px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 14.55px;">使用教程</a> <a href="/tags/%E5%85%89%E6%A0%87/" style="font-size: 10px;">光标</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 13.64px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 10.91px;">功能代码</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" style="font-size: 11.82px;">功能模块</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 10px;">历史</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 10.91px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10.91px;">响应式</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 10px;">图像处理</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">图像识别</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 10px;">图片</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大模型</a> <a href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10px;">姿势识别</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10.91px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 10.91px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%B9%B4%E8%A1%A8/" style="font-size: 10px;">年表</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 10.91px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">手势控制</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">手势识别</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" style="font-size: 10px;">数据流</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文本识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档版面识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档结构识别</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.82px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">样式功能</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10.91px;">模块</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10.91px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" style="font-size: 10px;">模板生成器</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" style="font-size: 10px;">流式回复</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" style="font-size: 10px;">流式问答</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 13.64px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 14.55px;">源码解析</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" style="font-size: 10px;">滚动吸附</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 10.91px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%99%BD%E6%9D%BF/" style="font-size: 10px;">白板</a> <a href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" style="font-size: 10.91px;">研发手记</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 10.91px;">系统设计</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" style="font-size: 10px;">网页截图</a> <a href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" style="font-size: 10px;">聊天室</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.73px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%9E%E7%BA%BF/" style="font-size: 10px;">连线</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%82%E9%85%8D/" style="font-size: 10px;">适配</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">问答系统</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 16.36px;">面试题</a> <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" style="font-size: 10px;">音视频播放</a> <a href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">音量控制</a> <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">页面编辑器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">September 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">July 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">June 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">February 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/10/%E3%80%90AI%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%8A%A5%E5%91%8A%E7%94%9F%E6%88%90%E7%9A%84%E5%89%8D%E7%AB%AF/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/docker%E4%BD%BF%E7%94%A8ollama%E5%AE%89%E8%A3%85openclaw/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/10/%E5%BE%85%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/08/%E3%80%90FDE%E3%80%91%E6%99%BA%E8%83%BD%E9%97%AE%E6%95%B0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】智能问数系统设计</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/07/%E3%80%90FDE%E3%80%91%E6%96%87%E7%AB%A0%E6%96%87%E6%9C%AC%E6%BA%AF%E6%BA%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">【FDE】文章文本溯源系统设计</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 wsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
