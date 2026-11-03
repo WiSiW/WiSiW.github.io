@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【FDE】医疗方案系统设计 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta name="description" content="目的 把医生长期积累的隐性经验，从大量真实医患对话中提炼出来，形成结构化、可审核、可追溯、可持续迭代的“医导知识体系”，最终让非医学专业的医导能够按照经过医生审核的知识回答患者常见问题。  解决的问题12345678910111213141516171819202122232425262728293031323334353637383940414243医生日常与患者交流        │">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【FDE】医疗方案系统设计">
+<meta property="og:url" content="https://wisiw.github.io.git/2026/10/03/%E3%80%90FDE%E3%80%91%E5%8C%BB%E7%96%97%E6%96%B9%E6%A1%88%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="目的 把医生长期积累的隐性经验，从大量真实医患对话中提炼出来，形成结构化、可审核、可追溯、可持续迭代的“医导知识体系”，最终让非医学专业的医导能够按照经过医生审核的知识回答患者常见问题。  解决的问题12345678910111213141516171819202122232425262728293031323334353637383940414243医生日常与患者交流        │">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-10-02T16:11:04.000Z">
+<meta property="article:modified_time" content="2026-10-10T08:11:59.691Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="FDE">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-【FDE】医疗方案系统设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      【FDE】医疗方案系统设计
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2026-10-03
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><blockquote>
+<p>把医生长期积累的隐性经验，从大量真实医患对话中提炼出来，形成结构化、可审核、可追溯、可持续迭代的“医导知识体系”，最终让非医学专业的医导能够按照经过医生审核的知识回答患者常见问题。</p>
+</blockquote>
+<h1 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">医生日常与患者交流</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">     音频采集</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">      ASR转写</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">   对话理解&#x2F;清洗</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line"> ┌───────────────────┐</span><br><span class="line"> │   医疗知识挖掘层    │</span><br><span class="line"> │                   │</span><br><span class="line"> │ FAQ Agent         │</span><br><span class="line"> │ Intent Agent      │</span><br><span class="line"> │ Medical Fact Agent│</span><br><span class="line"> │ Answer Agent      │</span><br><span class="line"> │ Risk Agent        │</span><br><span class="line"> │ Evidence Agent    │</span><br><span class="line"> └───────────────────┘</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">   知识整合与冲突检测</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">    医生审核工作台</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">   Approved Knowledge</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">   医导知识库 &#x2F; RAG</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line"> 医导输入患者问题</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">   Guide Copilot Agent</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">  标准答案 + 注意事项</span><br></pre></td></tr></table></figure>
+<p>这实际上需要两个系统：</p>
+<p><strong>知识生产 Agent</strong></p>
+<p>负责：<strong>从医生的历史对话中生产知识</strong>。</p>
+<p><strong>知识消费 Agent</strong></p>
+<p>负责：<strong>帮助医导使用已经审核过的知识回答患者问题</strong>。</p>
+<h1 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">┌───────────────────────────────────────────┐</span><br><span class="line">│                用户交互层                 │</span><br><span class="line">│ 医生端 │ 医导端 │ 管理端 │ 审核端         │</span><br><span class="line">└───────────────────────────────────────────┘</span><br><span class="line">                    │</span><br><span class="line">┌───────────────────────────────────────────┐</span><br><span class="line">│                Agent应用层                │</span><br><span class="line">│                                           │</span><br><span class="line">│ Knowledge Mining Agent                    │</span><br><span class="line">│ Knowledge Review Agent                    │</span><br><span class="line">│ Guide Copilot Agent                       │</span><br><span class="line">└───────────────────────────────────────────┘</span><br><span class="line">                    │</span><br><span class="line">┌───────────────────────────────────────────┐</span><br><span class="line">│                 Agent Flow                │</span><br><span class="line">│                                           │</span><br><span class="line">│ ASR → Cleaning → Topic → FAQ              │</span><br><span class="line">│       → Medical Fact → Answer → Risk      │</span><br><span class="line">│       → Evidence → Conflict → Synthesis   │</span><br><span class="line">└───────────────────────────────────────────┘</span><br><span class="line">                    │</span><br><span class="line">┌───────────────────────────────────────────┐</span><br><span class="line">│                  知识层                   │</span><br><span class="line">│ FAQ │ Medical Fact │ Answer │ Risk        │</span><br><span class="line">│ Entity │ Evidence │ Version │ Policy      │</span><br><span class="line">└───────────────────────────────────────────┘</span><br><span class="line">                    │</span><br><span class="line">┌───────────────────────────────────────────┐</span><br><span class="line">│                  数据层                   │</span><br><span class="line">│ PostgreSQL │ Vector DB │ Elasticsearch    │</span><br><span class="line">│ Object Storage │ Redis                   │</span><br><span class="line">└───────────────────────────────────────────┘</span><br><span class="line">                    │</span><br><span class="line">┌───────────────────────────────────────────┐</span><br><span class="line">│                 AI基础设施                │</span><br><span class="line">│ ASR │ Embedding │ LLM │ Reranker          │</span><br><span class="line">└───────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+<h1 id="Agent体系设计"><a href="#Agent体系设计" class="headerlink" title="Agent体系设计"></a>Agent体系设计</h1><p>12个专业 Agent + 1个 Orchestrator。</p>
+<h2 id="Orchestrator-Agent"><a href="#Orchestrator-Agent" class="headerlink" title="Orchestrator Agent"></a>Orchestrator Agent</h2><p>整个系统的大脑。</p>
+<p>负责：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">接收任务</span><br><span class="line"> ↓</span><br><span class="line">判断当前阶段</span><br><span class="line"> ↓</span><br><span class="line">调用对应Agent</span><br><span class="line"> ↓</span><br><span class="line">合并结果</span><br><span class="line"> ↓</span><br><span class="line">决定下一步</span><br></pre></td></tr></table></figure>
+<p>采用：</p>
+<blockquote>
+<p>确定性 Workflow + Agent 节点。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Audio</span><br><span class="line"> ↓</span><br><span class="line">ASR Agent</span><br><span class="line"> ↓</span><br><span class="line">Conversation Agent</span><br><span class="line"> ↓</span><br><span class="line">Topic Agent</span><br><span class="line"> ↓</span><br><span class="line">FAQ Agent</span><br><span class="line"> ↓</span><br><span class="line">Medical Fact Agent</span><br><span class="line"> ↓</span><br><span class="line">Answer Agent</span><br><span class="line"> ↓</span><br><span class="line">Risk Agent</span><br><span class="line"> ↓</span><br><span class="line">Evidence Agent</span><br><span class="line"> ↓</span><br><span class="line">Conflict Agent</span><br><span class="line"> ↓</span><br><span class="line">Knowledge Synthesis Agent</span><br><span class="line"> ↓</span><br><span class="line">Review</span><br></pre></td></tr></table></figure>
+<h2 id="Agent-Loop"><a href="#Agent-Loop" class="headerlink" title="Agent Loop"></a>Agent Loop</h2><p>例如医生上传一批对话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1000个Conversation</span><br></pre></td></tr></table></figure>
+<p>系统发现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FAQ存在冲突</span><br></pre></td></tr></table></figure>
+<p>这时候 Orchestrator 可以进入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Conflict</span><br><span class="line"> ↓</span><br><span class="line">Evidence</span><br><span class="line"> ↓</span><br><span class="line">Fact</span><br><span class="line"> ↓</span><br><span class="line">Re-evaluate</span><br></pre></td></tr></table></figure>
+<p>即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Agent A</span><br><span class="line"> ↓</span><br><span class="line">Agent B</span><br><span class="line"> ↓</span><br><span class="line">发现问题</span><br><span class="line"> ↓</span><br><span class="line">Agent C</span><br><span class="line"> ↓</span><br><span class="line">回到 Agent A</span><br></pre></td></tr></table></figure>
+<h2 id="Agent-通信"><a href="#Agent-通信" class="headerlink" title="Agent 通信"></a>Agent 通信</h2><p>不要：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Agent A</span><br><span class="line"> ↓</span><br><span class="line">一大段文本</span><br><span class="line"> ↓</span><br><span class="line">Agent B</span><br></pre></td></tr></table></figure>
+<p>应该：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Agent A</span><br><span class="line"> ↓</span><br><span class="line">JSON Schema</span><br><span class="line"> ↓</span><br><span class="line">Agent B</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class FactExtractionResult(BaseModel):</span><br><span class="line"></span><br><span class="line">    facts: list[MedicalFact]</span><br><span class="line"></span><br><span class="line">    confidence: float</span><br><span class="line"></span><br><span class="line">    missing_information: list[str]</span><br><span class="line"></span><br><span class="line">    evidence_segments: list[str]</span><br></pre></td></tr></table></figure>
+<p>利用 Pydantic：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result &#x3D; FactExtractionResult.model_validate(</span><br><span class="line">    llm_output</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>LLM 输出不符合 Schema：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Validation Error</span><br><span class="line"> ↓</span><br><span class="line">Retry</span><br><span class="line"> ↓</span><br><span class="line">Repair</span><br></pre></td></tr></table></figure>
+<h2 id="Prompt-层统一模板"><a href="#Prompt-层统一模板" class="headerlink" title="Prompt 层统一模板"></a>Prompt 层统一模板</h2><p>每个 Agent Prompt 都采用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SYSTEM</span><br><span class="line">│</span><br><span class="line">├── Role</span><br><span class="line">├── Objective</span><br><span class="line">├── Input Schema</span><br><span class="line">├── Output Schema</span><br><span class="line">├── Rules</span><br><span class="line">├── Forbidden Behavior</span><br><span class="line">└── Examples</span><br><span class="line"></span><br><span class="line">USER</span><br><span class="line">│</span><br><span class="line">└── Dynamic Context</span><br></pre></td></tr></table></figure>
+<p>例如 Fact Agent：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">你是一名医疗知识抽取Agent。</span><br><span class="line"></span><br><span class="line">任务：</span><br><span class="line">从医生与患者对话中提取医生明确表达的事实。</span><br><span class="line"></span><br><span class="line">规则：</span><br><span class="line"></span><br><span class="line">1. 只能提取原文明确表达的信息。</span><br><span class="line">2. 不允许根据医学常识补充事实。</span><br><span class="line">3. 不允许改变原始医学含义。</span><br><span class="line">4. 每个Fact必须关联原始证据。</span><br><span class="line">5. 无法确认的内容标记为UNCERTAIN。</span><br><span class="line">6. 不负责给患者提供建议。</span><br></pre></td></tr></table></figure>
+<h2 id="Agent-Tool设计"><a href="#Agent-Tool设计" class="headerlink" title="Agent Tool设计"></a>Agent Tool设计</h2><table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>主要 Tool</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ASR</td>
+<td>ASR Tool</td>
+</tr>
+<tr>
+<td>Conversation</td>
+<td>Transcript Tool</td>
+</tr>
+<tr>
+<td>Topic</td>
+<td>Taxonomy + Embedding</td>
+</tr>
+<tr>
+<td>FAQ</td>
+<td>Vector Search + Clustering</td>
+</tr>
+<tr>
+<td>Fact</td>
+<td>LLM</td>
+</tr>
+<tr>
+<td>Answer</td>
+<td>LLM</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Rule Engine + LLM</td>
+</tr>
+<tr>
+<td>Evidence</td>
+<td>SQL + Object Storage</td>
+</tr>
+<tr>
+<td>Conflict</td>
+<td>Vector Search + LLM</td>
+</tr>
+<tr>
+<td>Synthesis</td>
+<td>LLM</td>
+</tr>
+<tr>
+<td>Manual</td>
+<td>RAG + LLM</td>
+</tr>
+<tr>
+<td>Guide Copilot</td>
+<td>RAG + Reranker + LLM</td>
+</tr>
+</tbody></table>
+<h2 id="Agent-1：ASR-Agent"><a href="#Agent-1：ASR-Agent" class="headerlink" title="Agent 1：ASR Agent"></a>Agent 1：ASR Agent</h2><h3 id="职责"><a href="#职责" class="headerlink" title="职责"></a>职责</h3><p>负责：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">音频</span><br><span class="line"> ↓</span><br><span class="line">语音识别</span><br><span class="line"> ↓</span><br><span class="line">说话人识别</span><br><span class="line"> ↓</span><br><span class="line">时间戳</span><br><span class="line"> ↓</span><br><span class="line">分段</span><br></pre></td></tr></table></figure>
+<p>不是只输出纯文本，而是结构化输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;conversation_id&quot;: &quot;C001&quot;,</span><br><span class="line">  &quot;segments&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;id&quot;: &quot;S001&quot;,</span><br><span class="line">      &quot;speaker&quot;: &quot;doctor&quot;,</span><br><span class="line">      &quot;start&quot;: 0.0,</span><br><span class="line">      &quot;end&quot;: 5.2,</span><br><span class="line">      &quot;text&quot;: &quot;...&quot;,</span><br><span class="line">      &quot;confidence&quot;: 0.96</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;id&quot;: &quot;S002&quot;,</span><br><span class="line">      &quot;speaker&quot;: &quot;patient&quot;,</span><br><span class="line">      &quot;start&quot;: 5.5,</span><br><span class="line">      &quot;end&quot;: 8.7,</span><br><span class="line">      &quot;text&quot;: &quot;...&quot;,</span><br><span class="line">      &quot;confidence&quot;: 0.93</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里一定要保留：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">音频时间戳 → 文本 → 知识</span><br></pre></td></tr></table></figure>
+<p>后面医生审核的时候，可以直接点击：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“查看原始录音 03:21–03:36”</span><br></pre></td></tr></table></figure>
+<p>这是非常重要的 Evidence Chain。</p>
+<h3 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Audio</span><br><span class="line"> ↓</span><br><span class="line">Audio Preprocessing</span><br><span class="line"> ↓</span><br><span class="line">VAD</span><br><span class="line"> ↓</span><br><span class="line">ASR</span><br><span class="line"> ↓</span><br><span class="line">Speaker Diarization</span><br><span class="line"> ↓</span><br><span class="line">Punctuation</span><br><span class="line"> ↓</span><br><span class="line">Medical Term Correction</span><br><span class="line"> ↓</span><br><span class="line">Transcript</span><br></pre></td></tr></table></figure>
+<h3 id="Tool"><a href="#Tool" class="headerlink" title="Tool"></a>Tool</h3><p>抽象成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class ASRTool:</span><br><span class="line"></span><br><span class="line">    async def transcribe(</span><br><span class="line">        self,</span><br><span class="line">        audio_path: str</span><br><span class="line">    ):</span><br><span class="line">        pass</span><br></pre></td></tr></table></figure>
+<p>模型层可以进行替换：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Whisper</span><br><span class="line">FunASR</span><br><span class="line">SenseVoice</span><br><span class="line">云端ASR</span><br></pre></td></tr></table></figure>
+<p>Agent 不直接依赖具体模型。</p>
+<h2 id="Agent-2：Conversation-Cleaning-Agent"><a href="#Agent-2：Conversation-Cleaning-Agent" class="headerlink" title="Agent 2：Conversation Cleaning Agent"></a>Agent 2：Conversation Cleaning Agent</h2><p>这个 Agent 的作用不是简单“清洗文本”，它真正做的是：</p>
+<blockquote>
+<p>恢复对话语义。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">患者：</span><br><span class="line">这个做完以后呢？</span><br><span class="line"></span><br><span class="line">医生：</span><br><span class="line">这个一般……</span><br><span class="line"></span><br><span class="line">患者：</span><br><span class="line">那什么时候能正常？</span><br><span class="line"></span><br><span class="line">医生：</span><br><span class="line">差不多一周左右。</span><br></pre></td></tr></table></figure>
+<p>Agent 应该理解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Topic：</span><br><span class="line">治疗后恢复</span><br><span class="line"></span><br><span class="line">Patient Question：</span><br><span class="line">治疗后什么时候能够恢复正常？</span><br><span class="line"></span><br><span class="line">Doctor Answer：</span><br><span class="line">通常约一周左右</span><br><span class="line"></span><br><span class="line">Question → Answer：</span><br><span class="line">成立</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;turns&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;question&quot;: &quot;...&quot;,</span><br><span class="line">      &quot;answer&quot;: &quot;...&quot;,</span><br><span class="line">      &quot;topic&quot;: &quot;...&quot;,</span><br><span class="line">      &quot;doctor_segments&quot;: [&quot;S102&quot;, &quot;S103&quot;],</span><br><span class="line">      &quot;patient_segments&quot;: [&quot;S101&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个结构非常重要。</p>
+<p>因为后面 FAQ Agent 不应该直接处理原始 Transcript，而应该处理：</p>
+<blockquote>
+<p>Question-Answer Pair</p>
+</blockquote>
+<p>但是注意：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不能改变医学含义。</span><br></pre></td></tr></table></figure>
+<p>所以这里应该是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Original Text</span><br><span class="line">      ↓</span><br><span class="line">Clean Text</span><br><span class="line">      ↓</span><br><span class="line">Semantic Consistency Check</span><br></pre></td></tr></table></figure>
+<h2 id="Agent-3：Topic-Agent"><a href="#Agent-3：Topic-Agent" class="headerlink" title="Agent 3：Topic Agent"></a>Agent 3：Topic Agent</h2><p>进行医疗语义分类，不完全使用 LLM 分类。</p>
+<p>采用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Embedding</span><br><span class="line">+</span><br><span class="line">Taxonomy</span><br><span class="line">+</span><br><span class="line">LLM</span><br></pre></td></tr></table></figure>
+<h3 id="Topic-Tree"><a href="#Topic-Tree" class="headerlink" title="Topic Tree"></a>Topic Tree</h3><p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">治疗</span><br><span class="line">├── 治疗方式</span><br><span class="line">├── 治疗周期</span><br><span class="line">├── 治疗效果</span><br><span class="line">├── 治疗疼痛</span><br><span class="line">├── 治疗风险</span><br><span class="line">└── 治疗后恢复</span><br><span class="line"></span><br><span class="line">检查</span><br><span class="line">├── 检查必要性</span><br><span class="line">├── 检查流程</span><br><span class="line">├── 检查准备</span><br><span class="line">└── 检查结果</span><br><span class="line"></span><br><span class="line">费用</span><br><span class="line">├── 检查费用</span><br><span class="line">├── 治疗费用</span><br><span class="line">└── 复诊费用</span><br><span class="line"></span><br><span class="line">术后</span><br><span class="line">├── 饮食</span><br><span class="line">├── 活动</span><br><span class="line">├── 恢复</span><br><span class="line">└── 注意事项</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;topic&quot;: &quot;治疗&quot;,</span><br><span class="line">  &quot;sub_topic&quot;: &quot;治疗后恢复&quot;,</span><br><span class="line">  &quot;entities&quot;: [</span><br><span class="line">    &quot;治疗项目A&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;confidence&quot;: 0.91</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果：</p>
+<blockquote>
+<p>confidence &lt; 0.7</p>
+</blockquote>
+<p>进入人工确认或者二次 LLM 判断。</p>
+<h2 id="Agent-4：FAQ-Agent"><a href="#Agent-4：FAQ-Agent" class="headerlink" title="Agent 4：FAQ Agent"></a>Agent 4：FAQ Agent</h2><p>知识生产系统中非常核心的 Agent，它解决：</p>
+<blockquote>
+<p>“不同患者问的其实是不是同一个问题？”</p>
+</blockquote>
+<h3 id="Pipeline-1"><a href="#Pipeline-1" class="headerlink" title="Pipeline"></a>Pipeline</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Question</span><br><span class="line"> ↓</span><br><span class="line">Normalize</span><br><span class="line"> ↓</span><br><span class="line">Embedding</span><br><span class="line"> ↓</span><br><span class="line">Vector Search</span><br><span class="line"> ↓</span><br><span class="line">Similarity</span><br><span class="line"> ↓</span><br><span class="line">Cluster</span><br><span class="line"> ↓</span><br><span class="line">LLM Canonical Question</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">“做这个疼吗？”</span><br><span class="line">“治疗会不会疼？”</span><br><span class="line">“治疗疼不疼？”</span><br><span class="line">“会不会特别痛？”</span><br></pre></td></tr></table></figure>
+<p>Embedding 后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cluster #102</span><br></pre></td></tr></table></figure>
+<p>然后 LLM 生成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Canonical Question：</span><br><span class="line"></span><br><span class="line">治疗过程中是否会产生疼痛？</span><br></pre></td></tr></table></figure>
+<h3 id="FAQ-Schema"><a href="#FAQ-Schema" class="headerlink" title="FAQ Schema"></a>FAQ Schema</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class FAQ(BaseModel):</span><br><span class="line"></span><br><span class="line">    faq_id: str</span><br><span class="line"></span><br><span class="line">    canonical_question: str</span><br><span class="line"></span><br><span class="line">    variants: list[str]</span><br><span class="line"></span><br><span class="line">    topic: str</span><br><span class="line"></span><br><span class="line">    frequency: int</span><br><span class="line"></span><br><span class="line">    confidence: float</span><br><span class="line"></span><br><span class="line">    source_conversations: list[str]</span><br><span class="line"></span><br><span class="line">    status: str</span><br></pre></td></tr></table></figure>
+<p>这样最终手册不会有几十个重复问题。</p>
+<h2 id="Agent-5：Medical-Fact-Agent"><a href="#Agent-5：Medical-Fact-Agent" class="headerlink" title="Agent 5：Medical Fact Agent"></a>Agent 5：Medical Fact Agent</h2><p>不是生成答案，而是：</p>
+<blockquote>
+<p>从医生说的话中抽取“事实”。</p>
+</blockquote>
+<p>例如医生说：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“一般这种情况治疗以后可能会有一点肿，通常过一两天会慢慢恢复。”</span><br></pre></td></tr></table></figure>
+<p>提取：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;subject&quot;: &quot;治疗&quot;,</span><br><span class="line">  &quot;type&quot;: &quot;treatment_effect&quot;,</span><br><span class="line">  &quot;fact&quot;: &quot;治疗后可能出现肿胀&quot;,</span><br><span class="line">  &quot;duration&quot;: &quot;通常1-2天&quot;,</span><br><span class="line">  &quot;certainty&quot;: &quot;possible&quot;,</span><br><span class="line">  &quot;source&quot;: &quot;doctor&quot;,</span><br><span class="line">  &quot;confidence&quot;: 0.92,</span><br><span class="line">  &quot;evidence&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;conversation_id&quot;: &quot;C001&quot;,</span><br><span class="line">      &quot;start&quot;: 321.4,</span><br><span class="line">      &quot;end&quot;: 329.8</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class MedicalFact:</span><br><span class="line"></span><br><span class="line">    id: str</span><br><span class="line"></span><br><span class="line">    subject: str</span><br><span class="line"></span><br><span class="line">    predicate: str</span><br><span class="line"></span><br><span class="line">    object: str</span><br><span class="line"></span><br><span class="line">    qualifiers: dict</span><br><span class="line"></span><br><span class="line">    certainty: str</span><br><span class="line"></span><br><span class="line">    scope: str</span><br><span class="line"></span><br><span class="line">    source_type: str</span><br><span class="line"></span><br><span class="line">    source_id: str</span><br><span class="line"></span><br><span class="line">    evidence: list[str]</span><br><span class="line"></span><br><span class="line">    status: str</span><br></pre></td></tr></table></figure>
+<p>最终其实可以形成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Treatment</span><br><span class="line">   │</span><br><span class="line">   ├── may_cause → Swelling</span><br><span class="line">   │</span><br><span class="line">   ├── duration → 1-2 days</span><br><span class="line">   │</span><br><span class="line">   └── recovery → gradual</span><br></pre></td></tr></table></figure>
+<p>Fact 是整个知识体系的核心对象，为后面的知识图谱提供基础。</p>
+<h3 id="采用“两阶段抽取”"><a href="#采用“两阶段抽取”" class="headerlink" title="采用“两阶段抽取”"></a>采用“两阶段抽取”</h3><p>不要：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LLM → Fact</span><br></pre></td></tr></table></figure>
+<p>而是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">第一阶段：</span><br><span class="line">Candidate Fact Extraction</span><br><span class="line"></span><br><span class="line">第二阶段：</span><br><span class="line">Fact Verification</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">医生原话</span><br><span class="line"> ↓</span><br><span class="line">Candidate Fact</span><br><span class="line"> ↓</span><br><span class="line">检查是否有原文支持</span><br><span class="line"> ↓</span><br><span class="line">检查是否改变语义</span><br><span class="line"> ↓</span><br><span class="line">Fact</span><br></pre></td></tr></table></figure>
+<p>这样可以明显降低 LLM 自己“补充医学知识”的风险。</p>
+<h2 id="Agent-6：Answer-Agent"><a href="#Agent-6：Answer-Agent" class="headerlink" title="Agent 6：Answer Agent"></a>Agent 6：Answer Agent</h2><p>负责：</p>
+<blockquote>
+<p>把医生的自然语言回答转换成标准医导话术。</p>
+</blockquote>
+<p>输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FAQ</span><br><span class="line">+</span><br><span class="line">Medical Facts</span><br><span class="line">+</span><br><span class="line">Doctor Original Answer</span><br><span class="line">+</span><br><span class="line">Topic</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;answer&quot;: &quot;...&quot;,</span><br><span class="line">  &quot;additional_info&quot;: &quot;...&quot;,</span><br><span class="line">  &quot;warning&quot;: &quot;...&quot;,</span><br><span class="line">  &quot;doctor_required&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Prompt-的核心原则"><a href="#Prompt-的核心原则" class="headerlink" title="Prompt 的核心原则"></a>Prompt 的核心原则</h3><p>必须明确：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">你不是医学知识生成器。</span><br><span class="line"></span><br><span class="line">只能使用输入提供的事实。</span><br><span class="line"></span><br><span class="line">不得补充输入中不存在的医学事实。</span><br><span class="line"></span><br><span class="line">不得改变医生表达的医学含义。</span><br><span class="line"></span><br><span class="line">如果信息不足，输出 NEED_DOCTOR_REVIEW。</span><br></pre></td></tr></table></figure>
+<p>这条非常重要。</p>
+<h3 id="采用“事实约束生成”"><a href="#采用“事实约束生成”" class="headerlink" title="采用“事实约束生成”"></a>采用“事实约束生成”</h3><p>不要：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LLM自由生成</span><br></pre></td></tr></table></figure>
+<p>而是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Facts</span><br><span class="line"> ↓</span><br><span class="line">Answer Planning</span><br><span class="line"> ↓</span><br><span class="line">Answer Generation</span><br><span class="line"> ↓</span><br><span class="line">Fact Consistency Check</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Fact：</span><br><span class="line"></span><br><span class="line">可能出现短暂肿胀</span><br><span class="line"></span><br><span class="line">↓</span><br><span class="line"></span><br><span class="line">Answer：</span><br><span class="line"></span><br><span class="line">治疗后部分患者可能会出现短暂肿胀，</span><br><span class="line">具体情况存在个体差异。</span><br></pre></td></tr></table></figure>
+<p>这里必须区分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">医学事实</span><br><span class="line">Knowledge</span><br></pre></td></tr></table></figure>
+<p>和：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对患者的话术</span><br><span class="line">Communication Template</span><br></pre></td></tr></table></figure>
+<p>两者不能混在一起。</p>
+<h2 id="Agent-7：Risk-Agent"><a href="#Agent-7：Risk-Agent" class="headerlink" title="Agent 7：Risk Agent"></a>Agent 7：Risk Agent</h2><p>是：</p>
+<blockquote>
+<p>LLM + Rule Engine 双引擎。</p>
+</blockquote>
+<p>它负责识别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">高风险回答</span><br><span class="line">禁止承诺</span><br><span class="line">可能误导</span><br><span class="line">需要医生判断</span><br><span class="line">可能涉及诊断</span><br><span class="line">可能涉及治疗方案</span><br><span class="line">可能涉及药物剂量</span><br><span class="line">可能涉及紧急情况</span><br></pre></td></tr></table></figure>
+<p>例如 Agent生成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“这种情况不用去医院。”</span><br></pre></td></tr></table></figure>
+<p>Risk Agent 应该直接标记：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RISK_HIGH</span><br></pre></td></tr></table></figure>
+<p>并阻止进入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Approved Guide Knowledge</span><br></pre></td></tr></table></figure>
+<p>Rule Engine</p>
+<p>例如：</p>
+<p>HIGH_RISK_RULES = [<br>    “diagnosis”,<br>    “drug_dosage”,<br>    “treatment_change”,<br>    “emergency”,<br>    “absolute_guarantee”<br>]</p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">如果回答：</span><br><span class="line"></span><br><span class="line">“你肯定没事”</span><br><span class="line">→ HIGH</span><br><span class="line"></span><br><span class="line">“你一定是XXX”</span><br><span class="line">→ HIGH</span><br><span class="line"></span><br><span class="line">“药物可以增加到……”</span><br><span class="line">→ HIGH</span><br><span class="line"></span><br><span class="line">“可以停药”</span><br><span class="line">→ HIGH</span><br></pre></td></tr></table></figure>
+<p>这里不要依赖 LLM 判断。</p>
+<h3 id="Risk-Agent-输出"><a href="#Risk-Agent-输出" class="headerlink" title="Risk Agent 输出"></a>Risk Agent 输出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;risk_level&quot;: &quot;HIGH&quot;,</span><br><span class="line">  &quot;risk_types&quot;: [</span><br><span class="line">    &quot;diagnosis&quot;,</span><br><span class="line">    &quot;treatment_advice&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;reason&quot;: &quot;...&quot;,</span><br><span class="line">  &quot;action&quot;: &quot;DOCTOR_REVIEW&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Agent-8：Evidence-Agent"><a href="#Agent-8：Evidence-Agent" class="headerlink" title="Agent 8：Evidence Agent"></a>Agent 8：Evidence Agent</h2><p>负责回答：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“这句话到底是从哪里来的？”</span><br></pre></td></tr></table></figure>
+<p>是：</p>
+<blockquote>
+<p>Evidence Retrieval Service + Agent。</p>
+</blockquote>
+<p>负责建立：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Knowledge</span><br><span class="line"> ↓</span><br><span class="line">Evidence</span><br><span class="line"> ↓</span><br><span class="line">Original Conversation</span><br><span class="line"> ↓</span><br><span class="line">Audio Timestamp</span><br></pre></td></tr></table></figure>
+<p>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;knowledge_id&quot;: &quot;K001&quot;,</span><br><span class="line">  &quot;evidence&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;conversation_id&quot;: &quot;C001&quot;,</span><br><span class="line">      &quot;segment_id&quot;: &quot;S102&quot;,</span><br><span class="line">      &quot;start&quot;: 321.2,</span><br><span class="line">      &quot;end&quot;: 338.4,</span><br><span class="line">      &quot;text&quot;: &quot;……&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>医生审核时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AI知识</span><br><span class="line">  ↓</span><br><span class="line">查看原文</span><br><span class="line">  ↓</span><br><span class="line">播放原音频</span><br></pre></td></tr></table></figure>
+<p>这样系统的可解释性会非常强。</p>
+<p>最终形成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Knowledge</span><br><span class="line">   │</span><br><span class="line">   ├── Source Conversation</span><br><span class="line">   ├── Audio Timestamp</span><br><span class="line">   ├── Original Text</span><br><span class="line">   ├── Doctor</span><br><span class="line">   └── Created Time</span><br></pre></td></tr></table></figure>
+<p>这样整个知识库是可追溯的。</p>
+<h2 id="Agent-9：Conflict-Agent"><a href="#Agent-9：Conflict-Agent" class="headerlink" title="Agent 9：Conflict Agent"></a>Agent 9：Conflict Agent</h2><p>解决：</p>
+<blockquote>
+<p>不同时间、不同医生、不同患者情况下的知识冲突。</p>
+</blockquote>
+<p>这个非常重要。</p>
+<p>假设：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">医生3月份说：</span><br><span class="line"></span><br><span class="line">“一般建议治疗后休息3天。”</span><br><span class="line"></span><br><span class="line">医生8月份又说：</span><br><span class="line"></span><br><span class="line">“现在一般休息1天就可以。”</span><br></pre></td></tr></table></figure>
+<p>不能自动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE OLD</span><br></pre></td></tr></table></figure>
+<p>而应该：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Knowledge Conflict</span><br><span class="line">        ↓</span><br><span class="line">Doctor Review</span><br></pre></td></tr></table></figure>
+<p>应该产生：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Knowledge Conflict</span><br><span class="line"></span><br><span class="line">旧版本：</span><br><span class="line">休息3天</span><br><span class="line"></span><br><span class="line">新版本：</span><br><span class="line">休息1天</span><br><span class="line"></span><br><span class="line">来源：</span><br><span class="line">2026-03</span><br><span class="line">2026-08</span><br><span class="line"></span><br><span class="line">状态：</span><br><span class="line">REQUIRES_REVIEW</span><br></pre></td></tr></table></figure>
+<p>然后交给医生确认。</p>
+<h3 id="Pipeline："><a href="#Pipeline：" class="headerlink" title="Pipeline："></a>Pipeline：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">New Fact</span><br><span class="line"> ↓</span><br><span class="line">Vector Search Existing Facts</span><br><span class="line"> ↓</span><br><span class="line">Same Entity?</span><br><span class="line"> ↓</span><br><span class="line">Same Predicate?</span><br><span class="line"> ↓</span><br><span class="line">Conflict Detection</span><br><span class="line"> ↓</span><br><span class="line">LLM Reasoning</span><br><span class="line"> ↓</span><br><span class="line">Conflict Record</span><br></pre></td></tr></table></figure>
+<h3 id="判断模型"><a href="#判断模型" class="headerlink" title="判断模型"></a>判断模型</h3><p>可以把知识关系定义成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SUPPORT</span><br><span class="line">CONTRADICT</span><br><span class="line">REFINE</span><br><span class="line">DUPLICATE</span><br><span class="line">CONTEXT_DIFFERENT</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Fact A：</span><br><span class="line">通常需要休息3天</span><br><span class="line"></span><br><span class="line">Fact B：</span><br><span class="line">某类患者通常休息1天</span><br></pre></td></tr></table></figure>
+<p>不是 Conflict。</p>
+<p>而是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Fact B</span><br><span class="line">  └── REFINE</span><br><span class="line">       └── Fact A</span><br></pre></td></tr></table></figure>
+<p>所以这里不能简单字符串比较。</p>
+<h2 id="Agent-10：Knowledge-Synthesis-Agent"><a href="#Agent-10：Knowledge-Synthesis-Agent" class="headerlink" title="Agent 10：Knowledge Synthesis Agent"></a>Agent 10：Knowledge Synthesis Agent</h2><p>负责把前面所有结果组合成最终知识卡片，是：</p>
+<blockquote>
+<p>组装知识</p>
+</blockquote>
+<p>输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">FAQ</span><br><span class="line">+</span><br><span class="line">Facts</span><br><span class="line">+</span><br><span class="line">Answer</span><br><span class="line">+</span><br><span class="line">Risk</span><br><span class="line">+</span><br><span class="line">Evidence</span><br><span class="line">+</span><br><span class="line">Conflict</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Knowledge Card</span><br></pre></td></tr></table></figure>
+<h3 id="Knowledge-Card"><a href="#Knowledge-Card" class="headerlink" title="Knowledge Card"></a>Knowledge Card</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;knowledge_id&quot;: &quot;K001&quot;,</span><br><span class="line"></span><br><span class="line">  &quot;question&quot;: &quot;治疗后多久可以恢复？&quot;,</span><br><span class="line"></span><br><span class="line">  &quot;topic&quot;: &quot;治疗&#x2F;恢复&quot;,</span><br><span class="line"></span><br><span class="line">  &quot;answer&quot;: &quot;...&quot;,</span><br><span class="line"></span><br><span class="line">  &quot;facts&quot;: [</span><br><span class="line">    &quot;...&quot;</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  &quot;scope&quot;: &quot;...&quot;,</span><br><span class="line"></span><br><span class="line">  &quot;warnings&quot;: [</span><br><span class="line">    &quot;...&quot;</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  &quot;doctor_required&quot;: false,</span><br><span class="line"></span><br><span class="line">  &quot;risk_level&quot;: &quot;LOW&quot;,</span><br><span class="line"></span><br><span class="line">  &quot;evidence&quot;: [</span><br><span class="line">    &quot;C001:S102&quot;</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  &quot;version&quot;: 3,</span><br><span class="line"></span><br><span class="line">  &quot;status&quot;: &quot;PENDING_REVIEW&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Agent-11：Manual-Generation-Agent"><a href="#Agent-11：Manual-Generation-Agent" class="headerlink" title="Agent 11：Manual Generation Agent"></a>Agent 11：Manual Generation Agent</h2><p>不是直接读取原始对话，而是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Approved Knowledge</span><br><span class="line">        ↓</span><br><span class="line">Knowledge Grouping</span><br><span class="line">        ↓</span><br><span class="line">Chapter Planning</span><br><span class="line">        ↓</span><br><span class="line">Section Generation</span><br><span class="line">        ↓</span><br><span class="line">Consistency Check</span><br><span class="line">        ↓</span><br><span class="line">Manual</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">第一章 常见问题</span><br><span class="line"></span><br><span class="line">1. 治疗前</span><br><span class="line">2. 治疗中</span><br><span class="line">3. 治疗后</span><br><span class="line"></span><br><span class="line">第二章 高频问题</span><br><span class="line"></span><br><span class="line">2.1 疼痛</span><br><span class="line">2.2 恢复</span><br><span class="line">2.3 饮食</span><br><span class="line">2.4 活动</span><br><span class="line"></span><br><span class="line">第三章 特殊情况</span><br><span class="line"></span><br><span class="line">3.1 出现异常症状</span><br><span class="line">3.2 患者要求修改治疗方案</span><br><span class="line">3.3 患者询问药物</span><br></pre></td></tr></table></figure>
+<h2 id="Agent-12：Guide-Copilot-Agent"><a href="#Agent-12：Guide-Copilot-Agent" class="headerlink" title="Agent 12：Guide Copilot Agent"></a>Agent 12：Guide Copilot Agent</h2><p>最终真正给医导使用的 Agent。</p>
+<p>医导输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“患者问做完治疗之后能不能马上运动？”</span><br></pre></td></tr></table></figure>
+<p>Agent：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">     User Question</span><br><span class="line">           ↓</span><br><span class="line">   Input Guardrail</span><br><span class="line">           ↓</span><br><span class="line">   Intent Agent</span><br><span class="line">           ↓</span><br><span class="line">    Query Rewrite</span><br><span class="line">           ↓</span><br><span class="line"> Knowledge Retrieval</span><br><span class="line">           ↓</span><br><span class="line">    Reranker</span><br><span class="line">           ↓</span><br><span class="line">Approved Knowledge</span><br><span class="line">           ↓</span><br><span class="line">   Risk Detection</span><br><span class="line">           ↓</span><br><span class="line">  Answer Generation</span><br><span class="line">           ↓</span><br><span class="line">   Output Guardrail</span><br><span class="line">           ↓</span><br><span class="line">     Guide Answer</span><br></pre></td></tr></table></figure>
+<p>返回：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">建议回答：</span><br><span class="line"></span><br><span class="line">“具体恢复时间需要结合您的实际情况判断。</span><br><span class="line">如果是刚完成治疗，建议先按照医生给出的恢复要求进行。</span><br><span class="line">如果您告诉我具体进行了哪种治疗，我可以帮您查询对应的注意事项。”</span><br><span class="line"></span><br><span class="line">⚠️ 医导注意：</span><br><span class="line">不要自行判断患者是否可以运动。</span><br></pre></td></tr></table></figure>
+<p>这比让医导直接问 ChatGPT 安全很多。</p>
+<h3 id="核心原则"><a href="#核心原则" class="headerlink" title="核心原则"></a>核心原则</h3><p>必须：</p>
+<blockquote>
+<p>Approved Knowledge Only</p>
+</blockquote>
+<p>即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">documents &#x3D; vector_db.search(query)</span><br><span class="line"></span><br><span class="line">documents &#x3D; [</span><br><span class="line">    x for x in documents</span><br><span class="line">    if x.status &#x3D;&#x3D; &quot;APPROVED&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>如果找不到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">没有经过医生审核的相关知识，</span><br><span class="line">请将该问题转交医生。</span><br></pre></td></tr></table></figure>
+<p>而不是让 LLM 自己发挥。</p>
+<h1 id="Agent-Flow-设计"><a href="#Agent-Flow-设计" class="headerlink" title="Agent Flow 设计"></a>Agent Flow 设计</h1><p>两个核心 Flow + 一个审核 Flow</p>
+<h2 id="Flow-A：医生对话-→-知识"><a href="#Flow-A：医生对话-→-知识" class="headerlink" title="Flow A：医生对话 → 知识"></a>Flow A：医生对话 → 知识</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">             ┌──────────────┐</span><br><span class="line">             │   Audio      │</span><br><span class="line">             └──────┬───────┘</span><br><span class="line">                    ↓</span><br><span class="line">             ┌──────────────┐</span><br><span class="line">             │   ASR Agent  │</span><br><span class="line">             └──────┬───────┘</span><br><span class="line">                    ↓</span><br><span class="line">         ┌────────────────────┐</span><br><span class="line">         │ Conversation Agent │</span><br><span class="line">         └─────────┬──────────┘</span><br><span class="line">                   ↓</span><br><span class="line">         ┌────────────────────┐</span><br><span class="line">         │    Topic Agent     │</span><br><span class="line">         └─────────┬──────────┘</span><br><span class="line">                   ↓</span><br><span class="line">      ┌────────────┴─────────────┐</span><br><span class="line">      ↓                          ↓</span><br><span class="line">┌───────────┐              ┌─────────────┐</span><br><span class="line">│ FAQ Agent │              │ Fact Agent  │</span><br><span class="line">└─────┬─────┘              └──────┬──────┘</span><br><span class="line">      │                           │</span><br><span class="line">      └────────────┬──────────────┘</span><br><span class="line">                   ↓</span><br><span class="line">           ┌──────────────┐</span><br><span class="line">           │ Answer Agent │</span><br><span class="line">           └──────┬───────┘</span><br><span class="line">                  ↓</span><br><span class="line">           ┌──────────────┐</span><br><span class="line">           │  Risk Agent  │</span><br><span class="line">           └──────┬───────┘</span><br><span class="line">                  ↓</span><br><span class="line">         ┌─────────────────┐</span><br><span class="line">         │ Evidence Agent  │</span><br><span class="line">         └────────┬────────┘</span><br><span class="line">                  ↓</span><br><span class="line">         ┌─────────────────┐</span><br><span class="line">         │ Conflict Agent  │</span><br><span class="line">         └────────┬────────┘</span><br><span class="line">                  ↓</span><br><span class="line">       ┌─────────────────────┐</span><br><span class="line">       │ Knowledge Synthesis │</span><br><span class="line">       └──────────┬──────────┘</span><br><span class="line">                  ↓</span><br><span class="line">            Doctor Review</span><br></pre></td></tr></table></figure>
+<h2 id="Flow-B：医生审核"><a href="#Flow-B：医生审核" class="headerlink" title="Flow B：医生审核"></a>Flow B：医生审核</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">AI生成知识</span><br><span class="line">     ↓</span><br><span class="line">风险检查</span><br><span class="line">     ↓</span><br><span class="line">医生审核</span><br><span class="line">     │</span><br><span class="line">     ├── Reject</span><br><span class="line">     │</span><br><span class="line">     ├── Modify</span><br><span class="line">     │</span><br><span class="line">     └── Approve</span><br><span class="line">             ↓</span><br><span class="line">       Knowledge Version</span><br><span class="line">             ↓</span><br><span class="line">       Published KB</span><br></pre></td></tr></table></figure>
+<p>医生看到的不是一大篇文章。</p>
+<p>而是：</p>
+<p>FAQ</p>
+<p>患者问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">做完治疗多久可以恢复？</span><br></pre></td></tr></table></figure>
+<p>AI提炼答案</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般情况下……</span><br></pre></td></tr></table></figure>
+<p>原始医生回答</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">……</span><br></pre></td></tr></table></figure>
+<p>来源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对话 #1023</span><br><span class="line">12:31–13:02</span><br></pre></td></tr></table></figure>
+<p>AI风险</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">中风险：涉及恢复周期</span><br></pre></td></tr></table></figure>
+<p>医生操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[通过]</span><br><span class="line"></span><br><span class="line">[修改]</span><br><span class="line"></span><br><span class="line">[拒绝]</span><br><span class="line"></span><br><span class="line">[查看原音频]</span><br></pre></td></tr></table></figure>
+<p>这样医生审核效率会非常高。</p>
+<h2 id="Flow-C：医导实际使用"><a href="#Flow-C：医导实际使用" class="headerlink" title="Flow C：医导实际使用"></a>Flow C：医导实际使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">患者问题</span><br><span class="line">     ↓</span><br><span class="line">Guide Copilot</span><br><span class="line">     ↓</span><br><span class="line">Intent Agent</span><br><span class="line">     ↓</span><br><span class="line">Query Rewrite</span><br><span class="line">     ↓</span><br><span class="line">RAG Retrieval</span><br><span class="line">     ↓</span><br><span class="line">Knowledge Filter</span><br><span class="line">     ↓</span><br><span class="line">Evidence Check</span><br><span class="line">     ↓</span><br><span class="line">Risk Agent</span><br><span class="line">     ↓</span><br><span class="line">Answer Agent</span><br><span class="line">     ↓</span><br><span class="line">医导答案</span><br></pre></td></tr></table></figure>
+<p>特别重要的一点：</p>
+<blockquote>
+<p>只能从 Approved Knowledge 中回答。</p>
+</blockquote>
+<p>而不是：</p>
+<blockquote>
+<p>Internet + LLM</p>
+</blockquote>
+<p>否则医导系统会变成一个不可控的医疗聊天机器人。</p>
+<h1 id="知识库设计"><a href="#知识库设计" class="headerlink" title="知识库设计"></a>知识库设计</h1><p>建立结构化 Knowledge Model。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Knowledge</span><br><span class="line">│</span><br><span class="line">├── FAQ</span><br><span class="line">│</span><br><span class="line">├── MedicalFact</span><br><span class="line">│</span><br><span class="line">├── AnswerTemplate</span><br><span class="line">│</span><br><span class="line">├── RiskRule</span><br><span class="line">│</span><br><span class="line">├── Entity</span><br><span class="line">│</span><br><span class="line">├── Evidence</span><br><span class="line">│</span><br><span class="line">├── Conversation</span><br><span class="line">│</span><br><span class="line">└── KnowledgeVersion</span><br></pre></td></tr></table></figure>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;id&quot;: &quot;FAQ001&quot;,</span><br><span class="line">  &quot;question&quot;: &quot;治疗后多久可以恢复？&quot;,</span><br><span class="line">  &quot;variants&quot;: [</span><br><span class="line">    &quot;多久能恢复？&quot;,</span><br><span class="line">    &quot;治疗后多久正常？&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;topic&quot;: &quot;恢复&quot;,</span><br><span class="line">  &quot;status&quot;: &quot;approved&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="AnswerTemplate"><a href="#AnswerTemplate" class="headerlink" title="AnswerTemplate"></a>AnswerTemplate</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;faq_id&quot;: &quot;FAQ001&quot;,</span><br><span class="line">  &quot;answer&quot;: &quot;...&quot;,</span><br><span class="line">  &quot;scope&quot;: &quot;...&quot;,</span><br><span class="line">  &quot;warning&quot;: &quot;...&quot;,</span><br><span class="line">  &quot;status&quot;: &quot;approved&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Evidence"><a href="#Evidence" class="headerlink" title="Evidence"></a>Evidence</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;knowledge_id&quot;: &quot;K001&quot;,</span><br><span class="line">  &quot;conversation_id&quot;: &quot;C102&quot;,</span><br><span class="line">  &quot;audio_start&quot;: 321.2,</span><br><span class="line">  &quot;audio_end&quot;: 338.7,</span><br><span class="line">  &quot;speaker&quot;: &quot;doctor&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="知识状态机"><a href="#知识状态机" class="headerlink" title="知识状态机"></a>知识状态机</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">EXTRACTED</span><br><span class="line">    ↓</span><br><span class="line">STRUCTURED</span><br><span class="line">    ↓</span><br><span class="line">RISK_CHECKED</span><br><span class="line">    ↓</span><br><span class="line">PENDING_REVIEW</span><br><span class="line">    │</span><br><span class="line">    ├─────────────┐</span><br><span class="line">    ↓             ↓</span><br><span class="line">REJECTED      MODIFIED</span><br><span class="line">                  ↓</span><br><span class="line">              APPROVED</span><br><span class="line">                  ↓</span><br><span class="line">              PUBLISHED</span><br><span class="line">                  ↓</span><br><span class="line">              DEPRECATED</span><br></pre></td></tr></table></figure>
+<p>这样就不会出现：</p>
+<blockquote>
+<p>AI今天生成了一句话，明天医导就拿去给患者用了。</p>
+</blockquote>
+<h1 id="知识生命周期"><a href="#知识生命周期" class="headerlink" title="知识生命周期"></a>知识生命周期</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">医生对话</span><br><span class="line">   ↓</span><br><span class="line">知识发现</span><br><span class="line">   ↓</span><br><span class="line">知识抽取</span><br><span class="line">   ↓</span><br><span class="line">知识验证</span><br><span class="line">   ↓</span><br><span class="line">医生审核</span><br><span class="line">   ↓</span><br><span class="line">知识发布</span><br><span class="line">   ↓</span><br><span class="line">医导使用</span><br><span class="line">   ↓</span><br><span class="line">患者反馈</span><br><span class="line">   ↓</span><br><span class="line">低置信度问题</span><br><span class="line">   ↓</span><br><span class="line">重新进入知识生产</span><br></pre></td></tr></table></figure>
+
+<h1 id="知识自动发现"><a href="#知识自动发现" class="headerlink" title="知识自动发现"></a>知识自动发现</h1><p>系统发现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">过去一个月：</span><br><span class="line"></span><br><span class="line">患者问题：</span><br><span class="line">“治疗后疼不疼？”</span><br><span class="line"></span><br><span class="line">出现 132 次</span><br></pre></td></tr></table></figure>
+<p>但是知识库只有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“治疗后恢复时间”</span><br></pre></td></tr></table></figure>
+<p>系统自动产生：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Knowledge Gap</span><br><span class="line"></span><br><span class="line">Topic:</span><br><span class="line">治疗体验</span><br><span class="line"></span><br><span class="line">Candidate FAQ:</span><br><span class="line">治疗过程中会不会疼？</span><br><span class="line"></span><br><span class="line">Frequency:</span><br><span class="line">132</span><br><span class="line"></span><br><span class="line">Priority:</span><br><span class="line">High</span><br><span class="line"></span><br><span class="line">Evidence:</span><br><span class="line">37段医生对话</span><br></pre></td></tr></table></figure>
+<p>然后通知医生：</p>
+<blockquote>
+<p>发现一个高频但当前知识库缺失的问题，是否生成标准答案？</p>
+</blockquote>
+<p>医生使用AI自动生成草稿。</p>
+<h1 id="医生个人知识画像"><a href="#医生个人知识画像" class="headerlink" title="医生个人知识画像"></a>医生个人知识画像</h1><p>随着时间积累：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">医生</span><br><span class="line"> │</span><br><span class="line"> ├── 高频问题</span><br><span class="line"> ├── 常用解释方式</span><br><span class="line"> ├── 专业术语</span><br><span class="line"> ├── 常见患者群体</span><br><span class="line"> ├── 常见风险</span><br><span class="line"> ├── 典型回答</span><br><span class="line"> └── 未覆盖问题</span><br></pre></td></tr></table></figure>
+<p>变成：<strong>医生个人知识资产数字化系统</strong></p>
+<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>为了未来可以扩展，使用Kafka作为中间件，而不用重构整个系统。</p>
+<h2 id="Model-Gateway"><a href="#Model-Gateway" class="headerlink" title="Model Gateway"></a>Model Gateway</h2><p>不是所有任务都调用最大的模型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">               LLM Gateway</span><br><span class="line">                    │</span><br><span class="line">     ┌──────────────┼──────────────┐</span><br><span class="line">     ↓              ↓              ↓</span><br><span class="line">  Qwen          GPT&#x2F;其他        小模型</span><br><span class="line">     │</span><br><span class="line">     ↓</span><br><span class="line">Agent Routing</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文本清洗</td>
+<td>小模型</td>
+</tr>
+<tr>
+<td>Topic分类</td>
+<td>小模型</td>
+</tr>
+<tr>
+<td>FAQ聚类</td>
+<td>Embedding + 小模型</td>
+</tr>
+<tr>
+<td>Fact Extraction</td>
+<td>强模型</td>
+</tr>
+<tr>
+<td>Answer Generation</td>
+<td>强模型</td>
+</tr>
+<tr>
+<td>Risk Detection</td>
+<td>强模型 + Rule</td>
+</tr>
+<tr>
+<td>手册生成</td>
+<td>强模型</td>
+</tr>
+<tr>
+<td>RAG回答</td>
+<td>强模型</td>
+</tr>
+</tbody></table>
+<h2 id="Rule-Engine"><a href="#Rule-Engine" class="headerlink" title="Rule Engine"></a>Rule Engine</h2><p>作为医疗类型的Agent，为了专业严谨性，需要有规则约束，禁止LLM随意回答。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LLM</span><br><span class="line"> +</span><br><span class="line">Medical Rule Engine</span><br><span class="line"> +</span><br><span class="line">Knowledge Permission</span><br><span class="line"> +</span><br><span class="line">Doctor Approval</span><br></pre></td></tr></table></figure>
+<p>形成四重约束</p>
+<p>比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">如果：</span><br><span class="line"></span><br><span class="line">涉及药物剂量</span><br><span class="line">OR</span><br><span class="line">涉及诊断</span><br><span class="line">OR</span><br><span class="line">涉及治疗方案修改</span><br><span class="line">OR</span><br><span class="line">涉及急症</span><br><span class="line">OR</span><br><span class="line">知识没有医生审核</span><br><span class="line"></span><br><span class="line">→ 禁止自动回答</span><br><span class="line">→ 转人工&#x2F;医生</span><br></pre></td></tr></table></figure>
+<h2 id="Agent-的安全护栏"><a href="#Agent-的安全护栏" class="headerlink" title="Agent 的安全护栏"></a>Agent 的安全护栏</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    User Query</span><br><span class="line">        ↓</span><br><span class="line">    Input Guardrail</span><br><span class="line">        ↓</span><br><span class="line">    Intent Detection</span><br><span class="line">        ↓</span><br><span class="line">    Knowledge RAG</span><br><span class="line">        ↓</span><br><span class="line">    Answer Agent</span><br><span class="line">        ↓</span><br><span class="line">    Risk Agent</span><br><span class="line">        ↓</span><br><span class="line">Output Guardrail</span><br><span class="line">        ↓</span><br><span class="line">    Final Answer</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<h3 id="Input-Guardrail"><a href="#Input-Guardrail" class="headerlink" title="Input Guardrail"></a>Input Guardrail</h3><p>识别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">普通咨询</span><br><span class="line">医疗咨询</span><br><span class="line">紧急情况</span><br><span class="line">诊断请求</span><br><span class="line">处方请求</span><br><span class="line">治疗调整</span><br></pre></td></tr></table></figure>
+<h3 id="Output-Guardrail"><a href="#Output-Guardrail" class="headerlink" title="Output Guardrail"></a>Output Guardrail</h3><p>检查：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">是否超出知识库</span><br><span class="line">是否出现幻觉</span><br><span class="line">是否给出未经批准建议</span><br><span class="line">是否存在绝对化承诺</span><br><span class="line">是否涉及诊断</span><br><span class="line">是否涉及药物调整</span><br></pre></td></tr></table></figure>
+<h1 id="产品端"><a href="#产品端" class="headerlink" title="产品端"></a>产品端</h1><p>分为三端：医生端、医导端和管理端</p>
+<h2 id="医生端"><a href="#医生端" class="headerlink" title="医生端"></a>医生端</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">录音</span><br><span class="line"> ↓</span><br><span class="line">知识发现</span><br><span class="line"> ↓</span><br><span class="line">审核</span><br><span class="line"> ↓</span><br><span class="line">修改</span><br><span class="line"> ↓</span><br><span class="line">发布</span><br></pre></td></tr></table></figure>
+<h2 id="医导端"><a href="#医导端" class="headerlink" title="医导端"></a>医导端</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">患者问题</span><br><span class="line"> ↓</span><br><span class="line">AI推荐回答</span><br><span class="line"> ↓</span><br><span class="line">标准话术</span><br><span class="line"> ↓</span><br><span class="line">注意事项</span><br><span class="line"> ↓</span><br><span class="line">需要医生介入？</span><br></pre></td></tr></table></figure>
+<h2 id="管理端"><a href="#管理端" class="headerlink" title="管理端"></a>管理端</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">知识库</span><br><span class="line">FAQ统计</span><br><span class="line">知识覆盖率</span><br><span class="line">知识版本</span><br><span class="line">审核记录</span><br><span class="line">风险记录</span><br><span class="line">Agent运行记录</span><br></pre></td></tr></table></figure>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2026年10月10日 16:11</p>
+<!--        <p>原始链接： <a class="post-url" href="/2026/10/03/%E3%80%90FDE%E3%80%91%E5%8C%BB%E7%96%97%E6%96%B9%E6%A1%88%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" title="【FDE】医疗方案系统设计">https://wisiw.github.io.git/2026/10/03/%E3%80%90FDE%E3%80%91%E5%8C%BB%E7%96%97%E6%96%B9%E6%A1%88%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2026/10/03/%E3%80%90FDE%E3%80%91%E5%8C%BB%E7%96%97%E6%96%B9%E6%A1%88%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/&title=《【FDE】医疗方案系统设计》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2026/10/03/%E3%80%90FDE%E3%80%91%E5%8C%BB%E7%96%97%E6%96%B9%E6%A1%88%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/&title=《【FDE】医疗方案系统设计》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2026/10/03/%E3%80%90FDE%E3%80%91%E5%8C%BB%E7%96%97%E6%96%B9%E6%A1%88%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【FDE】医疗方案系统设计》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2026/10/03/%E3%80%90FDE%E3%80%91%E5%8C%BB%E7%96%97%E6%96%B9%E6%A1%88%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2026/10/03/%E3%80%90FDE%E3%80%91%E5%8C%BB%E7%96%97%E6%96%B9%E6%A1%88%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEfElEQVR42u3aS24bMRAFwNz/0g6QVYA49nvdFCxKNSthLI84xQX79+tXfH38uf7+vLnTXl+v5N/P/34/+eaBCxMmTJgwPSVTssT2ZXLu/VYloO1zPvlfTJgwYcJ0OVP7uGS5yf1kJe0xPwspvlkJJkyYMGF6A6Y8jPh6iXk6eirlbtNgTJgwYcL0zkxJ0tsy5UlveycJWTBhwoQJ0zsw5Y+bfW7Di2SFm6LwA2vhmDBhwoTpyZg2bcjbPz98vgkTJkyYMP0o02xUdJZGfr24/DDO/3pqTBYTJkyYMN3L9IgW436EtKXJC9Z5whxVCDBhwoQJ09MztWMum5Ry1uDMi85tg7MoTGPChAkTpmuZNj85uz9rT+7HdDZbiAkTJkyYbmfajO/MSsOnirNtF/LANmPChAkTpguZ8q/uk+E27WzT2tn2R4EIJkyYMGG6lilPJvMG4SbhPFsCPrvNmDBhwoTpLqaz6eVsrKdtW85Kxu2GfdL1xYQJEyZMlzPNCPIjfNZczA/vTdjxTeqLCRMmTJiuZTqVlM4ak3nQsA9NipfPcTFhwoQJ09MznS2hPm7IZpZgz97lk6dhwoQJE6bLmTbtydnwzSw9/iivPGH+BgsTJkyYMF3ONFtcm0bmd/KEuR3TaSkxYcKECdNrMG0Kpu1rbwKL5PCeNVCHXU1MmDBhwvT0TJsjP3+BTXk3f1ob3NShBiZMmDBheiGmTWDRNiNPhTIPT9ExYcKECdO1TG1JdHPQ5u3PWdrclozrYSBMmDBhwnQh06zw2g7E5Ad2O36apOizgvKB2SVMmDBhwvSjTO2LtQtqt+HUkZ9zRM1RTJgwYcL0okynJlha1v1I0Kxs/d93wYQJEyZMlzN9/bh2AHQz3toSzJqsbTCBCRMmTJhej2l/hJ96WlJKbou59a9gwoQJE6ZrmZKvJmM6s7/OWqFJEj5Lv+sOMCZMmDBhenqmWZOvfe22fXh2KHYWsmDChAkTptdgSv4tKaq2L9k2PttVtRCYMGHChOlVmdqxzpypLaG2B/msaZq0S4fTQ5gwYcKE6SmZ8hGZ2chOfnhvQNtR1HYzMGHChAnTvUz7n2kP2rZMPEukk6Zm8UxMmDBhwnQt0ywBbluJ+xGcttC8Sd2LCAITJkyYMF3FlDQX2zJuEijkjcn98NCsjYoJEyZMmG5n2gzTbNqNBw7pH2rNYsKECROmW5hmrcG6XxonwDnQbASn3TZMmDBhwvRKTJtkso07TpWAT21eXQXHhAkTJkyXMM2AZqXYfTq9yelrCEyYMGHC9BJMH+WVJ5B5ors/th8RInyS+mLChAkTpguZ2jOx/ZnkPM1bj+0Y0A8P9GDChAkTpqdhyh/9iHChDQg2aXmb3mPChAkTpldi2o+55EuclXrzsGMW9XxTLMaECRMmTG/AlB/2+ThO25jM17YJaDBhwoQJ0zsz5XybRmMSCmyKvG3DFRMmTJgw3c40OybbNuesKPy45mjRmsWECRMmTNcyzQZ3NkHDfvx0M2zUtloxYcKECdO1TL8BydLTBEzADYcAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/FDE/" class="color4">FDE</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%9B%AE%E7%9A%84"><span class="post-toc-text">目的</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="post-toc-text">解决的问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6"><span class="post-toc-text">整体框架</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Agent%E4%BD%93%E7%B3%BB%E8%AE%BE%E8%AE%A1"><span class="post-toc-text">Agent体系设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Orchestrator-Agent"><span class="post-toc-text">Orchestrator Agent</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-Loop"><span class="post-toc-text">Agent Loop</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-%E9%80%9A%E4%BF%A1"><span class="post-toc-text">Agent 通信</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Prompt-%E5%B1%82%E7%BB%9F%E4%B8%80%E6%A8%A1%E6%9D%BF"><span class="post-toc-text">Prompt 层统一模板</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-Tool%E8%AE%BE%E8%AE%A1"><span class="post-toc-text">Agent Tool设计</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-1%EF%BC%9AASR-Agent"><span class="post-toc-text">Agent 1：ASR Agent</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%81%8C%E8%B4%A3"><span class="post-toc-text">职责</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pipeline"><span class="post-toc-text">Pipeline</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tool"><span class="post-toc-text">Tool</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-2%EF%BC%9AConversation-Cleaning-Agent"><span class="post-toc-text">Agent 2：Conversation Cleaning Agent</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-3%EF%BC%9ATopic-Agent"><span class="post-toc-text">Agent 3：Topic Agent</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Topic-Tree"><span class="post-toc-text">Topic Tree</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-4%EF%BC%9AFAQ-Agent"><span class="post-toc-text">Agent 4：FAQ Agent</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pipeline-1"><span class="post-toc-text">Pipeline</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FAQ-Schema"><span class="post-toc-text">FAQ Schema</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-5%EF%BC%9AMedical-Fact-Agent"><span class="post-toc-text">Agent 5：Medical Fact Agent</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Schema"><span class="post-toc-text">Schema</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%87%87%E7%94%A8%E2%80%9C%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8A%BD%E5%8F%96%E2%80%9D"><span class="post-toc-text">采用“两阶段抽取”</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-6%EF%BC%9AAnswer-Agent"><span class="post-toc-text">Agent 6：Answer Agent</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Prompt-%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%88%99"><span class="post-toc-text">Prompt 的核心原则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%87%87%E7%94%A8%E2%80%9C%E4%BA%8B%E5%AE%9E%E7%BA%A6%E6%9D%9F%E7%94%9F%E6%88%90%E2%80%9D"><span class="post-toc-text">采用“事实约束生成”</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-7%EF%BC%9ARisk-Agent"><span class="post-toc-text">Agent 7：Risk Agent</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%A7%84%E5%88%99"><span class="post-toc-text">规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Risk-Agent-%E8%BE%93%E5%87%BA"><span class="post-toc-text">Risk Agent 输出</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-8%EF%BC%9AEvidence-Agent"><span class="post-toc-text">Agent 8：Evidence Agent</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-9%EF%BC%9AConflict-Agent"><span class="post-toc-text">Agent 9：Conflict Agent</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pipeline%EF%BC%9A"><span class="post-toc-text">Pipeline：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A4%E6%96%AD%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">判断模型</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-10%EF%BC%9AKnowledge-Synthesis-Agent"><span class="post-toc-text">Agent 10：Knowledge Synthesis Agent</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Knowledge-Card"><span class="post-toc-text">Knowledge Card</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-11%EF%BC%9AManual-Generation-Agent"><span class="post-toc-text">Agent 11：Manual Generation Agent</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-12%EF%BC%9AGuide-Copilot-Agent"><span class="post-toc-text">Agent 12：Guide Copilot Agent</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%88%99"><span class="post-toc-text">核心原则</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Agent-Flow-%E8%AE%BE%E8%AE%A1"><span class="post-toc-text">Agent Flow 设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Flow-A%EF%BC%9A%E5%8C%BB%E7%94%9F%E5%AF%B9%E8%AF%9D-%E2%86%92-%E7%9F%A5%E8%AF%86"><span class="post-toc-text">Flow A：医生对话 → 知识</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Flow-B%EF%BC%9A%E5%8C%BB%E7%94%9F%E5%AE%A1%E6%A0%B8"><span class="post-toc-text">Flow B：医生审核</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Flow-C%EF%BC%9A%E5%8C%BB%E5%AF%BC%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8"><span class="post-toc-text">Flow C：医导实际使用</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%9F%A5%E8%AF%86%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="post-toc-text">知识库设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FAQ"><span class="post-toc-text">FAQ</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AnswerTemplate"><span class="post-toc-text">AnswerTemplate</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Evidence"><span class="post-toc-text">Evidence</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%9F%A5%E8%AF%86%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="post-toc-text">知识状态机</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%9F%A5%E8%AF%86%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="post-toc-text">知识生命周期</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%9F%A5%E8%AF%86%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0"><span class="post-toc-text">知识自动发现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8C%BB%E7%94%9F%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E7%94%BB%E5%83%8F"><span class="post-toc-text">医生个人知识画像</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="post-toc-text">注意点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kafka"><span class="post-toc-text">Kafka</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Model-Gateway"><span class="post-toc-text">Model Gateway</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Rule-Engine"><span class="post-toc-text">Rule Engine</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Agent-%E7%9A%84%E5%AE%89%E5%85%A8%E6%8A%A4%E6%A0%8F"><span class="post-toc-text">Agent 的安全护栏</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Input-Guardrail"><span class="post-toc-text">Input Guardrail</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Output-Guardrail"><span class="post-toc-text">Output Guardrail</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%A7%E5%93%81%E7%AB%AF"><span class="post-toc-text">产品端</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8C%BB%E7%94%9F%E7%AB%AF"><span class="post-toc-text">医生端</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8C%BB%E5%AF%BC%E7%AB%AF"><span class="post-toc-text">医导端</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%A1%E7%90%86%E7%AB%AF"><span class="post-toc-text">管理端</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2026/10/30/%E3%80%90Agent%E3%80%91OCR%20Agent%20%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          【Agent】OCR Agent 系统设计方案
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2026/09/30/%E3%80%90RAG%E3%80%91PDF%20OCR%E3%80%81%E5%A4%8D%E6%9D%82%E7%89%88%E9%9D%A2%E4%B8%8E%E8%A1%A8%E6%A0%BC%E8%AF%AD%E4%B9%89%E8%A7%A3%E6%9E%90%E6%96%B9%E6%A1%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">【RAG】PDF OCR、复杂版面与表格语义解析方案</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2026 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Agent/" style="font-size: 11.82px;">Agent</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 18.18px;">CSS</a> <a href="/tags/CSS%E7%BF%BB%E6%BB%9A/" style="font-size: 10px;">CSS翻滚</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10.91px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10.91px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/FDE/" style="font-size: 12.73px;">FDE</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 11.82px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19.09px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/LLM/" style="font-size: 13.64px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 10px;">LangChain</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 13.64px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/OCR/" style="font-size: 11.82px;">OCR</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenCV/" style="font-size: 12.73px;">OpenCV</a> <a href="/tags/PDF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">PDF解析</a> <a href="/tags/PPT/" style="font-size: 10px;">PPT</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.82px;">Python</a> <a href="/tags/RAG/" style="font-size: 16.36px;">RAG</a> <a href="/tags/React/" style="font-size: 11.82px;">React</a> <a href="/tags/SVG/" style="font-size: 10.91px;">SVG</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/SystemJS/" style="font-size: 10px;">SystemJS</a> <a href="/tags/TypeScript/" style="font-size: 11.82px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18.18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 13.64px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10.91px;">electron</a> <a href="/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/tags/event-stream/" style="font-size: 10px;">event-stream</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10.91px;">git</a> <a href="/tags/leetcode/" style="font-size: 12.73px;">leetcode</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 15.45px;">node</a> <a href="/tags/npm/" style="font-size: 17.27px;">npm</a> <a href="/tags/openCV/" style="font-size: 10.91px;">openCV</a> <a href="/tags/postcss/" style="font-size: 10px;">postcss</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 10.91px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webrtc/" style="font-size: 10px;">webrtc</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10.91px;">《深入React技术栈》</a> <a href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" style="font-size: 10px;">下载进度</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" style="font-size: 10px;">业务梳理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 10px;">二分法</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 10.91px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 14.55px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10.91px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 14.55px;">使用教程</a> <a href="/tags/%E5%85%89%E6%A0%87/" style="font-size: 10px;">光标</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E5%9D%97/" style="font-size: 12.73px;">分块</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 13.64px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 10.91px;">功能代码</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" style="font-size: 11.82px;">功能模块</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 10px;">历史</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 10.91px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%90%91%E9%87%8F/" style="font-size: 10.91px;">向量</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10.91px;">响应式</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 10px;">图像处理</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">图像识别</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 10px;">图片</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%A4%9A%E8%B7%B3%E9%97%AE%E9%A2%98%E8%AF%86%E5%88%AB/" style="font-size: 10px;">多跳问题识别</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大模型</a> <a href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10px;">姿势识别</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10.91px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 10.91px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%B9%B4%E8%A1%A8/" style="font-size: 10px;">年表</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 10.91px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">手势控制</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">手势识别</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" style="font-size: 10px;">数据流</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文本识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档版面识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档结构识别</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.82px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">样式功能</a> <a href="/tags/%E6%A3%80%E7%B4%A2/" style="font-size: 10.91px;">检索</a> <a href="/tags/%E6%A3%80%E7%B4%A2%E8%AF%81%E6%8D%AE/" style="font-size: 10px;">检索证据</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10.91px;">模块</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10.91px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" style="font-size: 10px;">模板生成器</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" style="font-size: 10px;">流式回复</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" style="font-size: 10px;">流式问答</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 13.64px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 14.55px;">源码解析</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" style="font-size: 10px;">滚动吸附</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 10.91px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%99%BD%E6%9D%BF/" style="font-size: 10px;">白板</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 10px;">知识库</a> <a href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" style="font-size: 10.91px;">研发手记</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 10.91px;">系统设计</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" style="font-size: 10px;">网页截图</a> <a href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" style="font-size: 10px;">聊天室</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%84%E4%BC%B0/" style="font-size: 10px;">评估</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.73px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%9E%E7%BA%BF/" style="font-size: 10px;">连线</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%82%E9%85%8D/" style="font-size: 10px;">适配</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%80%92%E5%BD%92%E6%A3%80%E7%B4%A2/" style="font-size: 10px;">递归检索</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">问答系统</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 16.36px;">面试题</a> <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" style="font-size: 10px;">音视频播放</a> <a href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">音量控制</a> <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">页面编辑器</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Agent/" style="font-size: 11.82px;">Agent</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 18.18px;">CSS</a> <a href="/tags/CSS%E7%BF%BB%E6%BB%9A/" style="font-size: 10px;">CSS翻滚</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10.91px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10.91px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/FDE/" style="font-size: 12.73px;">FDE</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 11.82px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19.09px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/LLM/" style="font-size: 13.64px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 10px;">LangChain</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 13.64px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/OCR/" style="font-size: 11.82px;">OCR</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenCV/" style="font-size: 12.73px;">OpenCV</a> <a href="/tags/PDF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">PDF解析</a> <a href="/tags/PPT/" style="font-size: 10px;">PPT</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.82px;">Python</a> <a href="/tags/RAG/" style="font-size: 16.36px;">RAG</a> <a href="/tags/React/" style="font-size: 11.82px;">React</a> <a href="/tags/SVG/" style="font-size: 10.91px;">SVG</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/SystemJS/" style="font-size: 10px;">SystemJS</a> <a href="/tags/TypeScript/" style="font-size: 11.82px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 18.18px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 13.64px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10.91px;">electron</a> <a href="/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/tags/event-stream/" style="font-size: 10px;">event-stream</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10.91px;">git</a> <a href="/tags/leetcode/" style="font-size: 12.73px;">leetcode</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 15.45px;">node</a> <a href="/tags/npm/" style="font-size: 17.27px;">npm</a> <a href="/tags/openCV/" style="font-size: 10.91px;">openCV</a> <a href="/tags/postcss/" style="font-size: 10px;">postcss</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 10.91px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webrtc/" style="font-size: 10px;">webrtc</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10.91px;">《深入React技术栈》</a> <a href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" style="font-size: 10px;">下载进度</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" style="font-size: 10px;">业务梳理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 10px;">二分法</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 10.91px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 14.55px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10.91px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 14.55px;">使用教程</a> <a href="/tags/%E5%85%89%E6%A0%87/" style="font-size: 10px;">光标</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E5%9D%97/" style="font-size: 12.73px;">分块</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 13.64px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 10.91px;">功能代码</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" style="font-size: 11.82px;">功能模块</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 10px;">历史</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 10.91px;">原理</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%90%91%E9%87%8F/" style="font-size: 10.91px;">向量</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10.91px;">响应式</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 10px;">图像处理</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">图像识别</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 10px;">图片</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%A4%9A%E8%B7%B3%E9%97%AE%E9%A2%98%E8%AF%86%E5%88%AB/" style="font-size: 10px;">多跳问题识别</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大模型</a> <a href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10px;">姿势识别</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10.91px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 10.91px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%B9%B4%E8%A1%A8/" style="font-size: 10px;">年表</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 10.91px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">手势控制</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10.91px;">手势识别</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" style="font-size: 10px;">数据流</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文本识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档版面识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档结构识别</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.82px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">样式功能</a> <a href="/tags/%E6%A3%80%E7%B4%A2/" style="font-size: 10.91px;">检索</a> <a href="/tags/%E6%A3%80%E7%B4%A2%E8%AF%81%E6%8D%AE/" style="font-size: 10px;">检索证据</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10.91px;">模块</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10.91px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" style="font-size: 10px;">模板生成器</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" style="font-size: 10px;">流式回复</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" style="font-size: 10px;">流式问答</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 13.64px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 14.55px;">源码解析</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" style="font-size: 10px;">滚动吸附</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 10.91px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%99%BD%E6%9D%BF/" style="font-size: 10px;">白板</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 10px;">知识库</a> <a href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" style="font-size: 10.91px;">研发手记</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 10.91px;">系统设计</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" style="font-size: 10px;">网页截图</a> <a href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" style="font-size: 10px;">聊天室</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%84%E4%BC%B0/" style="font-size: 10px;">评估</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.73px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%9E%E7%BA%BF/" style="font-size: 10px;">连线</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%82%E9%85%8D/" style="font-size: 10px;">适配</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%80%92%E5%BD%92%E6%A3%80%E7%B4%A2/" style="font-size: 10px;">递归检索</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">问答系统</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 16.36px;">面试题</a> <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" style="font-size: 10px;">音视频播放</a> <a href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">音量控制</a> <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">页面编辑器</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
