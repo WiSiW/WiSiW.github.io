@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【RAG】Milvus 向量数据库高写入读取解决方案 | 韦绍炜的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="wsw's Blog" />
+  
+  <meta name="description" content="Milvus 向量数据库高并发写入解决方案在 Milvus 向量数据库中，应对高并发读取（Read-Heavy），核心不是简单地增加 QueryNode 数量，而是从查询架构、数据分片、副本机制、缓存、索引优化、请求调度和资源隔离等多个层面进行优化。 如果你的业务场景是 RAG 知识库问答，例如多个用户同时发起向量检索，那么需要重点解决以下问题：  大量并发 Search 请求导致 QueryNo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【RAG】Milvus 向量数据库高写入读取解决方案">
+<meta property="og:url" content="https://wisiw.github.io.git/2026/11/10/%E3%80%90RAG%E3%80%91Milvus%20%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99%E5%85%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="韦绍炜的博客">
+<meta property="og:description" content="Milvus 向量数据库高并发写入解决方案在 Milvus 向量数据库中，应对高并发读取（Read-Heavy），核心不是简单地增加 QueryNode 数量，而是从查询架构、数据分片、副本机制、缓存、索引优化、请求调度和资源隔离等多个层面进行优化。 如果你的业务场景是 RAG 知识库问答，例如多个用户同时发起向量检索，那么需要重点解决以下问题：  大量并发 Search 请求导致 QueryNo">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-11-10T07:38:14.000Z">
+<meta property="article:modified_time" content="2026-11-17T08:47:39.538Z">
+<meta property="article:author" content="wsw">
+<meta property="article:tag" content="RAG">
+<meta property="article:tag" content="Milvus">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">wsw&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        wsw&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        人生路远,怎能不给自己找点乐子呢
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="http://blog.wswei.cn">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/WiSiW">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-【RAG】Milvus 向量数据库高并发写入解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      【RAG】Milvus 向量数据库高写入读取解决方案
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2026-11-10
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="Milvus-向量数据库高并发写入解决方案"><a href="#Milvus-向量数据库高并发写入解决方案" class="headerlink" title="Milvus 向量数据库高并发写入解决方案"></a>Milvus 向量数据库高并发写入解决方案</h1><p>在 Milvus 向量数据库中，应对<strong>高并发读取（Read-Heavy）</strong>，核心不是简单地增加 QueryNode 数量，而是从查询架构、数据分片、副本机制、缓存、索引优化、请求调度和资源隔离等多个层面进行优化。</p>
+<p>如果你的业务场景是 RAG 知识库问答，例如多个用户同时发起向量检索，那么需要重点解决以下问题：</p>
+<ol>
+<li>大量并发 Search 请求导致 QueryNode CPU、内存资源耗尽。</li>
+<li>向量检索耗时增加，P95、P99 延迟升高。</li>
+<li>多个用户查询相同知识库，重复计算造成资源浪费。</li>
+<li>大规模向量数据导致索引检索性能下降。</li>
+<li>高并发读取与数据写入相互影响。</li>
+<li>突发流量导致请求堆积，甚至出现超时和服务雪崩。</li>
+</ol>
+<h2 id="一、整体架构设计"><a href="#一、整体架构设计" class="headerlink" title="一、整体架构设计"></a>一、整体架构设计</h2><p>采用：<strong>接入层负载均衡 + 检索服务集群 + Milvus 多副本 + 多级缓存</strong>。</p>
+<p>整体请求链路：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">          用户请求</span><br><span class="line">             |</span><br><span class="line">             v</span><br><span class="line">       API Gateway</span><br><span class="line">             |</span><br><span class="line">   限流 &#x2F; 鉴权 &#x2F; 熔断</span><br><span class="line">             |</span><br><span class="line">             v</span><br><span class="line">       检索服务集群</span><br><span class="line">   +---------+---------+</span><br><span class="line">   |         |         |</span><br><span class="line">Search-1  Search-2  Search-3</span><br><span class="line">   |         |         |</span><br><span class="line">   +---------+---------+</span><br><span class="line">             |</span><br><span class="line">             v</span><br><span class="line">       Redis 缓存</span><br><span class="line">             |</span><br><span class="line">       Cache Miss</span><br><span class="line">             |</span><br><span class="line">             v</span><br><span class="line">       Milvus Proxy</span><br><span class="line">             |</span><br><span class="line">             v</span><br><span class="line">      Query Coordinator</span><br><span class="line">             |</span><br><span class="line">   +---------+---------+</span><br><span class="line">   |         |         |</span><br><span class="line">QueryNode QueryNode QueryNode</span><br><span class="line">   |         |         |</span><br><span class="line">   +---------+---------+</span><br><span class="line">             |</span><br><span class="line">        Segment数据</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：Milvus 内部已经有 Proxy、QueryCoord、QueryNode 等组件，应用层不应该绕过 Milvus 自己实现底层分片路由，而是通过 SDK 或 REST API 发起查询。</p>
+<h2 id="二、核心优化策略"><a href="#二、核心优化策略" class="headerlink" title="二、核心优化策略"></a>二、核心优化策略</h2><h3 id="2-1-增加-QueryNode-副本，提高并发读取能力"><a href="#2-1-增加-QueryNode-副本，提高并发读取能力" class="headerlink" title="2.1 增加 QueryNode 副本，提高并发读取能力"></a>2.1 增加 QueryNode 副本，提高并发读取能力</h3><p>优先级：最高</p>
+<p>这是 Milvus 应对高并发查询最重要的手段之一。</p>
+<p>Milvus 支持通过 Replica 机制，将 Collection 的数据副本分布到多个 QueryNode 上。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">           Milvus Proxy</span><br><span class="line">                |</span><br><span class="line">       Query Coordinator</span><br><span class="line">                |</span><br><span class="line">   +------------+------------+</span><br><span class="line">   |            |            |</span><br><span class="line">Replica-1    Replica-2    Replica-3</span><br><span class="line">   |            |            |</span><br><span class="line">QueryNode    QueryNode    QueryNode</span><br><span class="line">   |            |            |</span><br><span class="line">数据副本      数据副本      数据副本</span><br></pre></td></tr></table></figure>
+<p>当多个用户同时发起 Search 请求时，Milvus 可以将查询分发到不同的副本，利用更多计算资源处理请求。</p>
+<p><strong>具体实现：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymilvus <span class="keyword">import</span> Collection</span><br><span class="line"></span><br><span class="line">collection = Collection(<span class="string">&quot;knowledge_base&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 3 个副本</span></span><br><span class="line">collection.load(replica_number=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看副本信息</span></span><br><span class="line">replicas = collection.get_replicas()</span><br><span class="line"></span><br><span class="line">print(replicas)</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：</p>
+<ul>
+<li>增加副本会增加内存、CPU 和数据加载资源消耗。</li>
+<li>副本数不能超过集群可提供的合理资源容量。</li>
+<li>副本需要有足够的 QueryNode 资源承载。</li>
+<li>增加副本不意味着单次查询一定更快，主要改善并发吞吐量。</li>
+</ul>
+<p>生产环境可以从 2～3 个副本开始压测，根据 CPU、内存、P95 延迟和 QPS 决定是否继续扩展。</p>
+<h3 id="2-2-使用-Redis-缓存热点查询结果"><a href="#2-2-使用-Redis-缓存热点查询结果" class="headerlink" title="2.2 使用 Redis 缓存热点查询结果"></a>2.2 使用 Redis 缓存热点查询结果</h3><p>优先级：最高</p>
+<p>在 RAG 场景中，很多用户会查询相同或相似的问题。</p>
+<p>例如：</p>
+<ul>
+<li>什么是高血压？</li>
+<li>高血压有哪些症状？</li>
+<li>高血压患者需要注意什么？</li>
+</ul>
+<p>如果每次都执行 Milvus Search，会产生大量重复计算。</p>
+<p>因此可以在 Milvus 前面增加 Redis 缓存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">    用户 Query</span><br><span class="line">         |</span><br><span class="line">         v</span><br><span class="line">  Embedding Model</span><br><span class="line">         |</span><br><span class="line">         v</span><br><span class="line">   生成 Query Key</span><br><span class="line">         |</span><br><span class="line">         v</span><br><span class="line">     Redis</span><br><span class="line">     &#x2F;    \</span><br><span class="line">  Hit      Miss</span><br><span class="line">   |         |</span><br><span class="line">   v         v</span><br><span class="line">返回结果   Milvus Search</span><br><span class="line">             |</span><br><span class="line">             v</span><br><span class="line">         Redis缓存</span><br><span class="line">             |</span><br><span class="line">             v</span><br><span class="line">          返回结果</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pymilvus <span class="keyword">import</span> Collection</span><br><span class="line"></span><br><span class="line">redis_client = redis.Redis(</span><br><span class="line">    host=<span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">    port=<span class="number">6379</span>,</span><br><span class="line">    decode_responses=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">collection = Collection(<span class="string">&quot;knowledge_base&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_cache_key</span>(<span class="params">query_vector, top_k</span>):</span></span><br><span class="line">    vector_bytes = np.asarray(</span><br><span class="line">        query_vector, dtype=np.float32</span><br><span class="line">    ).tobytes()</span><br><span class="line"></span><br><span class="line">    vector_hash = hashlib.sha256(</span><br><span class="line">        vector_bytes</span><br><span class="line">    ).hexdigest()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;milvus:search:<span class="subst">&#123;vector_hash&#125;</span>:<span class="subst">&#123;top_k&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search_vectors</span>(<span class="params">query_vector, top_k=<span class="number">5</span></span>):</span></span><br><span class="line">    cache_key = generate_cache_key(</span><br><span class="line">        query_vector, top_k</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 1. 查询缓存</span></span><br><span class="line">    cached = redis_client.get(cache_key)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> cached:</span><br><span class="line">        <span class="keyword">return</span> json.loads(cached)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 缓存未命中，查询 Milvus</span></span><br><span class="line">    results = collection.search(</span><br><span class="line">        data=[query_vector],</span><br><span class="line">        anns_field=<span class="string">&quot;embedding&quot;</span>,</span><br><span class="line">        param=&#123;</span><br><span class="line">            <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>,</span><br><span class="line">            <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;nprobe&quot;</span>: <span class="number">16</span>&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        limit=top_k,</span><br><span class="line">        output_fields=[<span class="string">&quot;text&quot;</span>, <span class="string">&quot;document_id&quot;</span>]</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 结果转换</span></span><br><span class="line">    response = [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: hit.<span class="built_in">id</span>,</span><br><span class="line">            <span class="string">&quot;distance&quot;</span>: hit.distance,</span><br><span class="line">            <span class="string">&quot;text&quot;</span>: hit.entity.get(<span class="string">&quot;text&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> hit <span class="keyword">in</span> results[<span class="number">0</span>]</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. 写入 Redis，设置过期时间</span></span><br><span class="line">    redis_client.setex(</span><br><span class="line">        cache_key,</span><br><span class="line">        <span class="number">300</span>,</span><br><span class="line">        json.dumps(response, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+<p>生产环境还需要注意：</p>
+<ul>
+<li>Cache Key 应包含租户、知识库、权限范围、Embedding 模型版本、索引版本等信息。</li>
+<li>权限过滤条件必须参与缓存 Key，防止跨用户数据泄露。</li>
+<li>对缓存设置 TTL，避免知识库更新后返回旧数据。</li>
+<li>使用缓存击穿保护，避免热点 Key 过期时大量请求同时访问 Milvus。</li>
+</ul>
+<p><strong>注意</strong>：向量检索缓存应该优先考虑相同向量的精确命中。如果希望缓存语义相似但不完全相同的问题，需要额外设计近似查询缓存，不能直接把语义相似当作结果等价。</p>
+<h3 id="2-3-优化向量索引，降低单次查询计算成本"><a href="#2-3-优化向量索引，降低单次查询计算成本" class="headerlink" title="2.3 优化向量索引，降低单次查询计算成本"></a>2.3 优化向量索引，降低单次查询计算成本</h3><p>增加副本解决的是并发吞吐量问题，优化索引解决的是单次查询的计算成本问题。</p>
+<p>Milvus 常用索引：</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HNSW</td>
+<td>图结构近似搜索，查询速度快</td>
+<td>高性能 RAG 检索</td>
+</tr>
+<tr>
+<td>IVF_FLAT</td>
+<td>倒排聚类，搜索时只扫描部分聚类</td>
+<td>大规模向量检索</td>
+</tr>
+<tr>
+<td>IVF_PQ</td>
+<td>向量压缩，降低内存占用</td>
+<td>超大规模向量库</td>
+</tr>
+<tr>
+<td>FLAT</td>
+<td>暴力精确搜索</td>
+<td>数据量小、要求精确召回</td>
+</tr>
+<tr>
+<td>DISKANN</td>
+<td>利用磁盘存储索引</td>
+<td>数据规模超过内存容量</td>
+</tr>
+</tbody></table>
+<p>对于 RAG 场景，采用 HNSW 或 IVF_FLAT。</p>
+<p>以 HNSW 为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">index_params = &#123;</span><br><span class="line">    <span class="string">&quot;index_type&quot;</span>: <span class="string">&quot;HNSW&quot;</span>,</span><br><span class="line">    <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>,</span><br><span class="line">    <span class="string">&quot;params&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;M&quot;</span>: <span class="number">16</span>,</span><br><span class="line">        <span class="string">&quot;efConstruction&quot;</span>: <span class="number">200</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">collection.create_index(</span><br><span class="line">    field_name=<span class="string">&quot;embedding&quot;</span>,</span><br><span class="line">    index_params=index_params</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>查询时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">search_params = &#123;</span><br><span class="line">    <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>,</span><br><span class="line">    <span class="string">&quot;params&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;ef&quot;</span>: <span class="number">64</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">results = collection.search(</span><br><span class="line">    data=[query_vector],</span><br><span class="line">    anns_field=<span class="string">&quot;embedding&quot;</span>,</span><br><span class="line">    param=search_params,</span><br><span class="line">    limit=<span class="number">10</span>,</span><br><span class="line">    output_fields=[<span class="string">&quot;text&quot;</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>关键参数：</p>
+<ul>
+<li><code>M</code>：影响 HNSW 图的连接数量，越大通常召回能力越好，但内存消耗和构建成本也越高。</li>
+<li><code>efConstruction</code>：控制索引构建质量。</li>
+<li><code>ef</code>：控制查询时搜索范围，越大通常召回率越高，但查询耗时也会增加。</li>
+</ul>
+<p><strong>注意</strong>：索引参数不是越大越好，应结合召回率和 P99 延迟进行压测。</p>
+<h3 id="2-4-合理设置分片和-QueryNode-数量"><a href="#2-4-合理设置分片和-QueryNode-数量" class="headerlink" title="2.4 合理设置分片和 QueryNode 数量"></a>2.4 合理设置分片和 QueryNode 数量</h3><p>Milvus 中需要区分两个概念：</p>
+<ul>
+<li>Shard：数据分片，主要用于将数据分布到不同的计算节点。</li>
+<li>Replica：数据副本，主要用于提高并发读取能力和可用性。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Collection</span><br><span class="line">   |</span><br><span class="line">   +--- Shard 1</span><br><span class="line">   |       |</span><br><span class="line">   |       +--- Replica 1</span><br><span class="line">   |       +--- Replica 2</span><br><span class="line">   |</span><br><span class="line">   +--- Shard 2</span><br><span class="line">   |       |</span><br><span class="line">   |       +--- Replica 1</span><br><span class="line">   |       +--- Replica 2</span><br><span class="line">   |</span><br><span class="line">   +--- Shard 3</span><br><span class="line">           |</span><br><span class="line">           +--- Replica 1</span><br><span class="line">           +--- Replica 2</span><br></pre></td></tr></table></figure>
+<p>两者解决的问题不同：</p>
+<table>
+<thead>
+<tr>
+<th>优化方式</th>
+<th>主要目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>增加 Shard</td>
+<td>提高数据分布和并行处理能力</td>
+</tr>
+<tr>
+<td>增加 Replica</td>
+<td>提高读取吞吐量</td>
+</tr>
+<tr>
+<td>增加 QueryNode</td>
+<td>增加计算资源</td>
+</tr>
+<tr>
+<td>增加 CPU</td>
+<td>提高单节点计算能力</td>
+</tr>
+</tbody></table>
+<p>对于 RAG 知识库，如果数据量不是特别大，但是并发查询量非常高，优先考虑增加 Replica，而不是盲目增加 Shard。</p>
+<h3 id="2-5-优化查询参数和返回字段"><a href="#2-5-优化查询参数和返回字段" class="headerlink" title="2.5 优化查询参数和返回字段"></a>2.5 优化查询参数和返回字段</h3><p>高并发时，不能忽略单次查询的工作量。</p>
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">results = collection.search(</span><br><span class="line">    data=[query_vector],</span><br><span class="line">    anns_field=<span class="string">&quot;embedding&quot;</span>,</span><br><span class="line">    param=&#123;</span><br><span class="line">        <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>,</span><br><span class="line">        <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;ef&quot;</span>: <span class="number">64</span>&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    limit=<span class="number">10</span>,</span><br><span class="line">    expr=<span class="string">&#x27;tenant_id == 1001&#x27;</span>,</span><br><span class="line">    output_fields=[</span><br><span class="line">        <span class="string">&quot;document_id&quot;</span>,</span><br><span class="line">        <span class="string">&quot;text&quot;</span></span><br><span class="line">    ]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>重点优化：</p>
+<p><strong>第一，控制 TopK。</strong></p>
+<p>如果 RAG 只需要召回 10～20 个分块，就不要每次返回 100～500 条。</p>
+<p><strong>第二，减少返回字段。</strong></p>
+<p>向量检索阶段尽量只返回 ID、必要的元数据和少量文本，避免返回大量冗余字段。</p>
+<p><strong>第三，使用标量过滤。</strong></p>
+<p>例如按照：</p>
+<ul>
+<li>tenant_id</li>
+<li>knowledge_base_id</li>
+<li>document_type</li>
+<li>permission_level</li>
+</ul>
+<p>进行过滤。</p>
+<p>对经常用于过滤的字段建立合适的标量索引，减少无效数据扫描。</p>
+<p><strong>第四，控制批量查询大小。</strong></p>
+<p>不要将大量用户请求无限制地合并为一个超大的 <code>nq</code> 请求。批量查询可以提升吞吐量，但也可能导致单个任务占用过多资源，影响其他请求的尾延迟。</p>
+<h3 id="2-6-合理选择一致性级别"><a href="#2-6-合理选择一致性级别" class="headerlink" title="2.6 合理选择一致性级别"></a>2.6 合理选择一致性级别</h3><p>Milvus 支持四种一致性级别：</p>
+<table>
+<thead>
+<tr>
+<th>一致性</th>
+<th>特点</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Strong</td>
+<td>强一致，等待最新数据可见</td>
+<td>对实时性要求极高</td>
+</tr>
+<tr>
+<td>Bounded</td>
+<td>有界延迟，默认级别</td>
+<td>普通知识库检索</td>
+</tr>
+<tr>
+<td>Session</td>
+<td>保证当前会话写入可见</td>
+<td>用户上传后立即查询</td>
+</tr>
+<tr>
+<td>Eventually</td>
+<td>最终一致，允许一定延迟</td>
+<td>对数据新鲜度要求较低</td>
+</tr>
+</tbody></table>
+<p>在高并发读取场景下，如果业务不要求每次查询都读取最新数据，不建议全部使用 Strong。</p>
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">results = collection.search(</span><br><span class="line">    data=[query_vector],</span><br><span class="line">    anns_field=<span class="string">&quot;embedding&quot;</span>,</span><br><span class="line">    param=search_params,</span><br><span class="line">    limit=<span class="number">10</span>,</span><br><span class="line">    consistency_level=<span class="string">&quot;Bounded&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：一致性级别影响的是数据可见性和等待时间，不是简单的查询加速开关。</p>
+<h3 id="2-7-应用层限流、并发控制和连接池"><a href="#2-7-应用层限流、并发控制和连接池" class="headerlink" title="2.7 应用层限流、并发控制和连接池"></a>2.7 应用层限流、并发控制和连接池</h3><p>即使 Milvus 集群拥有充足的计算资源，也不能让应用层无限制地发起请求。</p>
+<p>在检索服务层增加：</p>
+<ul>
+<li>连接复用：避免每次查询都创建新连接。</li>
+<li>并发限制：控制同时执行的 Search 数量。</li>
+<li>超时控制：避免请求长期占用资源。</li>
+<li>熔断降级：Milvus 故障时快速失败。</li>
+<li>请求排队：对短时间突发流量进行缓冲。</li>
+<li>多租户限流：避免单个租户占满整个检索集群。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">from</span> pymilvus <span class="keyword">import</span> Collection</span><br><span class="line"></span><br><span class="line">collection = Collection(<span class="string">&quot;knowledge_base&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 限制同时执行的检索任务数量</span></span><br><span class="line">semaphore = asyncio.Semaphore(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">query_vector, top_k=<span class="number">10</span></span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> semaphore:</span><br><span class="line"></span><br><span class="line">        results = <span class="keyword">await</span> asyncio.wait_for(</span><br><span class="line">            asyncio.to_thread(</span><br><span class="line">                collection.search,</span><br><span class="line">                data=[query_vector],</span><br><span class="line">                anns_field=<span class="string">&quot;embedding&quot;</span>,</span><br><span class="line">                param=&#123;</span><br><span class="line">                    <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;ef&quot;</span>: <span class="number">64</span>&#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                limit=top_k,</span><br><span class="line">                output_fields=[<span class="string">&quot;text&quot;</span>]</span><br><span class="line">            ),</span><br><span class="line">            timeout=<span class="number">3</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> results</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>asyncio.to_thread</code> 是为了避免同步 Milvus SDK 阻塞事件循环，并不意味着 Milvus 查询本身变成了异步执行。</p>
+<p>生产环境还应该：</p>
+<ol>
+<li>统一管理 Milvus Client 或 Collection 连接，避免每个请求重复初始化。</li>
+<li>对线程池大小进行限制。</li>
+<li>为不同知识库或租户设置独立并发配额。</li>
+<li>超时后正确取消上层任务，并防止无限制积累后台工作线程。</li>
+<li>根据压测结果调整 Semaphore，而不是固定使用 100。</li>
+</ol>
+<h2 id="三、生产环境架构：读写分离与资源隔离"><a href="#三、生产环境架构：读写分离与资源隔离" class="headerlink" title="三、生产环境架构：读写分离与资源隔离"></a>三、生产环境架构：读写分离与资源隔离</h2><p>如果系统不仅有高并发读取，还有大量文档上传、向量化、写入，那么还需要考虑读写资源竞争。</p>
+<p>例如 RAG 系统：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">             API Gateway</span><br><span class="line">                  |</span><br><span class="line">           限流 &#x2F; 鉴权</span><br><span class="line">                  |</span><br><span class="line">          +-------+-------+</span><br><span class="line">          |               |</span><br><span class="line">       查询请求         写入请求</span><br><span class="line">          |               |</span><br><span class="line">          v               v</span><br><span class="line">      Search API       Ingestion API</span><br><span class="line">          |               |</span><br><span class="line">          v               v</span><br><span class="line">       Redis           Kafka</span><br><span class="line">          |               |</span><br><span class="line">      Cache Miss          v</span><br><span class="line">          |           Embedding</span><br><span class="line">          |               |</span><br><span class="line">          v               v</span><br><span class="line">      Milvus Proxy &lt;--- Insert</span><br><span class="line">          |</span><br><span class="line">          v</span><br><span class="line">    Query Coordinator</span><br><span class="line">          |</span><br><span class="line">   +------+------+</span><br><span class="line">   |             |</span><br><span class="line">QueryNode      QueryNode</span><br><span class="line">Replica 1      Replica 2</span><br><span class="line">   |             |</span><br><span class="line">   +------+------+</span><br><span class="line">          |</span><br><span class="line">       查询结果</span><br></pre></td></tr></table></figure>
+<p>实际生产部署中，采用 Milvus Distributed 模式，通过 Kubernetes 分别管理相关组件的资源。</p>
+<p>特别是：</p>
+<ul>
+<li>QueryNode：重点保障搜索 CPU、内存和磁盘 I/O。</li>
+<li>DataNode：避免索引构建、数据处理任务干扰查询。</li>
+<li>Streaming Node：保障实时数据写入与流式查询。</li>
+<li>Proxy：根据接入流量扩容。</li>
+</ul>
+<h2 id="四、监控-Milvus-的读取性能"><a href="#四、监控-Milvus-的读取性能" class="headerlink" title="四、监控 Milvus 的读取性能"></a>四、监控 Milvus 的读取性能</h2><p>接入 Prometheus + Grafana，重点关注以下指标。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>关注点</th>
+<th>异常表现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Search QPS</td>
+<td>每秒查询量</td>
+<td>吞吐量达到瓶颈</td>
+</tr>
+<tr>
+<td>Search P95</td>
+<td>95% 请求耗时</td>
+<td>用户体验下降</td>
+</tr>
+<tr>
+<td>Search P99</td>
+<td>99% 请求耗时</td>
+<td>长尾延迟严重</td>
+</tr>
+<tr>
+<td>QueryNode CPU</td>
+<td>CPU 使用率</td>
+<td>计算资源不足</td>
+</tr>
+<tr>
+<td>QueryNode Memory</td>
+<td>内存使用率</td>
+<td>内存压力过大</td>
+</tr>
+<tr>
+<td>Query Queue Latency</td>
+<td>请求排队耗时</td>
+<td>并发超过处理能力</td>
+</tr>
+<tr>
+<td>Search Error Rate</td>
+<td>检索失败率</td>
+<td>超时或资源不足</td>
+</tr>
+<tr>
+<td>Cache Hit Rate</td>
+<td>Redis 缓存命中率</td>
+<td>缓存策略需要优化</td>
+</tr>
+</tbody></table>
+<p>尤其需要关注：</p>
+<ul>
+<li><code>milvus_querynode_sq_queue_latency</code>：QueryNode 查询任务排队耗时。</li>
+<li><code>milvus_querynode_sq_core_latency</code>：查询核心执行耗时。</li>
+<li><code>milvus_querynode_sq_reduce_latency</code>：查询结果归并耗时。</li>
+<li><code>milvus_proxy_sq_latency</code>：Proxy 查询耗时。</li>
+</ul>
+<p>通过这些指标，可以判断问题究竟出现在请求排队、向量搜索还是结果归并阶段。</p>
+<h2 id="五、如何进行高并发压测？"><a href="#五、如何进行高并发压测？" class="headerlink" title="五、如何进行高并发压测？"></a>五、如何进行高并发压测？</h2><p>使用 Locust 或 JMeter 进行压测。</p>
+<p>压测时固定：</p>
+<ul>
+<li>向量数据规模。</li>
+<li>Embedding 模型。</li>
+<li>TopK。</li>
+<li>索引类型及参数。</li>
+<li>过滤条件。</li>
+<li>返回字段。</li>
+<li>一致性级别。</li>
+</ul>
+<p>逐步增加并发：</p>
+<table>
+<thead>
+<tr>
+<th>并发用户</th>
+<th>重点观察</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10</td>
+<td>基准性能</td>
+</tr>
+<tr>
+<td>50</td>
+<td>初步并发能力</td>
+</tr>
+<tr>
+<td>100</td>
+<td>CPU、内存变化</td>
+</tr>
+<tr>
+<td>200</td>
+<td>QPS 增长趋势</td>
+</tr>
+<tr>
+<td>500</td>
+<td>是否出现排队</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>是否出现性能拐点</td>
+</tr>
+</tbody></table>
+<p>这里的并发用户只是压测梯度，不代表 Milvus 的实际承载能力。</p>
+<p>最终重点看三个指标：</p>
+<ol>
+<li>QPS：吞吐量是否持续增长。</li>
+<li>P99：尾延迟是否突然上升。</li>
+<li>Error Rate：是否出现超时和失败。</li>
+</ol>
+<p>当并发继续增加，但 QPS 不再明显增长，同时 P99 快速上升时，通常就已经接近系统的饱和点。</p>
+<h2 id="六、最终生产环境优化方案"><a href="#六、最终生产环境优化方案" class="headerlink" title="六、最终生产环境优化方案"></a>六、最终生产环境优化方案</h2><p>RAG 知识库问答，按照下面的优先级实施：</p>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>优化手段</th>
+<th>解决问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P0</td>
+<td>Redis 热点缓存</td>
+<td>减少重复查询</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>QueryNode Replica</td>
+<td>提高并发吞吐</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>应用层限流和并发控制</td>
+<td>防止请求过载</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>HNSW / IVF 索引优化</td>
+<td>降低单次查询耗时</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>TopK、过滤条件优化</td>
+<td>减少无效计算</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>连接复用</td>
+<td>降低连接管理开销</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>监控及自动扩缩容</td>
+<td>提高系统稳定性</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>读写资源隔离</td>
+<td>避免写入影响读取</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>多租户资源隔离</td>
+<td>防止热点租户影响其他用户</td>
+</tr>
+</tbody></table>
+<p><strong>我认为最值得优先实施的是：</strong></p>
+<p><strong>Redis + Milvus Replica + 应用层并发控制</strong></p>
+<ol>
+<li>Redis 缓存热点查询，减少 Milvus 实际请求量。</li>
+<li>Milvus 配置多个 Replica，利用多个 QueryNode 分担读取请求。</li>
+<li>检索服务通过连接复用、Semaphore、超时控制限制并发。</li>
+<li>通过压测确定集群吞吐量上限，再根据 P99 和 CPU 使用率扩容。</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2026年11月17日 16:47</p>
+<!--        <p>原始链接： <a class="post-url" href="/2026/11/10/%E3%80%90RAG%E3%80%91Milvus%20%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99%E5%85%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="【RAG】Milvus 向量数据库高写入读取解决方案">https://wisiw.github.io.git/2026/11/10/%E3%80%90RAG%E3%80%91Milvus%20%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99%E5%85%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</a></p>-->
+        <footer>
+            <a href="https://WiSiW.github.io.git">
+                <img src="/images/logo.png" alt="wsw">
+                wsw
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://wisiw.github.io.git/2026/11/10/%E3%80%90RAG%E3%80%91Milvus%20%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99%E5%85%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/&title=《【RAG】Milvus 向量数据库高写入读取解决方案》 — 韦绍炜的博客&pic=https://WiSiW.github.io.gitimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wisiw.github.io.git/2026/11/10/%E3%80%90RAG%E3%80%91Milvus%20%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99%E5%85%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/&title=《【RAG】Milvus 向量数据库高写入读取解决方案》 — 韦绍炜的博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://wisiw.github.io.git/2026/11/10/%E3%80%90RAG%E3%80%91Milvus%20%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99%E5%85%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【RAG】Milvus 向量数据库高写入读取解决方案》 — 韦绍炜的博客&url=https://wisiw.github.io.git/2026/11/10/%E3%80%90RAG%E3%80%91Milvus%20%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99%E5%85%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/&via=https://WiSiW.github.io.git" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://wisiw.github.io.git/2026/11/10/%E3%80%90RAG%E3%80%91Milvus%20%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99%E5%85%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVYAAAFWCAAAAAAXxOpfAAAF6klEQVR42u3aUXIbOQwEUN//0tkDONJ2A1R56Dx9qRKLQz7OBwror6/48+ft5/tffv/+fZ33v3r/rPcrtOu839X3fz/2wYoVK1asWB/Aunl8fpj3fAlQDrE/6asd5q8XVqxYsWLFehfrq00k3xPc94d8//T8kMnVzq4ht8KKFStWrFh/N2tSauRr5pe3KZU2LxBWrFixYsWKdTZ4eF/6tFvPLym/8lN7w4oVK1asWG9nbR+fb2UG3TZTTpVKsyYOVqxYsWLFei/rrJT5N79/JN/qO1asWLFi/SHWTXsijzskxVYb42jjILPG0FAJK1asWLFivYQ1LyDy7SYNkdnK7a/yQEZ+bcV+sGLFihUr1sezzkqls7HLWcgyWaEt/vLrL6ZYWLFixYoV6+NZ21KpbUPMGiJnRyN5gKONeL4ssLBixYoVK9ZLWDdjhrbQmYUg88jj+z3Mhih1mwkrVqxYsWK9hDUfjeQHyEMYLfS+HTMLgsxaPFixYsWKFevzWdtCpw0vJnyzeEQbntjQ17/CihUrVqxYr2KdjTeShstsqNPy7Zk2w5uog4UVK1asWLE+krUtcdpYw77ASo6aF1KnhjRRoAQrVqxYsWJ9PGtuf6pFso965NeZF2ebl+kvp8OKFStWrFivZd08eH/ITWujjYPkBWW9DlasWLFixXoJ6yZO0T6sLdryq81jo7PhTbs+VqxYsWLFegtr2wppi5tZs6OIOHwgDrJvG2HFihUrVqy3sJ6lzIub9tizwcwnhitFuAQrVqxYsWJ9POupYEQ70mhLtFmcIkfJrza5KqxYsWLFivUW1rxsag8zK7nagU1eRbYNnQOrYcWKFStWrJeztk2KtnzJ2xybgOap1k9dDmLFihUrVqyXsCblRR5QyIObmzIugW5fhfYURdsFK1asWLFifSRrO3TJWxJtUGN2mHxI8xV/ZuOc1SwLK1asWLFifSTrjGAWYthDbAITRdWZnAUrVqxYsWK9hHUWuWiHELPLmxV5+eAkv9phkYcVK1asWLFewjornmbBiHYksxnkzPZ86gXCihUrVqxYb2GdBTGTEUUe5tiEQdt4RLKTmcNqjoQVK1asWLH+EGv7mT1g1rzIGyv5yCd/FTZ7wIoVK1asWG9hbUuTT5RQs4ZIsrdNhHQzBMKKFStWrFjvYj0bg2ihN6slLZ62yZKHLf6nwMKKFStWrFgvZH2/3f2AYRZxmO2zHZkcC3RixYoVK1asj2dtf5yXJpv+QxubmF3ALAIynEphxYoVK1asl7DOIg5nmxRtqZT/yyY+kjd0sGLFihUr1ltY91HLWYNjU+605V3+v5sxDFasWLFixXoja15azaIVsyJs0+7JG0nt0KUIkWDFihUrVqyXsOaji1lJlIxJ2vJuFtM8FfEszosVK1asWLE+nrUIF663tRnntFeyiWi0ZeJfnoUVK1asWLFexfqJxsrsGHmB1T59NrzJxz9YsWLFihXr72CdBRPzguZskbQppNpASfEsrFixYsWK9SrWNtCwD0d+Iu7ZDnJyyjb0iRUrVqxYsd7C2mJtCqlZudOGJvMWSf7J20BYsWLFihXrvaz74cRsK7MrObuTP+UnKjqxYsWKFSvWS1iTwuXUtmZBzDZa0a7WtmCKAg4rVqxYsWJ9PGtbDM0o28ZKfjFFuTN740purFixYsWK9S7WFm7z4APDjLIEzPewb7sUMxysWLFixYr1Aayfji+0xVP7FpwNhbTnffkrrFixYsWK9Rexbo46Cy60K+Sl22zAUztgxYoVK1asl7DO2i558TRrxMwaJclffmLleuiCFStWrFixPoy1bbUkBcf+7/NWyB5l06x5+VusWLFixYr1Ktb8qG3ZtGdKmkQ/NXTBihUrVqxY/zXWGVZeDLUr5LvaD2nynWPFihUrVqy/lfVUS2U2FElaQrPBz+z6Xz4RK1asWLFivYq13W47mDm1Qt52SZomeflVXxJWrFixYsV6CWsexEw21DY4ZuOQDfo+YLEZF2HFihUrVqyPYf0P2/twTZm8B5sAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/RAG/" class="color4">RAG</a>
+      
+    <a href="/tags/Milvus/" class="color2">Milvus</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Milvus-%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99%E5%85%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="post-toc-text">Milvus 向量数据库高并发写入解决方案</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%80%E3%80%81%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="post-toc-text">一、整体架构设计</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5"><span class="post-toc-text">二、核心优化策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-1-%E5%A2%9E%E5%8A%A0-QueryNode-%E5%89%AF%E6%9C%AC%EF%BC%8C%E6%8F%90%E9%AB%98%E5%B9%B6%E5%8F%91%E8%AF%BB%E5%8F%96%E8%83%BD%E5%8A%9B"><span class="post-toc-text">2.1 增加 QueryNode 副本，提高并发读取能力</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-2-%E4%BD%BF%E7%94%A8-Redis-%E7%BC%93%E5%AD%98%E7%83%AD%E7%82%B9%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C"><span class="post-toc-text">2.2 使用 Redis 缓存热点查询结果</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-3-%E4%BC%98%E5%8C%96%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95%EF%BC%8C%E9%99%8D%E4%BD%8E%E5%8D%95%E6%AC%A1%E6%9F%A5%E8%AF%A2%E8%AE%A1%E7%AE%97%E6%88%90%E6%9C%AC"><span class="post-toc-text">2.3 优化向量索引，降低单次查询计算成本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-4-%E5%90%88%E7%90%86%E8%AE%BE%E7%BD%AE%E5%88%86%E7%89%87%E5%92%8C-QueryNode-%E6%95%B0%E9%87%8F"><span class="post-toc-text">2.4 合理设置分片和 QueryNode 数量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-5-%E4%BC%98%E5%8C%96%E6%9F%A5%E8%AF%A2%E5%8F%82%E6%95%B0%E5%92%8C%E8%BF%94%E5%9B%9E%E5%AD%97%E6%AE%B5"><span class="post-toc-text">2.5 优化查询参数和返回字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-6-%E5%90%88%E7%90%86%E9%80%89%E6%8B%A9%E4%B8%80%E8%87%B4%E6%80%A7%E7%BA%A7%E5%88%AB"><span class="post-toc-text">2.6 合理选择一致性级别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-7-%E5%BA%94%E7%94%A8%E5%B1%82%E9%99%90%E6%B5%81%E3%80%81%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E5%92%8C%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="post-toc-text">2.7 应用层限流、并发控制和连接池</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%89%E3%80%81%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E6%9E%B6%E6%9E%84%EF%BC%9A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E4%B8%8E%E8%B5%84%E6%BA%90%E9%9A%94%E7%A6%BB"><span class="post-toc-text">三、生产环境架构：读写分离与资源隔离</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9B%9B%E3%80%81%E7%9B%91%E6%8E%A7-Milvus-%E7%9A%84%E8%AF%BB%E5%8F%96%E6%80%A7%E8%83%BD"><span class="post-toc-text">四、监控 Milvus 的读取性能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%94%E3%80%81%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%8B%E6%B5%8B%EF%BC%9F"><span class="post-toc-text">五、如何进行高并发压测？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%AD%E3%80%81%E6%9C%80%E7%BB%88%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="post-toc-text">六、最终生产环境优化方案</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2026/11/13/%E3%80%90%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E3%80%91%E4%BC%81%E4%B8%9A%E7%BB%9F%E4%B8%80%E9%97%A8%E6%88%B7%E5%B9%B3%E5%8F%B0%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          【架构设计】企业统一门户平台架构设计方案
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2026/11/10/%E3%80%90RAG%E3%80%91Milvus%20%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%B9%B6%E5%8F%91%E8%AF%BB%E5%8F%96%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">【RAG】Milvus 向量数据库高并发写入解决方案</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2026 wsw<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://WiSiW.github.io.git",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Angular/">Angular</a><a class="category-link" href="/categories/React/">React</a><a class="category-link" href="/categories/Vue/">Vue</a><a class="category-link" href="/categories/axios/">axios</a><a class="category-link" href="/categories/cli/">cli</a><a class="category-link" href="/categories/react/">react</a><a class="category-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">代码工具</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/">前端架构</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Agent/" style="font-size: 11.67px;">Agent</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 17.5px;">CSS</a> <a href="/tags/CSS%E7%BF%BB%E6%BB%9A/" style="font-size: 10px;">CSS翻滚</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10.83px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10.83px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/FDE/" style="font-size: 12.5px;">FDE</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 11.67px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19.17px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/LLM/" style="font-size: 13.33px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 10.83px;">LangChain</a> <a href="/tags/LangGraph/" style="font-size: 10px;">LangGraph</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Milvus/" style="font-size: 11.67px;">Milvus</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 13.33px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/OCR/" style="font-size: 11.67px;">OCR</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/PDF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">PDF解析</a> <a href="/tags/PPT/" style="font-size: 10px;">PPT</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/RAG/" style="font-size: 18.33px;">RAG</a> <a href="/tags/React/" style="font-size: 11.67px;">React</a> <a href="/tags/SVG/" style="font-size: 10.83px;">SVG</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/SystemJS/" style="font-size: 10px;">SystemJS</a> <a href="/tags/TypeScript/" style="font-size: 11.67px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 17.5px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 13.33px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/dify/" style="font-size: 10px;">dify</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10.83px;">electron</a> <a href="/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/tags/event-stream/" style="font-size: 10px;">event-stream</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10.83px;">git</a> <a href="/tags/leetcode/" style="font-size: 12.5px;">leetcode</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/markdown%E6%B8%B2%E6%9F%93/" style="font-size: 10px;">markdown渲染</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 15px;">node</a> <a href="/tags/npm/" style="font-size: 16.67px;">npm</a> <a href="/tags/openCV/" style="font-size: 10.83px;">openCV</a> <a href="/tags/postcss/" style="font-size: 10px;">postcss</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 10.83px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webrtc/" style="font-size: 10px;">webrtc</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10.83px;">《深入React技术栈》</a> <a href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" style="font-size: 10px;">下载进度</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" style="font-size: 10px;">业务梳理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 10px;">二分法</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 10.83px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 14.17px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10.83px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 14.17px;">使用教程</a> <a href="/tags/%E5%85%89%E6%A0%87/" style="font-size: 10px;">光标</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E5%9D%97/" style="font-size: 12.5px;">分块</a> <a href="/tags/%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5/" style="font-size: 10px;">分块策略</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 13.33px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 10.83px;">功能代码</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" style="font-size: 11.67px;">功能模块</a> <a href="/tags/%E5%8D%95tab/" style="font-size: 10px;">单tab</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 10px;">历史</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 10.83px;">原理</a> <a href="/tags/%E5%8E%9F%E7%94%9F/" style="font-size: 10px;">原生</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%90%91%E9%87%8F/" style="font-size: 10.83px;">向量</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10.83px;">响应式</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 10px;">图像处理</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 10.83px;">图像识别</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 10px;">图片</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%A4%9A%E7%AA%97%E5%8F%A3%E9%97%AE%E7%AD%94/" style="font-size: 11.67px;">多窗口问答</a> <a href="/tags/%E5%A4%9A%E8%B7%B3%E9%97%AE%E9%A2%98%E8%AF%86%E5%88%AB/" style="font-size: 10px;">多跳问题识别</a> <a href="/tags/%E5%A4%9A%E8%BD%AE%E5%AF%B9%E8%AF%9D/" style="font-size: 10.83px;">多轮对话</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大模型</a> <a href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10px;">姿势识别</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10.83px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 10.83px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%B9%B4%E8%A1%A8/" style="font-size: 10px;">年表</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 10.83px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">手势控制</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10.83px;">手势识别</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" style="font-size: 10px;">数据流</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文本识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档版面识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档结构识别</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.67px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">样式功能</a> <a href="/tags/%E6%A3%80%E7%B4%A2/" style="font-size: 10.83px;">检索</a> <a href="/tags/%E6%A3%80%E7%B4%A2%E8%AF%81%E6%8D%AE/" style="font-size: 10px;">检索证据</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10.83px;">模块</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10.83px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" style="font-size: 10px;">模板生成器</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" style="font-size: 10px;">流式回复</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" style="font-size: 10px;">流式问答</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 13.33px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 14.17px;">源码解析</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" style="font-size: 10px;">滚动吸附</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 10.83px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%99%BD%E6%9D%BF/" style="font-size: 10px;">白板</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 10px;">知识库</a> <a href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" style="font-size: 10.83px;">研发手记</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 10.83px;">系统设计</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" style="font-size: 10px;">网页截图</a> <a href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" style="font-size: 10px;">聊天室</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%84%E4%BC%B0/" style="font-size: 10px;">评估</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%9E%E7%BA%BF/" style="font-size: 10px;">连线</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%82%E9%85%8D/" style="font-size: 10px;">适配</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%80%92%E5%BD%92%E6%A3%80%E7%B4%A2/" style="font-size: 10px;">递归检索</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%95%BF%E6%9C%9F%E8%AE%B0%E5%BF%86/" style="font-size: 10.83px;">长期记忆</a> <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">问答系统</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 15.83px;">面试题</a> <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" style="font-size: 10px;">音视频播放</a> <a href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">音量控制</a> <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">页面编辑器</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AST%E8%AF%AD%E6%B3%95%E6%A0%91/" style="font-size: 10px;">AST语法树</a> <a href="/tags/Agent/" style="font-size: 11.67px;">Agent</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/CSS/" style="font-size: 17.5px;">CSS</a> <a href="/tags/CSS%E7%BF%BB%E6%BB%9A/" style="font-size: 10px;">CSS翻滚</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Docker/" style="font-size: 10.83px;">Docker</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Echarts/" style="font-size: 10.83px;">Echarts</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/FDE/" style="font-size: 12.5px;">FDE</a> <a href="/tags/Flux/" style="font-size: 10px;">Flux</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 11.67px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 19.17px;">JavaScript</a> <a href="/tags/JavaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">JavaScript - 设计模式</a> <a href="/tags/LLM/" style="font-size: 13.33px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 10.83px;">LangChain</a> <a href="/tags/LangGraph/" style="font-size: 10px;">LangGraph</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Milvus/" style="font-size: 11.67px;">Milvus</a> <a href="/tags/MyBatis-Plus/" style="font-size: 10px;">MyBatis-Plus</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node/" style="font-size: 13.33px;">Node</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/OCR/" style="font-size: 11.67px;">OCR</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/PDF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">PDF解析</a> <a href="/tags/PPT/" style="font-size: 10px;">PPT</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/RAG/" style="font-size: 18.33px;">RAG</a> <a href="/tags/React/" style="font-size: 11.67px;">React</a> <a href="/tags/SVG/" style="font-size: 10.83px;">SVG</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SysemJS/" style="font-size: 10px;">SysemJS</a> <a href="/tags/SystemJS/" style="font-size: 10px;">SystemJS</a> <a href="/tags/TypeScript/" style="font-size: 11.67px;">TypeScript</a> <a href="/tags/Uni/" style="font-size: 10px;">Uni</a> <a href="/tags/Vue/" style="font-size: 17.5px;">Vue</a> <a href="/tags/Vue-cli/" style="font-size: 10px;">Vue-cli</a> <a href="/tags/VueRouter/" style="font-size: 10px;">VueRouter</a> <a href="/tags/Web-Componetns/" style="font-size: 10px;">Web Componetns</a> <a href="/tags/Webpack/" style="font-size: 13.33px;">Webpack</a> <a href="/tags/app/" style="font-size: 10px;">app</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/backbone-js/" style="font-size: 10px;">backbone.js</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/cli/" style="font-size: 10px;">cli</a> <a href="/tags/dify/" style="font-size: 10px;">dify</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/electron/" style="font-size: 10.83px;">electron</a> <a href="/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/tags/event-stream/" style="font-size: 10px;">event-stream</a> <a href="/tags/fileDownload/" style="font-size: 10px;">fileDownload</a> <a href="/tags/fileUpload/" style="font-size: 10px;">fileUpload</a> <a href="/tags/git/" style="font-size: 10.83px;">git</a> <a href="/tags/leetcode/" style="font-size: 12.5px;">leetcode</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/markdown%E6%B8%B2%E6%9F%93/" style="font-size: 10px;">markdown渲染</a> <a href="/tags/mixin/" style="font-size: 10px;">mixin</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/node/" style="font-size: 15px;">node</a> <a href="/tags/npm/" style="font-size: 16.67px;">npm</a> <a href="/tags/openCV/" style="font-size: 10.83px;">openCV</a> <a href="/tags/postcss/" style="font-size: 10px;">postcss</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/single/" style="font-size: 10px;">single</a> <a href="/tags/transform/" style="font-size: 10px;">transform</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a> <a href="/tags/vue-loader/" style="font-size: 10.83px;">vue-loader</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webrtc/" style="font-size: 10px;">webrtc</a> <a href="/tags/%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10.83px;">《深入React技术栈》</a> <a href="/tags/%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6/" style="font-size: 10px;">下载进度</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E6%A2%B3%E7%90%86/" style="font-size: 10px;">业务梳理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 10px;">二分法</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/" style="font-size: 10.83px;">代码工具</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" style="font-size: 14.17px;">代码片段</a> <a href="/tags/%E4%BD%BF%E7%94%A8/" style="font-size: 10.83px;">使用</a> <a href="/tags/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" style="font-size: 14.17px;">使用教程</a> <a href="/tags/%E5%85%89%E6%A0%87/" style="font-size: 10px;">光标</a> <a href="/tags/%E5%85%A8%E5%B1%80%E5%BC%B9%E7%AA%97/" style="font-size: 10px;">全局弹窗</a> <a href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" style="font-size: 10px;">八皇后问题</a> <a href="/tags/%E5%88%86%E5%9D%97/" style="font-size: 12.5px;">分块</a> <a href="/tags/%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5/" style="font-size: 10px;">分块策略</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px;">分支管理</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF-%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端 - 架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 13.33px;">前端工程化</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">前端架构</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">前端组件化</a> <a href="/tags/%E5%89%8D%E7%BC%80%E3%80%81%E4%B8%AD%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">前缀、中缀、后缀表达式</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81/" style="font-size: 10.83px;">功能代码</a> <a href="/tags/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/" style="font-size: 11.67px;">功能模块</a> <a href="/tags/%E5%8D%95tab/" style="font-size: 10px;">单tab</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 10px;">历史</a> <a href="/tags/%E5%8E%9F%E7%90%86/" style="font-size: 10.83px;">原理</a> <a href="/tags/%E5%8E%9F%E7%94%9F/" style="font-size: 10px;">原生</a> <a href="/tags/%E5%8F%A4%E7%94%9F%E7%89%A9/" style="font-size: 10px;">古生物</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 10px;">后端</a> <a href="/tags/%E5%90%91%E9%87%8F/" style="font-size: 10.83px;">向量</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 10px;">哈希表</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10.83px;">响应式</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 10px;">图像处理</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 10.83px;">图像识别</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 10px;">图片</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">图片压缩</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%A4%9A%E7%AA%97%E5%8F%A3%E9%97%AE%E7%AD%94/" style="font-size: 11.67px;">多窗口问答</a> <a href="/tags/%E5%A4%9A%E8%B7%B3%E9%97%AE%E9%A2%98%E8%AF%86%E5%88%AB/" style="font-size: 10px;">多跳问题识别</a> <a href="/tags/%E5%A4%9A%E8%BD%AE%E5%AF%B9%E8%AF%9D/" style="font-size: 10.83px;">多轮对话</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大模型</a> <a href="/tags/%E5%A7%BF%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10px;">姿势识别</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10.83px;">小程序</a> <a href="/tags/%E5%B1%80%E9%83%A8%E6%A0%B7%E5%BC%8F/" style="font-size: 10.83px;">局部样式</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%B9%B4%E8%A1%A8/" style="font-size: 10px;">年表</a> <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" style="font-size: 10.83px;">微前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E6%81%90%E9%BE%99/" style="font-size: 10px;">恐龙</a> <a href="/tags/%E6%89%8B%E5%86%99/" style="font-size: 10px;">手写</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">手势控制</a> <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/" style="font-size: 10.83px;">手势识别</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">插值查找</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E3%80%81%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据、算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">数据压缩</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" style="font-size: 10px;">数据响应式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81/" style="font-size: 10px;">数据流</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 10px;">数据结构与算法</a> <a href="/tags/%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%8C%85/" style="font-size: 10px;">数组实现包</a> <a href="/tags/%E6%96%87%E5%AD%97%E6%BB%9A%E5%8A%A8/" style="font-size: 10px;">文字滚动</a> <a href="/tags/%E6%96%87%E6%9C%AC%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文本识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%89%88%E9%9D%A2%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档版面识别</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E8%AF%86%E5%88%AB/" style="font-size: 10px;">文档结构识别</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">斐波那契查找</a> <a href="/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 10px;">断点续传</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" style="font-size: 10px;">权限管理</a> <a href="/tags/%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">权限验证</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.67px;">架构</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">样式功能</a> <a href="/tags/%E6%A3%80%E7%B4%A2/" style="font-size: 10.83px;">检索</a> <a href="/tags/%E6%A3%80%E7%B4%A2%E8%AF%81%E6%8D%AE/" style="font-size: 10px;">检索证据</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10.83px;">模块</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85/" style="font-size: 10px;">模块打包</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" style="font-size: 10.83px;">模板引擎</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E5%99%A8/" style="font-size: 10px;">模板生成器</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">模板解析</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 10px;">水印</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E5%9B%9E%E5%A4%8D/" style="font-size: 10px;">流式回复</a> <a href="/tags/%E6%B5%81%E5%BC%8F%E9%97%AE%E7%AD%94/" style="font-size: 10px;">流式问答</a> <a href="/tags/%E6%B7%B7%E5%85%A5/" style="font-size: 10px;">混入</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 13.33px;">源码</a> <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="font-size: 14.17px;">源码解析</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%90%B8%E9%99%84/" style="font-size: 10px;">滚动吸附</a> <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/" style="font-size: 10px;">瀑布流</a> <a href="/tags/%E7%88%AC%E5%9D%91/" style="font-size: 10.83px;">爬坑</a> <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 10px;">生命周期</a> <a href="/tags/%E7%99%BD%E6%9D%BF/" style="font-size: 10px;">白板</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 10px;">知识库</a> <a href="/tags/%E7%A0%94%E5%8F%91%E6%89%8B%E8%AE%B0/" style="font-size: 10.83px;">研发手记</a> <a href="/tags/%E7%A5%9E%E8%AF%9DMyth/" style="font-size: 10px;">神话Myth</a> <a href="/tags/%E7%A5%9E%E8%AF%9D%E6%A6%82%E8%A6%81/" style="font-size: 10px;">神话概要</a> <a href="/tags/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" style="font-size: 10px;">稀疏数组</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AB%A0/" style="font-size: 10px;">第一章</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">算法 -时间复杂度计算</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95/" style="font-size: 10px;">系统架构设计师考试</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 10.83px;">系统设计</a> <a href="/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" style="font-size: 10px;">约瑟夫问题</a> <a href="/tags/%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">组件</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 10px;">组件化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E9%A2%98/" style="font-size: 10px;">编程题</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E6%88%AA%E5%9B%BE/" style="font-size: 10px;">网页截图</a> <a href="/tags/%E8%81%8A%E5%A4%A9%E5%AE%A4/" style="font-size: 10px;">聊天室</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" style="font-size: 10px;">自定义</a> <a href="/tags/%E8%99%9A%E6%8B%9FDOM%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" style="font-size: 10px;">虚拟DOM与diff算法</a> <a href="/tags/%E8%AF%84%E4%BC%B0/" style="font-size: 10px;">评估</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">读书笔记</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-React-%E3%80%8A%E6%B7%B1%E5%85%A5React%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%8B/" style="font-size: 10px;">读书笔记 - React - 《深入React技术栈》</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">踩坑</a> <a href="/tags/%E8%BF%9E%E7%BA%BF/" style="font-size: 10px;">连线</a> <a href="/tags/%E8%BF%B7%E5%AE%AB%E5%9B%9E%E6%BA%AF/" style="font-size: 10px;">迷宫回溯</a> <a href="/tags/%E9%80%82%E9%85%8D/" style="font-size: 10px;">适配</a> <a href="/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/" style="font-size: 10px;">逆波兰式</a> <a href="/tags/%E9%80%92%E5%BD%92%E6%A3%80%E7%B4%A2/" style="font-size: 10px;">递归检索</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%95%BF%E6%9C%9F%E8%AE%B0%E5%BF%86/" style="font-size: 10.83px;">长期记忆</a> <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">问答系统</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 15.83px;">面试题</a> <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/" style="font-size: 10px;">音视频播放</a> <a href="/tags/%E9%9F%B3%E9%87%8F%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">音量控制</a> <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">页面编辑器</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
